@@ -36,6 +36,13 @@ public class Continent {
 	}
 
 	/**
+	 * 
+	 */
+	public Continent() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
 	 * @return the name
 	 */
 	public String getName() {

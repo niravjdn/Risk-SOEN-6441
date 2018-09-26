@@ -37,6 +37,13 @@ public class Territory {
 	}
 
 	/**
+	 * 
+	 */
+	public Territory() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {

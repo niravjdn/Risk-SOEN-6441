@@ -5,6 +5,8 @@ package com.risk6441.maputils;
 
 import java.io.File;
 
+import javax.swing.JOptionPane;
+
 import javafx.stage.FileChooser;
 
 /**
@@ -26,6 +28,10 @@ public class MapUtils {
 		fileChooser.getExtensionFilters().add(extensionFilter);
 		file = fileChooser.showOpenDialog(null);
 		return file;
+	}
+	
+	public static void showAlertBox(String msg) {
+		JOptionPane.showMessageDialog(null, msg);
 	}
 	
 }

@@ -17,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.risk6441.maputils.MapUtils;
+
 /**
  * @author Nirav
  *
@@ -59,7 +61,8 @@ public class Main extends JFrame{
 		     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		     */
 		    public void actionPerformed(ActionEvent e) {
-		    	frame.dispose();
+		    	//frame.dispose();
+		    	MapUtils.showAlertBox("Hello");
 		    }
 		});
 		
@@ -79,6 +82,7 @@ public class Main extends JFrame{
 	
 	public static void main(String[] args) {
 		new Main();
+		MapUtils.showAlertBox("Hello");
 	}
 
 }

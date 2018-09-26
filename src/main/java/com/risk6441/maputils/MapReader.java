@@ -5,7 +5,6 @@ package com.risk6441.maputils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +51,7 @@ public class MapReader {
 	 * @throws InvalidMapException 
 	 */
 	private Map processMapFile(File file) throws InvalidMapException {
-		Map map = new Map();
+		
 
 		Scanner mapFileReader;
 		try {
@@ -71,7 +70,7 @@ public class MapReader {
 
 			//set map attributes 
 			mapFileReader = new Scanner(mapString.toString());
-			map = processMapAttribute(mapFileReader, map);
+			map = processMapAttribute(mapFileReader);
 			//set continents info
 
 			//set territory info
@@ -85,11 +84,14 @@ public class MapReader {
 		return null;
 	}
 	
-	/*
-	 * 
-	 * 
+	
+	/**
+	 * This method process map attributes and call method for processing continents
+	 * @param scan of type {@link Scanner}
+	 * @return Map of type {@link Map}
+	 * @throws InvalidMapException
 	 */
-	private Map processMapAttribute(Scanner scan, Map map) throws InvalidMapException{
+	private Map processMapAttribute(Scanner scan) throws InvalidMapException{
 		
 		HashMap<String, String> mapAttributeMap = new HashMap<String, String>();
 		
@@ -117,6 +119,13 @@ public class MapReader {
 		return map;
 	}
 	
+	/**
+	 * This method processes the continents and call method to process territories
+	 * and also  map territories and continents
+	 * @param scan
+	 * @return continentList after processing
+	 * @throws InvalidMapException
+	 */
 	private List<Continent> processContinents(Scanner scan) throws InvalidMapException{
 		List<Continent> continentList = new ArrayList<Continent>();
 		StringTokenizer tokenForContinents = new StringTokenizer(scan.nextLine(), "|");
@@ -162,7 +171,7 @@ public class MapReader {
 			
 		}
 		
-		
+		//Map territories and continent
 		for(Continent continent : continentList) {
 			HashMap<String, Territory> continentTMap = new HashMap<String, Territory>();
 			for(Territory territory : territorieList) {
@@ -182,6 +191,13 @@ public class MapReader {
 		return continentList;
 	}
 	
+	/**
+	 * This method processes territories and check that it should be assign to only one continent
+	 * @param territoryLine
+	 * @param continentList
+	 * @return territorieList after processing
+	 * @throws InvalidMapException
+	 */
 	private List<Territory> processTerritories(String territoryLine, List<Continent> continentList) throws InvalidMapException{
 		
 		List<Territory> territorieList = new ArrayList<Territory>();

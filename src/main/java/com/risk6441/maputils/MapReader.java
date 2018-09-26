@@ -51,7 +51,39 @@ public class MapReader {
 	 * @return the map
 	 * @throws InvalidMapException 
 	 */
-	private Map processMapFile(File file) throws InvalidMapException {}
+	private Map processMapFile(File file) throws InvalidMapException {
+		Map map = new Map();
+
+		Scanner mapFileReader;
+		try {
+			mapFileReader = new Scanner(new FileInputStream(file));
+			StringBuilder mapString = new StringBuilder();
+
+			//procees and read map file in three steps
+			while(mapFileReader.hasNext()) {
+				String line = mapFileReader.nextLine();
+				if(!line.isEmpty()) {
+					mapString.append(line + "|");
+				}else {
+					mapString.append("\n");
+				}
+			}
+
+			//set map attributes 
+			mapFileReader = new Scanner(mapString.toString());
+			map = processMapAttribute(mapFileReader, map);
+			//set continents info
+
+			//set territory info
+
+		}
+		catch(IOException e) {
+			System.out.println("Map File is not selected");
+		}
+		
+		
+		return null;
+	}
 	
 	
 	private Map processMapAttribute(Scanner scan, Map map) throws InvalidMapException{

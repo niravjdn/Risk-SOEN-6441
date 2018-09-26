@@ -16,9 +16,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import com.risk6441.maputils.CommonMapUtil;
-
+import javax.swing.UIManager.*;
 /**
  * @author Nirav
  *
@@ -31,6 +32,21 @@ public class Main extends JFrame{
 	JButton btn3;
 	JLabel label;
 	public Main() {
+		
+		
+
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		        
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+			System.err.println("Nimbus Not Present");
+		}
 		
 		final JFrame frame = new JFrame("Risk");
 		panel = new JPanel();

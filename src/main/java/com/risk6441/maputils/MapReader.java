@@ -85,7 +85,10 @@ public class MapReader {
 		return null;
 	}
 	
-	
+	/*
+	 * 
+	 * 
+	 */
 	private Map processMapAttribute(Scanner scan, Map map) throws InvalidMapException{
 		
 		HashMap<String, String> mapAttributeMap = new HashMap<String, String>();
@@ -103,7 +106,7 @@ public class MapReader {
 		
 		map.setMapData(mapAttributeMap);
 		
-		List<Continent> continentList = processContinents(scan, map);
+		List<Continent> continentList = processContinents(scan);
 		HashMap<String, Continent> continentMap = new HashMap<String, Continent>();
 		for (Continent continent : continentList) {
 			continentMap.put(continent.getName(), continent);
@@ -114,7 +117,7 @@ public class MapReader {
 		return map;
 	}
 	
-	private List<Continent> processContinents(Scanner scan, Map map) throws InvalidMapException{
+	private List<Continent> processContinents(Scanner scan) throws InvalidMapException{
 		List<Continent> continentList = new ArrayList<Continent>();
 		StringTokenizer tokenForContinents = new StringTokenizer(scan.nextLine(), "|");
 		while (tokenForContinents.hasMoreTokens()) {

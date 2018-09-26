@@ -31,9 +31,7 @@ public class Main extends JFrame{
 	JButton btn2;
 	JButton btn3;
 	JLabel label;
-	public Main() {
-		
-		
+	public Main() {	
 
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {

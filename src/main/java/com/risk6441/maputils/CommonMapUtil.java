@@ -5,6 +5,7 @@ package com.risk6441.maputils;
 
 import java.io.File;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import javafx.stage.FileChooser;
@@ -30,8 +31,8 @@ public class CommonMapUtil {
 		return file;
 	}
 	
-	public static void showAlertBox(String msg) {
-		JOptionPane.showMessageDialog(null, msg);
+	public static void showAlertBox(JFrame frame, String msg) {
+		JOptionPane.showMessageDialog(frame, msg);
 	}
 	
 }

@@ -61,8 +61,7 @@ public class Main extends JFrame{
 		     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		     */
 		    public void actionPerformed(ActionEvent e) {
-		    	//frame.dispose();
-		    	CommonMapUtil.showAlertBox("Hello");
+		    	frame.dispose();
 		    }
 		});
 		
@@ -82,7 +81,6 @@ public class Main extends JFrame{
 	
 	public static void main(String[] args) {
 		new Main();
-		CommonMapUtil.showAlertBox("Hello");
 	}
 
 }

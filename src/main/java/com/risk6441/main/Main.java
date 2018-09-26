@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.risk6441.maputils.MapUtils;
+import com.risk6441.maputils.CommonMapUtil;
 
 /**
  * @author Nirav
@@ -62,7 +62,7 @@ public class Main extends JFrame{
 		     */
 		    public void actionPerformed(ActionEvent e) {
 		    	//frame.dispose();
-		    	MapUtils.showAlertBox("Hello");
+		    	CommonMapUtil.showAlertBox("Hello");
 		    }
 		});
 		
@@ -82,7 +82,7 @@ public class Main extends JFrame{
 	
 	public static void main(String[] args) {
 		new Main();
-		MapUtils.showAlertBox("Hello");
+		CommonMapUtil.showAlertBox("Hello");
 	}
 
 }

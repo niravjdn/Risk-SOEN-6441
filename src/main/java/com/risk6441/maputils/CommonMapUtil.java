@@ -13,7 +13,7 @@ import javafx.stage.FileChooser;
  * @author Nirav
  *
  */
-public class MapUtils {
+public class CommonMapUtil {
 
 	
 	/**

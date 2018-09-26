@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import com.risk6441.maputils.MapReaderBackup;
-import com.risk6441.maputils.MapUtils;
+import com.risk6441.maputils.CommonMapUtil;
 
 
 /**
@@ -23,7 +23,7 @@ public class GamePlay implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// 
 		
-		File file = MapUtils.showFileDialog();
+		File file = CommonMapUtil.showFileDialog();
 		MapReaderBackup mapReader = new MapReaderBackup();
 
 	}

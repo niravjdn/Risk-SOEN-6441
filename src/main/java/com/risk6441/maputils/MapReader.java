@@ -88,6 +88,18 @@ public class MapReader {
 	
 	private Map processMapAttribute(Scanner scan, Map map) throws InvalidMapException{
 		
+		HashMap<String, String> mapAttributeMap = new HashMap<String, String>();
+		
+		StringTokenizer tokensForMapAttribute = new StringTokenizer(scan.nextLine(), "|");
+		while (tokensForMapAttribute.hasMoreTokens()) {
+			String str = tokensForMapAttribute.nextToken();
+			if (str.equalsIgnoreCase("[Map]")) {
+				continue;
+			} else {
+				String[] data = str.split("=");
+				mapAttributeMap.put(data[0], data[1]);
+			}
+		}
 		
 		map.setMapData(mapAttributeMap);
 		

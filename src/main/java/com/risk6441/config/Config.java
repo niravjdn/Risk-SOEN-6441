@@ -33,10 +33,5 @@ public class Config {
 	 * The @ARMIES_SIX_PLAYER.
 	 */
 	public static final Integer ARMIES_SIX_PLAYER = 20;
-
-	/**
-	 * The @ERROR message.
-	 */
-	public static final String ERROR = "Error";
 	
 }

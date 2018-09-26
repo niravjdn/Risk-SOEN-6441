@@ -1,7 +1,11 @@
+/**
+ * 
+ */
 package com.risk6441.maputils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,215 +18,211 @@ import com.risk6441.models.Continent;
 import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
-
-
 /**
  * @author Nirav
  *
  */
 public class MapReader {
 
-
-
+	//make a object of Map class to return it once map is processed successfully.
 	private Map map;
-
-	private HashMap<String, Integer> territoryContinentCount = new HashMap<String, Integer>();
-
+	
+	//make a map to make sure that territory belongs to only one continent
+	private HashMap<String, Integer> territoryBelongContinentCount = new HashMap<String, Integer>();
+	
+	
 	/**
+	 * return the map object after processing the map file
 	 * @return the map
 	 */
-	public Map getMap() {
+	private Map getMap() {
+		return map;
+	}
+	
+	public Map readMapFile(final File file) throws InvalidMapException{
+		
+		this.map = processMapFile(file);
 		return map;
 	}
 
 	/**
-	 * This method is used to read and parse the map in the object of {@link Map} 
-	 * This also validates map object.
-	 * @param file of type {@link File}
-	 * @return map object of type {@link Map}
-	 * @throws InvalidMapException
+	 * This method is used to read and process map data
+	 * @param file
+	 * @return the map
+	 * @throws InvalidMapException 
 	 */
-	public Map parseAndReadMapFile(File file) throws InvalidMapException {
-		this.map = convertMapFileToMapObject(file);
-		//MapValidator.validateMap(map);
-		return map;
-	}
-
-	/**
-	 * This method is use to convert map file into {@link Map} object
-	 * @param file of type {@link File}
-	 * @return map object of type {@link Map}
-	 * @throws InvalidMapException
-	 */
-	private Map convertMapFileToMapObject(final File file) throws InvalidMapException {
-		StringBuilder stringBuilder = new StringBuilder();
-
-		Scanner mapFileScanner = null;
-		try {
-			mapFileScanner = new Scanner(new FileInputStream(file));
-			while (mapFileScanner.hasNextLine()) {
-				String data = mapFileScanner.nextLine();
-				if (!data.isEmpty()) {
-					stringBuilder.append(data + "|");
-				} else {
-					stringBuilder.append("\n");
-				}
-			}
-		} catch (IOException e1) {
-			System.out.println("No map file selected");
-		}
-
-		mapFileScanner = new Scanner(stringBuilder.toString());
-		Map map = processMap(mapFileScanner);
-		mapFileScanner.close();
-		return map;
-	}
-
-	/**
-	 * This function is used to process map for manipulations.
-	 * @param scan object of type {@link Scanner}
-	 * @return map object of type {@link Map}
-	 * @throws InvalidMapException
-	 */
-	private Map processMap(Scanner scan) throws InvalidMapException {
+	private Map processMapFile(File file) throws InvalidMapException {
 		Map map = new Map();
 
-		HashMap<String, String> mapAttributes = new HashMap<String, String>();
+		Scanner mapFileReader;
+		try {
+			mapFileReader = new Scanner(new FileInputStream(file));
+			StringBuilder mapString = new StringBuilder();
 
-		StringTokenizer token = new StringTokenizer(scan.nextLine(), "|");
-		while (token.hasMoreTokens()) {
-			String element = token.nextToken();
-			if (element.equalsIgnoreCase("[Map]")) {
+			//procees and read map file in three steps
+			while(mapFileReader.hasNext()) {
+				String line = mapFileReader.nextLine();
+				if(!line.isEmpty()) {
+					mapString.append(line + "|");
+				}else {
+					mapString.append("\n");
+				}
+			}
+
+			//set map attributes 
+			mapFileReader = new Scanner(mapString.toString());
+			map = processMapAttribute(mapFileReader, map);
+			//set continents info
+
+			//set territory info
+
+		}
+		catch(IOException e) {
+			System.out.println("Map File is not selected");
+		}
+		
+		
+		return null;
+	}
+	
+	
+	private Map processMapAttribute(Scanner scan, Map map) throws InvalidMapException{
+		
+		HashMap<String, String> mapAttributeMap = new HashMap<String, String>();
+		
+		StringTokenizer tokensForMapAttribute = new StringTokenizer(scan.nextLine(), "|");
+		while (tokensForMapAttribute.hasMoreTokens()) {
+			String str = tokensForMapAttribute.nextToken();
+			if (str.equalsIgnoreCase("[Map]")) {
 				continue;
 			} else {
-				String[] data = element.split("=");
-				mapAttributes.put(data[0], data[1]);
+				String[] data = str.split("=");
+				mapAttributeMap.put(data[0], data[1]);
 			}
 		}
-		map.setMapData(mapAttributes);
-		List<Continent> continents = processContinent(scan);
-		HashMap<String, Continent> contMap = new HashMap<String, Continent>();
-		for (Continent continent : continents) {
-			contMap.put(continent.getName(), continent);
+		
+		map.setMapData(mapAttributeMap);
+		
+		List<Continent> continentList = processContinents(scan, map);
+		HashMap<String, Continent> continentMap = new HashMap<String, Continent>();
+		for (Continent continent : continentList) {
+			continentMap.put(continent.getName(), continent);
 		}
-		map.setContinentMap(contMap);
-		map.setContinents(continents);
-
+		map.setContinentMap(continentMap);
+		map.setContinents(continentList);
+		
 		return map;
 	}
-
-	/**
-	 * This function is used to process continents for manipulations.
-	 * @param scan object of type {@link Scanner}
-	 * @return a list of continents after processing
-	 * @throws InvalidMapException
-	 */
-	private List<Continent> processContinent(Scanner scan) throws InvalidMapException {
-		List<Continent> continents = new ArrayList<Continent>();
-		StringTokenizer token = new StringTokenizer(scan.nextLine(), "|");
-		while (token.hasMoreTokens()) {
-			String element = token.nextToken();
-			if (element.equalsIgnoreCase("[Continents]")) {
+	
+	private List<Continent> processContinents(Scanner scan, Map map) throws InvalidMapException{
+		List<Continent> continentList = new ArrayList<Continent>();
+		StringTokenizer tokenForContinents = new StringTokenizer(scan.nextLine(), "|");
+		while (tokenForContinents.hasMoreTokens()) {
+			String line = tokenForContinents.nextToken();
+			if (line.equalsIgnoreCase("[Continents]")) {
 				continue;
 			} else {
 				Continent continent = new Continent();
-				String[] data = element.split("=");
+				String[] data = line.split("=");
 				continent.setName(data[0]);
 				continent.setValue(data[1]);
-				continents.add(continent);
+				continentList.add(continent);
 			}
-		}
-
-		List<Territory> territories = new ArrayList<Territory>();
-		while (scan.hasNext()) {
-			String territoryData = scan.nextLine();
-			territories.addAll(processTerritory(territoryData, continents));
-		}
-
-		HashMap<String, Territory> tMap = new HashMap<String, Territory>();
-		for (Territory t : territories) {
-			tMap.put(t.getName(), t);
 		}
 		
-		//Map adjacnet territory object to territory
-		for (Territory t : territories) {
-			for (String name : t.getAdjTerritories()) {
-				if (tMap.containsKey(name)) {
-					if (t.getAdjacentTerritories() == null) {
-						t.setAdjacentTerritories(new ArrayList<Territory>());
+		List<Territory> territorieList = new ArrayList<Territory>();
+		while (scan.hasNext()) {
+			String territoryData = scan.nextLine();
+			//call processTerritory for each line of territory
+			territorieList.addAll(processTerritories(territoryData, continentList));
+		}
+		
+		
+		
+		HashMap<String, Territory> territoryMap = new HashMap<String, Territory>();
+		for (Territory t : territorieList) {
+			territoryMap.put(t.getName(), t);
+		}
+		
+		//Map neighbour territory object to territory
+		for(Territory territory : territorieList) {
+			for(String adjacentTerritory : territory.getAdjTerritories()) {
+				if(territoryMap.containsKey(adjacentTerritory)){
+					if (territory.getAdjacentTerritories() == null) {
+						territory.setAdjacentTerritories(new ArrayList<Territory>());
 					}
-					t.getAdjacentTerritories().add(tMap.get(name));
-				} else {
-					throw new InvalidMapException("Territory: " + name + " not mapped with any continent.");
+					territory.getAdjacentTerritories().add(territoryMap.get(adjacentTerritory));
+				}else {
+					throw new InvalidMapException("Territory: " + adjacentTerritory + " not mapped with any continent.");
 				}
 			}
+			
 		}
-
-		// Add the territories to their continent
-		for (Continent continent : continents) {
-			HashMap<String, Territory> contTMap = new HashMap<String, Territory>();
-			for (Territory territory : territories) {
+		
+		
+		for(Continent continent : continentList) {
+			HashMap<String, Territory> continentTMap = new HashMap<String, Territory>();
+			for(Territory territory : territorieList) {
 				if (territory.getBelongToContinent().equals(continent)) {
 					if (continent.getTerritories() == null) {
 						continent.setTerritories(new ArrayList<Territory>());
-						contTMap.put(territory.getName(), territory);
+						continentTMap.put(territory.getName(), territory);
 					}
 					continent.getTerritories().add(territory);
-					contTMap.put(territory.getName(), territory);
+					continentTMap.put(territory.getName(), territory);
 				}
 			}
-			continent.setTerritoryMap(contTMap);
+			continent.setTerritoryMap(continentTMap);
 		}
-
-		return continents;
+		
+		
+		return continentList;
 	}
-
-	/**
-	 * This function is used to process territory for manipulations.
-	 * @param territoryData
-	 * @param continents
-	 * @return list of territories after processing
-	 * @throws InvalidMapException
-	 */
-	private List<Territory> processTerritory(String territoryData, List<Continent> continents)
-			throws InvalidMapException {
-
-		List<Territory> territories = new ArrayList<Territory>();
-		StringTokenizer token = new StringTokenizer(territoryData, "|");
-		while (token.hasMoreTokens()) {
-			String element = token.nextToken();
+	
+	private List<Territory> processTerritories(String territoryLine, List<Continent> continentList) throws InvalidMapException{
+		
+		List<Territory> territorieList = new ArrayList<Territory>();
+		StringTokenizer tokenForTerritory = new StringTokenizer(territoryLine, "|");
+		while (tokenForTerritory.hasMoreTokens()) {
+			
+			String element = tokenForTerritory.nextToken();
 			if (element.equalsIgnoreCase("[Territories]")) {
 				continue;
 			} else {
+				
 				Territory territory = new Territory();
 				List<String> adjacentTerritories = new ArrayList<String>();
-				String[] data = element.split(",");
-				territory.setName(data[0]);
-				territory.setxCoordinate(Integer.parseInt(data[1]));
-				territory.setyCoordinate(Integer.parseInt(data[2]));
+				String[] dataOfTerritory = element.split(",");
+				
+				territory.setName(dataOfTerritory[0]);
+				territory.setxCoordinate(Integer.parseInt(dataOfTerritory[1]));
+				territory.setyCoordinate(Integer.parseInt(dataOfTerritory[2]));
 
-				for (Continent continent : continents) {
-					if (continent.getName().equalsIgnoreCase(data[3])) {
+				for (Continent continent : continentList) {
+					if (continent.getName().equalsIgnoreCase(dataOfTerritory[3])) {
 						territory.setBelongToContinent(continent);
-						if (territoryContinentCount.get(data[0]) == null) {
-							territoryContinentCount.put(data[0], 1);
+						
+						if (territoryBelongContinentCount.get(dataOfTerritory[0]) == null) {
+							territoryBelongContinentCount.put(dataOfTerritory[0], 1);
 						} else {
-							throw new InvalidMapException("A Territory cannot be assigned to more than one Continent.");
+							throw new InvalidMapException("A Territory can be assigned to only one Continent.");
 						}
 					}
 				}
-				if (territoryContinentCount.get(data[0]) == null) {
-					throw new InvalidMapException("A Territory should be assigned to one Continent.");
+				if (territoryBelongContinentCount.get(dataOfTerritory[0]) == null) {
+					throw new InvalidMapException("A Territory can be assigned to one Continent.");
 				}
-				for (int i = 4; i < data.length; i++) {
-					adjacentTerritories.add(data[i]);
+				
+				for (int i = 4; i < dataOfTerritory.length; i++) {
+					adjacentTerritories.add(dataOfTerritory[i]);
 				}
 				territory.setAdjTerritories(adjacentTerritories);
-				territories.add(territory);
+				territorieList.add(territory);
 			}
+			
 		}
-
-		return territories;
+		
+		return territorieList;
 	}
 
 }

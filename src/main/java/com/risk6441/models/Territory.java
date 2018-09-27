@@ -133,5 +133,16 @@ public class Territory {
 	public void setProcessed(boolean isProcessed) {
 		this.isProcessed = isProcessed;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Territory [name=" + name +"]";
+	}
+	
+	
+	
 	
 }

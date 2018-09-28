@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 
 /**
  * This class controls the behavior of Splash Screen which allows player to select :
- * <ui>
+ * <ul>
  * <li>Play Game</li>
- * <li>Map Editor></li>
+ * <li>Map Editor</li>
  * <li>Exit</li>
  * </ul>
  * @author Nirav

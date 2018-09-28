@@ -24,8 +24,6 @@ public class Continent {
 	/**
 	 * @param name
 	 * @param value
-	 * @param territoryMap
-	 * @param territories
 	 */
 	public Continent(String name, String value) {
 		super();

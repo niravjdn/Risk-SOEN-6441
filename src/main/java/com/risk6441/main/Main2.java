@@ -24,6 +24,7 @@ import com.risk6441.maputils.CommonMapUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -47,27 +48,10 @@ public class Main2 extends Application{
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {
-		// Create the FXMLLoader 
-		// Path to the FXML File
-		// Create the FXMLLoader
-
-		        FXMLLoader loader = new FXMLLoader();
-		        // Path to the FXML File
-		        String fxmlDocPath = "src/main/resources/splashscreen.fxml";
-		        FileInputStream fxmlStream = new FileInputStream(fxmlDocPath);
-
-
-		        VBox root = (VBox) loader.load(fxmlStream);
-		                // Create the Scene
-		                Scene scene = new Scene(root);
-		                // Set the Scene to the Stage
-		                stage.setScene(scene);
-		                // Set the Title to the Stage
-		                stage.setTitle("A FXML Example with a Controller");
-		                // Display the Stage
-		                stage.show();
-
-
+		
+		Pane mainPane = (Pane) FXMLLoader.load(Main.class.getResource("/splashscreen.fxml"));
+		stage.setScene(new Scene(mainPane));
+		stage.show();
 		
 	}
 }

@@ -5,18 +5,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
-    xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="267.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.risk6441.controller.SplashController">
    <children>
-      <Button layoutX="10.0" fx:id="btn1" layoutY="197.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="240.0" text="Load Map &amp; Start New Game" />
-      <ImageView fitHeight="178.0" fitWidth="315.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="btn1" layoutX="8.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionBtn1" prefHeight="27.0" prefWidth="297.0" text="Load Map and Play Game" />
+      <Button id="btn2" fx:id="btn2" layoutX="8.0" layoutY="247.0" mnemonicParsing="false" onAction="#onActionBtn2" prefHeight="27.0" prefWidth="297.0" text="Map Editor" />
+      <Button id="btn3" fx:id="btn3" layoutX="8.0" layoutY="298.0" mnemonicParsing="false" onAction="#onActionBtn3" prefHeight="27.0" prefWidth="297.0" text="Exit" />
+      <ImageView id="image" fitHeight="170.0" fitWidth="272.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@risk.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="14.0" fx:id="btn2" layoutY="240.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="240.0" text="Map Editor" />
-      <Button layoutX="14.0" fx:id="btn3" layoutY="286.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="240.0" text="Exit" />
    </children>
 </Pane>
-</VBox>

@@ -52,7 +52,7 @@ public class Main extends JFrame{
 		btn2 = new JButton("Edit Map");
 		btn3 = new JButton("Exit");
 		
-		frame.setSize(300, 370);
+		frame.setSize(300, 300);
 		
 		final String IMG_PATH = "src/main/resources/risk.jpg";
 		try {

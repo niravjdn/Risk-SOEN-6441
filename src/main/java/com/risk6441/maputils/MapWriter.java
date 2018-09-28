@@ -24,7 +24,7 @@ public class MapWriter {
 	
 	
 	/**
-	 * This method is writes the content to the map file.
+	 * This method is writes the map details to the map file.
 	 * @throws IOException
 	 * @param map
 	 * @param file

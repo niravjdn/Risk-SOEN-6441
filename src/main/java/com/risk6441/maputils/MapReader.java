@@ -23,6 +23,15 @@ import com.risk6441.models.Territory;
  */
 public class MapReader {
 
+	
+	public static void main(String[] args) throws InvalidMapException {
+		File file = new File("/Users/Nirav/Desktop/World.map");
+		MapReader m = new MapReader();
+		m.map = new Map();
+		m.readMapFile(file);
+		System.out.println(m.map.toString());	
+	}
+	
 	//make a object of Map class to return it once map is processed successfully.
 	private Map map;
 	
@@ -81,7 +90,7 @@ public class MapReader {
 		}
 		
 		
-		return null;
+		return map;
 	}
 	
 	
@@ -149,6 +158,8 @@ public class MapReader {
 			territorieList.addAll(processTerritories(territoryData, continentList));
 		}
 		
+		//here you can create continent map 
+		//pass it to territory method and set there only
 		
 		
 		HashMap<String, Territory> territoryMap = new HashMap<String, Territory>();
@@ -229,7 +240,7 @@ public class MapReader {
 					}
 				}
 				if (territoryBelongContinentCount.get(dataOfTerritory[0]) == null) {
-					throw new InvalidMapException("A Territory can be assigned to one Continent.");
+					throw new InvalidMapException("A Territory must be assigned to one Continent.");
 				}
 				
 				for (int i = 4; i < dataOfTerritory.length; i++) {

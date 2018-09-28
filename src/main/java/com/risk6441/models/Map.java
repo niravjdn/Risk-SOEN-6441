@@ -9,8 +9,10 @@ import java.util.List;
 
 
 /**
+ * This class defines Map and its list of continents.
  * @author Nirav
- *
+ * @see Territory
+ * @see Continent
  */
 public class Map {
 

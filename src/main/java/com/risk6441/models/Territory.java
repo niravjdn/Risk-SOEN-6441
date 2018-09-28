@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * @author Nirav
  * This class defines Territory and its properties such as its coordinates, the continent to which territory
- * belongs, its adjacent territories and whether its been assigned to any player or not. 
+ * belongs, its adjacent territories and whether its been assigned to any player or not.
+ * @see Continent 
  */
 public class Territory {
 	private String name;

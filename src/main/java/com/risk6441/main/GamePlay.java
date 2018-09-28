@@ -20,9 +20,7 @@ public class GamePlay implements ActionListener{
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
-	public void actionPerformed(ActionEvent e) {
-		// 
-		
+	public void actionPerformed(ActionEvent e){
 		File file = CommonMapUtil.showFileDialog();
 		MapReaderBackup mapReader = new MapReaderBackup();
 

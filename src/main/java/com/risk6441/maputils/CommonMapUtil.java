@@ -18,8 +18,7 @@ public class CommonMapUtil {
 
 	
 	/**
-	 * This method is used to open up a dialog box to choose a map file.
-	 * 
+	 * This method opens a dialog box to choose a map file.
 	 * @return file of type object {@link File}
 	 */
 	public static File showFileDialog() {

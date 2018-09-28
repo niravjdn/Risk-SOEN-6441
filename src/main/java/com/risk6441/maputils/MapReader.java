@@ -18,6 +18,7 @@ import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
 /**
+ * This class reads and parse the map file and sets data in corresponding objects.
  * @author Nirav
  *
  */

@@ -4,12 +4,14 @@
 package com.risk6441.exception;
 
 /**
+ * This class defines user defined exception.
  * @author Nirav
  *
  */
 public class InvalidMapException extends Exception{
 
 	/**
+	 * This method throws user define exception.
 	 * @param message
 	 */
 	public InvalidMapException(String message) {

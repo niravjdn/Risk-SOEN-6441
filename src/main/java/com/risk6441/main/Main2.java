@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 
 import javax.swing.UIManager.*;
 /**
+ * This is main entrance point of the program which allows the user to execute the game.
  * @author Nirav
  *
  */

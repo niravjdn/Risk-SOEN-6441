@@ -16,11 +16,19 @@ import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
 /**
+ * This class is responsible to write the map file when user creates the map.
  * @author Nirav
  *
  */
 public class MapWriter {
 	
+	
+	/**
+	 * This method is writes the content to the map file.
+	 * @throws IOException
+	 * @param map
+	 * @param file
+	 */
 	public void writeMapFile(Map map, File file) {
 		
 		FileWriter fileWriter;
@@ -39,6 +47,12 @@ public class MapWriter {
 		}
 	}
 	
+	
+	/**
+	 * This method processes the map by calling three different methods and makes a string to be written in the map file.
+	 * @param map
+	 * @return String to be written in the map file
+	 */
 	private String parseMapAndReturnString(Map map){
 		StringBuilder content = new StringBuilder();
 		content = processMapAttribute(map);
@@ -47,6 +61,12 @@ public class MapWriter {
 		return content.toString();
 	}
 	
+	
+	/**
+	 * This method process the map attriibutes.
+	 * @param map
+	 * @return a String that contains the map properties.
+	 */
 	private StringBuilder processMapAttribute(Map map) {
 		StringBuilder mapAttribute = new StringBuilder();
 		mapAttribute.append("[Map]");
@@ -60,6 +80,11 @@ public class MapWriter {
 		return mapAttribute;
 	}
 		
+	/**
+	 * This method processes the continents.
+	 * @param map
+	 * @return a string that contains details of the continents that will eventually be written in the map file. 
+	 */
 	private StringBuilder processContinent(Map map) {
 		StringBuilder continentData = new StringBuilder();
 		continentData.append("[Map]");
@@ -71,6 +96,11 @@ public class MapWriter {
 		return continentData;
 	}
 	
+	/**
+	 * This method processes the territories.
+	 * @param map
+	 * @return a string that contains details of the territories that will eventually be written in the map file. 
+	 */
 	private StringBuilder processTerritories(Map map) {
 		StringBuilder territoriyData = new StringBuilder();
 		territoriyData.append("\n");

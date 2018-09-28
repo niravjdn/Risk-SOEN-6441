@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Nirav
  * This class defines Continent and its properties such as name, control value, list of territories it has.
- * 
+ * @see Territory
  */
 public class Continent {
 	private String name;

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblWarn" layoutX="14.0" layoutY="29.0" text="Warn" />
+      <TextField fx:id="txtWarn" layoutX="52.0" layoutY="24.0" prefHeight="27.0" prefWidth="105.0" />
+      <AnchorPane layoutX="236.0" layoutY="11.0" prefHeight="208.0" prefWidth="213.0">
+         <children>
+            <TextField fx:id="txtContinentName" layoutX="26.0" layoutY="45.0" />
+            <Label fx:id="tctAuthorLabel1" layoutX="83.0" layoutY="22.0" text="Name " />
+            <TextField fx:id="txtContinentControlValue" layoutX="26.0" layoutY="106.0" />
+            <Button layoutX="11.0" layoutY="150.0" mnemonicParsing="false" text="Add" />
+            <Button fx:id="BtnContDelete" layoutX="143.0" layoutY="150.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="BtnContUpdate" layoutX="75.0" layoutY="150.0" mnemonicParsing="false" text="Update" />
+            <Label fx:id="tctAuthorLabel2" layoutX="64.0" layoutY="83.0" text="Control Value" />
+            <Label fx:id="tctAuthorLabel11" layoutX="54.0" layoutY="5.0" text="Continent Details" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="242.0" layoutY="206.0" prefHeight="264.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="lblAdjTerr" layoutX="69.0" layoutY="115.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
+            <ComboBox fx:id="ComboTerrAdj" layoutX="21.0" layoutY="139.0" prefWidth="150.0" />
+         </children>
+      </AnchorPane>
+      <Label fx:id="tctAuthorLabel1211" layoutX="348.0" layoutY="295.0" text="Y" />
+      <Label fx:id="tctAuthorLabel121" layoutX="265.0" layoutY="293.0" text="X" />
+      <TextField fx:id="txtYCo" layoutX="361.0" layoutY="288.0" prefHeight="25.0" prefWidth="55.0" />
+      <TextField fx:id="txtTerrName" layoutX="262.0" layoutY="250.0" />
+      <TextField fx:id="txtXCo" layoutX="279.0" layoutY="288.0" prefHeight="25.0" prefWidth="55.0" />
+      <Label fx:id="lblTerrname" layoutX="317.0" layoutY="225.0" text="Name " />
+      <ListView fx:id="lstCont" layoutX="467.0" layoutY="29.0" prefHeight="117.0" prefWidth="200.0" />
+      <ListView fx:id="lstTerr" layoutX="467.0" layoutY="176.0" prefHeight="133.0" prefWidth="200.0" />
+      <ListView fx:id="lstAdj" layoutX="467.0" layoutY="334.0" prefHeight="148.0" prefWidth="200.0" />
+      <Label fx:id="lblContList" layoutX="482.0" layoutY="6.0" text="Continents" />
+      <Label fx:id="lblTerrList" layoutX="482.0" layoutY="159.0" text="Territories" />
+      <Label fx:id="lblAdjTerr" layoutX="487.0" layoutY="313.0" text="Adjacent Territories" />
+   </children>
+</Pane>

@@ -3,11 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblAuthor" layoutX="14.0" layoutY="44.0" text="Author " />
       <Label fx:id="lblWarn" layoutX="18.0" layoutY="79.0" text="Warn" />
@@ -24,16 +25,16 @@
             <TextField fx:id="txtContinentName" layoutX="26.0" layoutY="45.0" />
             <Label fx:id="tctAuthorLabel1" layoutX="83.0" layoutY="22.0" text="Name " />
             <TextField fx:id="txtContinentControlValue" layoutX="26.0" layoutY="106.0" />
-            <Button layoutX="18.0" layoutY="150.0" mnemonicParsing="false" text="Add" />
-            <Button fx:id="BtnContDelete" layoutX="131.0" layoutY="150.0" mnemonicParsing="false" text="Delete" />
-            <Button fx:id="BtnContUpdate" layoutX="66.0" layoutY="150.0" mnemonicParsing="false" text="Update" />
+            <Button layoutX="11.0" layoutY="150.0" mnemonicParsing="false" text="Add" />
+            <Button fx:id="BtnContDelete" layoutX="143.0" layoutY="150.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="BtnContUpdate" layoutX="75.0" layoutY="150.0" mnemonicParsing="false" text="Update" />
             <Label fx:id="tctAuthorLabel2" layoutX="64.0" layoutY="83.0" text="Control Value" />
-            <Label fx:id="tctAuthorLabel11" layoutX="54.0" layoutY="6.0" text="Continent Details" />
+            <Label fx:id="tctAuthorLabel11" layoutX="54.0" layoutY="5.0" text="Continent Details" />
          </children>
       </AnchorPane>
-      <Button fx:id="BtnSave" layoutX="513.0" layoutY="441.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="BtnSave" layoutX="516.0" layoutY="441.0" mnemonicParsing="false" text="Save" />
       <Button fx:id="BtnExit" layoutX="576.0" layoutY="441.0" mnemonicParsing="false" text="Exit" />
-      <Label fx:id="lblAuthor1" layoutX="35.0" layoutY="14.0" text="Map Details " />
+      <Label fx:id="lblAuthor1" layoutX="80.0" layoutY="14.0" text="Map Details " />
       <AnchorPane layoutX="232.0" layoutY="196.0" prefHeight="264.0" prefWidth="200.0">
          <children>
             <Label fx:id="tctAuthorLabel1212" layoutX="69.0" layoutY="132.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
@@ -49,9 +50,9 @@
       <Label fx:id="tctAuthorLabel111" layoutX="280.0" layoutY="220.0" text="Territory Details" />
       <Label layoutX="90.0" layoutY="220.0" text="Message" />
       <TextArea fx:id="txtMessage" layoutX="18.0" layoutY="246.0" prefHeight="220.0" prefWidth="214.0" />
-      <ComboBox fx:id="ComboCont" layoutX="449.0" layoutY="19.0" prefHeight="25.0" prefWidth="186.0" />
-      <ComboBox fx:id="ComboTerr" layoutX="451.0" layoutY="151.0" prefHeight="25.0" prefWidth="186.0" />
-      <ComboBox fx:id="ComboAdj" layoutX="451.0" layoutY="273.0" prefHeight="25.0" prefWidth="186.0" />
       <Button fx:id="BtnSave1" layoutX="447.0" layoutY="441.0" mnemonicParsing="false" text="Discard" />
+      <ListView fx:id="lstCont" layoutX="447.0" layoutY="12.0" prefHeight="52.0" prefWidth="200.0" />
+      <ListView fx:id="lstTerr" layoutX="450.0" layoutY="138.0" prefHeight="52.0" prefWidth="200.0" />
+      <ListView fx:id="lstAdj" layoutX="453.0" layoutY="261.0" prefHeight="52.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

@@ -83,7 +83,7 @@ public class MapReaderBackup {
 	 * This function is used to process map for manipulations.
 	 * @param scan object of type {@link Scanner}
 	 * @return map object of type {@link Map}
-	 * @throws InvalidMapException
+	 * @throws InvalidMapException throws InvalidMapException if map is not valid 
 	 */
 	private Map processMap(Scanner scan) throws InvalidMapException {
 		Map map = new Map();
@@ -116,7 +116,7 @@ public class MapReaderBackup {
 	 * This function is used to process continents for manipulations.
 	 * @param scan object of type {@link Scanner}
 	 * @return a list of continents after processing
-	 * @throws InvalidMapException
+	 * @throws InvalidMapException if map is not valid
 	 */
 	private List<Continent> processContinent(Scanner scan) throws InvalidMapException {
 		List<Continent> continents = new ArrayList<Continent>();
@@ -181,9 +181,9 @@ public class MapReaderBackup {
 	/**
 	 * This function is used to process territory for manipulations.
 	 * @param territoryData
-	 * @param continents
+	 * @param continents list of object of the continent
 	 * @return list of territories after processing
-	 * @throws InvalidMapException
+	 * @throws InvalidMapException if map is not valid
 	 */
 	private List<Territory> processTerritory(String territoryData, List<Continent> continents)
 			throws InvalidMapException {

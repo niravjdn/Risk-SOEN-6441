@@ -21,6 +21,7 @@ import javax.swing.UIManager;
 import com.risk6441.maputils.CommonMapUtil;
 import javax.swing.UIManager.*;
 /**
+ *  This is main entrance point of the program which allows the user to execute the game.
  * @author Nirav
  *
  */

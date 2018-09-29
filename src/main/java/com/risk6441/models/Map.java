@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.risk6441.models;
 
 import java.util.ArrayList;

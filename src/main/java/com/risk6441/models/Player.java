@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.risk6441.models;
 
 import java.util.ArrayList;
@@ -21,9 +18,8 @@ public class Player {
 	
 	
 	/**
-	 * @param id
-	 * @param name
-	 * @param armies
+	 * @param id id of the player eg. 1
+	 * @param name name of the player
 	 */
 	public Player(int id, String name) {
 		super();

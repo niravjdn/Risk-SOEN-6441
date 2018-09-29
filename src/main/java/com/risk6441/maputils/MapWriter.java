@@ -18,15 +18,14 @@ import com.risk6441.models.Territory;
 /**
  * This class is responsible to write the map file when user creates the map.
  * @author Nirav
- *
  */
 public class MapWriter {
 	
 	
 	/**
 	 * This method is writes the map details to the map file.
-	 * @param map
-	 * @param file
+	 * @param map object of the map which is being processed
+	 * @param file file path
 	 */
 	public void writeMapFile(Map map, File file) {
 		
@@ -49,7 +48,7 @@ public class MapWriter {
 	
 	/**
 	 * This method processes the map by calling three different methods and makes a string to be written in the map file.
-	 * @param map
+	 * @param map object of the map which is being processed
 	 * @return String to be written in the map file
 	 */
 	private String parseMapAndReturnString(Map map){
@@ -63,7 +62,7 @@ public class MapWriter {
 	
 	/**
 	 * This method process the map attriibutes.
-	 * @param map
+	 * @param map object of the map which is being processed
 	 * @return a String that contains the map properties.
 	 */
 	private StringBuilder processMapAttribute(Map map) {
@@ -81,7 +80,7 @@ public class MapWriter {
 		
 	/**
 	 * This method processes the continents.
-	 * @param map
+	 * @param map object of the map which is being processed
 	 * @return a string that contains details of the continents that will eventually be written in the map file. 
 	 */
 	private StringBuilder processContinent(Map map) {
@@ -97,7 +96,7 @@ public class MapWriter {
 	
 	/**
 	 * This method processes the territories.
-	 * @param map
+	 * @param map object of the map that is being processed
 	 * @return a string that contains details of the territories that will eventually be written in the map file. 
 	 */
 	private StringBuilder processTerritories(Map map) {

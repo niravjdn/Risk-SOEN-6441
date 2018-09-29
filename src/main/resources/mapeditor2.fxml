@@ -8,12 +8,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblWarn" layoutX="14.0" layoutY="29.0" text="Warn" />
-      <TextField fx:id="txtWarn" layoutX="52.0" layoutY="24.0" prefHeight="27.0" prefWidth="105.0" />
-      <AnchorPane layoutX="236.0" layoutY="24.0" prefHeight="208.0" prefWidth="213.0">
+      <AnchorPane layoutX="13.0" layoutY="16.0" prefHeight="277.0" prefWidth="213.0">
+         <children>
+            <Label fx:id="lblAuthor1" layoutX="52.0" layoutY="18.0" text="Map Details " />
+            <Label fx:id="lblWarn" layoutX="10.0" layoutY="127.0" text="Warn" />
+            <TextField fx:id="txtWarn" layoutX="55.0" layoutY="122.0" prefHeight="27.0" prefWidth="149.0" />
+            <Label fx:id="lblAuthor" layoutX="4.0" layoutY="91.0" text="Author " />
+            <Label fx:id="lblImage" layoutX="8.0" layoutY="159.0" text="Image" />
+            <Label fx:id="lblScroll" layoutX="8.0" layoutY="192.0" text="Scroll" />
+            <Label fx:id="lblWrap" layoutX="8.0" layoutY="226.0" text="Wrap" />
+            <TextField fx:id="txtAuthor" layoutX="54.0" layoutY="87.0" />
+            <TextField fx:id="txtImage" layoutX="54.0" layoutY="155.0" />
+            <TextField fx:id="txtScroll" layoutX="54.0" layoutY="188.0" />
+            <TextField fx:id="txtWrap" layoutX="54.0" layoutY="223.0" />
+            <Label fx:id="tctAuthorLabel12" layoutX="7.0" layoutY="59.0" text="Name " />
+            <TextField fx:id="txtName" layoutX="54.0" layoutY="55.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="226.0" layoutY="35.0" prefHeight="208.0" prefWidth="213.0">
          <children>
             <TextField fx:id="txtContinentName" layoutX="26.0" layoutY="45.0" />
             <Label fx:id="tctAuthorLabel1" layoutX="83.0" layoutY="22.0" text="Name " />
@@ -25,28 +39,37 @@
             <Label fx:id="tctAuthorLabel11" layoutX="54.0" layoutY="5.0" text="Continent Details" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="229.0" layoutY="271.0" prefHeight="277.0" prefWidth="213.0">
+      <AnchorPane layoutX="236.0" layoutY="243.0" prefHeight="277.0" prefWidth="213.0">
          <children>
-            <TextField fx:id="txtXCo" layoutX="35.0" layoutY="88.0" prefHeight="25.0" prefWidth="55.0" />
-            <TextField fx:id="txtYCo" layoutX="126.0" layoutY="90.0" prefHeight="25.0" prefWidth="55.0" />
-            <Label fx:id="lblTerrname" layoutX="72.0" layoutY="25.0" text="Name " />
+            <TextField fx:id="txtXCo" layoutX="31.0" layoutY="88.0" prefHeight="25.0" prefWidth="55.0" />
+            <TextField fx:id="txtYCo" layoutX="126.0" layoutY="89.0" prefHeight="25.0" prefWidth="55.0" />
+            <Label fx:id="lblTerrname" layoutX="80.0" layoutY="25.0" text="Name " />
             <Label fx:id="lblAdjTerr" layoutX="69.0" layoutY="125.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
             <ComboBox fx:id="ComboTerrAdj" layoutX="21.0" layoutY="150.0" prefHeight="27.0" prefWidth="158.0" />
-            <Label fx:id="tctAuthorLabel1211" layoutX="112.0" layoutY="99.0" text="Y" />
-            <Label fx:id="tctAuthorLabel121" layoutX="15.0" layoutY="92.0" text="X" />
+            <Label fx:id="tctAuthorLabel1211" layoutX="110.0" layoutY="92.0" text="Y" />
+            <Label fx:id="tctAuthorLabel121" layoutX="14.0" layoutY="92.0" text="X" />
             <Button fx:id="BtnTerrDlt" layoutX="142.0" layoutY="216.0" mnemonicParsing="false" text="Delete" />
             <Button fx:id="btnAddTerr" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" text="Add" />
-            <TextField fx:id="txtTerrName" layoutX="17.0" layoutY="52.0" />
-            <Label layoutX="43.0" layoutY="4.0" text="Territory Details" />
+            <TextField fx:id="txtTerrName" layoutX="27.0" layoutY="52.0" />
+            <Label layoutX="59.0" layoutY="4.0" text="Territory Details" />
             <Button fx:id="BtnTerrUpdate" layoutX="66.0" layoutY="216.0" mnemonicParsing="false" text="Update" />
          </children>
       </AnchorPane>
       <ListView fx:id="lstCont" layoutX="467.0" layoutY="27.0" prefHeight="196.0" prefWidth="200.0" />
-      <ListView fx:id="lstTerr" layoutX="467.0" layoutY="243.0" prefHeight="302.0" prefWidth="200.0" />
-      <ListView fx:id="lstAdj" layoutX="681.0" layoutY="242.0" prefHeight="295.0" prefWidth="200.0" />
+      <ListView fx:id="lstTerr" layoutX="467.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
+      <ListView fx:id="lstAdj" layoutX="681.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
       <Label fx:id="lblContList" layoutX="482.0" layoutY="6.0" text="Continents" />
       <Label fx:id="lblTerrList" layoutX="482.0" layoutY="226.0" text="Territories" />
       <Label fx:id="lblAdjTerr" layoutX="701.0" layoutY="223.0" text="Adjacent Territories" />
       <Button fx:id="btnDltAdjTerr" layoutX="699.0" layoutY="189.0" mnemonicParsing="false" text="Delete Adjacent Territory" />
+      <AnchorPane layoutX="20.0" layoutY="320.0" prefHeight="230.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="72.0" layoutY="14.0" text="Message" />
+            <TextField fx:id="txtAreaMsg" layoutX="26.0" layoutY="55.0" prefHeight="144.0" prefWidth="149.0" />
+         </children>
+      </AnchorPane>
+      <Button layoutX="510.0" layoutY="508.0" mnemonicParsing="false" text="Save" />
+      <Button layoutX="601.0" layoutY="508.0" mnemonicParsing="false" text="Exit" />
+      <Button layoutX="682.0" layoutY="505.0" mnemonicParsing="false" text="Delete" />
    </children>
 </Pane>

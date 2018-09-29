@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="664.0">
          <children>
@@ -37,7 +36,6 @@
             </AnchorPane>
             <Button fx:id="BtnSave" layoutX="516.0" layoutY="441.0" mnemonicParsing="false" text="Save" />
             <Button fx:id="BtnExit" layoutX="576.0" layoutY="441.0" mnemonicParsing="false" text="Exit" />
-            <Label fx:id="lblAuthor1" layoutX="80.0" layoutY="14.0" text="Map Details " />
             <AnchorPane layoutX="232.0" layoutY="196.0" prefHeight="264.0" prefWidth="200.0">
                <children>
                   <Label fx:id="tctAuthorLabel1212" layoutX="69.0" layoutY="132.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
@@ -81,25 +79,16 @@
             <Label fx:id="tctAuthorLabel11" layoutX="54.0" layoutY="5.0" text="Continent Details" />
          </children>
       </AnchorPane>
-      <TextField fx:id="txtContinentName" layoutX="36.0" layoutY="55.0" />
       <Label fx:id="tctAuthorLabel1" layoutX="93.0" layoutY="32.0" text="Name " />
-      <TextField fx:id="txtContinentControlValue" layoutX="36.0" layoutY="116.0" />
-      <Button layoutX="21.0" layoutY="160.0" mnemonicParsing="false" text="Add" />
-      <Button fx:id="BtnContDelete" layoutX="153.0" layoutY="160.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="BtnContUpdate" layoutX="85.0" layoutY="160.0" mnemonicParsing="false" text="Update" />
-      <Label fx:id="tctAuthorLabel2" layoutX="74.0" layoutY="93.0" text="Control Value" />
       <Label fx:id="tctAuthorLabel11" layoutX="64.0" layoutY="15.0" text="Continent Details" />
       <Button fx:id="BtnSave" layoutX="526.0" layoutY="451.0" mnemonicParsing="false" text="Save" />
       <Button fx:id="BtnExit" layoutX="586.0" layoutY="451.0" mnemonicParsing="false" text="Exit" />
-      <Label fx:id="lblAuthor1" layoutX="90.0" layoutY="24.0" text="Map Details " />
       <AnchorPane layoutX="242.0" layoutY="206.0" prefHeight="264.0" prefWidth="200.0">
          <children>
             <Label fx:id="tctAuthorLabel1212" layoutX="69.0" layoutY="132.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
             <ComboBox fx:id="ComboTerrAdj" layoutX="21.0" layoutY="159.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
-      <Label fx:id="tctAuthorLabel1212" layoutX="79.0" layoutY="142.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
-      <ComboBox fx:id="ComboTerrAdj" layoutX="31.0" layoutY="169.0" prefWidth="150.0" />
       <Label fx:id="tctAuthorLabel1211" layoutX="348.0" layoutY="307.0" text="Y" />
       <Label fx:id="tctAuthorLabel121" layoutX="265.0" layoutY="308.0" text="X" />
       <TextField fx:id="txtYCo" layoutX="357.0" layoutY="304.0" prefHeight="25.0" prefWidth="55.0" />

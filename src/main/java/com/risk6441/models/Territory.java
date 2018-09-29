@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.risk6441.models;
 
 import java.util.List;
@@ -29,8 +26,8 @@ public class Territory {
 	}
 	
 	/**
-	 * @param adjTerritories
-	 * @param adjacentTerritories
+	 * @param adjTerritories list of adjacent territories names
+	 * @param adjacentTerritories list of object of adjacent territories
 	 */
 	public Territory(List<String> adjTerritories, List<Territory> adjacentTerritories) {
 		this.adjTerritories = adjTerritories;

@@ -12,6 +12,7 @@ import com.risk6441.maputils.CommonMapUtil;
 
 
 /**
+ * This class loads the scene for playing game.
  * @author Nirav
  *
  */

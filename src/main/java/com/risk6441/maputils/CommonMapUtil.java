@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javafx.stage.FileChooser;
 
 /**
+ * This class provides common method which is used by bith UI, Map Editor and Game Play.
  * @author Nirav
  *
  */

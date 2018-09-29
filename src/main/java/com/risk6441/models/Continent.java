@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.risk6441.models;
 
 import java.util.ArrayList;
@@ -9,8 +6,8 @@ import java.util.List;
 
 
 /**
- * @author Nirav
  * This class defines Continent and its properties such as name, control value, list of territories it has.
+ * @author Nirav
  * @see Territory
  */
 public class Continent {
@@ -22,8 +19,8 @@ public class Continent {
 	
 	
 	/**
-	 * @param name
-	 * @param value
+	 * @param name name of the continent
+	 * @param value control value of the continent
 	 */
 	public Continent(String name, String value) {
 		super();

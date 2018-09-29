@@ -1,8 +1,17 @@
 package com.risk6441.controller;
 
+import java.io.IOException;
+
+import com.risk6441.main.Main;
+import com.risk6441.main.MapEditor;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
@@ -29,13 +38,22 @@ public class SplashController {
 
     @FXML
     void btnExit(ActionEvent event) {
-      //get scene of that button and close it
-  	  Stage stage = (Stage) btnExit.getScene().getWindow();
-  	  stage.close();
+    	//get scene of that button and close it
+    	Stage stage = (Stage) btnExit.getScene().getWindow();
+    	stage.close();
     }
 
     @FXML
-    void btnMapEditor(ActionEvent event) {
+    void btnMapEditor(ActionEvent event) throws IOException {
+
+    	Stage primaryStage = (Stage) btnExit.getScene().getWindow();
+    	
+    	Pane mainPane = (Pane) FXMLLoader.load(Main.class.getResource("/mapeditorsplash.fxml"));
+    	Stage stage = new Stage();
+    	stage.setScene(new Scene(mainPane));
+    	stage.setX(primaryStage.getX() + 200);
+    	stage.setY(primaryStage.getY() + 200);
+    	stage.show();
 
     }
 

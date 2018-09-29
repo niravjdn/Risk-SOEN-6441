@@ -20,7 +20,6 @@ import com.risk6441.models.Territory;
 /**
  * This class reads and parse the map file and sets data in corresponding objects.
  * @author Nirav
- *
  */
 public class MapReader {
 
@@ -56,9 +55,9 @@ public class MapReader {
 
 	/**
 	 * This method is used to read and process map data
-	 * @param file
-	 * @return the map
-	 * @throws InvalidMapException 
+	 * @param file file path
+	 * @return the map return the map object after processing the file data
+	 * @throws InvalidMapException throws InvalidMapException if map is not valid 
 	 */
 	private Map processMapFile(File file) throws InvalidMapException {
 		
@@ -99,7 +98,7 @@ public class MapReader {
 	 * This method process map attributes and call method for processing continents
 	 * @param scan of type {@link Scanner}
 	 * @return Map of type {@link Map}
-	 * @throws InvalidMapException
+	 * @throws InvalidMapException throws InvalidMapException if map is not valid
 	 */
 	private Map processMapAttribute(Scanner scan) throws InvalidMapException{
 		
@@ -132,9 +131,9 @@ public class MapReader {
 	/**
 	 * This method processes the continents and call method to process territories
 	 * and also  map territories and continents
-	 * @param scan
+	 * @param scan scanner object which points to line of the file which is to be processed
 	 * @return continentList after processing
-	 * @throws InvalidMapException
+	 * @throws InvalidMapException throws InvalidMapException if map is not valid
 	 */
 	private List<Continent> processContinents(Scanner scan) throws InvalidMapException{
 		List<Continent> continentList = new ArrayList<Continent>();
@@ -205,10 +204,10 @@ public class MapReader {
 	
 	/**
 	 * This method processes territories and check that it should be assign to only one continent
-	 * @param territoryLine
+	 * @param territoryLine line from the map file for the territory
 	 * @param continentList
 	 * @return territorieList after processing
-	 * @throws InvalidMapException
+	 * @throws InvalidMapException throws InvalidMapException if map is not valid
 	 */
 	private List<Territory> processTerritories(String territoryLine, List<Continent> continentList) throws InvalidMapException{
 		

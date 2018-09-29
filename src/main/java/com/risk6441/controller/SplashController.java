@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.risk6441.main.Main;
 import com.risk6441.main.MapEditor;
+import com.risk6441.maputils.CommonMapUtil;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,7 +60,7 @@ public class SplashController {
 
     @FXML
     void btnPlayGame(ActionEvent event) {
-
+    		CommonMapUtil.showFileDialog();
     }
 
 }

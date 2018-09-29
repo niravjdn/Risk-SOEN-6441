@@ -40,7 +40,7 @@ public class Main2 extends Application{
 	public static void main(String[] args)
 	    {
 	        Application.launch(args);
-	        //call application to launch UI
+	        //call application to launch UI .
 	    }
 	     
 

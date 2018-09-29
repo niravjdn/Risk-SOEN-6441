@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.stage.Stage?>
-<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblAuthor" layoutX="14.0" layoutY="44.0" text="Author " />
       <Label fx:id="lblWarn" layoutX="18.0" layoutY="79.0" text="Warn" />
@@ -50,7 +48,7 @@
       <TextField fx:id="txtXCo" layoutX="269.0" layoutY="294.0" prefHeight="25.0" prefWidth="55.0" />
       <Label fx:id="tctAuthorLabel111" layoutX="280.0" layoutY="220.0" text="Territory Details" />
       <Label layoutX="90.0" layoutY="220.0" text="Message" />
-      <TextArea layoutX="18.0" layoutY="246.0" prefHeight="220.0" prefWidth="214.0" />
+      <TextArea fx:id="txtMessage" layoutX="18.0" layoutY="246.0" prefHeight="220.0" prefWidth="214.0" />
       <ComboBox fx:id="ComboCont" layoutX="449.0" layoutY="19.0" prefHeight="25.0" prefWidth="186.0" />
       <ComboBox fx:id="ComboTerr" layoutX="451.0" layoutY="151.0" prefHeight="25.0" prefWidth="186.0" />
       <ComboBox fx:id="ComboAdj" layoutX="451.0" layoutY="273.0" prefHeight="25.0" prefWidth="186.0" />

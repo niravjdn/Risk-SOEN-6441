@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.DropdownButton?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.risk6441.controller.GamePlay">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.risk6441.controller.GamePlay">
    <children>
-      <SplitPane dividerPositions="0.16907216494845362" orientation="VERTICAL" prefHeight="487.0" prefWidth="655.0">
+      <SplitPane dividerPositions="0.10515463917525773" orientation="VERTICAL" prefHeight="487.0" prefWidth="655.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label id="lbl" fx:id="lblNoOfPlayers" layoutX="25.0" layoutY="18.0" prefHeight="30.0" prefWidth="118.0" text="Number Of Players" />
-                  <DropdownButton id="ddNumberOfPlayers" fx:id="ctrlbxNoOfPlayer" layoutX="143.0" layoutY="20.0">
-                      <items>
-                          <MenuItem text="Choice 1" />
-                          <MenuItem text="Choice 2" />
-                          <MenuItem text="Choice 3" />
-                      </items>
-                  </DropdownButton>
-                  <Label id="lbl" fx:id="lblTurn" layoutX="497.0" layoutY="39.0" prefHeight="30.0" prefWidth="82.0" text="Turn : Player" />
+                  <Label id="lbl" fx:id="lblNoOfPlayers" layoutX="25.0" layoutY="6.0" prefHeight="30.0" prefWidth="118.0" text="Number Of Players" />
+                  <Label id="lbl" fx:id="lblTurn" layoutX="507.0" layoutY="5.0" prefHeight="30.0" prefWidth="82.0" text="Turn : Player" />
                   <Label id="lbl" fx:id="lblPlayersTurn" layoutX="579.0" layoutY="39.0" prefHeight="30.0" prefWidth="59.0" />
+                  <ChoiceBox fx:id="playerChoice" layoutX="143.0" layoutY="8.0" prefHeight="17.0" prefWidth="59.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="653.0">

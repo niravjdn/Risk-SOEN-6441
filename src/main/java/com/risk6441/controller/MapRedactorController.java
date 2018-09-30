@@ -1,11 +1,18 @@
 package com.risk6441.controller;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.risk.map.util.MapUtil;
+import com.risk6441.exception.InvalidMapException;
+import com.risk6441.maputils.CommonMapUtil;
+import com.risk6441.maputils.MapOperations;
 import com.risk6441.models.Continent;
+import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,6 +28,17 @@ import javafx.scene.control.TextField;
  */
 public class MapRedactorController implements Initializable {
 
+	/**
+	 * The @map
+	 */
+	private Map map;
+
+	/**
+	 * The @file
+	 */
+	private File file;
+	
+	
     /**
      * @lblAuthor label for author
      */
@@ -217,19 +235,19 @@ public class MapRedactorController implements Initializable {
      * @lblAuthor
      */
     @FXML
-    private ListView<Continent> lstCont;
+    private ListView<Continent> contList;
 
     /**
      * @lblAuthor
      */
     @FXML
-    private ListView<Territory> lstTerr;
+    private ListView<Territory> terrList;
 
     /**
      * @lblAuthor
      */
     @FXML
-    private ListView<Territory> lstAdj;
+    private ListView<Territory> adjTerrList;
 
     /**
      * @lblAuthor
@@ -259,9 +277,94 @@ public class MapRedactorController implements Initializable {
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	
+	public MapRedactorController(Map map, File file) {
+		this.map = map;
+		this.file = file;
+	}
+	
+	/**
+	 * This method adds the continent to the map
+	 * @param event
+	 * 		  event object containing detaisl regarding origin of the event
+	 */
+	@FXML
+    void addContinent(ActionEvent event) {
+		//get details from the event object and proceed
+		
+		//call MapOperation.addContinent simillar for others
+		Continent cnt;
+		try {
+			cnt = MapOperations.addContinent(map, txtContName.getText(), txtContControlVal.getText());
+		}catch(InvalidMapException e) {
+			CommonMapUtil.alertBox("Error", e.getMessage(), "Invalid Map");
+			return;
+		}
+		
+		if (contList == null) {
+			contList = new ListView<Continent>();
+		}
+		
+		map.getContinents().add(cnt);
+		contList.getItems().add(cnt);
+		
+		//clear the textboxes
+		CommonMapUtil.clearTextBox(txtContName,txtContControlVal);
+		
+    }
+
+    @FXML
+    void addTerritiory(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteContinent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteTerritiory(ActionEvent event) {
+
+    }
+
+    @FXML
+    void exitBtnClick(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void updateContinent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void updateTerritiory(ActionEvent event) {
+
+    }
+    
+
+    /**
+     * This method validates the map. If it is valid then save it else show error.
+     * @param event
+     */
+    @FXML
+    void saveMap(ActionEvent event) {
+
+    }
+    
+    public void showTerritoryInList(Continent continent) {
+    	//when user clicks on continent show its territory in the listview 
+    	//call this method from onmouse click of continent listview
+    }
+    
+    private void showAdjTerritoryInList(Territory territory) {
+    	
+    }
+		
 }
 

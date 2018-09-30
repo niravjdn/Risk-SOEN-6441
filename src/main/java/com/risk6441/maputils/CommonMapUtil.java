@@ -16,7 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 
 /**
- * This class provides common method which is used by bith UI, Map Editor and Game Play.
+ * This class provides common method which is used by UI, Map Editor and Game Play.
  * @author Nirav
  *
  */

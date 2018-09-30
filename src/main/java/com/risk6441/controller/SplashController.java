@@ -2,9 +2,11 @@ package com.risk6441.controller;
 
 import java.io.IOException;
 
+import com.risk6441.exception.InvalidMapException;
 import com.risk6441.main.Main;
 import com.risk6441.main.MapEditor;
 import com.risk6441.maputils.CommonMapUtil;
+import com.risk6441.maputils.MapReader;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
+import java.io.File;
 /**
  * This class controls the behavior of Splash Screen which allows player to select :
  * <ul>
@@ -59,8 +61,9 @@ public class SplashController {
     }
 
     @FXML
-    void btnPlayGame(ActionEvent event) {
-    		CommonMapUtil.showFileDialog();
+    void btnPlayGame(ActionEvent event) throws InvalidMapException {
+    	File file= CommonMapUtil.showFileDialog();
+    	MapReader.fileReader(file);
     }
 
 }

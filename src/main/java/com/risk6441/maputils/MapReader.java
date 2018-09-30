@@ -24,8 +24,8 @@ import com.risk6441.models.Territory;
 public class MapReader {
 
 	
-	public static void main(String[] args) throws InvalidMapException {
-		File file = new File("/Users/Nirav/Desktop/World.map");
+	public static void fileReader (File mapFile) throws InvalidMapException {
+		File file = mapFile;
 		MapReader m = new MapReader();
 		m.map = new Map();
 		m.readMapFile(file);
@@ -66,15 +66,23 @@ public class MapReader {
 		try {
 			mapFileReader = new Scanner(new FileInputStream(file));
 			StringBuilder mapString = new StringBuilder();
-
+			int count=0;
 			//procees and read map file in three steps
 			while(mapFileReader.hasNext()) {
 				String line = mapFileReader.nextLine();
 				if(!line.isEmpty()) {
 					mapString.append(line + "|");
-				}else {
-					mapString.append("\n");
+					count=0;
 				}
+				else if(line.isEmpty())
+				{
+					count++;
+					if(count==1)
+					mapString.append("\n");
+					else
+						count=0;
+				}
+				
 			}
 
 			//set map attributes 

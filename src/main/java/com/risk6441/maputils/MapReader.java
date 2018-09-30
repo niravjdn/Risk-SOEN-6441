@@ -25,7 +25,7 @@ public class MapReader {
 
 	
 	public static void main(String[] args) throws InvalidMapException {
-		File file = new File("/Users/Nirav/Desktop/asia.map");
+		File file = new File("/Users/Nirav/Desktop/World.map");
 		MapReader m = new MapReader();
 		m.map = new Map();
 		m.readMapFile(file);
@@ -50,6 +50,7 @@ public class MapReader {
 	public Map readMapFile(final File file) throws InvalidMapException{
 		
 		this.map = processMapFile(file);
+		//call map validator
 		return map;
 	}
 
@@ -176,6 +177,7 @@ public class MapReader {
 					}
 					territory.getAdjacentTerritories().add(territoryMap.get(adjacentTerritory));
 				}else {
+					//if particular territory has adjacent territory defined, but actually it doesn't exist
 					throw new InvalidMapException("Territory: " + adjacentTerritory + " not mapped with any continent.");
 				}
 			}

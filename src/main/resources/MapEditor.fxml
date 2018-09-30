@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
@@ -27,19 +28,9 @@
             <TextField fx:id="txtName" layoutX="54.0" layoutY="55.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="243.0" layoutY="35.0" prefHeight="208.0" prefWidth="213.0">
-         <children>
-            <TextField fx:id="txtContName" layoutX="26.0" layoutY="45.0" />
-            <Label fx:id="tctAuthorLabel1" layoutX="83.0" layoutY="22.0" text="Name " />
-            <TextField fx:id="txtContControlVal" layoutX="26.0" layoutY="106.0" />
-            <Button fx:id="btnContAdd" layoutX="11.0" layoutY="150.0" mnemonicParsing="false" text="Add" />
-            <Button fx:id="BtnContDelete" layoutX="143.0" layoutY="150.0" mnemonicParsing="false" text="Delete" />
-            <Button fx:id="BtnContUpdate" layoutX="67.0" layoutY="150.0" mnemonicParsing="false" text="Update" />
-            <Label fx:id="tctAuthorLabel2" layoutX="64.0" layoutY="83.0" text="Control Value" />
-            <Label fx:id="tctAuthorLabel11" layoutX="54.0" layoutY="5.0" text="Continent Details" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="249.0" layoutY="243.0" prefHeight="277.0" prefWidth="213.0">
+      <TitledPane layoutX="242.0" layoutY="17.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+      <AnchorPane layoutX="249.0" layoutY="264.0" prefHeight="234.0" prefWidth="221.0">
          <children>
             <TextField fx:id="txtXCo" layoutX="31.0" layoutY="88.0" prefHeight="25.0" prefWidth="55.0" />
             <TextField fx:id="txtYCo" layoutX="126.0" layoutY="89.0" prefHeight="25.0" prefWidth="55.0" />
@@ -48,13 +39,15 @@
             <ComboBox fx:id="ComboTerrAdj" layoutX="21.0" layoutY="150.0" prefHeight="27.0" prefWidth="158.0" />
             <Label fx:id="tctAuthorLabel1211" layoutX="110.0" layoutY="92.0" text="Y" />
             <Label fx:id="tctAuthorLabel121" layoutX="14.0" layoutY="92.0" text="X" />
-            <Button fx:id="BtnTerrDlt" layoutX="142.0" layoutY="216.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="BtnTerrDlt" layoutX="143.0" layoutY="216.0" mnemonicParsing="false" text="Delete" />
             <Button fx:id="btnAddTerr" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" text="Add" />
             <TextField fx:id="txtTerrName" layoutX="27.0" layoutY="52.0" />
             <Label layoutX="59.0" layoutY="4.0" text="Territory Details" />
-            <Button fx:id="BtnTerrUpdate" layoutX="66.0" layoutY="216.0" mnemonicParsing="false" text="Update" />
+            <Button fx:id="BtnTerrUpdate" layoutX="69.0" layoutY="216.0" mnemonicParsing="false" text="Update" />
          </children>
       </AnchorPane>
+   </content>
+</TitledPane>
       <ListView fx:id="lstCont" layoutX="473.0" layoutY="27.0" prefHeight="196.0" prefWidth="200.0" />
       <ListView fx:id="lstTerr" layoutX="473.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
       <ListView fx:id="lstAdj" layoutX="681.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
@@ -70,5 +63,21 @@
       </AnchorPane>
       <Button layoutX="510.0" layoutY="508.0" mnemonicParsing="false" text="Save" />
       <Button layoutX="601.0" layoutY="508.0" mnemonicParsing="false" text="Exit" />
+      <TitledPane layoutX="242.0" layoutY="324.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <AnchorPane prefHeight="208.0" prefWidth="213.0">
+               <children>
+                  <TextField fx:id="txtContName" layoutX="26.0" layoutY="45.0" />
+                  <Label fx:id="tctAuthorLabel1" layoutX="83.0" layoutY="22.0" text="Name " />
+                  <TextField fx:id="txtContControlVal" layoutX="26.0" layoutY="106.0" />
+                  <Button fx:id="btnContAdd" layoutX="13.0" layoutY="152.0" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="BtnContDelete" layoutX="142.0" layoutY="150.0" mnemonicParsing="false" text="Delete" />
+                  <Button fx:id="BtnContUpdate" layoutX="68.0" layoutY="151.0" mnemonicParsing="false" text="Update" />
+                  <Label fx:id="tctAuthorLabel2" layoutX="64.0" layoutY="83.0" text="Control Value" />
+                  <Label fx:id="labelContDetail" layoutX="54.0" layoutY="5.0" text="Continent Details" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
    </children>
 </Pane>

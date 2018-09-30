@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.risk6441.maputils;
 
 import java.io.File;

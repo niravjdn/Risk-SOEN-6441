@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.risk6441.controller.MapEditorSplashController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.risk6441.controller.MapRedactorSplashController">
    <children>
       <Button fx:id="btnCreateMap" layoutX="8.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnCreateMap" prefHeight="27.0" prefWidth="297.0" text="Create Map" />
       <Button id="btn2" fx:id="btnEditMap" layoutX="8.0" layoutY="247.0" mnemonicParsing="false" onAction="#btnEditMap" prefHeight="27.0" prefWidth="297.0" text="Edit Map" />

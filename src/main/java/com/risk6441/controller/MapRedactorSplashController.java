@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  * @author Nirav
  *
  */
-public class MapEditorSplashController {
+public class MapRedactorSplashController {
 
     @FXML
     private Button btnCreateMap;
@@ -32,8 +32,6 @@ public class MapEditorSplashController {
     @FXML
     void btnCreateMap(ActionEvent event) throws IOException {
     	
-    	File file = CommonMapUtil.showFileDialog();
-    	
     	//open scene for the map editor
     	Stage primaryStage = (Stage) btnExit.getScene().getWindow();
     	Pane mainPane = (Pane) FXMLLoader.load(Main.class.getResource("/mapeditor.fxml"));
@@ -45,8 +43,17 @@ public class MapEditorSplashController {
     }
 
     @FXML
-    void btnEditMap(ActionEvent event) {
-
+    void btnEditMap(ActionEvent event) throws IOException {
+    	File file = CommonMapUtil.showFileDialog();
+    	
+    	//open scene for the map editor
+    	Stage primaryStage = (Stage) btnExit.getScene().getWindow();
+    	Pane mainPane = (Pane) FXMLLoader.load(Main.class.getResource("/mapeditor.fxml"));
+    	Stage stage = new Stage();
+    	stage.setScene(new Scene(mainPane));
+    	stage.setX(primaryStage.getX() + 200);
+    	stage.setY(primaryStage.getY() + 200);
+    	stage.show();
     }
 
     @FXML

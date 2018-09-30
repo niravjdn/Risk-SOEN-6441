@@ -1,101 +1,35 @@
-/**
- * 
- */
 package com.risk6441.main;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-
-import com.risk6441.maputils.CommonMapUtil;
-import javax.swing.UIManager.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 /**
- *  This is main entrance point of the program which allows the user to execute the game.
+ * This is main entrance point of the program which allows the user to execute the game.
  * @author Nirav
  *
  */
-public class Main extends JFrame{
-
-	JPanel panel;
-	JButton btn1;
-	JButton btn2;
-	JButton btn3;
-	JLabel label;
-	public Main() {	
-
-		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		        
-		    }
-		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
-			System.err.println("Nimbus Not Present");
-		}
-		
-		final JFrame frame = new JFrame("Risk");
-		panel = new JPanel();
-		btn1 = new JButton("Load Map & Start New Game");
-		btn2 = new JButton("Edit Map");
-		btn3 = new JButton("Exit");
-		
-		frame.setSize(300, 300);
-		
-		final String IMG_PATH = "src/main/resources/risk.jpg";
-		try {
-			BufferedImage img = ImageIO.read(new File(IMG_PATH));
-	        ImageIcon icon = new ImageIcon(img);
-	        label= new JLabel(icon);
-	        panel.add(label);
-		}catch(Exception e) {
-			System.err.println(e.getMessage());
-		}
-		
-		
-		panel.add(btn1);
-		panel.add(btn2);
-		panel.add(btn3);
-		
-		btn3.addActionListener(new ActionListener() {
-
-		    /* (non-Javadoc)
-		     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		     */
-		    public void actionPerformed(ActionEvent e) {
-		    	frame.dispose();
-		    }
-		});
-		
-		btn1.setPreferredSize(new Dimension(300, 35));
-		btn2.setPreferredSize(new Dimension(300, 35));
-		btn3.setPreferredSize(new Dimension(300, 35));
-		
-		frame.setContentPane(panel);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-		
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
-	    frame.setLocation(x, y);
-	}
+public class Main extends Application{
 	
-	public static void main(String[] args) {
-		new Main();
-	}
+	
+	public static void main(String[] args)
+	    {
+	        Application.launch(args);
+	        //call application to launch UI .
+	    }
+	     
 
+
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
+	@Override
+	public void start(Stage stage) throws Exception {
+		
+		Pane mainPane = (Pane) FXMLLoader.load(Main.class.getResource("/splashscreen.fxml"));
+		stage.setScene(new Scene(mainPane));
+		stage.show();
+		
+	}
 }

@@ -8,6 +8,10 @@ import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Control;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 
 /**
@@ -29,6 +33,50 @@ public class CommonMapUtil {
 		fileChooser.getExtensionFilters().add(extensionFilter);
 		file = fileChooser.showOpenDialog(null);
 		return file;
+	}
+	
+	
+	/**
+	 * This method is used to enable controls.
+	 * @param controls
+	 * 			controls from the scene
+	 */
+	public static void enableControls(Control... controls) {
+		for(Control c : controls) {
+			c.setDisable(false);
+		}
+	}
+	
+	/**
+	 * This method is used disable controls.
+	 * @param controls
+	 * 			controls from the scene
+	 */
+	public static void disableControls(Control... controls) {
+		for(Control c : controls) {
+			c.setDisable(true);
+		}
+	}
+	
+	
+	/**
+	 * This method is used to clear the textfields/texboxes
+	 * @param fields
+	 * 			textfields 
+	 */
+	public static void clearTextBox(TextField... fields) {
+		for (TextField field : fields) {
+			field.clear();
+		}
+	}
+	
+	
+	public static void alertBox(String title, String message,  String header) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
 	
 	public static void showAlertBox(JFrame frame, String msg) {

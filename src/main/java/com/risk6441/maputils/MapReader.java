@@ -25,7 +25,7 @@ public class MapReader {
 
 	
 	public static void main(String[] args) throws InvalidMapException {
-		File file = new File("/Users/Nirav/Desktop/World.map");
+		File file = new File("/Users/Nirav/Desktop/asia.map");
 		MapReader m = new MapReader();
 		m.map = new Map();
 		m.readMapFile(file);

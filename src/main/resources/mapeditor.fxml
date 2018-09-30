@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="13.0" layoutY="16.0" prefHeight="277.0" prefWidth="213.0">
          <children>
@@ -27,9 +27,9 @@
             <TextField fx:id="txtName" layoutX="54.0" layoutY="55.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="226.0" layoutY="35.0" prefHeight="208.0" prefWidth="213.0">
+      <AnchorPane layoutX="243.0" layoutY="35.0" prefHeight="208.0" prefWidth="213.0">
          <children>
-            <TextField fx:id="txtContinentName" layoutX="26.0" layoutY="45.0" />
+            <TextField fx:id="txtContName" layoutX="26.0" layoutY="45.0" />
             <Label fx:id="tctAuthorLabel1" layoutX="83.0" layoutY="22.0" text="Name " />
             <TextField fx:id="txtContControlVal" layoutX="26.0" layoutY="106.0" />
             <Button fx:id="btnContAdd" layoutX="11.0" layoutY="150.0" mnemonicParsing="false" text="Add" />
@@ -39,7 +39,7 @@
             <Label fx:id="tctAuthorLabel11" layoutX="54.0" layoutY="5.0" text="Continent Details" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="236.0" layoutY="243.0" prefHeight="277.0" prefWidth="213.0">
+      <AnchorPane layoutX="249.0" layoutY="243.0" prefHeight="277.0" prefWidth="213.0">
          <children>
             <TextField fx:id="txtXCo" layoutX="31.0" layoutY="88.0" prefHeight="25.0" prefWidth="55.0" />
             <TextField fx:id="txtYCo" layoutX="126.0" layoutY="89.0" prefHeight="25.0" prefWidth="55.0" />
@@ -55,21 +55,20 @@
             <Button fx:id="BtnTerrUpdate" layoutX="66.0" layoutY="216.0" mnemonicParsing="false" text="Update" />
          </children>
       </AnchorPane>
-      <ListView fx:id="lstCont" layoutX="467.0" layoutY="27.0" prefHeight="196.0" prefWidth="200.0" />
-      <ListView fx:id="lstTerr" layoutX="467.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
+      <ListView fx:id="lstCont" layoutX="473.0" layoutY="27.0" prefHeight="196.0" prefWidth="200.0" />
+      <ListView fx:id="lstTerr" layoutX="473.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
       <ListView fx:id="lstAdj" layoutX="681.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
-      <Label fx:id="lblContList" layoutX="482.0" layoutY="6.0" text="Continents" />
-      <Label fx:id="lblTerrList" layoutX="482.0" layoutY="226.0" text="Territories" />
-      <Label fx:id="lblAdjTerr" layoutX="701.0" layoutY="223.0" text="Adjacent Territories" />
+      <Label fx:id="lblContList" layoutX="532.0" layoutY="6.0" text="Continents" />
+      <Label fx:id="lblTerrList" layoutX="530.0" layoutY="226.0" text="Territories" />
+      <Label fx:id="lblAdjTerr" layoutX="712.0" layoutY="223.0" text="Adjacent Territories" />
       <Button fx:id="btnDltAdjTerr" layoutX="699.0" layoutY="189.0" mnemonicParsing="false" text="Delete Adjacent Territory" />
-      <AnchorPane layoutX="20.0" layoutY="320.0" prefHeight="230.0" prefWidth="200.0">
+      <AnchorPane layoutX="20.0" layoutY="292.0" prefHeight="258.0" prefWidth="200.0">
          <children>
-            <Label layoutX="72.0" layoutY="14.0" text="Message" />
-            <TextField fx:id="txtAreaMsg" layoutX="26.0" layoutY="55.0" prefHeight="144.0" prefWidth="149.0" />
+            <Label layoutX="72.0" layoutY="2.0" text="Message" />
+            <TextField fx:id="txtAreaMsg" layoutX="3.0" layoutY="29.0" prefHeight="221.0" prefWidth="191.0" />
          </children>
       </AnchorPane>
       <Button layoutX="510.0" layoutY="508.0" mnemonicParsing="false" text="Save" />
       <Button layoutX="601.0" layoutY="508.0" mnemonicParsing="false" text="Exit" />
-      <Button layoutX="682.0" layoutY="505.0" mnemonicParsing="false" text="Delete" />
    </children>
 </Pane>

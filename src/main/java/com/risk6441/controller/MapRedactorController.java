@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.risk.map.util.MapUtil;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapOperations;

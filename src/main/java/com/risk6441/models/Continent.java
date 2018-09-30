@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
+
 /**
  * This class defines Continent and its properties such as name, control value, list of territories it has.
  * @author Nirav
@@ -102,7 +103,21 @@ public class Continent {
 	}
 	
 	
-	//generate equals if you need in future
 	
+	//generate equals for need of the future
+	@Override
+	public boolean equals(Object obj) {
+
+		if (!(obj instanceof Continent)) {
+			return false;
+		}
+		
+		if (obj == this) {
+			return true;
+		}
+
+		Continent continent = (Continent) obj;
+		return continent.getName().equalsIgnoreCase(name);
+	}
 	
 }

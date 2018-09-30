@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
+ * This class controls behavior of MapEditor Splash Screen.
  * @author Nirav
  *
  */
@@ -34,7 +35,10 @@ public class MapRedactorSplashController {
     	
     	//open scene for the map editor
     	Stage primaryStage = (Stage) btnExit.getScene().getWindow();
-    	Pane mainPane = (Pane) FXMLLoader.load(Main.class.getResource("/mapeditor.fxml"));
+    	FXMLLoader loader = new FXMLLoader();
+    	Pane mainPane = (Pane) loader.load(Main.class.getResource("/mapeditor.fxml"));
+    	loader.setController(new MapRedactorController());
+    	
     	Stage stage = new Stage();
     	stage.setScene(new Scene(mainPane));
     	stage.setX(primaryStage.getX() + 200);

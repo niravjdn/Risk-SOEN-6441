@@ -129,7 +129,7 @@ public class MapReaderBackup {
 				Continent continent = new Continent();
 				String[] data = element.split("=");
 				continent.setName(data[0]);
-				continent.setValue(data[1]);
+				continent.setValue(Integer.parseInt(data[1]));
 				continents.add(continent);
 			}
 		}

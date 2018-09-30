@@ -151,7 +151,7 @@ public class MapReader {
 				Continent continent = new Continent();
 				String[] data = line.split("=");
 				continent.setName(data[0]);
-				continent.setValue(data[1]);
+				continent.setValue(Integer.parseInt(data[1]));
 				continentList.add(continent);
 			}
 		}

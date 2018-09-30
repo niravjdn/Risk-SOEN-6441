@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Continent {
 	private String name;
-	private String value;
+	private int value;
 	private HashMap<String, Territory> territoryMap;
 	private List<Territory> territories;
 	
@@ -23,7 +23,7 @@ public class Continent {
 	 * @param name name of the continent
 	 * @param value control value of the continent
 	 */
-	public Continent(String name, String value) {
+	public Continent(String name, int value) {
 		super();
 		this.name = name;
 		this.value = value;
@@ -55,14 +55,14 @@ public class Continent {
 	/**
 	 * @return the value
 	 */
-	public String getValue() {
+	public int getValue() {
 		return value;
 	}
 	
 	/**
 	 * @param value the value to set
 	 */
-	public void setValue(String value) {
+	public void setValue(int value) {
 		this.value = value;
 	}
 	
@@ -104,7 +104,10 @@ public class Continent {
 	
 	
 	
-	//generate equals for need of the future
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 

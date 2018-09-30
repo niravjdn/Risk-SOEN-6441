@@ -25,7 +25,7 @@ public class MapOperations {
 		Continent cnt = new Continent();
 		
 		cnt.setName(name);
-		cnt.setValue(ctrlValue);
+		cnt.setValue(Integer.parseInt(ctrlValue));
 		
 		if(map.getContinents().contains(cnt)) {
 			throw new InvalidMapException("The Continent with name "+name+" already exist.");
@@ -39,9 +39,9 @@ public class MapOperations {
 	 * @param controlValue
 	 * @return
 	 */
-	public Continent updateContinent(Continent continent, String controlValue) {
+	public Continent updateContinent(Continent continent, String ctrlValue) {
 		
-		continent.setValue(controlValue);
+		continent.setValue(Integer.parseInt(ctrlValue));
 		return continent;
 	}
 	

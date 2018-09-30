@@ -141,6 +141,22 @@ public class Territory {
 	}
 	
 	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+
+		if (!(obj instanceof Continent)) {
+			return false;
+		}
+		
+		if (obj == this) {
+			return true;
+		}
+
+		Continent continent = (Continent) obj;
+		return continent.getName().equalsIgnoreCase(name);
+	}
 	
 }

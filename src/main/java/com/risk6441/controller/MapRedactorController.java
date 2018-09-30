@@ -25,7 +25,7 @@ import javafx.scene.control.TextField;
  * @author Nirav
  *
  */
-public class MapRedactorController implements Initializable {
+public class MapRedactorController  implements Initializable{
 
 	/**
 	 * The @map
@@ -272,17 +272,14 @@ public class MapRedactorController implements Initializable {
     @FXML
     private TextField txtAreaMsg;
 
-	/* (non-Javadoc)
-	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
-	 */
-	public void initialize(URL location, ResourceBundle resources) {
-		
-	}
-
 	
 	public MapRedactorController(Map map, File file) {
 		this.map = map;
 		this.file = file;
+	}
+	
+	public MapRedactorController() {
+		
 	}
 	
 	/**
@@ -364,6 +361,17 @@ public class MapRedactorController implements Initializable {
     private void showAdjTerritoryInList(Territory territory) {
     	
     }
+
+	/* (non-Javadoc)
+	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+	 */
+	public void initialize(URL location, ResourceBundle resources) {
+		if (this.map == null) {
+			map = new Map();
+		} else {
+			//for loading existing map and editing
+		}			
+	}
 		
 }
 

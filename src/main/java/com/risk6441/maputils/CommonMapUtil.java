@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Control;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
@@ -35,6 +36,15 @@ public class CommonMapUtil {
 		return file;
 	}
 	
+	
+	/**
+	 * @param textArea
+	 * @param message
+	 */
+	public static void outPutMessgae(TextArea textArea, String message) {
+		textArea.setText(message);
+	}
+			
 	
 	/**
 	 * This method is used to enable controls.

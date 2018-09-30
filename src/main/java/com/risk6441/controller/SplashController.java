@@ -1,10 +1,13 @@
 package com.risk6441.controller;
 
+import java.io.File;
 import java.io.IOException;
 
+import com.risk6441.exception.InvalidMapException;
 import com.risk6441.main.Main;
 import com.risk6441.main.MapEditor;
 import com.risk6441.maputils.CommonMapUtil;
+import com.risk6441.maputils.MapReader;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,8 +62,9 @@ public class SplashController {
     }
 
     @FXML
-    void btnPlayGame(ActionEvent event) {
-    		CommonMapUtil.showFileDialog();
+    void btnPlayGame(ActionEvent event) throws InvalidMapException {
+    	File file= CommonMapUtil.showFileDialog();
+    	MapReader.fileReader(file);
     }
 
 }

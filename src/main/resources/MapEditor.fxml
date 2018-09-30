@@ -34,16 +34,17 @@
          <children>
             <TextField fx:id="txtXCo" layoutX="31.0" layoutY="88.0" prefHeight="25.0" prefWidth="55.0" />
             <TextField fx:id="txtYCo" layoutX="126.0" layoutY="89.0" prefHeight="25.0" prefWidth="55.0" />
-            <Label fx:id="lblTerrname" layoutX="80.0" layoutY="25.0" text="Name " />
+            <Label fx:id="lblTerrname" layoutX="23.0" layoutY="56.0" text="Name " />
             <Label fx:id="lblAdjTerr" layoutX="69.0" layoutY="125.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
             <ComboBox fx:id="ComboTerrAdj" layoutX="21.0" layoutY="150.0" prefHeight="27.0" prefWidth="158.0" />
             <Label fx:id="tctAuthorLabel1211" layoutX="110.0" layoutY="92.0" text="Y" />
             <Label fx:id="tctAuthorLabel121" layoutX="14.0" layoutY="92.0" text="X" />
-            <Button fx:id="BtnTerrDlt" layoutX="143.0" layoutY="216.0" mnemonicParsing="false" onAction="#deleteTerritiory" text="Delete" />
+            <Button fx:id="btnTerrDlt" layoutX="143.0" layoutY="216.0" mnemonicParsing="false" onAction="#deleteTerritiory" text="Delete" />
             <Button fx:id="btnAddTerr" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" onAction="#addTerritiory" text="Add" />
-            <TextField fx:id="txtTerrName" layoutX="27.0" layoutY="52.0" />
+            <TextField fx:id="txtTerrName" layoutX="75.0" layoutY="53.0" prefHeight="27.0" prefWidth="134.0" />
             <Label layoutX="59.0" layoutY="4.0" text="Territory Details" />
-            <Button fx:id="BtnTerrUpdate" layoutX="69.0" layoutY="216.0" mnemonicParsing="false" onAction="#updateTerritiory" text="Update" />
+            <Button fx:id="btnTerrUpdate" layoutX="69.0" layoutY="216.0" mnemonicParsing="false" onAction="#updateTerritiory" text="Update" />
+                  <Label fx:id="lblSelectedCont" layoutX="26.0" layoutY="28.0" prefHeight="17.0" prefWidth="172.0" text="Continent : " />
          </children>
       </AnchorPane>
    </content>
@@ -61,8 +62,8 @@
             <TextField fx:id="txtAreaMsg" layoutX="3.0" layoutY="29.0" prefHeight="221.0" prefWidth="191.0" />
          </children>
       </AnchorPane>
-      <Button layoutX="510.0" layoutY="508.0" mnemonicParsing="false" onAction="#saveMap" text="Save" />
-      <Button layoutX="601.0" layoutY="508.0" mnemonicParsing="false" onAction="#exitBtnClick" text="Exit" />
+      <Button fx:id="btnSave" layoutX="510.0" layoutY="508.0" mnemonicParsing="false" onAction="#saveMap" text="Save" />
+      <Button fx:id="btnExit" layoutX="601.0" layoutY="508.0" mnemonicParsing="false" onAction="#exitBtnClick" text="Exit" />
       <TitledPane layoutX="243.0" layoutY="27.0" prefHeight="200.0" prefWidth="200.0">
          <content>
             <AnchorPane prefHeight="208.0" prefWidth="213.0">

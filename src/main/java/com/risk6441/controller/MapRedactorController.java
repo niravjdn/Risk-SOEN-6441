@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -144,13 +145,13 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
-    private Button BtnContDelete;
+    private Button btnContDelete;
 
     /**
      * @lblAuthor
      */
     @FXML
-    private Button BtnContUpdate;
+    private Button btnContUpdate;
 
     /**
      * @lblAuthor
@@ -206,11 +207,19 @@ public class MapRedactorController  implements Initializable{
     @FXML
     private Label tctAuthorLabel121;
 
+    
     /**
      * @lblAuthor
      */
     @FXML
-    private Button BtnTerrDlt;
+    private Label lblSelectedCont;
+
+    
+    /**
+     * @lblAuthor
+     */
+    @FXML
+    private Button btnTerrDlt;
 
     /**
      * @lblAuthor
@@ -228,7 +237,7 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
-    private Button BtnTerrUpdate;
+    private Button btnTerrUpdate;
 
     /**
      * @lblAuthor
@@ -371,6 +380,19 @@ public class MapRedactorController  implements Initializable{
 		} else {
 			//for loading existing map and editing
 		}			
+		
+		contList.setCellFactory(param -> new ListCell<Continent>() {
+		    @Override
+		    protected void updateItem(Continent item, boolean empty) {
+		        super.updateItem(item, empty);
+
+		        if (empty || item == null || item.getName() == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getName());
+		        }
+		    }
+		});
 	}
 		
 }

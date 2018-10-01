@@ -35,7 +35,8 @@ public class Continent {
 	 * 
 	 */
 	public Continent() {
-		// TODO Auto-generated constructor stub
+		this.territories = new ArrayList<>();
+		this.territoryMap = new HashMap<>();
 	}
 
 	/**

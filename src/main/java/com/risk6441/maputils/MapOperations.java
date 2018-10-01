@@ -3,6 +3,8 @@
  */
 package com.risk6441.maputils;
 
+import java.util.ArrayList;
+
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.models.Continent;
 import com.risk6441.models.Map;
@@ -39,7 +41,7 @@ public class MapOperations {
 	 * @param controlValue
 	 * @return
 	 */
-	public Continent updateContinent(Continent continent, String ctrlValue) {
+	public static Continent updateContinent(Continent continent, String ctrlValue) {
 		
 		continent.setValue(Integer.parseInt(ctrlValue));
 		return continent;
@@ -55,9 +57,34 @@ public class MapOperations {
 	 * @return
 	 * @throws InvalidMapException
 	 */
-	public Territory addTerritory(Map map, String name, String xCo, String yCo, Territory adjTerritory,
+	public static Territory addTerritory(Map map, String name, String xCo, String yCo, Territory adjTerr,
 			Continent continent) throws InvalidMapException {
 		Territory territory = new Territory();
+		
+		territory.setxCoordinate(Integer.parseInt(xCo));
+		territory.setyCoordinate(Integer.parseInt(yCo));
+		territory.setName(name);
+
+		ArrayList<Territory> list = new ArrayList<Territory>();
+		
+		if(adjTerr!=null) {
+			list.add(adjTerr);
+		}
+		territory.setAdjacentTerritories(list);
+		
+		System.out.println(map.getContinents());
+		//check if territory with same name exist or not
+		for(Continent allCont : map.getContinents()) {
+			if(allCont.getTerritories().contains(territory)) {
+				throw new InvalidMapException("Territory with same name "+name+" already exist in continent "
+						+ allCont.getName() +".");
+			}
+		}
+		
+		if(adjTerr!=null) {
+			adjTerr.getAdjacentTerritories().add(territory);
+		}
+		
 		
 		return territory;
 		
@@ -70,8 +97,21 @@ public class MapOperations {
 	 * @param adjTerr
 	 * @return
 	 */
-	public Territory updateTerritory(Territory territory, String xCo, String yCo, 
+	public static Territory updateTerritory(Territory territory, String xCo, String yCo, 
 			Territory adjTerr) {
+		territory.setxCoordinate(Integer.parseInt(xCo));
+		territory.setyCoordinate(Integer.parseInt(yCo));
+		
+		if(adjTerr!=null) {
+			if(!adjTerr.getAdjacentTerritories().contains(territory)) {
+				adjTerr.getAdjacentTerritories().add(territory);
+			}
+			
+			if(!territory.getAdjacentTerritories().contains(adjTerr)) {
+				territory.getAdjacentTerritories().add(adjTerr);
+			}
+			
+		}
 		
 		return territory;
 	}
@@ -81,8 +121,15 @@ public class MapOperations {
 	 * @param territory
 	 * @return
 	 */
-	public Continent assignTerrToContinent(Continent continent, Territory territory) {
+	public static Continent assignTerritoriesToContinent(Continent continent, Territory territory) {
 		
+		try {
+			continent.getTerritories().add(territory);
+		}catch(Exception e) {
+			ArrayList<Territory> list = new ArrayList<>();
+			list.add(territory);
+			continent.setTerritories(list);
+		}
 		
 		return continent;
 	}

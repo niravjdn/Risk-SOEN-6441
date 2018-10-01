@@ -12,6 +12,7 @@ import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 /**
  * This class is a controller for the MapEditor layout.
@@ -139,7 +141,7 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
-    private Button btnContAdd;
+    private Button btnAddCont;
 
     /**
      * @lblAuthor
@@ -193,7 +195,7 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
-    private ComboBox<Territory> ComboTerrAdj;
+    private ComboBox<Territory> comboAdjTerr;
 
     /**
      * @lblAuthor
@@ -305,7 +307,7 @@ public class MapRedactorController  implements Initializable{
 		try {
 			cnt = MapOperations.addContinent(map, txtContName.getText(), txtContControlVal.getText());
 		}catch(InvalidMapException e) {
-			CommonMapUtil.alertBox("Error", e.getMessage(), "Invalid Map");
+			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
 			return;
 		}
 		
@@ -324,6 +326,23 @@ public class MapRedactorController  implements Initializable{
     @FXML
     void addTerritiory(ActionEvent event) {
 
+    	Territory adjTerr = comboAdjTerr.getSelectionModel().getSelectedItem();
+    	Continent continent = contList.getSelectionModel().getSelectedItem();
+    	
+    	Territory territory = null;
+    	try {
+    		territory = MapOperations.addTerritory(map, txtTerrName.getText(), txtXCo.getText(), txtYCo.getText(),
+    				adjTerr, continent);
+    	}catch (InvalidMapException e) {
+    		CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+    		return;
+		}
+    	
+    	//add territories to continent
+    	continent = MapOperations.assignTerritoriesToContinent(continent, territory);
+    	comboAdjTerr.getItems().add(territory);
+    	terrList.getItems().add(territory);
+    	CommonMapUtil.clearTextBox(txtTerrName,txtXCo,txtYCo);
     }
 
     @FXML
@@ -344,7 +363,9 @@ public class MapRedactorController  implements Initializable{
 
     @FXML
     void updateContinent(ActionEvent event) {
-
+    	MapOperations.updateContinent(contList.getSelectionModel().getSelectedItem(), txtContControlVal.getText());
+    	CommonMapUtil.enableControls(btnAddCont,txtContName);
+    	CommonMapUtil.clearTextBox(txtContName,txtContControlVal);
     }
 
     @FXML
@@ -362,10 +383,7 @@ public class MapRedactorController  implements Initializable{
 
     }
     
-    public void showTerritoryInList(Continent continent) {
-    	//when user clicks on continent show its territory in the listview 
-    	//call this method from onmouse click of continent listview
-    }
+
     
     private void showAdjTerritoryInList(Territory territory) {
     	
@@ -393,7 +411,84 @@ public class MapRedactorController  implements Initializable{
 		        }
 		    }
 		});
+		
+		terrList.setCellFactory(param -> new ListCell<Territory>() {
+		    @Override
+		    protected void updateItem(Territory item, boolean empty) {
+		        super.updateItem(item, empty);
+
+		        if (empty || item == null || item.getName() == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getName());
+		        }
+		    }
+		});
+		
+		adjTerrList.setCellFactory(param -> new ListCell<Territory>() {
+		    @Override
+		    protected void updateItem(Territory item, boolean empty) {
+		        super.updateItem(item, empty);
+
+		        if (empty || item == null || item.getName() == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getName());
+		        }
+		    }
+		});
+		
+		comboAdjTerr.setCellFactory(param -> new ListCell<Territory>() {
+		    @Override
+		    protected void updateItem(Territory item, boolean empty) {
+		        super.updateItem(item, empty);
+
+		        if (empty || item == null || item.getName() == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getName());
+		        }
+		    }
+		});
+		
+		
+		contList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				onClickContList();
+			}
+		});
+		
 	}
+	
+	public void onClickContList() {
+		Continent cnt = contList.getSelectionModel().getSelectedItem();
+		txtContName.setText(cnt.getName());
+		txtContControlVal.setText(String.valueOf(cnt.getValue()));
+		lblSelectedCont.setText(cnt.getName());
+		
+		CommonMapUtil.disableControls(txtContName,btnAddCont);
+		CommonMapUtil.clearTextBox(txtTerrName, txtXCo, txtYCo);
+		CommonMapUtil.enableControls(txtTerrName,btnAddTerr);
+		
+		adjTerrList.getItems().clear();
+		//show territories in the territory list
+		ShowTerritoryOfContInListView(contList.getSelectionModel().getSelectedItem());
+	}
+	
+	public void ShowTerritoryOfContInListView(Continent continent) {
+		terrList.getItems().clear();
+		try {
+			for (Territory t : continent.getTerritories()) {
+				terrList.getItems().add(t);
+			}
+		}catch (Exception e) {
+			//CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+			//exception  will be thrown if continent doesn't have any territories
+		}
+	}
+	
 		
 }
 

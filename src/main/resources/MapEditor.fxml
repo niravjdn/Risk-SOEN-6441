@@ -36,7 +36,7 @@
             <TextField fx:id="txtYCo" layoutX="126.0" layoutY="89.0" prefHeight="25.0" prefWidth="55.0" />
             <Label fx:id="lblTerrname" layoutX="23.0" layoutY="56.0" text="Name " />
             <Label fx:id="lblAdjTerr" layoutX="69.0" layoutY="125.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
-            <ComboBox fx:id="ComboTerrAdj" layoutX="21.0" layoutY="150.0" prefHeight="27.0" prefWidth="158.0" />
+            <ComboBox fx:id="comboAdjTerr" layoutX="21.0" layoutY="150.0" prefHeight="27.0" prefWidth="158.0" />
             <Label fx:id="tctAuthorLabel1211" layoutX="110.0" layoutY="92.0" text="Y" />
             <Label fx:id="tctAuthorLabel121" layoutX="14.0" layoutY="92.0" text="X" />
             <Button fx:id="btnTerrDlt" layoutX="143.0" layoutY="216.0" mnemonicParsing="false" onAction="#deleteTerritiory" text="Delete" />
@@ -71,9 +71,9 @@
                   <TextField fx:id="txtContName" layoutX="26.0" layoutY="45.0" />
                   <Label fx:id="tctAuthorLabel1" layoutX="83.0" layoutY="22.0" text="Name " />
                   <TextField fx:id="txtContControlVal" layoutX="26.0" layoutY="106.0" />
-                  <Button fx:id="btnContAdd" layoutX="13.0" layoutY="152.0" mnemonicParsing="false" onAction="#addContinent" text="Add" />
-                  <Button fx:id="BtnContDelete" layoutX="142.0" layoutY="150.0" mnemonicParsing="false" onAction="#deleteContinent" text="Delete" />
-                  <Button fx:id="BtnContUpdate" layoutX="68.0" layoutY="151.0" mnemonicParsing="false" onAction="#updateContinent" text="Update" />
+                  <Button fx:id="btnAddCont" layoutX="13.0" layoutY="152.0" mnemonicParsing="false" onAction="#addContinent" text="Add" />
+                  <Button fx:id="btnContDelete" layoutX="142.0" layoutY="150.0" mnemonicParsing="false" onAction="#deleteContinent" text="Delete" />
+                  <Button fx:id="btnContUpdate" layoutX="68.0" layoutY="151.0" mnemonicParsing="false" onAction="#updateContinent" text="Update" />
                   <Label fx:id="tctAuthorLabel2" layoutX="64.0" layoutY="83.0" text="Control Value" />
                   <Label fx:id="labelContDetail" layoutX="54.0" layoutY="5.0" text="Continent Details" />
                </children>

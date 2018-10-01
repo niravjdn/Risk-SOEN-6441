@@ -122,7 +122,7 @@ public class MapReader {
 		
 		map.setMapData(mapAttributeMap);
 		
-		List<Continent> continentList = processContinents(scan);
+		List<Continent> continentList = parseContinents(scan);
 		HashMap<String, Continent> continentMap = new HashMap<String, Continent>();
 		for (Continent continent : continentList) {
 			continentMap.put(continent.getName(), continent);
@@ -140,7 +140,7 @@ public class MapReader {
 	 * @return continentList after processing
 	 * @throws InvalidMapException throws InvalidMapException if map is not valid
 	 */
-	private List<Continent> processContinents(Scanner scan) throws InvalidMapException{
+	private List<Continent> parseContinents(Scanner scan) throws InvalidMapException{
 		List<Continent> continentList = new ArrayList<Continent>();
 		StringTokenizer tokenForContinents = new StringTokenizer(scan.nextLine(), "|");
 		while (tokenForContinents.hasMoreTokens()) {
@@ -160,7 +160,7 @@ public class MapReader {
 		while (scan.hasNext()) {
 			String territoryData = scan.nextLine();
 			//call processTerritory for each line of territory
-			territorieList.addAll(processTerritories(territoryData, continentList));
+			territorieList.addAll(parseTerritories(territoryData, continentList));
 		}
 		
 		//here you can create continent map 
@@ -215,7 +215,7 @@ public class MapReader {
 	 * @return territorieList after processing
 	 * @throws InvalidMapException throws InvalidMapException if map is not valid
 	 */
-	private List<Territory> processTerritories(String territoryLine, List<Continent> continentList) throws InvalidMapException{
+	private List<Territory> parseTerritories(String territoryLine, List<Continent> continentList) throws InvalidMapException{
 		
 		List<Territory> territorieList = new ArrayList<Territory>();
 		StringTokenizer tokenForTerritory = new StringTokenizer(territoryLine, "|");

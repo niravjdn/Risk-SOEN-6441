@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -44,7 +45,8 @@
             <TextField fx:id="txtTerrName" layoutX="75.0" layoutY="53.0" prefHeight="27.0" prefWidth="134.0" />
             <Label layoutX="59.0" layoutY="4.0" text="Territory Details" />
             <Button fx:id="btnTerrUpdate" layoutX="69.0" layoutY="216.0" mnemonicParsing="false" onAction="#updateTerritiory" text="Update" />
-                  <Label fx:id="lblSelectedCont" layoutX="26.0" layoutY="28.0" prefHeight="17.0" prefWidth="172.0" text="Continent : " />
+                  <Label fx:id="lblSelectedCont" layoutX="100.0" layoutY="28.0" prefHeight="17.0" prefWidth="103.0" text="Continent" />
+                  <Label layoutX="24.0" layoutY="29.0" prefHeight="17.0" prefWidth="103.0" text="Continent : " />
          </children>
       </AnchorPane>
    </content>
@@ -55,11 +57,11 @@
       <Label fx:id="lblContList" layoutX="532.0" layoutY="6.0" text="Continents" />
       <Label fx:id="lblTerrList" layoutX="530.0" layoutY="226.0" text="Territories" />
       <Label fx:id="lblAdjTerr" layoutX="712.0" layoutY="223.0" text="Adjacent Territories" />
-      <Button fx:id="btnDltAdjTerr" layoutX="699.0" layoutY="189.0" mnemonicParsing="false" text="Delete Adjacent Territory" />
+      <Button fx:id="btnDltAdjTerr" layoutX="699.0" layoutY="189.0" mnemonicParsing="false" onAction="#deleteAdjTerritory" text="Delete Adjacent Territory" />
       <AnchorPane layoutX="20.0" layoutY="292.0" prefHeight="258.0" prefWidth="200.0">
          <children>
             <Label layoutX="72.0" layoutY="2.0" text="Message" />
-            <TextField fx:id="txtAreaMsg" layoutX="3.0" layoutY="29.0" prefHeight="221.0" prefWidth="191.0" />
+            <TextArea fx:id="txtAreaMsg" layoutY="19.0" prefHeight="230.0" prefWidth="200.0" />
          </children>
       </AnchorPane>
       <Button fx:id="btnSave" layoutX="510.0" layoutY="508.0" mnemonicParsing="false" onAction="#saveMap" text="Save" />

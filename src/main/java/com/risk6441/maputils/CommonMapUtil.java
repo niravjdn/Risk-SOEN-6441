@@ -9,10 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 
 /**
@@ -38,12 +38,15 @@ public class CommonMapUtil {
 	
 	
 	/**
-	 * @param textArea
-	 * @param message
+	 * This method writes the message int textarea.
+	 * @param ta
+	 * @param msg
 	 */
-	public static void outPutMessgae(TextArea textArea, String message) {
-		textArea.setText(message);
+	public static void putMessgae(TextArea ta, String msg) {
+		ta.setText(msg);
 	}
+	
+	
 			
 	
 	/**

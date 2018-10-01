@@ -2,7 +2,10 @@ package com.risk6441.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.maputils.CommonMapUtil;
@@ -20,8 +23,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * This class is a controller for the MapEditor layout.
@@ -31,7 +36,7 @@ import javafx.scene.input.MouseEvent;
 public class MapRedactorController  implements Initializable{
 
 	/**
-	 * The @map
+	 * The @map map object
 	 */
 	private Map map;
 
@@ -233,6 +238,13 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
+    private Button btnExit;
+    
+    
+    /**
+     * @lblAuthor
+     */
+    @FXML
     private TextField txtTerrName;
 
     /**
@@ -281,9 +293,14 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
-    private TextField txtAreaMsg;
+    private TextArea txtAreaMsg;
 
 	
+	/**
+	 * This is parameterized constructor used in case of editing existing map.
+	 * @param map
+	 * @param file
+	 */
 	public MapRedactorController(Map map, File file) {
 		this.map = map;
 		this.file = file;
@@ -347,20 +364,76 @@ public class MapRedactorController  implements Initializable{
 
     @FXML
     void deleteContinent(ActionEvent event) {
-
+    	Continent continent = contList.getSelectionModel().getSelectedItem();
+    	
+    	if(continent!=null && continent.getTerritories().size()>0) {
+    		CommonMapUtil.putMessgae(txtAreaMsg, "Delete its territories first "+continent.getTerritories());
+    	}else {
+    		map.getContinents().remove(continent);
+    		contList.getItems().remove(continent);
+    		CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Continent :"+continent);
+    		CommonMapUtil.enableControls(txtContName,btnAddCont);
+        	CommonMapUtil.clearTextBox(txtContName,txtContControlVal);
+    	}
     }
 
     @FXML
     void deleteTerritiory(ActionEvent event) {
-
+    	Continent continent = contList.getSelectionModel().getSelectedItem();
+		Territory territory = terrList.getSelectionModel().getSelectedItem();
+		
+		if(continent!=null && continent.getTerritories().size() == 1) {
+			CommonMapUtil.putMessgae(txtAreaMsg, "Continent has only one territory, hence it can't be removed.");
+			return;
+		}
+		//now iterate and make a hash set
+		Set<Territory> fromTerrToBeRemoved = new HashSet<>();
+		
+		if(territory!=null) {
+			for(Territory adjTerr : territory.getAdjacentTerritories()) {
+				if(adjTerr.getAdjacentTerritories().size()==1) {
+					CommonMapUtil.putMessgae(txtAreaMsg, adjTerr.getName()+" has only one neighbour "+territory
+							+ " , hence It can't be removed. OR add another territory as its neighbour and remove "+territory+".");
+					return;
+				}else {
+					fromTerrToBeRemoved.add(adjTerr);
+				}
+			}
+		}
+		
+		for(Territory t : fromTerrToBeRemoved) {
+			t.getAdjacentTerritories().remove(territory);
+		}
+		
+		terrList.getItems().remove(territory);
+		continent.getTerritories().remove(territory);
+		CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Territory :"+territory);
     }
 
     @FXML
     void exitBtnClick(ActionEvent event) {
-
+    	Stage stage = (Stage) btnExit.getScene().getWindow();
+		stage.close();
     }
 
 
+    @FXML
+    void deleteAdjTerritory(ActionEvent event) {
+    	Territory terr = terrList.getSelectionModel().getSelectedItem();
+    	Territory adjTerr = adjTerrList.getSelectionModel().getSelectedItem();
+    	
+    	if(terr!=null && adjTerr!=null) {
+    		if(terr.getAdjacentTerritories().size() <= 1) {
+    			CommonMapUtil.putMessgae(txtAreaMsg, "There should be at least one adjacent territory.");
+    		}else {
+    			terr.getAdjacentTerritories().remove(adjTerr);
+    			adjTerrList.getItems().remove(adjTerr);
+    			CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Adjacent Territory "+adjTerr.getName());
+    		}
+    	}
+    }
+
+    
     @FXML
     void updateContinent(ActionEvent event) {
     	MapOperations.updateContinent(contList.getSelectionModel().getSelectedItem(), txtContControlVal.getText());
@@ -370,7 +443,18 @@ public class MapRedactorController  implements Initializable{
 
     @FXML
     void updateTerritiory(ActionEvent event) {
-
+    	Territory territory = terrList.getSelectionModel().getSelectedItem();
+    	Territory adjTerr = comboAdjTerr.getSelectionModel().getSelectedItem();
+    	
+    	if(territory.equals(adjTerr)) {
+    		CommonMapUtil.putMessgae(txtAreaMsg, "Territory can'be its own neighbour.");
+    		return;
+    	}
+    	
+    	territory = MapOperations.updateTerritory(territory, txtXCo.getText(), txtYCo.getText(), adjTerr);
+    	CommonMapUtil.enableControls(btnAddTerr,txtTerrName);
+    	CommonMapUtil.clearTextBox(txtTerrName,txtXCo,txtYCo);
+    	showAdjTerritoryOfTerrInList(territory);
     }
     
 
@@ -383,12 +467,6 @@ public class MapRedactorController  implements Initializable{
 
     }
     
-
-    
-    private void showAdjTerritoryInList(Territory territory) {
-    	
-    }
-
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
@@ -460,6 +538,14 @@ public class MapRedactorController  implements Initializable{
 			}
 		});
 		
+		terrList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				onClickTerrList();
+			}
+		});
+		
 	}
 	
 	public void onClickContList() {
@@ -474,10 +560,10 @@ public class MapRedactorController  implements Initializable{
 		
 		adjTerrList.getItems().clear();
 		//show territories in the territory list
-		ShowTerritoryOfContInListView(contList.getSelectionModel().getSelectedItem());
+		showTerritoryOfContInList(contList.getSelectionModel().getSelectedItem());
 	}
 	
-	public void ShowTerritoryOfContInListView(Continent continent) {
+	public void showTerritoryOfContInList(Continent continent) {
 		terrList.getItems().clear();
 		try {
 			for (Territory t : continent.getTerritories()) {
@@ -489,6 +575,30 @@ public class MapRedactorController  implements Initializable{
 		}
 	}
 	
+	public void onClickTerrList() {
+		Territory terr = terrList.getSelectionModel().getSelectedItem();
+		txtTerrName.setText(terr.getName());
+		txtXCo.setText(String.valueOf(terr.getxCoordinate()));
+		txtYCo.setText(String.valueOf(terr.getyCoordinate()));
 		
+		CommonMapUtil.disableControls(txtTerrName,btnAddTerr);
+		CommonMapUtil.clearTextBox(txtContName, txtContControlVal);
+		CommonMapUtil.enableControls(txtContName,btnAddCont);
+		
+		//show territories in the territory list
+		showAdjTerritoryOfTerrInList(terrList.getSelectionModel().getSelectedItem());
+	}
+	
+	public void showAdjTerritoryOfTerrInList(Territory terr) {
+		adjTerrList.getItems().clear();
+		try {
+			for (Territory t : terr.getAdjacentTerritories()) {
+				adjTerrList.getItems().add(t);
+			}
+		}catch (Exception e) {
+			//CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+			//exception  will be thrown if continent doesn't have any territories
+		}
+	}
 }
 

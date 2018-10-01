@@ -147,7 +147,7 @@ public class Territory {
 	@Override
 	public boolean equals(Object obj) {
 
-		if (!(obj instanceof Continent)) {
+		if (!(obj instanceof Territory)) {
 			return false;
 		}
 		
@@ -155,8 +155,8 @@ public class Territory {
 			return true;
 		}
 
-		Continent continent = (Continent) obj;
-		return continent.getName().equalsIgnoreCase(name);
+		Territory t = (Territory) obj;
+		return t.getName().equalsIgnoreCase(name);
 	}
 	
 }

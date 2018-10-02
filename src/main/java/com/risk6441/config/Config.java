@@ -7,7 +7,7 @@ package com.risk6441.config;
 public class Config {
 
 	/**
-	 * The @ARMIES_TWO_PLAYER.
+	 * The @ARMIES_TWO_PLAYER...
 	 */
 	public static final Integer ARMIES_TWO_PLAYER =35;
 	

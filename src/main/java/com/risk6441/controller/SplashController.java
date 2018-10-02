@@ -64,7 +64,6 @@ public class SplashController {
     @FXML
     void btnPlayGame(ActionEvent event) throws InvalidMapException {
     	File file= CommonMapUtil.showFileDialog();
-    	MapReader.fileReader(file);
     }
 
 }

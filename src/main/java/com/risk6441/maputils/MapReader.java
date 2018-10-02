@@ -20,6 +20,12 @@ import com.risk6441.models.Territory;
  */
 public class MapReader {
 
+	public static void main(String[] args) throws InvalidMapException {
+		MapReader mr = new MapReader();
+		mr.map = new Map();
+		File file = new File("/Users/Nirav/Desktop/World.map");
+		System.out.println(mr.readMapFile(file));
+	}
 	
 	public static void fileReader (File mapFile) throws InvalidMapException {
 		File file = mapFile;
@@ -35,6 +41,9 @@ public class MapReader {
 	//make a map to make sure that territory belongs to only one continent
 	private HashMap<String, Integer> territoryBelongContinentCount = new HashMap<String, Integer>();
 	
+	public MapReader() {
+		this.map = new Map();
+	}
 	
 	/**
 	 * return the map object after processing the map file

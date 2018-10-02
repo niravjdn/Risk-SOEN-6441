@@ -118,6 +118,7 @@ public class MapOperations {
 	
 	/**
 	 * @param continent
+	 * 		   continent object whihch will be assigned territories
 	 * @param territory
 	 * @return
 	 */

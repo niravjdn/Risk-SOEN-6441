@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 
 /**
  * This class is a controller for the MapEditor layout.
- * @author Nirav
+ * @author Karthik
  *
  */
 public class MapRedactorController  implements Initializable{
@@ -121,8 +121,7 @@ public class MapRedactorController  implements Initializable{
     /**
      * @lblAuthor
      */
-    @FXML
-    private TextField txtName;
+    
 
     /**
      * @lblAuthor
@@ -426,7 +425,10 @@ public class MapRedactorController  implements Initializable{
     		if(terr.getAdjacentTerritories().size() <= 1) {
     			CommonMapUtil.putMessgae(txtAreaMsg, "There should be at least one adjacent territory.");
     		}else {
+    			//remove reference from both...adjacency relationship is mutual 
     			terr.getAdjacentTerritories().remove(adjTerr);
+    			adjTerr.getAdjacentTerritories().remove(terr); 
+    			
     			adjTerrList.getItems().remove(adjTerr);
     			CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Adjacent Territory "+adjTerr.getName());
     		}
@@ -471,10 +473,12 @@ public class MapRedactorController  implements Initializable{
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
+		System.out.println("Intializer Called");
 		if (this.map == null) {
 			map = new Map();
 		} else {
 			//for loading existing map and editing
+			parseMapData();
 		}			
 		
 		contList.setCellFactory(param -> new ListCell<Continent>() {
@@ -546,6 +550,24 @@ public class MapRedactorController  implements Initializable{
 			}
 		});
 		
+	}
+	
+	public void parseMapData() {
+	
+		System.out.println("parseMapData Called");
+		txtAuthor.setText(map.getMapData().get("author"));
+		txtImage.setText(map.getMapData().get("iamge"));
+		txtScroll.setText(map.getMapData().get("scroll"));
+		txtWarn.setText(map.getMapData().get("warn"));
+		txtWrap.setText(map.getMapData().get("wrap"));
+		
+		for(Continent continent : map.getContinents()) {
+			contList.getItems().add(continent);
+			for(Territory territory : continent.getTerritories()) {
+				comboAdjTerr.getItems().add(territory);
+			}
+		}
+			
 	}
 	
 	public void onClickContList() {

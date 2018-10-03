@@ -23,7 +23,7 @@ public class MapWriter {
 	
 	
 	/**
-	 * This method is writes the map details to the map file.
+	 * This method writes the map details to the map file.
 	 * @param map object of the map which is being processed
 	 * @param file file path
 	 */

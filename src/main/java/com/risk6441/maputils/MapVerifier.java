@@ -23,6 +23,11 @@ public class MapVerifier {
 	
 	static String message = "";
 
+	/**
+	 * This method validates the map.
+	 * @param map
+	 * @throws InvalidMapException
+	 */
 	public static void verifyMap(Map map) throws InvalidMapException{
 		if(map == null) {
 			throw new InvalidMapException("Map is not valid. It's null");
@@ -43,6 +48,11 @@ public class MapVerifier {
 		}
 	}
 	
+	/**
+	 * This metohd verifies the continents.
+	 * @param map
+	 * @throws InvalidMapException
+	 */
 	public static void verifyContinents(Map map) throws InvalidMapException {
 		
 		for(Continent continent : map.getContinents()) {
@@ -63,8 +73,14 @@ public class MapVerifier {
 		
 	}
 
+	/**
+	 * This method checks that the continents are connected or not.
+	 * @param continent
+	 * @param map
+	 * @return
+	 */
 	public static boolean isContinentConnectedGraph(Continent continent,Map map) {
-		dfsTerritory(continent.getTerritories().get(0), map);
+		bfsTerritory(continent.getTerritories().get(0), map);
 		
 		for(Territory t : continent.getTerritories()) {
 			if(t.isProcessed() == false) {
@@ -79,7 +95,12 @@ public class MapVerifier {
 
 	}
 	
-	public static void dfsTerritory(Territory territory, Map map) {
+	/**
+	 * This method traverse the territories in BFS Manner.
+	 * @param territory
+	 * @param map
+	 */
+	public static void bfsTerritory(Territory territory, Map map) {
 
 		if(territory.isProcessed() == true) {
 			return;
@@ -89,12 +110,18 @@ public class MapVerifier {
 
 		for(Territory t : territory.getAdjacentTerritories()){
 			if((t.getBelongToContinent() == territory.getBelongToContinent()) && t.isProcessed() == false)
-				dfsTerritory(t, map);
+				bfsTerritory(t, map);
 		}
 				
 	}
 	
 
+	/**
+	 * This method checks that the territory is connected or not.
+	 * @param territory
+	 * @param map
+	 * @throws InvalidMapException
+	 */
 	private static void verifyTerritory(Territory territory, Map map) throws InvalidMapException {
 		List<Territory> adjTerrList = territory.getAdjacentTerritories();
 		
@@ -109,8 +136,14 @@ public class MapVerifier {
 		}
 	}
 
+	
+	/**
+	 * This method checks that Continents form a connected graph(A Map).
+	 * @param map
+	 * @return
+	 */
 	public static boolean isMapConnectedGraph(Map map) {
-		dfsContinent(map.getContinents().get(0), map);
+		bfsContinent(map.getContinents().get(0), map);
 		
 		for(Continent continent : map.getContinents()) {
 			if(continent.isVisited() == false) {
@@ -122,7 +155,12 @@ public class MapVerifier {
 
 	}
 	
-	public static void dfsContinent(Continent continent, Map map) {
+	/**
+	 * This method traverse the continents in BFS Manner.
+	 * @param continent
+	 * @param map
+	 */
+	public static void bfsContinent(Continent continent, Map map) {
 
 		if(continent.isVisited() == true) {
 			return;
@@ -134,11 +172,18 @@ public class MapVerifier {
 		for(Continent c : getAdjacentContinents(continent, map)){
 			System.out.println("inside adjCont loop");
 			if(c.isVisited() == false)
-				dfsContinent(c, map);
+				bfsContinent(c, map);
 		}
 				
 	}
 	
+	/**
+	 * This method returns the adjacent continent as a list of particular continent.
+	 * @param continent
+	 * @param map
+	 * @return
+	 * 		the adjacent continent as a list of particular continent.
+	 */
 	public static List<Continent> getAdjacentContinents(Continent continent, Map map){
 		List<Continent> adjacentContinents = new ArrayList<>();
 		
@@ -163,6 +208,11 @@ public class MapVerifier {
 		return adjacentContinents;
 	}
 	
+	/**
+	 * This method checks whether territory belongs to only one continent or not.
+	 * @param map
+	 * @throws InvalidMapException
+	 */
 	public static void checkTerritoryBelongToOnlyOneContinent(Map map) throws InvalidMapException {
 		HashMap<Territory, Integer> territoryBelongToContinentCount = new HashMap<>();
 

@@ -84,6 +84,12 @@ public class CommonMapUtil {
 	}
 	
 	
+	/**
+	 * This method shows the alertbox.
+	 * @param title title of the messge
+	 * @param message message content
+	 * @param header header of the stage
+	 */
 	public static void alertBox(String title, String message,  String header) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(title);
@@ -92,6 +98,11 @@ public class CommonMapUtil {
 		alert.showAndWait();
 	}
 	
+	/**
+	 * This method shows the alert box.
+	 * @param frame
+	 * @param msg
+	 */
 	public static void showAlertBox(JFrame frame, String msg) {
 		JOptionPane.showMessageDialog(frame, msg);
 	}

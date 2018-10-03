@@ -102,10 +102,10 @@ public class MapReader {
 	
 	
 	/**
-	 * This method process map attributes and call method for processing continents
+	 * This method process map attributes and call method for processing continents.
 	 * @param scan of type {@link Scanner}
 	 * @return Map of type {@link Map}
-	 * @throws InvalidMapException throws InvalidMapException if map is not valid
+	 * @throws InvalidMapException throws InvalidMapException if map is not valid.
 	 */
 	private Map processMapAttribute(Scanner scan) throws InvalidMapException{
 		
@@ -138,7 +138,7 @@ public class MapReader {
 	
 	/**
 	 * This method processes the continents and call method to process territories
-	 * and also  map territories and continents
+	 * and also  map territories and continents.
 	 * @param scan scanner object which points to line of the file which is to be processed
 	 * @return continentList after processing
 	 * @throws InvalidMapException throws InvalidMapException if map is not valid

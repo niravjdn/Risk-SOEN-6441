@@ -17,6 +17,7 @@ public class Continent {
 	private HashMap<String, Territory> territoryMap;
 	private List<Territory> territories;
 	
+	private boolean isVisited = false;
 	
 	
 	/**
@@ -93,6 +94,22 @@ public class Continent {
 	 */
 	public void setTerritories(List<Territory> territories) {
 		this.territories = territories;
+	}
+
+	
+	
+	/**
+	 * @return the isVisited
+	 */
+	public boolean isVisited() {
+		return isVisited;
+	}
+
+	/**
+	 * @param isVisited the isVisited to set
+	 */
+	public void setVisited(boolean isVisited) {
+		this.isVisited = isVisited;
 	}
 
 	/* (non-Javadoc)

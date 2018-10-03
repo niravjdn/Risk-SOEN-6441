@@ -27,13 +27,6 @@ public class MapReader {
 		System.out.println(mr.readMapFile(file));
 	}
 	
-	public static void fileReader (File mapFile) throws InvalidMapException {
-		File file = mapFile;
-		MapReader m = new MapReader();
-		m.map = new Map();
-		m.readMapFile(file);
-		System.out.println(m.map.toString());	
-	}
 	
 	//make a object of Map class to return it once map is processed successfully.
 	private Map map;
@@ -56,7 +49,7 @@ public class MapReader {
 	public Map readMapFile(final File file) throws InvalidMapException{
 		
 		this.map = processMapFile(file);
-		//call map validator
+		MapVerifier.verifyMap(map);
 		return map;
 	}
 
@@ -191,7 +184,7 @@ public class MapReader {
 					territory.getAdjacentTerritories().add(territoryMap.get(adjacentTerritory));
 				}else {
 					//if particular territory has adjacent territory defined, but actually it doesn't exist
-					throw new InvalidMapException("Territory: " + adjacentTerritory + " not mapped with any continent.");
+					throw new InvalidMapException("Territory: " + adjacentTerritory + " not assigned to any continent.");
 				}
 			}
 			

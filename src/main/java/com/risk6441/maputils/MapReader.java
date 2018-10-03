@@ -114,6 +114,7 @@ public class MapReader {
 		StringTokenizer tokensForMapAttribute = new StringTokenizer(scan.nextLine(), "|");
 		while (tokensForMapAttribute.hasMoreTokens()) {
 			String str = tokensForMapAttribute.nextToken();
+			System.out.println(str);
 			if (str.equalsIgnoreCase("[Map]")) {
 				continue;
 			} else {

@@ -6,6 +6,7 @@ package com.risk6441.maputils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import com.risk6441.exception.InvalidMapException;
@@ -19,6 +20,8 @@ import com.risk6441.models.Territory;
  *
  */
 public class MapVerifier {
+	
+	static String message = "";
 
 	public static void verifyMap(Map map) throws InvalidMapException{
 		if(map == null) {
@@ -32,7 +35,7 @@ public class MapVerifier {
 				
 				//check if map is a subgraph of continents
 				if(!isMapConnectedGraph(map)) {
-					throw new InvalidMapException("A Continent should be a subgraph in the map. A Map should be connected graph using continents.");
+					throw new InvalidMapException("A Continent should be a subgraph in the map. A Map should be connected graph formed by continents.");
 				}
 				
 				checkTerritoryBelongToOnlyOneContinent(map);
@@ -54,7 +57,7 @@ public class MapVerifier {
 			
 			//check if continent is connected graph formed by territories
 			if(!isContinentConnectedGraph(continent, map)) {
-				throw new InvalidMapException("A Continent should be a connected graph formed by territories in the map.");
+				throw new InvalidMapException(message+"The Continent "+continent+" is not connected by its territories. A Continent should be a connected graph formed by territories in the map.");
 			}
 		}
 		
@@ -66,6 +69,7 @@ public class MapVerifier {
 		for(Territory t : continent.getTerritories()) {
 			if(t.isProcessed() == false) {
 				t.setProcessed(false);
+				message = t.getName()+" is not forming connected graph inside continent "+continent.getName()+".";
 				return false;
 			}
 			t.setProcessed(false);
@@ -110,6 +114,7 @@ public class MapVerifier {
 		
 		for(Continent continent : map.getContinents()) {
 			if(continent.isVisited() == false) {
+				System.out.println(continent.getName()+"xxxxxxxxxxxxxx");
 				return false;
 			}
 		}
@@ -125,7 +130,9 @@ public class MapVerifier {
 
 		continent.setVisited(true);
 
+		System.out.println("cont in dfs 1"+continent.getName());
 		for(Continent c : getAdjacentContinents(continent, map)){
+			System.out.println("inside adjCont loop");
 			if(c.isVisited() == false)
 				dfsContinent(c, map);
 		}
@@ -135,11 +142,19 @@ public class MapVerifier {
 	public static List<Continent> getAdjacentContinents(Continent continent, Map map){
 		List<Continent> adjacentContinents = new ArrayList<>();
 		
+		HashSet<Territory> adjTerrMasterSet = new HashSet<>();
+		for(Territory territory : continent.getTerritories()) {
+			adjTerrMasterSet.addAll(territory.getAdjacentTerritories());
+		}
+		
+		System.out.println(adjTerrMasterSet);
+		
 		for(Continent otherCont : map.getContinents()) {
 			if(!continent.equals(otherCont)) {
 				//procees if there is any relation between two continents
 				//returns true if both are tottaly different
-				if(!Collections.disjoint(continent.getTerritories(), otherCont.getTerritories())) {
+				if(!Collections.disjoint(adjTerrMasterSet, otherCont.getTerritories())) {
+					System.out.println("Inside disjoint");
 					//some territories are common
 					adjacentContinents.add(otherCont);
 				}

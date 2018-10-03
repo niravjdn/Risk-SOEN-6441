@@ -556,7 +556,7 @@ public class MapRedactorController  implements Initializable{
 	
 		System.out.println("parseMapData Called");
 		txtAuthor.setText(map.getMapData().get("author"));
-		txtImage.setText(map.getMapData().get("iamge"));
+		txtImage.setText(map.getMapData().get("image"));
 		txtScroll.setText(map.getMapData().get("scroll"));
 		txtWarn.setText(map.getMapData().get("warn"));
 		txtWrap.setText(map.getMapData().get("wrap"));

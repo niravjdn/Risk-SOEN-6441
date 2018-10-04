@@ -10,6 +10,7 @@ import java.util.Set;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapOperations;
+import com.risk6441.maputils.MapWriter;
 import com.risk6441.models.Continent;
 import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
@@ -355,7 +356,7 @@ public class MapRedactorController  implements Initializable{
 		}
     	
     	//add territories to continent
-    	continent = MapOperations.assignTerritoriesToContinent(continent, territory);
+    	continent = MapOperations.mapTerritoriryToContinent(continent, territory);
     	comboAdjTerr.getItems().add(territory);
     	terrList.getItems().add(territory);
     	CommonMapUtil.clearTextBox(txtTerrName,txtXCo,txtYCo);
@@ -466,7 +467,18 @@ public class MapRedactorController  implements Initializable{
      */
     @FXML
     void saveMap(ActionEvent event) {
-
+    	map.getMapData().put("image",txtImage.getText());
+    	map.getMapData().put("author",txtAuthor.getText());
+    	map.getMapData().put("scroll",txtScroll.getText());
+    	map.getMapData().put("wrap",txtWrap.getText());
+    	map.getMapData().put("wran",txtWarn.getText());
+    	
+    	MapWriter write = new MapWriter();
+    	
+    	if(file==null) {
+    		file = CommonMapUtil.showFileSaveDialog();
+    	}
+    	write.writeMapFile(map, file);
     }
     
 	/* (non-Javadoc)
@@ -476,6 +488,13 @@ public class MapRedactorController  implements Initializable{
 		System.out.println("Intializer Called");
 		if (this.map == null) {
 			map = new Map();
+			
+			txtAuthor.setText("author");
+			txtImage.setText("image");
+			txtScroll.setText("scroll");
+			txtWarn.setText("warn");
+			txtWrap.setText("wrap");
+			
 		} else {
 			//for loading existing map and editing
 			parseMapData();

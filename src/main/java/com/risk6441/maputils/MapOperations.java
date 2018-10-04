@@ -37,17 +37,6 @@ public class MapOperations {
 	}
 	
 	/**
-	 * @param continent
-	 * @param controlValue
-	 * @return
-	 */
-	public static Continent updateContinent(Continent continent, String ctrlValue) {
-		
-		continent.setValue(Integer.parseInt(ctrlValue));
-		return continent;
-	}
-	
-	/**
 	 * @param map
 	 * @param name
 	 * @param xCo
@@ -63,8 +52,9 @@ public class MapOperations {
 		
 		territory.setxCoordinate(Integer.parseInt(xCo));
 		territory.setyCoordinate(Integer.parseInt(yCo));
+		territory.setBelongToContinent(continent);
 		territory.setName(name);
-
+		
 		ArrayList<Territory> list = new ArrayList<Territory>();
 		
 		if(adjTerr!=null) {
@@ -88,6 +78,17 @@ public class MapOperations {
 		
 		return territory;
 		
+	}
+	
+	/**
+	 * @param continent
+	 * @param controlValue
+	 * @return
+	 */
+	public static Continent updateContinent(Continent continent, String ctrlValue) {
+		
+		continent.setValue(Integer.parseInt(ctrlValue));
+		return continent;
 	}
 	
 	/**
@@ -122,7 +123,7 @@ public class MapOperations {
 	 * @param territory
 	 * @return
 	 */
-	public static Continent assignTerritoriesToContinent(Continent continent, Territory territory) {
+	public static Continent mapTerritoriryToContinent(Continent continent, Territory territory) {
 		
 		try {
 			continent.getTerritories().add(territory);

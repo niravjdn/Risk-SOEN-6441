@@ -501,7 +501,6 @@ public class MapRedactorController  implements Initializable{
 		
 		CommonMapUtil.disableControls(btnAddTerr,btnTerrUpdate,btnTerrDlt,txtTerrName,txtXCo,txtYCo,comboAdjTerr);
 		comboAdjTerr.getItems().add(null);
-		
 		CommonMapUtil.disableControls(btnDltAdjTerr);
 		
 		if (this.map == null) {

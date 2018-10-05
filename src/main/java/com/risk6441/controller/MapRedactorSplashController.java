@@ -53,8 +53,8 @@ public class MapRedactorSplashController {
 		Stage stage = new Stage();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
-    	stage.setX(primaryStage.getX() - 400);
-    	stage.setY(primaryStage.getY() - 400);
+    	stage.setX(primaryStage.getX() - 200);
+    	stage.setY(primaryStage.getY() - 200);
 		stage.show();
     }
 

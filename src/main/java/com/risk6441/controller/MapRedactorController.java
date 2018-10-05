@@ -502,6 +502,8 @@ public class MapRedactorController  implements Initializable{
 		CommonMapUtil.disableControls(btnAddTerr,btnTerrUpdate,btnTerrDlt,txtTerrName,txtXCo,txtYCo,comboAdjTerr);
 		comboAdjTerr.getItems().add(null);
 		
+		CommonMapUtil.disableControls(btnDltAdjTerr);
+		
 		if (this.map == null) {
 			map = new Map();
 			
@@ -585,6 +587,13 @@ public class MapRedactorController  implements Initializable{
 			}
 		});
 		
+		adjTerrList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			
+			public void handle(MouseEvent event) {
+				CommonMapUtil.enableControls(btnDltAdjTerr);
+			}; 
+		});
+		
 	}
 	
 	public void parseMapData() {
@@ -611,7 +620,7 @@ public class MapRedactorController  implements Initializable{
 		txtContControlVal.setText(String.valueOf(cnt.getValue()));
 		lblSelectedCont.setText(cnt.getName());
 		
-		CommonMapUtil.disableControls(txtContName,btnAddCont);
+		CommonMapUtil.disableControls(txtContName,btnAddCont,btnDltAdjTerr);
 		CommonMapUtil.clearTextBox(txtTerrName, txtXCo, txtYCo);
 		CommonMapUtil.enableControls(txtTerrName,btnAddTerr,txtXCo, txtYCo, comboAdjTerr);
 		
@@ -638,7 +647,7 @@ public class MapRedactorController  implements Initializable{
 		txtXCo.setText(String.valueOf(terr.getxCoordinate()));
 		txtYCo.setText(String.valueOf(terr.getyCoordinate()));
 		
-		CommonMapUtil.disableControls(txtTerrName,btnAddTerr);
+		CommonMapUtil.disableControls(txtTerrName,btnAddTerr,btnDltAdjTerr);
 		CommonMapUtil.clearTextBox(txtContName, txtContControlVal);
 		CommonMapUtil.enableControls(txtContName,btnAddCont, btnTerrUpdate, btnTerrDlt);
 		

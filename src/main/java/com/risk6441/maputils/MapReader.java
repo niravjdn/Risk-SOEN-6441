@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
+
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.models.Continent;
 import com.risk6441.models.Map;
@@ -68,24 +71,31 @@ public class MapReader {
 			mapFileReader = new Scanner(new FileInputStream(file));
 			StringBuilder mapString = new StringBuilder();
 			int count=0;
+			String prevLine = "";
 			//procees and read map file in three steps
 			while(mapFileReader.hasNext()) {
 				String line = mapFileReader.nextLine();
 				if(!line.isEmpty()) {
 					mapString.append(line + "|");
+					prevLine = line;
 					count=0;
 				}
 				else if(line.isEmpty())
 				{
+//					if(prevLine.equals("[Continents]") || prevLine.equals("[Territories]")) {
+//						continue;
+//					}
+					
 					count++;
 					if(count==1)
-					mapString.append("\n");
+						mapString.append("\n");
 					else
 						count=0;
 				}
 			}
 
 			//set map attributes 
+			System.out.println(mapString);
 			mapFileReader = new Scanner(mapString.toString());
 			map = processMapAttribute(mapFileReader);
 			//set continents info
@@ -154,7 +164,8 @@ public class MapReader {
 			} else {
 				Continent continent = new Continent();
 				String[] data = line.split("=");
-				continent.setName(data[0]);
+				continent.setName(WordUtils.capitalizeFully(data[0]));
+				System.out.println(data[0]);
 				continent.setValue(Integer.parseInt(data[1]));
 				continentList.add(continent);
 			}
@@ -233,6 +244,7 @@ public class MapReader {
 				Territory territory = new Territory();
 				List<String> adjacentTerritories = new ArrayList<String>();
 				String[] dataOfTerritory = element.split(",");
+				dataOfTerritory[0] = WordUtils.capitalizeFully(dataOfTerritory[0]);
 				
 				territory.setName(dataOfTerritory[0]);
 				territory.setxCoordinate(Integer.parseInt(dataOfTerritory[1]));
@@ -245,7 +257,7 @@ public class MapReader {
 						if (territoryBelongContinentCount.get(dataOfTerritory[0]) == null) {
 							territoryBelongContinentCount.put(dataOfTerritory[0], 1);
 						} else {
-							throw new InvalidMapException("A Territory can be assigned to only one Continent.");
+							throw new InvalidMapException("A Territory "+ territory.getName() +" can be assigned to only one Continent.");
 						}
 					}
 				}
@@ -254,7 +266,7 @@ public class MapReader {
 				}
 				
 				for (int i = 4; i < dataOfTerritory.length; i++) {
-					adjacentTerritories.add(dataOfTerritory[i]);
+					adjacentTerritories.add(WordUtils.capitalizeFully(dataOfTerritory[i]));
 				}
 				territory.setAdjTerritories(adjacentTerritories);
 				territorieList.add(territory);

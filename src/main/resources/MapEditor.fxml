@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" > 
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"> 
 <!-- fx:controller="com.risk6441.controller.MapRedactorController" -->
    <children>
       <AnchorPane layoutX="13.0" layoutY="16.0" prefHeight="277.0" prefWidth="213.0">
@@ -50,12 +50,12 @@
       </AnchorPane>
    </content>
 </TitledPane>
-      <ListView fx:id="contList" layoutX="473.0" layoutY="27.0" prefHeight="196.0" prefWidth="200.0" />
-      <ListView fx:id="terrList" layoutX="473.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
-      <ListView fx:id="adjTerrList" layoutX="681.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
-      <Label fx:id="lblContList" layoutX="532.0" layoutY="6.0" text="Continents" />
-      <Label fx:id="lblTerrList" layoutX="530.0" layoutY="226.0" text="Territories" />
-      <Label fx:id="lblAdjTerr" layoutX="712.0" layoutY="223.0" text="Adjacent Territories" />
+      <ListView fx:id="contList" layoutX="491.0" layoutY="27.0" prefHeight="196.0" prefWidth="200.0" />
+      <ListView fx:id="terrList" layoutX="492.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
+      <ListView fx:id="adjTerrList" layoutX="694.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
+      <Label fx:id="lblContList" layoutX="551.0" layoutY="6.0" text="Continents" />
+      <Label fx:id="lblTerrList" layoutX="551.0" layoutY="226.0" text="Territories" />
+      <Label fx:id="lblAdjTerr" layoutX="724.0" layoutY="223.0" text="Adjacent Territories" />
       <Button fx:id="btnDltAdjTerr" layoutX="699.0" layoutY="189.0" mnemonicParsing="false" onAction="#deleteAdjTerritory" text="Delete Adjacent Territory" />
       <AnchorPane layoutX="20.0" layoutY="292.0" prefHeight="258.0" prefWidth="200.0">
          <children>

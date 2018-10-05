@@ -17,6 +17,7 @@ import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -153,13 +154,13 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
-    private Button btnContDelete;
+    private Button btnDelCont;
 
     /**
      * @lblAuthor
      */
     @FXML
-    private Button btnContUpdate;
+    private Button btnUpdateCont;
 
     /**
      * @lblAuthor
@@ -227,7 +228,7 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
-    private Button btnTerrDlt;
+    private Button btnDelTerr;
 
     /**
      * @lblAuthor
@@ -252,7 +253,7 @@ public class MapRedactorController  implements Initializable{
      * @lblAuthor
      */
     @FXML
-    private Button btnTerrUpdate;
+    private Button btnUpdateTerr;
 
     /**
      * @lblAuthor
@@ -408,6 +409,7 @@ public class MapRedactorController  implements Initializable{
 		
 		terrList.getItems().remove(territory);
 		continent.getTerritories().remove(territory);
+		CommonMapUtil.disableControls(btnDelTerr,btnUpdateTerr);
 		CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Territory :"+territory);
     }
 
@@ -499,7 +501,7 @@ public class MapRedactorController  implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Intializer Called");
 		
-		CommonMapUtil.disableControls(btnAddTerr,btnTerrUpdate,btnTerrDlt,txtTerrName,txtXCo,txtYCo,comboAdjTerr);
+		CommonMapUtil.disableControls(btnAddTerr,btnUpdateTerr,btnDelTerr,txtTerrName,txtXCo,txtYCo,comboAdjTerr);
 		comboAdjTerr.getItems().add(null);
 		CommonMapUtil.disableControls(btnDltAdjTerr);
 		
@@ -578,6 +580,7 @@ public class MapRedactorController  implements Initializable{
 			}
 		});
 		
+		
 		terrList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -619,7 +622,7 @@ public class MapRedactorController  implements Initializable{
 		txtContControlVal.setText(String.valueOf(cnt.getValue()));
 		lblSelectedCont.setText(cnt.getName());
 		
-		CommonMapUtil.disableControls(txtContName,btnAddCont,btnDltAdjTerr);
+		CommonMapUtil.disableControls(txtContName,btnAddCont,btnDltAdjTerr, txtTerrName, txtXCo, txtYCo, comboAdjTerr,btnAddTerr, btnUpdateTerr, btnDelTerr);
 		CommonMapUtil.clearTextBox(txtTerrName, txtXCo, txtYCo);
 		CommonMapUtil.enableControls(txtTerrName,btnAddTerr,txtXCo, txtYCo, comboAdjTerr);
 		
@@ -648,7 +651,7 @@ public class MapRedactorController  implements Initializable{
 		
 		CommonMapUtil.disableControls(txtTerrName,btnAddTerr,btnDltAdjTerr);
 		CommonMapUtil.clearTextBox(txtContName, txtContControlVal);
-		CommonMapUtil.enableControls(txtContName,btnAddCont, btnTerrUpdate, btnTerrDlt);
+		CommonMapUtil.enableControls(txtContName,btnAddCont, btnUpdateTerr, btnDelTerr);
 		
 		//show territories in the territory list
 		showAdjTerritoryOfTerrInList(terrList.getSelectionModel().getSelectedItem());

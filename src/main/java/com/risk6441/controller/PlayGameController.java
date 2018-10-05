@@ -4,9 +4,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.risk6441.maputils.CommonMapUtil;
+import com.risk6441.models.Continent;
+import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,6 +25,8 @@ import javafx.scene.layout.VBox;
  */
 public class PlayGameController implements Initializable{
 
+	private Map map;
+	
     /**
      * The @btnReinforcement
      */
@@ -41,10 +46,10 @@ public class PlayGameController implements Initializable{
     private Button btnEndTurn;
 
     @FXML
-    private ListView<?> terrList;
+    private ListView<Territory> terrList;
 
     @FXML
-    private ListView<?> adjTerrList;
+    private ListView<Territory> adjTerrList;
 
     @FXML
     private TextArea txtAreaMsg;
@@ -53,7 +58,7 @@ public class PlayGameController implements Initializable{
     private VBox vbox;
 
     @FXML
-    private ChoiceBox<?> choiceBoxNoOfPlayer;
+    private ChoiceBox<Integer> choiceBoxNoOfPlayer;
 
     @FXML
     void attack(ActionEvent event) {
@@ -80,12 +85,40 @@ public class PlayGameController implements Initializable{
     		
     }
 
+    
+    
+	public PlayGameController(Map map) {
+		this.map = map;
+	}
+	
+	public PlayGameController() {
+		
+	}
+	
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		CommonMapUtil.disableControls(btnAttack, btnEndTurn);
+		CommonMapUtil.disableControls(btnAttack, btnEndTurn, btnFortify, btnPlaceArmy, btnReinforcement);
+		choiceBoxNoOfPlayer.getItems().addAll(3, 4, 5, 6);
+		choiceBoxNoOfPlayer.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				CommonMapUtil.disableControls(btnAttack, btnEndTurn, btnFortify, btnPlaceArmy, btnReinforcement);
+			}
+		});
+		
+		loadMap();
+	}
+	
+	public void loadMap() {
+		vbox.getChildren().clear();
+		for(Continent c : map.getContinents()) {
+			vbox.autosize();
+			vbox.getChildren().add(CommonMapUtil.getNewPaneForVBox(c));
+		}
 	}
 
 }

@@ -10,7 +10,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.risk6441.controller.PlayGameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+   <!-- fx:controller="com.risk6441.controller.PlayGameController" -->
    <children>
       <Label layoutX="6.0" layoutY="2.0" prefHeight="58.0" prefWidth="111.0" text="No. of players:" />
       <AnchorPane layoutX="3.0" layoutY="114.0" prefHeight="508.0" prefWidth="318.0" />

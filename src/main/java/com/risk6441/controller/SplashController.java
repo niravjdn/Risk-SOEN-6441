@@ -8,6 +8,7 @@ import com.risk6441.main.Main;
 import com.risk6441.main.MapEditor;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapReader;
+import com.risk6441.models.Map;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,8 +63,39 @@ public class SplashController {
     }
 
     @FXML
-    void btnPlayGame(ActionEvent event) throws InvalidMapException {
+    void btnPlayGame(ActionEvent event) throws InvalidMapException, IOException {
     	File file= CommonMapUtil.showFileDialog();
+    	//get map object by reading file
+    	MapReader mapReader = new MapReader();
+    	Map map = null;
+    	try {
+    		map = mapReader.readMapFile(file);
+    		System.out.println(map);
+    	}catch (InvalidMapException e) {
+    		e.printStackTrace();
+    		CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+    		return;
+    	}
+    	Stage primaryStage = (Stage) btnExit.getScene().getWindow();
+    	
+    	PlayGameController controller = new PlayGameController(map);
+    	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gameplay.fxml"));
+		loader.setController(controller);
+		
+		Parent root = null;
+		try {
+			root = (Parent) loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Stage stage = new Stage();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+    	stage.setX(primaryStage.getX() + 200);
+    	stage.setY(primaryStage.getY() + 200);
+		stage.show();
+    	
     }
 
 }

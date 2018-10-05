@@ -14,9 +14,39 @@ public class Territory {
 	private int yCoordinate;
 	private Continent belongToContinent;
 	private List<String> adjTerritories;
+	private Player player;
 	private List<Territory> adjacentTerritories;
 	private boolean isProcessed;
-	
+	/**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	/**
+	 * @return the army
+	 */
+	public int getArmy() {
+		return army;
+	}
+
+	/**
+	 * @param army the army to set
+	 */
+	public void setArmy(int army) {
+		this.army = army;
+	}
+
+
+	private int army;
 	
 	/**
 	 * @return the name

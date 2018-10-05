@@ -37,14 +37,14 @@ public class CommonMapUtil {
 	}
 	
 	/**
-	 * This method is used for saving maps .
-	 * @return file of type object
+	 * This method opens a dialog box to choose a map file.
+	 * @return file of type object {@link File}
 	 */
-	public static File saveFileDialog() {
+	public static File showFileSaveDialog() {
 		FileChooser fileChooser = new FileChooser();
 		File file = null;
-		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Map files (*.map)", "*.map");
-		fileChooser.getExtensionFilters().add(extensionFilter);
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Map files (*.map)", "*.map");
+		fileChooser.getExtensionFilters().add(extFilter);
 		file = fileChooser.showSaveDialog(null);
 		return file;
 	}

@@ -1,5 +1,7 @@
 package com.risk6441.controller;
 
+
+import com.risk6441.maputils.*;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
@@ -27,6 +29,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -406,6 +409,7 @@ public class MapRedactorController  implements Initializable{
 		}
 		
 		terrList.getItems().remove(territory);
+		comboAdjTerr.getItems().remove(territory);
 		continent.getTerritories().remove(territory);
 		CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Territory :"+territory);
     }
@@ -467,6 +471,7 @@ public class MapRedactorController  implements Initializable{
      */
     @FXML
     void saveMap(ActionEvent event) {
+
     	map.getMapData().put("image",txtImage.getText());
     	map.getMapData().put("author",txtAuthor.getText());
     	map.getMapData().put("scroll",txtScroll.getText());
@@ -476,11 +481,25 @@ public class MapRedactorController  implements Initializable{
     	MapWriter write = new MapWriter();
     	
     	if(file==null) {
-    		file = CommonMapUtil.showFileSaveDialog();
+    		file = CommonMapUtil.saveFileDialog();
     	}
     	write.writeMapFile(map, file);
+
+    	
+    	try {
+    		MapVerifier.verifyMap(map);
+        }
+    	catch(InvalidMapException e)
+    	{
+    		e.printStackTrace();
+    		CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+    	}
+    	MapWriter mapWriter = new MapWriter();
+    	File file= CommonMapUtil.saveFileDialog();
+    	mapWriter.writeMapFile(map,file );
+    	
+
     }
-    
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */

@@ -34,6 +34,7 @@ public class MapReader {
 	//make a map to make sure that territory belongs to only one continent
 	private HashMap<String, Integer> territoryBelongContinentCount = new HashMap<String, Integer>();
 	
+	//default constructor to initialize the map
 	public MapReader() {
 		this.map = new Map();
 	}

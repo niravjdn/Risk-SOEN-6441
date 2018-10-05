@@ -37,7 +37,6 @@ public class CommonMapUtil {
 	}
 	
 	/**
-
 	 * This method is used for saving maps .
 	 * @return file of type object
 	 */

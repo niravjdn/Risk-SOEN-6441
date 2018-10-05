@@ -1,7 +1,5 @@
 package com.risk6441.controller;
 
-
-import com.risk6441.maputils.*;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
@@ -12,6 +10,7 @@ import java.util.Set;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapOperations;
+import com.risk6441.maputils.MapVerifier;
 import com.risk6441.maputils.MapWriter;
 import com.risk6441.models.Continent;
 import com.risk6441.models.Map;
@@ -29,7 +28,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -316,7 +314,7 @@ public class MapRedactorController  implements Initializable{
 	/**
 	 * This method adds the continent to the map
 	 * @param event
-	 * 		  event object containing detaisl regarding origin of the event
+	 * 		  event object containing details regarding origin of the event
 	 */
 	@FXML
     void addContinent(ActionEvent event) {
@@ -409,7 +407,6 @@ public class MapRedactorController  implements Initializable{
 		}
 		
 		terrList.getItems().remove(territory);
-		comboAdjTerr.getItems().remove(territory);
 		continent.getTerritories().remove(territory);
 		CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Territory :"+territory);
     }
@@ -471,20 +468,11 @@ public class MapRedactorController  implements Initializable{
      */
     @FXML
     void saveMap(ActionEvent event) {
-
     	map.getMapData().put("image",txtImage.getText());
     	map.getMapData().put("author",txtAuthor.getText());
     	map.getMapData().put("scroll",txtScroll.getText());
     	map.getMapData().put("wrap",txtWrap.getText());
     	map.getMapData().put("wran",txtWarn.getText());
-    	
-    	MapWriter write = new MapWriter();
-    	
-    	if(file==null) {
-    		file = CommonMapUtil.saveFileDialog();
-    	}
-    	write.writeMapFile(map, file);
-
     	
     	try {
     		MapVerifier.verifyMap(map);
@@ -493,18 +481,27 @@ public class MapRedactorController  implements Initializable{
     	{
     		e.printStackTrace();
     		CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+    		return;
     	}
-    	MapWriter mapWriter = new MapWriter();
-    	File file= CommonMapUtil.saveFileDialog();
-    	mapWriter.writeMapFile(map,file );
-    	
 
+    	
+    	MapWriter write = new MapWriter();
+    	
+    	if(file==null) {
+    		file = CommonMapUtil.saveFileDialog();
+    	}
+    	write.writeMapFile(map, file);
     }
+    
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Intializer Called");
+		
+		CommonMapUtil.disableControls(btnAddTerr,btnTerrUpdate,btnTerrDlt,txtTerrName,txtXCo,txtYCo,comboAdjTerr);
+		comboAdjTerr.getItems().add(null);
+		
 		if (this.map == null) {
 			map = new Map();
 			
@@ -616,7 +613,7 @@ public class MapRedactorController  implements Initializable{
 		
 		CommonMapUtil.disableControls(txtContName,btnAddCont);
 		CommonMapUtil.clearTextBox(txtTerrName, txtXCo, txtYCo);
-		CommonMapUtil.enableControls(txtTerrName,btnAddTerr);
+		CommonMapUtil.enableControls(txtTerrName,btnAddTerr,txtXCo, txtYCo, comboAdjTerr);
 		
 		adjTerrList.getItems().clear();
 		//show territories in the territory list
@@ -643,7 +640,7 @@ public class MapRedactorController  implements Initializable{
 		
 		CommonMapUtil.disableControls(txtTerrName,btnAddTerr);
 		CommonMapUtil.clearTextBox(txtContName, txtContControlVal);
-		CommonMapUtil.enableControls(txtContName,btnAddCont);
+		CommonMapUtil.enableControls(txtContName,btnAddCont, btnTerrUpdate, btnTerrDlt);
 		
 		//show territories in the territory list
 		showAdjTerritoryOfTerrInList(terrList.getSelectionModel().getSelectedItem());

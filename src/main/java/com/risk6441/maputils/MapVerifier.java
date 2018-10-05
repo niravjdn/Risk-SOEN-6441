@@ -143,6 +143,11 @@ public class MapVerifier {
 	 * @return
 	 */
 	public static boolean isMapConnectedGraph(Map map) {
+		
+		if(map.getContinents().size()<2) {
+			return false;
+		}
+		
 		bfsContinent(map.getContinents().get(0), map);
 		
 		for(Continent continent : map.getContinents()) {

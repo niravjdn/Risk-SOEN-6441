@@ -85,7 +85,8 @@ public class MapWriter {
 	 */
 	private StringBuilder processContinent(Map map) {
 		StringBuilder continentData = new StringBuilder();
-		continentData.append("[Map]");
+		continentData.append("\n");
+		continentData.append("[Continents]");
 		continentData.append("\n");
 		for (Continent continent : map.getContinents()) {
 			continentData.append(continent.getName() + "=" + continent.getValue());

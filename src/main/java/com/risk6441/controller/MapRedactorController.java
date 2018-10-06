@@ -50,194 +50,189 @@ public class MapRedactorController  implements Initializable{
 	
 	
     /**
-     * @lblAuthor label for author
+     * @lblAuthor1 label for author
      */
     @FXML
     private Label lblAuthor1;
 
     /**
-     * @lblAuthor
+     * @lblWarn for warn
      */
     @FXML
     private Label lblWarn;
 
     /**
-     * @lblAuthor
+     * @txtWarn for textbox Warn
      */
     @FXML
     private TextField txtWarn;
 
     /**
-     * @lblAuthor
+     * @lblAuthor for Label author
      */
     @FXML
     private Label lblAuthor;
 
     /**
-     * @lblAuthor
+     * @lblImage for label image
      */
     @FXML
     private Label lblImage;
 
     /**
-     * @lblAuthor
+     * @lblScroll for label scroll
      */
     @FXML
     private Label lblScroll;
 
     /**
-     * @lblAuthor
+     * @lblWrap for label wrap
      */
     @FXML
     private Label lblWrap;
 
     /**
-     * @lblAuthor
+     * @txtAuthor for textbox author
      */
     @FXML
     private TextField txtAuthor;
 
     /**
-     * @lblAuthor
+     * @txtImage for text image
      */
     @FXML
     private TextField txtImage;
 
     /**
-     * @lblAuthor
+     * @txtScroll for text scroll
      */
     @FXML
     private TextField txtScroll;
 
     /**
-     * @lblAuthor
+     * @txtWrap for text wrap
      */
     @FXML
     private TextField txtWrap;
 
     /**
-     * @lblAuthor
+     * @tctAuthorLabel12 for author
      */
     @FXML
     private Label tctAuthorLabel12;
 
     /**
-     * @lblAuthor
-     */
-    
-
-    /**
-     * @lblAuthor
+     * @txtContName for continent name
      */
     @FXML
     private TextField txtContName;
 
     /**
-     * @lblAuthor
+     * @lblContDetail for continent details
      */
     @FXML
     private Label labelContDetail;
 
     /**
-     * @lblAuthor
+     * @txtContControlVal for continent control value
      */
     @FXML
     private TextField txtContControlVal;
 
     /**
-     * @lblAuthor
+     * @btnAddCont Button for adding Continent
      */
     @FXML
     private Button btnAddCont;
 
     /**
-     * @lblAuthor
+     * @btnDelCont Button for deleting Continent
      */
     @FXML
     private Button btnDelCont;
 
     /**
-     * @lblAuthor
+     * @btnUpdateCont Button for updating Continent details
      */
     @FXML
     private Button btnUpdateCont;
 
     /**
-     * @lblAuthor
+     * @tctAuthorLabel2 Label for Author
      */
     @FXML
     private Label tctAuthorLabel2;
 
     /**
-     * @lblAuthor
+     * @lblAuthor Label for author
      */
     @FXML
     private Label tctAuthorLabel11;
 
     /**
-     * @lblAuthor
+     * @txtXCo textfield for X Co-ordinate
      */
     @FXML
     private TextField txtXCo;
 
     /**
-     * @lblAuthor
+     * @txtYCo textfield for Y Co-ordinate
      */
     @FXML
     private TextField txtYCo;
 
     /**
-     * @lblAuthor
+     * @lblTerrname Label for Territory name
      */
     @FXML
     private Label lblTerrname;
 
     /**
-     * @lblAuthor
+     * @lblAdjTerr Label for adjacent territory
      */
     @FXML
     private Label lblAdjTerr;
 
     /**
-     * @lblAuthor
+     * @comboAdjTerr Combobox for adjacent terrritory
      */
     @FXML
     private ComboBox<Territory> comboAdjTerr;
 
     /**
-     * @lblAuthor
+     * @tctAuthorLabel1211 Label for author
      */
     @FXML
     private Label tctAuthorLabel1211;
 
     /**
-     * @lblAuthor
+     * @lblAuthor  Label for author
      */
     @FXML
     private Label tctAuthorLabel121;
 
     
     /**
-     * @lblAuthor
+     * @lblSelectedCont Label for selected continent
      */
     @FXML
     private Label lblSelectedCont;
 
     
     /**
-     * @lblAuthor
+     * @btnDelTerr Button for deleting territory
      */
     @FXML
     private Button btnDelTerr;
 
     /**
-     * @lblAuthor
+     * @btnAddTerr Button for adding territory
      */
     @FXML
     private Button btnAddTerr;
 
     /**
-     * @lblAuthor
+     * @
      */
     @FXML
     private Button btnExit;
@@ -598,6 +593,9 @@ public class MapRedactorController  implements Initializable{
 		
 	}
 	
+	/**
+	 * This method parses map data and stores in the map file
+	 */
 	public void parseMapData() {
 	
 		System.out.println("parseMapData Called");
@@ -616,6 +614,9 @@ public class MapRedactorController  implements Initializable{
 			
 	}
 	
+	/**
+	 * This method is to perform operations on the selected continent like update, delete etc
+	 */
 	public void onClickContList() {
 		Continent cnt = contList.getSelectionModel().getSelectedItem();
 		txtContName.setText(cnt.getName());
@@ -631,6 +632,10 @@ public class MapRedactorController  implements Initializable{
 		showTerritoryOfContInList(contList.getSelectionModel().getSelectedItem());
 	}
 	
+	/**
+	 * This displays the territories in the selected Continent.
+	 * @param continent
+	 */
 	public void showTerritoryOfContInList(Continent continent) {
 		terrList.getItems().clear();
 		try {
@@ -643,6 +648,9 @@ public class MapRedactorController  implements Initializable{
 		}
 	}
 	
+	/**
+	 * This method is to perform operations on the selected territory like update, delete etc
+	 */
 	public void onClickTerrList() {
 		Territory terr = terrList.getSelectionModel().getSelectedItem();
 		txtTerrName.setText(terr.getName());
@@ -657,6 +665,10 @@ public class MapRedactorController  implements Initializable{
 		showAdjTerritoryOfTerrInList(terrList.getSelectionModel().getSelectedItem());
 	}
 	
+	/**
+	 * This method is used to obtain the adjacent territories of a given territory
+	 * @param terr Requires territory object whose adjacent territories have to be displayed
+	 */
 	public void showAdjTerritoryOfTerrInList(Territory terr) {
 		adjTerrList.getItems().clear();
 		try {

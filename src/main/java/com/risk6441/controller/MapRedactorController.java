@@ -36,6 +36,10 @@ import javafx.stage.Stage;
  * @author Karthik
  *
  */
+/**
+ * @author SS
+ *
+ */
 public class MapRedactorController  implements Initializable{
 
 	/**
@@ -232,62 +236,62 @@ public class MapRedactorController  implements Initializable{
     private Button btnAddTerr;
 
     /**
-     * @
+     * @btnExit for Exit
      */
     @FXML
     private Button btnExit;
     
     
     /**
-     * @lblAuthor
+     * @txtTerrName for Territory name
      */
     @FXML
     private TextField txtTerrName;
 
     /**
-     * @lblAuthor
+     * @btnUpdateTerr for updating Territory details
      */
     @FXML
     private Button btnUpdateTerr;
 
     /**
-     * @lblAuthor
+     * @contList List for continents
      */
     @FXML
     private ListView<Continent> contList;
 
     /**
-     * @lblAuthor
+     * @terrList List for Territories
      */
     @FXML
     private ListView<Territory> terrList;
 
     /**
-     * @lblAuthor
+     * @adjTerrList List for adjacent Territories
      */
     @FXML
     private ListView<Territory> adjTerrList;
 
     /**
-     * @lblAuthor
+     * @lblContList List for Continents
      */
     @FXML
     private Label lblContList;
 
     /**
-     * @lblAuthor
+     * @terrList List for Territories
      */
     @FXML
     private Label lblTerrList;
 
     /**
-     * @lblAuthor
+     * @btnDltAdjTerr Button for deleting adjacent territory
      */
     @FXML
     private Button btnDltAdjTerr;
 
     /**
-     * @lblAuthor
+     * @txtAreaMsg Textarea for message
      */
     @FXML
     private TextArea txtAreaMsg;
@@ -303,6 +307,11 @@ public class MapRedactorController  implements Initializable{
 		this.file = file;
 	}
 	
+	
+	
+	/**
+	 * This is a default constructor which doesn't take any parameters.
+	 */
 	public MapRedactorController() {
 		
 	}
@@ -337,6 +346,10 @@ public class MapRedactorController  implements Initializable{
 		
     }
 
+    /**
+     * This method adds a terrritory to the continent.
+     * @param event
+     */
     @FXML
     void addTerritiory(ActionEvent event) {
 
@@ -359,6 +372,10 @@ public class MapRedactorController  implements Initializable{
     	CommonMapUtil.clearTextBox(txtTerrName,txtXCo,txtYCo);
     }
 
+    /**
+     * This method deletes continent from the map.
+     * @param event
+     */
     @FXML
     void deleteContinent(ActionEvent event) {
     	Continent continent = contList.getSelectionModel().getSelectedItem();
@@ -374,6 +391,10 @@ public class MapRedactorController  implements Initializable{
     	}
     }
 
+    /**
+     * This method deletes territory from the continent.
+     * @param event
+     */
     @FXML
     void deleteTerritiory(ActionEvent event) {
     	Continent continent = contList.getSelectionModel().getSelectedItem();
@@ -408,6 +429,10 @@ public class MapRedactorController  implements Initializable{
 		CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Territory :"+territory);
     }
 
+    /**
+     * This method exits the program when the button is clicked.
+     * @param event
+     */
     @FXML
     void exitBtnClick(ActionEvent event) {
     	Stage stage = (Stage) btnExit.getScene().getWindow();

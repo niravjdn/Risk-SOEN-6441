@@ -36,10 +36,6 @@ import javafx.stage.Stage;
  * @author Karthik
  *
  */
-/**
- * @author SS
- *
- */
 public class MapRedactorController  implements Initializable{
 
 	/**
@@ -440,6 +436,10 @@ public class MapRedactorController  implements Initializable{
     }
 
 
+    /**
+     * This method deletes adjacent territories
+     * @param event
+     */
     @FXML
     void deleteAdjTerritory(ActionEvent event) {
     	Territory terr = terrList.getSelectionModel().getSelectedItem();
@@ -460,6 +460,10 @@ public class MapRedactorController  implements Initializable{
     }
 
     
+    /**
+     * This method updates continent details.
+     * @param event
+     */
     @FXML
     void updateContinent(ActionEvent event) {
     	MapOperations.updateContinent(contList.getSelectionModel().getSelectedItem(), txtContControlVal.getText());
@@ -467,6 +471,10 @@ public class MapRedactorController  implements Initializable{
     	CommonMapUtil.clearTextBox(txtContName,txtContControlVal);
     }
 
+    /**
+     * This method updates territories.
+     * @param event
+     */
     @FXML
     void updateTerritiory(ActionEvent event) {
     	Territory territory = terrList.getSelectionModel().getSelectedItem();
@@ -515,8 +523,8 @@ public class MapRedactorController  implements Initializable{
     	write.writeMapFile(map, file);
     }
     
-	/* (non-Javadoc)
-	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+	/*
+	 * This method intializes the Map Editor with default values.
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Intializer Called");

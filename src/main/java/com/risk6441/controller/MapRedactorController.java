@@ -700,7 +700,7 @@ public class MapRedactorController  implements Initializable{
 	
 	/**
 	 * This method is used to obtain the adjacent territories of a given territory
-	 * @param terr Requires territory object whose adjacent territories have to be displayed
+	 * @param terr Requiresd territory object whose adjacent territories have to be displayed
 	 */
 	public void showAdjTerritoryOfTerrInList(Territory terr) {
 		adjTerrList.getItems().clear();

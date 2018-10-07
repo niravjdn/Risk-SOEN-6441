@@ -23,7 +23,7 @@ import com.risk6441.models.Territory;
 
 public class MapOperationsTest {
 
-	Map map;
+	static Map map;
 	static Continent continent;
 	String continentName = "Asia";
 	String terrName = "Canada";
@@ -46,6 +46,7 @@ public class MapOperationsTest {
 	
 	@BeforeClass
 	public static void beforeClass() {
+		map = new Map();
 		mapData = new HashMap<>();
 		continent = new Continent();
 		territory = new Territory();
@@ -75,7 +76,7 @@ public class MapOperationsTest {
 	public void testUpdateContinent() {
 		continent = MapOperations.updateContinent(continent, String.valueOf(controlValue2));
 		assertEquals(continent.getValue(), controlValue2);
-		assertNotEquals(continent.getValue(), controlValue2);
+		assertNotEquals(continent.getValue(), controlValue1);
 		assertEquals(continent.getName(), continentName);
 	}
 	

@@ -1,5 +1,6 @@
 package com.risk6441.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,7 +69,8 @@ public class Territory {
 	 * 
 	 */
 	public Territory() {
-		// TODO Auto-generated constructor stub
+		adjTerritories = new ArrayList<>();
+		adjacentTerritories = new ArrayList<>();
 	}
 
 	/**

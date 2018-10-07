@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,6 +16,7 @@ import org.junit.Test;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.models.Continent;
 import com.risk6441.models.Map;
+import com.risk6441.models.Player;
 import com.risk6441.models.Territory;
 
 /**
@@ -23,20 +26,23 @@ import com.risk6441.models.Territory;
 
 public class GameUtilsTest {
 
-	Map map;
+	static Map map;
 	static Continent continent;
 	String continentName = "Asia";
-	String terrName = "Canada";
-	int controlValue1 = 1;
-	int controlValue2 = 2;
-	static Territory territory;
+	String terrName1 = "India";
+	String terrName2 = "Canada";
+	int controlValue1 = 5;
+	static Territory terr1;
+	static Territory terr2;
 	static Territory adjTerritory;
 	int x1=1;
 	int y1=1;
 	int x2=2;
 	int y2=2;
+	static Player player;
 	
-	static HashMap<String,String> mapData;
+	List<Continent> listOfContinents = new ArrayList<>();	
+	List<Territory> listOfTerritories = new ArrayList<>();
 	
 	String mapAuthor = "Robert";
 	String mapImage = "world.map";
@@ -46,65 +52,82 @@ public class GameUtilsTest {
 	
 	@BeforeClass
 	public static void beforeClass() {
-		mapData = new HashMap<>();
 		continent = new Continent();
-		territory = new Territory();
-		adjTerritory =  new Territory();
+		terr1 = new Territory();
+		terr2 = new Territory();
+		map = new Map();
+		player = new Player(1, "Nirav");
 	}
 	
 	@Before
 	public void before() {
-		mapData = new HashMap<>();
-		mapData.put("author", mapAuthor);
-		mapData.put("image", mapImage);
-		mapData.put("wrap", mapWrap);
-		mapData.put("scroll", mapScroll);
-		mapData.put("warn", mapWarn);		
-		map.setMapData(mapData);
+		continent.setName(continentName);
+		continent.setValue(controlValue1);
+		
+		terr1.setName(terrName1);
+		terr1.setBelongToContinent(continent);
+		terr2.setName(terrName2);
+		terr2.setBelongToContinent(continent);		
+		
+		terr2.getAdjacentTerritories().add(terr1);
+		terr1.setAdjacentTerritories(terr2.getAdjacentTerritories());		
+		terr1.getAdjacentTerritories().add(terr1);
+		terr2.setAdjacentTerritories(terr1.getAdjacentTerritories());
+		
+		listOfContinents.add(continent);
+		map.setContinents(listOfContinents);
+		
+		player.setArmies(99);
+		
+		listOfTerritories.add(terr1);
+		player.setAssignedTerritory(listOfTerritories);
 	}
 	
 	@Test
-	public void testAddContinent() throws InvalidMapException {
-		continent = MapOperations.addContinent(map, continentName, String.valueOf(controlValue1));
-		assertNotNull(continent);
-		assertEquals(continent.getName(), continentName);
-		assertEquals(continent.getValue(), controlValue1);
+	public void countReinforcementArmiesCaseOne() {		
+		Player returnedPlayer = GameUtils.countReinforcementArmies(map, player);
+		Assert.assertEquals(returnedPlayer.getArmies(), 107);
 	}
 	
 	@Test
-	public void testUpdateContinent() {
-		continent = MapOperations.updateContinent(continent, String.valueOf(controlValue2));
-		assertEquals(continent.getValue(), controlValue2);
-		assertNotEquals(continent.getValue(), controlValue2);
-		assertEquals(continent.getName(), continentName);
+	public void calculateReinforcementArmiesCaseTwo() {	
+		Continent newContinent = new Continent();
+		newContinent.setName("North America");
+		newContinent.setValue(7);
+		listOfContinents.add(newContinent);
+		map.setContinents(listOfContinents);
+		Player returnedPlayer = GameUtils.countReinforcementArmies(map, player);
+		Assert.assertEquals(returnedPlayer.getArmies(), 114);
 	}
 	
 	@Test
-	public void testAddTerritory() throws InvalidMapException {
-		territory = MapOperations.addTerritory(map, terrName, String.valueOf(x1), String.valueOf(y1), null, continent);
-		assertNotNull(continent);
-		assertEquals(territory.getName(), terrName);
-		assertEquals(territory.getxCoordinate(), x1);
-		assertEquals(territory.getyCoordinate(), y1);
-		assertEquals(territory.getBelongToContinent(), continent);
-	}
-	
-	@Test
-	public void testUpdateTerritory() {
-		territory = MapOperations.updateTerritory(territory, String.valueOf(x2), String.valueOf(y2), null);
-		Assert.assertNotNull(territory);
-		Assert.assertEquals(territory.getxCoordinate(), x2);
-		Assert.assertEquals(territory.getyCoordinate(), y2);
-		Assert.assertNotEquals(territory.getxCoordinate(), x1);
-		Assert.assertNotEquals(territory.getyCoordinate(), y1);
-	}
-	
-	@Test
-	public void testAssignTerrToContinent() throws InvalidMapException {
-		Territory newTerritory = new Territory();
-		newTerritory = MapOperations.addTerritory(map, "Canada", "1", "10", null, continent);
-		continent = MapOperations.mapTerritoriryToContinent(continent, newTerritory);
-		Assert.assertNotNull(continent);
-		Assert.assertTrue(continent.getTerritories().contains(newTerritory));
+	public void calculateReinforcementArmiesCaseThree() {		
+		Territory terr = new Territory();
+		terr.setName("Russia");
+		terr.setBelongToContinent(continent);
+		listOfTerritories.add(terr);
+		
+		terr.setName("Pakistan");
+		terr.setBelongToContinent(continent);
+		listOfTerritories.add(terr);
+		
+		terr.setName("Zimbave");
+		terr.setBelongToContinent(continent);
+		listOfTerritories.add(terr);
+		
+		terr.setName("Australia");
+		terr.setBelongToContinent(continent);
+		listOfTerritories.add(terr);
+		
+		terr.setName("USA");
+		terr.setBelongToContinent(continent);
+		listOfTerritories.add(terr);
+		
+		
+		
+		player.setAssignedTerritory(listOfTerritories);
+		
+		Player returnedPlayer = GameUtils.countReinforcementArmies(map, player);
+		Assert.assertEquals(returnedPlayer.getArmies(), 107);
 	}
 }

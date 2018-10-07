@@ -99,29 +99,29 @@ public class GameUtils {
 	 * This method counts reinforcement armies for the player.
 	 * @param map
 	 * 		  	map object
-	 * @param playerPlaying
+	 * @param currentPlayer
 	 * 		  	player object
 	 * @return
 	 * 			return the player object after assigning armies to it.
 	 */
-	public static Player countReinforcementArmies(Map map, Player playerPlaying) {
-		int currentArmies = playerPlaying.getArmies();
-		int territoryCount = playerPlaying.getAssignedTerritory().size();
+	public static Player countReinforcementArmies(Map map, Player currentPlayer) {
+		int currentArmies = currentPlayer.getArmies();
+		int territoryCount = currentPlayer.getAssignedTerritory().size();
 		if (territoryCount < 9) {
 			currentArmies = currentArmies + 3;
 		} else {
 			currentArmies = currentArmies + (territoryCount / 3);
 		}
 
-		List<Continent> continents = getContinentsThatBelongsToPlayer(map, playerPlaying);
+		List<Continent> continents = getContinentsThatBelongsToPlayer(map, currentPlayer);
 		if (continents.size() > 0) {
 			for (Continent continent : continents) {
 				currentArmies = currentArmies + continent.getValue();
 			}
 		}
-		playerPlaying.setArmies(currentArmies);
+		currentPlayer.setArmies(currentArmies);
 
-		return playerPlaying;
+		return currentPlayer;
 	}
 
 	

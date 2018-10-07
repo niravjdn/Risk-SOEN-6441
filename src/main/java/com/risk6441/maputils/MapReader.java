@@ -22,11 +22,10 @@ import com.risk6441.models.Territory;
  * @author Nirav
  */
 public class MapReader {
-
 	public static void main(String[] args) throws InvalidMapException {
 		MapReader mr = new MapReader();
 		mr.map = new Map();
-		File file = new File("/Users/Nirav/Desktop/World.map");
+		File file = new File("/Users/Nirav/Desktop/untitledfolder/continent_is_not_a subgraph.map");
 		System.out.println(mr.readMapFile(file));
 	}
 	
@@ -105,6 +104,7 @@ public class MapReader {
 		}
 		catch(IOException e) {
 			System.out.println("Map File is not selected");
+			System.out.println(e.getMessage());
 		}
 		
 		

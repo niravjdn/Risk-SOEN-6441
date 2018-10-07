@@ -49,7 +49,7 @@ public class MapVerifier {
 	}
 	
 	/**
-	 * This metohd verifies the continents.
+	 * This method verifies the continents.
 	 * @param map
 	 * @throws InvalidMapException
 	 */
@@ -76,8 +76,11 @@ public class MapVerifier {
 	/**
 	 * This method checks that the continents are connected or not.
 	 * @param continent
+	 * 			continent to be verified
 	 * @param map
+	 * 			object of the map
 	 * @return
+	 * 		  return true if continent forms a connected map.
 	 */
 	public static boolean isContinentConnectedGraph(Continent continent,Map map) {
 		bfsTerritory(continent.getTerritories().get(0), map);
@@ -98,7 +101,9 @@ public class MapVerifier {
 	/**
 	 * This method traverse the territories in BFS Manner.
 	 * @param territory
+	 * 					territory to be traversed in bfs
 	 * @param map
+	 * 			  map object
 	 */
 	public static void bfsTerritory(Territory territory, Map map) {
 
@@ -119,8 +124,11 @@ public class MapVerifier {
 	/**
 	 * This method checks that the territory is connected or not.
 	 * @param territory
+	 * 				  territory to be verified
 	 * @param map
+	 * 			 object of the map
 	 * @throws InvalidMapException
+	 * 						     throws InvalidMapException if map is not valid
 	 */
 	private static void verifyTerritory(Territory territory, Map map) throws InvalidMapException {
 		List<Territory> adjTerrList = territory.getAdjacentTerritories();
@@ -140,7 +148,9 @@ public class MapVerifier {
 	/**
 	 * This method checks that Continents form a connected graph(A Map).
 	 * @param map
-	 * @return
+	 * 			 object of the map
+	 * @return 
+	 * 			true if map is a connected graph
 	 */
 	public static boolean isMapConnectedGraph(Map map) {
 		
@@ -163,7 +173,9 @@ public class MapVerifier {
 	/**
 	 * This method traverse the continents in BFS Manner.
 	 * @param continent
+	 * 			       continent to be traversed in bfs
 	 * @param map
+	 * 			 map object
 	 */
 	public static void bfsContinent(Continent continent, Map map) {
 
@@ -185,7 +197,9 @@ public class MapVerifier {
 	/**
 	 * This method returns the adjacent continent as a list of particular continent.
 	 * @param continent
+	 * 				   continent whose adjacent territories to be found
 	 * @param map
+	 * 			 map object
 	 * @return
 	 * 		the adjacent continent as a list of particular continent.
 	 */
@@ -216,7 +230,9 @@ public class MapVerifier {
 	/**
 	 * This method checks whether territory belongs to only one continent or not.
 	 * @param map
+	 * 			 map object
 	 * @throws InvalidMapException
+	 * 							  throws InvalidMapException if map is not valid.
 	 */
 	public static void checkTerritoryBelongToOnlyOneContinent(Map map) throws InvalidMapException {
 		HashMap<Territory, Integer> territoryBelongToContinentCount = new HashMap<>();

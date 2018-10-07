@@ -4,6 +4,7 @@
 package com.risk6441.maputils;
 
 import java.io.File;
+import java.util.Optional;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
 import javafx.stage.FileChooser;
 
@@ -56,6 +58,22 @@ public class CommonMapUtil {
 		return file;
 	}
 	
+	
+	/**
+	 * This method opens a dialog box to allow user to input a number for purpose of fortification.
+	 * @return
+	 * 		  integer number for the armies for fortification
+	 */
+	public static int inputDialogueBoxForFortification() {
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Input a number");
+		dialog.setHeaderText("Enter number of armies to fortify (1 less then existing no of armies)");
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent())
+			return Integer.parseInt(result.get());
+		else
+			return 0;
+	}
 	
 	/**
 	 * This method writes the message int textarea.

@@ -3,6 +3,7 @@ package com.risk6441.models;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @author Nirav
  * This class defines Player and its properties such as id, name, armies and number of territories owned by player
@@ -84,7 +85,23 @@ public class Player {
 		this.assignedTerritory = assignedTerritory;
 	}
 	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+
+		if (obj == this) {
+			return true;
+		}
+
+		if (!(obj instanceof Player)) {
+			return false;
+		}
+
+		Player player = (Player) obj;
+		return player.getName().equalsIgnoreCase(name);
+	}
 	
 
 }

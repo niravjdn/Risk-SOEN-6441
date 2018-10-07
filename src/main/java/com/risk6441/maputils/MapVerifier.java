@@ -67,7 +67,7 @@ public class MapVerifier {
 			
 			//check if continent is connected graph formed by territories
 			if(!isContinentConnectedGraph(continent, map)) {
-				throw new InvalidMapException(message+"The Continent "+continent+" is not connected by its territories. A Continent should be a connected graph formed by territories in the map.");
+				throw new InvalidMapException(message+"The Continent "+continent.getName()+" is not connected by its territories. A Continent should be a connected graph formed by territories in the map.");
 			}
 		}
 		
@@ -130,7 +130,7 @@ public class MapVerifier {
 		}else  {
 			for(Territory adjTerr : adjTerrList) {
 				if(!adjTerr.getAdjacentTerritories().contains(territory)) {
-					throw new InvalidMapException("Territory "+territory.getName()+" is not mapped with its adjacent territory "+adjTerr.getName());
+					throw new InvalidMapException("Territory "+adjTerr.getName()+" is not mapped with its adjacent territory "+territory.getName());
 				}
 			}
 		}

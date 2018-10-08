@@ -35,7 +35,7 @@ import javafx.scene.layout.VBox;
 /**
  * This class ....
  * @author Nirav
- *
+ * @author Charles
  */
 public class PlayGameController implements Initializable{
 
@@ -103,8 +103,54 @@ public class PlayGameController implements Initializable{
 
     @FXML
     void fortify(ActionEvent event) {
+    		fortificationPhase();
+    }
+    void fortificationPhase()
+    {
     	//pseudo code
     	//get object of selcteed terr and adj terr
+    	int numPlayer= choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
+    	
+    	Territory territory = null;
+		Territory adjTerritory=null;
+    	int armyCount=0;
+    	territory=terrList.getSelectionModel().getSelectedItem();
+    	adjTerritory=adjTerrList.getSelectionModel().getSelectedItem();
+    	if(terrList.getSelectionModel().getSelectedItem()==null)
+    	{
+    		CommonMapUtil.alertBox("Message", "Please select a territory", "Alert");
+    		return;
+    	}
+    	else
+    	{
+    		
+    			if(adjTerrList.getSelectionModel().getSelectedItem()==null)
+    			{
+    				CommonMapUtil.alertBox("Message", "Please select an adjacent territory", "Alert");
+    				return;
+    			}
+    			else
+    			{
+    				armyCount=CommonMapUtil.inputDialogueBoxForFortification();
+    				
+	    			if(armyCount>0)
+	    			{
+	    				if (territory == null) {
+	    					territory = terrList.getItems().get(0);
+	    				}
+	    				if(adjTerritory==null)
+	    					adjTerritory=adjTerrList.getItems().get(0);
+	    				territory.setArmy(territory.getArmy() - armyCount);
+	    				adjTerritory.setArmy(adjTerritory.getArmy() + armyCount);
+	    				updateMap();
+	    				terrList.refresh();
+	    				adjTerrList.refresh();
+	    				
+	    			}
+    			}
+    	}
+    	
+    	
     	
     	//if select terr null 
     	//then show commonmaputil alterbox and return
@@ -117,9 +163,18 @@ public class PlayGameController implements Initializable{
     	// if armies entered less than 
     	// then move
     	//
+    	boolean checkCounter=GameUtils.checkFortificationPhase(numPlayer);
+    	if (checkCounter) {
+			scheduledExecutor.shutdownNow();
+			loadCurrentPlayer();
+			initializeReinforcement();
+		} else {
+			scheduledExecutor.shutdownNow();
+			if (scheduledExecutor.isShutdown()) {
+				startGame();
+			}
+		}
     	
-    	loadCurrentPlayer();
-    	initializeReinforcement();
     }
 
     @FXML
@@ -153,17 +208,37 @@ public class PlayGameController implements Initializable{
     }
 
     @FXML
+    
     void reinforce(ActionEvent event) {
     		//proceed if armies are there > 0
     	    // ask for inpput using commonmaputils inputdialogbox 
     	// if input < armies then good to proceed
     	//else show alert box using commonaputil showalert
+    	int getArmy=0;
+    	if(currentPlayer.getArmies()>0)
+    	{
+    		getArmy=CommonMapUtil.inputDialogueBoxForFortification();
+    		if(getArmy<currentPlayer.getArmies())
+    		{
+    			Territory territory = terrList.getSelectionModel().getSelectedItem();
+    			if (territory == null) {
+    				territory = terrList.getItems().get(0);
+    			}
+    			territory.setArmy(territory.getArmy()+getArmy);
+    			currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
+    			updateMap();
+        		terrList.refresh();
+    		}
+    		else
+    			CommonMapUtil.alertBox("Message", "Please provide input value less than army count", "Alert");
+    		
+    	}
     	
     	if (currentPlayer.getArmies() == 0) {
 			intializeAttack();
 		}
     		
-    }
+}
 
     
     

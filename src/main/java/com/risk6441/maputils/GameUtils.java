@@ -20,6 +20,8 @@ import javafx.scene.control.TextArea;
  */
 public class GameUtils {
 	
+	static int count=0;
+	
 	/**
 	 * This method allocates armies to players and display log in textarea.
 	 * @param 
@@ -253,5 +255,15 @@ public class GameUtils {
 		}
 
 		return false;
+	}
+	public static boolean checkFortificationPhase(int numPlayer)
+	{
+		count++;
+		if(count==numPlayer)
+			return true;
+		else
+			return false;
+		
+	
 	}
 }

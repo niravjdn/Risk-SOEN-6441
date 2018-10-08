@@ -256,6 +256,13 @@ public class GameUtils {
 
 		return false;
 	}
+	/**
+	 * This method checks whether the fortification phase is completed or not.
+	 * @param numPlayer
+	 * 			 count of active number of players in the game
+	 * @return
+	 * 		  returns true if the fortification phase is completed
+	 */
 	public static boolean checkFortificationPhase(int numPlayer)
 	{
 		count++;

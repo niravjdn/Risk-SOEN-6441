@@ -107,8 +107,6 @@ public class PlayGameController implements Initializable{
     }
     void fortificationPhase()
     {
-    	//pseudo code
-    	//get object of selcteed terr and adj terr
     	int numPlayer= choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
     	
     	Territory territory = null;
@@ -149,28 +147,18 @@ public class PlayGameController implements Initializable{
 	    			}
     			}
     	}
-    	
-    	
-    	
-    	//if select terr null 
-    	//then show commonmaputil alterbox and return
-    	//if adj terr null
-    	//show alert and return
-    	//else show message box
-    	//get int value
-    	//if int > 0
-    	// then 
-    	// if armies entered less than 
-    	// then move
-    	//
     	boolean checkCounter=GameUtils.checkFortificationPhase(numPlayer);
-    	if (checkCounter) {
+    	if (checkCounter) 
+    	{
 			scheduledExecutor.shutdownNow();
 			loadCurrentPlayer();
 			initializeReinforcement();
-		} else {
+		} 
+    	else 
+    	{
 			scheduledExecutor.shutdownNow();
-			if (scheduledExecutor.isShutdown()) {
+			if (scheduledExecutor.isShutdown()) 
+			{
 				startGame();
 			}
 		}

@@ -20,8 +20,8 @@ import com.risk6441.models.Player;
 import com.risk6441.models.Territory;
 
 /**
+ * This is the test class for GameUtils. {@link GameUtils}
  * @author Nirav
- *
  */
 
 public class GameUtilsTest {
@@ -50,6 +50,9 @@ public class GameUtilsTest {
 	String mapScroll = "horizontal";
 	String mapWarn = "yes";
 	
+	/**
+	 * This method executed before all the methods of the class.
+	 */
 	@BeforeClass
 	public static void beforeClass() {
 		continent = new Continent();
@@ -59,8 +62,15 @@ public class GameUtilsTest {
 		player = new Player(1, "Nirav");
 	}
 	
+	/**
+	 * This method is executed before every method of the class.
+	 */
 	@Before
 	public void before() {
+		map = new Map();
+		listOfContinents = new ArrayList<>();	
+		listOfTerritories = new ArrayList<>();
+		
 		continent.setName(continentName);
 		continent.setValue(controlValue1);
 		
@@ -83,51 +93,115 @@ public class GameUtilsTest {
 		player.setAssignedTerritory(listOfTerritories);
 	}
 	
+	/**
+	 * This method test reinforcement armies for 99 initials army and player own entire continent with two territories.
+	 */
 	@Test
 	public void countReinforcementArmiesCaseOne() {		
 		Player returnedPlayer = GameUtils.countReinforcementArmies(map, player);
 		Assert.assertEquals(returnedPlayer.getArmies(), 107);
 	}
 	
+	/**
+	 * This method counts reinforcement armies with initial army 99 and player has two continents.
+	 */
 	@Test
-	public void calculateReinforcementArmiesCaseTwo() {	
+	public void calculateReinforcementArmiesUseCaseTwo() {	
 		Continent newContinent = new Continent();
 		newContinent.setName("North America");
-		newContinent.setValue(7);
+		newContinent.setValue(10);
+		
+		Territory t = new  Territory();
+		t.setName("Canada");
+		t.setPlayer(player);
+		List<Territory> listOfTerr2 = new ArrayList<>();
+		listOfTerr2.add(t);
+		newContinent.setTerritories(listOfTerr2);
+		
+		//99 +5 +3 +10
 		listOfContinents.add(newContinent);
 		map.setContinents(listOfContinents);
 		Player returnedPlayer = GameUtils.countReinforcementArmies(map, player);
-		Assert.assertEquals(returnedPlayer.getArmies(), 114);
+		Assert.assertEquals(returnedPlayer.getArmies(), 117);
 	}
 	
+	
+	/**
+	 * This method counts reinforcement armies for the player who owns one continent and 12 territories.
+	 */
 	@Test
-	public void calculateReinforcementArmiesCaseThree() {		
-		Territory terr = new Territory();
-		terr.setName("Russia");
-		terr.setBelongToContinent(continent);
-		listOfTerritories.add(terr);
+	public void calculateReinforcementArmiesUseCaseThree() {	
+		Continent newContinent = new Continent();
+		newContinent.setName("North America");
+		newContinent.setValue(10);
 		
-		terr.setName("Pakistan");
-		terr.setBelongToContinent(continent);
-		listOfTerritories.add(terr);
+		List<Territory> listOfTerr2 = new ArrayList<>();
 		
-		terr.setName("Zimbave");
-		terr.setBelongToContinent(continent);
-		listOfTerritories.add(terr);
+		Territory t = new  Territory();
+		t.setName("Canada");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
 		
-		terr.setName("Australia");
-		terr.setBelongToContinent(continent);
-		listOfTerritories.add(terr);
+		t = new  Territory();
+		t.setName("Canada2");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
+
+		t = new  Territory();
+		t.setName("Canada3");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
+
+		t = new  Territory();
+		t.setName("Canada4");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
+
+		t = new  Territory();
+		t.setName("Canada5");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
+
+		t = new  Territory();
+		t.setName("Canada6");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
+
+		t = new  Territory();
+		t.setName("Canada7");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
+
+		t = new  Territory();
+		t.setName("Canada8");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
+
+		t = new  Territory();
+		t.setName("Canada9");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
 		
-		terr.setName("USA");
-		terr.setBelongToContinent(continent);
-		listOfTerritories.add(terr);
+		t = new  Territory();
+		t.setName("Canada99");
+		t.setPlayer(player);
+		listOfTerr2.add(t);
+
+		t = new  Territory();
+		t.setName("Canada10");
+		t.setPlayer(new Player(2,"Krishnan"));
+		listOfTerr2.add(t);
 		
+		newContinent.setTerritories(listOfTerr2);
 		
-		
-		player.setAssignedTerritory(listOfTerritories);
-		
+		player.getAssignedTerritory().addAll(listOfTerr2);
+		System.out.println(player.getAssignedTerritory().size()+"a");
+		//99 +5 +(12/3)
+		listOfContinents.add(newContinent);
+		map.setContinents(listOfContinents);
 		Player returnedPlayer = GameUtils.countReinforcementArmies(map, player);
-		Assert.assertEquals(returnedPlayer.getArmies(), 107);
+		Assert.assertEquals(returnedPlayer.getArmies(), 108);
 	}
+	
+	
 }

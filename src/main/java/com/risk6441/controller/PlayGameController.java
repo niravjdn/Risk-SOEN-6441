@@ -34,8 +34,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * This class ....
- * @author Nirav
- * @author Charles
+ * @author Nirav Charles
  */
 public class PlayGameController implements Initializable{
 
@@ -103,10 +102,7 @@ public class PlayGameController implements Initializable{
 
     @FXML
     void fortify(ActionEvent event) {
-    		fortificationPhase();
-    }
-    void fortificationPhase()
-    {
+
     	int numPlayer= choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
     	
     	Territory territory = null;
@@ -114,39 +110,39 @@ public class PlayGameController implements Initializable{
     	int armyCount=0;
     	territory=terrList.getSelectionModel().getSelectedItem();
     	adjTerritory=adjTerrList.getSelectionModel().getSelectedItem();
-    	if(terrList.getSelectionModel().getSelectedItem()==null)
-    	{
-    		CommonMapUtil.alertBox("Message", "Please select a territory", "Alert");
+    	
+    	
+    	if(territory == null) {
+    		CommonMapUtil.alertBox("Info", "Please select a territory", "Alert");
+    		return;
+    	}else if(adjTerritory == null) {
+    		CommonMapUtil.alertBox("Info", "Please select a adjacent territory", "Alert");
+    		return;
+    	}else if(adjTerritory.getPlayer() != territory.getPlayer()) {
+    		CommonMapUtil.alertBox("Info", "The Adjacent Territory does not belong to you.", "Alert");
     		return;
     	}
-    	else
-    	{
-    		
-    			if(adjTerrList.getSelectionModel().getSelectedItem()==null)
-    			{
-    				CommonMapUtil.alertBox("Message", "Please select an adjacent territory", "Alert");
-    				return;
-    			}
-    			else
-    			{
-    				armyCount=CommonMapUtil.inputDialogueBoxForFortification();
-    				
-	    			if(armyCount>0)
-	    			{
-	    				if (territory == null) {
-	    					territory = terrList.getItems().get(0);
-	    				}
-	    				if(adjTerritory==null)
-	    					adjTerritory=adjTerrList.getItems().get(0);
-	    				territory.setArmy(territory.getArmy() - armyCount);
-	    				adjTerritory.setArmy(adjTerritory.getArmy() + armyCount);
-	    				updateMap();
-	    				terrList.refresh();
-	    				adjTerrList.refresh();
-	    				
-	    			}
-    			}
+    	
+    	armyCount=CommonMapUtil.inputDialogueBoxForFortification();
+    	if(armyCount > 0) {
+    		if(armyCount >= territory.getArmy()) {
+    			CommonMapUtil.alertBox("Info", "The Army to be moved in fortification phase should be less than "
+    					+ "existing army in territory.(e.g It can be maximum x-1, if x is the current army in territory.)", "Alert");
+        		return;
+    		}else {
+    			territory.setArmy(territory.getArmy() - armyCount);
+    			adjTerritory.setArmy(adjTerritory.getArmy() + armyCount);
+    			updateMap();
+				terrList.refresh();
+				adjTerrList.refresh();
+				GameUtils.addTextToLog("======Fortification Done ===========", txtAreaMsg);
+    		}
+    	}else {
+    		CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");
+    		return;
     	}
+    	
+    	
     	boolean checkCounter=GameUtils.checkFortificationPhase(numPlayer);
     	if (checkCounter) 
     	{
@@ -163,6 +159,7 @@ public class PlayGameController implements Initializable{
 			}
 		}
     	
+    
     }
 
     @FXML
@@ -185,7 +182,7 @@ public class PlayGameController implements Initializable{
 		if (armiesExhausted) {
 			scheduledExecutor.shutdownNow();
 			loadCurrentPlayer();
-			intializeAttack();
+			initializeAttack();
 		} else {
 			scheduledExecutor.shutdownNow();
 			if (scheduledExecutor.isShutdown()) {
@@ -198,35 +195,39 @@ public class PlayGameController implements Initializable{
     @FXML
     
     void reinforce(ActionEvent event) {
-    		//proceed if armies are there > 0
-    	    // ask for inpput using commonmaputils inputdialogbox 
-    	// if input < armies then good to proceed
-    	//else show alert box using commonaputil showalert
-    	int getArmy=0;
     	if(currentPlayer.getArmies()>0)
     	{
-    		getArmy=CommonMapUtil.inputDialogueBoxForFortification();
-    		if(getArmy<currentPlayer.getArmies())
-    		{
-    			Territory territory = terrList.getSelectionModel().getSelectedItem();
-    			if (territory == null) {
-    				territory = terrList.getItems().get(0);
-    			}
-    			territory.setArmy(territory.getArmy()+getArmy);
-    			currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
-    			updateMap();
-        		terrList.refresh();
+    		int getArmy=CommonMapUtil.inputDialogueBoxForRenforcement();
+
+    		Territory territory = terrList.getSelectionModel().getSelectedItem();
+
+    		if(territory == null) {
+    			CommonMapUtil.alertBox("infor", "Please select a territory to reinforce army on.", "Alert");
+    			return;
     		}
-    		else
-    			CommonMapUtil.alertBox("Message", "Please provide input value less than army count", "Alert");
-    		
+
+    		if(getArmy > 0) {
+    			if(getArmy > currentPlayer.getArmies()) {
+    				CommonMapUtil.alertBox("Info", "The Army to be moved in reinforce phase should be less than army you have.", "Alert");
+    				return;
+    			}else {
+    				territory.setArmy(territory.getArmy() + getArmy);
+    				currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
+    				GameUtils.addTextToLog("====== "+getArmy+" assigned to : ==========="+territory+"  -- Player "+currentPlayer.getName(), txtAreaMsg);
+    				updateMap();
+    				terrList.refresh();
+    				GameUtils.addTextToLog("======Reinforce Phase Completed. ===========", txtAreaMsg);
+    			}
+    		}else {
+    			CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");
+    			return;
+    		}
     	}
-    	
     	if (currentPlayer.getArmies() == 0) {
-			intializeAttack();
-		}
-    		
-}
+    		initializeAttack();
+    	}
+
+    }
 
     
     
@@ -370,12 +371,12 @@ public class PlayGameController implements Initializable{
 		}
 	}
 	
-	public void intializeAttack() {
+	public void initializeAttack() {
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
-		GameUtils.addTextToLog("This phase is under developmet.", txtAreaMsg);
+		GameUtils.addTextToLog("The Attack phase is under developmet.", txtAreaMsg);
 		btnAttack.setDisable(false);
 		btnAttack.requestFocus();
-		CommonMapUtil.disableControls(btnReinforcement, btnFortify);
+		CommonMapUtil.disableControls(btnReinforcement, btnFortify, btnPlaceArmy);
 		initializeFortification();
 	}
 

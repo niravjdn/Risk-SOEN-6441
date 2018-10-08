@@ -17,10 +17,9 @@ import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
 /**
+ * This is the test class for MapOperation. {@link MapOperations}
  * @author Nirav
- *
  */
-
 public class MapOperationsTest {
 
 	static Map map;
@@ -44,6 +43,9 @@ public class MapOperationsTest {
 	String mapScroll = "horizontal";
 	String mapWarn = "yes";
 	
+	/**
+	 * This method executed before all the methods of the class.
+	 */
 	@BeforeClass
 	public static void beforeClass() {
 		map = new Map();
@@ -53,6 +55,9 @@ public class MapOperationsTest {
 		adjTerritory =  new Territory();
 	}
 	
+	/**
+	 * This method is executed before every method of the class.
+	 */
 	@Before
 	public void before() {
 		mapData = new HashMap<>();
@@ -64,6 +69,10 @@ public class MapOperationsTest {
 		map.setMapData(mapData);
 	}
 	
+	/**
+	 * This method test the functionality to add the continent.
+	 * @throws InvalidMapException InvalidMapException
+	 */
 	@Test
 	public void testAddContinent() throws InvalidMapException {
 		continent = MapOperations.addContinent(map, continentName, String.valueOf(controlValue1));
@@ -72,6 +81,9 @@ public class MapOperationsTest {
 		assertEquals(continent.getValue(), controlValue1);
 	}
 	
+	/**
+	 *  This method test the functionality to update the continent.
+	 */
 	@Test
 	public void testUpdateContinent() {
 		continent = MapOperations.updateContinent(continent, String.valueOf(controlValue2));
@@ -80,6 +92,9 @@ public class MapOperationsTest {
 		assertEquals(continent.getName(), continentName);
 	}
 	
+	/**
+	 *  This method test the functionality to add the territory.
+	 */
 	@Test
 	public void testAddTerritory() throws InvalidMapException {
 		territory = MapOperations.addTerritory(map, terrName, String.valueOf(x1), String.valueOf(y1), null, continent);
@@ -90,6 +105,9 @@ public class MapOperationsTest {
 		assertEquals(territory.getBelongToContinent(), continent);
 	}
 	
+	/**
+	 *  This method test the functionality to update the territory.
+	 */
 	@Test
 	public void testUpdateTerritory() {
 		territory = MapOperations.updateTerritory(territory, String.valueOf(x2), String.valueOf(y2), null);
@@ -100,6 +118,10 @@ public class MapOperationsTest {
 		Assert.assertNotEquals(territory.getyCoordinate(), y1);
 	}
 	
+	/**
+	 * This method test the functionality to map territory with the continent.
+	 * @throws InvalidMapException InvalidMapException
+	 */
 	@Test
 	public void testAssignTerrToContinent() throws InvalidMapException {
 		Territory newTerritory = new Territory();

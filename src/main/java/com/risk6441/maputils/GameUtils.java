@@ -109,10 +109,11 @@ public class GameUtils {
 	public static Player countReinforcementArmies(Map map, Player currentPlayer) {
 		int currentArmies = currentPlayer.getArmies();
 		int territoryCount = currentPlayer.getAssignedTerritory().size();
+		System.out.println("No Of Territories For Player : "+currentPlayer.getName()+ " - "+territoryCount);
 		if (territoryCount < 9) {
 			currentArmies = currentArmies + 3;
 		} else {
-			currentArmies = currentArmies + (territoryCount / 3);
+			currentArmies += (territoryCount / 3);
 		}
 
 		List<Continent> continents = getContinentsThatBelongsToPlayer(map, currentPlayer);

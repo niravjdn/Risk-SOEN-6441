@@ -9,7 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({MapReaderTest.class, MapOperationsTest.class, GameUtilsTest.class})
+@SuiteClasses({MapReaderTest.class, MapOperationsTest.class, GameUtilsTest.class, MapVerifierTest.class})
 public class MapUtilTestSuite {
 	
 }

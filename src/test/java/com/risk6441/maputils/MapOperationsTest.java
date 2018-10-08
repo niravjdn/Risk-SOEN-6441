@@ -123,7 +123,7 @@ public class MapOperationsTest {
 	 * @throws InvalidMapException InvalidMapException
 	 */
 	@Test
-	public void testAssignTerrToContinent() throws InvalidMapException {
+	public void testmapTerritoriryToContinent() throws InvalidMapException {
 		Territory newTerritory = new Territory();
 		newTerritory = MapOperations.addTerritory(map, "Canada", "1", "10", null, continent);
 		continent = MapOperations.mapTerritoriryToContinent(continent, newTerritory);

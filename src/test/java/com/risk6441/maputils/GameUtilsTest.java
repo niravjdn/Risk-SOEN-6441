@@ -97,7 +97,7 @@ public class GameUtilsTest {
 	 * This method test reinforcement armies for 99 initials army and player own entire continent with two territories.
 	 */
 	@Test
-	public void countReinforcementArmiesCaseOne() {		
+	public void testCountReinforcementArmiesCaseOne() {		
 		Player returnedPlayer = GameUtils.countReinforcementArmies(map, player);
 		Assert.assertEquals(returnedPlayer.getArmies(), 107);
 	}
@@ -106,7 +106,7 @@ public class GameUtilsTest {
 	 * This method counts reinforcement armies with initial army 99 and player has two continents.
 	 */
 	@Test
-	public void calculateReinforcementArmiesUseCaseTwo() {	
+	public void testCountReinforcementArmiesUseCaseTwo() {	
 		Continent newContinent = new Continent();
 		newContinent.setName("North America");
 		newContinent.setValue(10);
@@ -130,7 +130,7 @@ public class GameUtilsTest {
 	 * This method counts reinforcement armies for the player who owns one continent and 12 territories.
 	 */
 	@Test
-	public void calculateReinforcementArmiesUseCaseThree() {	
+	public void testCountReinforcementArmiesUseCaseThree() {	
 		Continent newContinent = new Continent();
 		newContinent.setName("North America");
 		newContinent.setValue(10);

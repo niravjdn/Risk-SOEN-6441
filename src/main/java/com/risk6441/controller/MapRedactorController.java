@@ -321,7 +321,7 @@ public class MapRedactorController  implements Initializable{
     void addContinent(ActionEvent event) {
 		//get details from the event object and proceed
 		
-		//call MapOperation.addContinent simillar for others
+		//call MapOperation.addContinent similar for others
 		Continent cnt;
 		try {
 			cnt = MapOperations.addContinent(map, txtContName.getText(), txtContControlVal.getText());

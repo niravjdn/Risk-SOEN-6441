@@ -91,7 +91,11 @@ public class PlayGameController implements Initializable{
     void attack(ActionEvent event) {
     	
     }
-
+    
+    /** This method ends the turn of particular player using Scheduled Executor class
+     * 
+     * @param event button event will be passed as a parameter
+     */
     @FXML
     void endTrun(ActionEvent event) {
     	if (!scheduledExecutor.isShutdown()) {
@@ -99,6 +103,11 @@ public class PlayGameController implements Initializable{
     	}
     	startGame();
     }
+    
+    /** This method will be called by user to start the fortification phase
+     * 
+     * @param event button click event will be passes as parameter
+     */
 
     @FXML
     void fortify(ActionEvent event) {
@@ -161,6 +170,11 @@ public class PlayGameController implements Initializable{
     	
     
     }
+    
+    /** This method will allow the players to place the armies one by one in round robin fashion
+     * 
+     * @param event Button triggered event will be passed as parameter
+     */
 
     @FXML
     void placeArmy(ActionEvent event) {
@@ -191,6 +205,11 @@ public class PlayGameController implements Initializable{
 		}
     	
     }
+    
+    /** This method will allow the user to place the armies after the fortification phase is completed
+     * 
+     * @param event button click event will be passed as parameter
+     */
 
     @FXML
     
@@ -230,20 +249,24 @@ public class PlayGameController implements Initializable{
     }
 
     
-    
+    // constructor to initialize the Map object
 	public PlayGameController(Map map) {
 		this.map = map;
 	}
 	
+	// Default constructor
 	public PlayGameController() {
 		
 	}
 	
+	//sets the label text of player to current player
 	public void setCurrentPlayerLabel(String  str) {
 		lblCurrPlayer.setText("Playing... : "+str); 
 	}
 	
-	
+	/** 
+	 * Loads the current player and clears the selected & adjacent territory list
+	 */
 	public Player loadCurrentPlayer() {
 		if (!playerListIterator.hasNext()) {
 			playerListIterator = playerList.iterator();
@@ -260,6 +283,9 @@ public class PlayGameController implements Initializable{
 		return currentPlayer;
 	}
 	
+	/** 
+	 * Method for starting the game and performs the looping operation for each phase of game play   
+	 */
 	public void startGame() {
 		scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
 		scheduledExecutor.scheduleWithFixedDelay(new Runnable() {
@@ -406,6 +432,9 @@ public class PlayGameController implements Initializable{
 		GameUtils.addTextToLog("Reinforcement phase has begun.", txtAreaMsg);
 	}
 	
+	/**
+	 * method to count the number of armies to be assigned to a player in reinforcement phase.
+	 */
 	public void countReinforcementArmies() {
 		if (this.currentPlayer != null) {
 			currentPlayer = GameUtils.countReinforcementArmies(map, currentPlayer);

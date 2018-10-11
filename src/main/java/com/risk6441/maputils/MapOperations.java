@@ -17,6 +17,7 @@ import com.risk6441.models.Territory;
 public class MapOperations {
 	
 	/**
+	 * Adds continent to the map with details like control value etc.
 	 * @param map
 	 * @param name
 	 * @param ctrlValue
@@ -37,6 +38,7 @@ public class MapOperations {
 	}
 	
 	/**
+	 * Adds territory to the map and the continent with its respective details.
 	 * @param map
 	 * @param name
 	 * @param xCo
@@ -81,6 +83,7 @@ public class MapOperations {
 	}
 	
 	/**
+	 * This method updates the continent details if the user selects the continent.
 	 * @param continent
 	 * @param controlValue
 	 * @return
@@ -92,6 +95,7 @@ public class MapOperations {
 	}
 	
 	/**
+	 * This method updates the continent details when the user selects the territory.
 	 * @param territory
 	 * @param xCo
 	 * @param yCo
@@ -118,8 +122,9 @@ public class MapOperations {
 	}
 	
 	/**
+	 * This method adds the territory to the corresponding continent.
 	 * @param continent
-	 * 		   continent object whihch will be assigned territories
+	 * 		   continent object which will be assigned territories
 	 * @param territory
 	 * @return
 	 */

@@ -22,6 +22,7 @@ import com.risk6441.models.Territory;
  * @author Nirav
  */
 public class MapReader {
+	
 	public static void main(String[] args) throws InvalidMapException {
 		MapReader mr = new MapReader();
 		mr.map = new Map();
@@ -49,6 +50,12 @@ public class MapReader {
 		return map;
 	}
 	
+	/**
+	 * This method reads the map file and verifies if the map is valid.
+	 * @param file
+	 * @return
+	 * @throws InvalidMapException
+	 */
 	public Map readMapFile(final File file) throws InvalidMapException{
 		
 		this.map = processMapFile(file);

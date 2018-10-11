@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 public class Main extends Application{
 	
 	
+	/**
+	 * Starts the main to launch the game.
+	 * @param args
+	 */
 	public static void main(String[] args)
 	    {
 	        Application.launch(args);
@@ -21,8 +25,8 @@ public class Main extends Application{
 	     
 
 
-	/* (non-Javadoc)
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	/* 
+	 * Loads the first Launcher Splash screen. 
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {

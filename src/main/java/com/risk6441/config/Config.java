@@ -20,7 +20,7 @@ public class Config {
 	/**
 	 * The @ARMIES_FOUR_PLAYER.
 	 */
-	public static final Integer ARMIES_FOUR_PLAYER = 35;
+	public static final Integer ARMIES_FOUR_PLAYER = 30;
 	
 	/**
 	 * The @ARMIES_FIVE_PLAYER.

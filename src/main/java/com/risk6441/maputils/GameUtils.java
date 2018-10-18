@@ -10,7 +10,7 @@ import com.risk6441.models.Continent;
 import com.risk6441.models.Map;
 import com.risk6441.models.Player;
 import com.risk6441.models.Territory;
-
+import java.util.Collections;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
@@ -188,7 +188,7 @@ public class GameUtils {
 		if(players.size() > allterritoriesList.size()) {
 			throw new InvalidMapException("Territories must be more than players.");
 		}
-		
+		Collections.shuffle(allterritoriesList); 
 		int playerNo = 0;
 		for (int i = 0; i < allterritoriesList.size(); i++) {
 			if(playerNo == players.size())

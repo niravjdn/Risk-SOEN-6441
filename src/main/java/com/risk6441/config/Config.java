@@ -10,6 +10,7 @@ public class Config {
 	 * The @ARMIES_TWO_PLAYER...
 	 */
 	public static final Integer ARMIES_TWO_PLAYER =40;
+	//20
 	
 	/**
 	 * The @ARMIES_THREE_PLAYER.

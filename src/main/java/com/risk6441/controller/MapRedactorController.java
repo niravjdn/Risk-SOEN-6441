@@ -489,7 +489,7 @@ public class MapRedactorController  implements Initializable{
     	map.getMapData().put("author",txtAuthor.getText());
     	map.getMapData().put("scroll",txtScroll.getText());
     	map.getMapData().put("wrap",txtWrap.getText());
-    	map.getMapData().put("wran",txtWarn.getText());
+    	map.getMapData().put("warn",txtWarn.getText());
     	
     	try {
     		MapVerifier.verifyMap(map);

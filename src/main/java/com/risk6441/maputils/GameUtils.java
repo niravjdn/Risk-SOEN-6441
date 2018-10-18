@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.risk6441.config.Config;
+import com.risk6441.exception.InvalidMapException;
 import com.risk6441.models.Continent;
 import com.risk6441.models.Map;
 import com.risk6441.models.Player;
@@ -89,7 +90,7 @@ public class GameUtils {
 	 * 			list of players after creating players
 	 */
 	public static List<Player> createPlayers(int noOfPlayers, List<Player> players, TextArea textArea) {
-		for (int i = 0; i < noOfPlayers; i++) {
+		for (int i = 1; i <= noOfPlayers; i++) {
 			String name = "Player" + i;
 			players.add(new Player(i, name));
 			addTextToLog(name + " created!\n", textArea);
@@ -167,8 +168,9 @@ public class GameUtils {
 	 * 		  		list of the player
 	 * @param textAres
 	 * 				  textArea object
+	 * @throws InvalidMapException 
 	 */
-	public static void allocateTerritoryToPlayer(Map map, List<Player> players, TextArea textAres) {
+	public static void allocateTerritoryToPlayer(Map map, List<Player> players, TextArea textAres) throws InvalidMapException {
 
 		List<Territory> allterritoriesList = new ArrayList<>();
 
@@ -180,6 +182,11 @@ public class GameUtils {
 					}
 				}
 			}
+		}
+		
+		
+		if(players.size() > allterritoriesList.size()) {
+			throw new InvalidMapException("Territories must be more than players.");
 		}
 		
 		int playerNo = 0;

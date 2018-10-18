@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.risk6441.exception.InvalidMapException;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.GameUtils;
 import com.risk6441.models.Continent;
@@ -299,8 +300,9 @@ public class PlayGameController implements Initializable{
 	
 	/**
 	 * This method allocates territories to the player and start the game.
+	 * @throws InvalidMapException 
 	 */
-	private void allocateTerritoriesToPlayer() {
+	private void allocateTerritoriesToPlayer() throws InvalidMapException {
 		GameUtils.addTextToLog("===Assigning territories===\n", txtAreaMsg);
 		GameUtils.allocateTerritoryToPlayer(map, playerList, txtAreaMsg);
 		GameUtils.addTextToLog("===Territories assignation complete===\n", txtAreaMsg);
@@ -331,7 +333,13 @@ public class PlayGameController implements Initializable{
 				playerListIterator = playerList.iterator();
 				CommonMapUtil.enableControls(btnPlaceArmy);
 				GameUtils.assignArmiesToPlayers(playerList, txtAreaMsg);
-				allocateTerritoriesToPlayer();
+				try {
+					allocateTerritoriesToPlayer();
+				} catch (InvalidMapException e) {
+					// TODO Auto-generated catch block
+					CommonMapUtil.alertBox("Alert", e.getMessage(), "Error");
+					e.printStackTrace();
+				}
 			}
 		});
 		

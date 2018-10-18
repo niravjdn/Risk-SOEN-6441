@@ -2,6 +2,7 @@ package com.risk6441.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.channels.SeekableByteChannel;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -39,37 +40,23 @@ import javafx.stage.Stage;
 public class MapRedactorController  implements Initializable{
 
 	/**
-	 * The @map map object
+	 * The map map object 
+	 * {@link Map}
 	 */
 	private Map map;
 
-	/**
-	 * The @file
-	 */
+	
 	private File file;
-	
-	
-    /**
-     * @lblAuthor1 label for author
-     */
+  
     @FXML
     private Label lblAuthor1;
 
-    /**
-     * @lblWarn for warn
-     */
     @FXML
     private Label lblWarn;
 
-    /**
-     * @txtWarn for textbox Warn
-     */
     @FXML
     private TextField txtWarn;
 
-    /**
-     * @lblAuthor for Label author
-     */
     @FXML
     private Label lblAuthor;
 

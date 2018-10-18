@@ -38,6 +38,10 @@ import javafx.scene.layout.VBox;
  */
 public class PlayGameController implements Initializable{
 
+	/**
+	 * The map object {@link Map}
+	 * 
+	 */
 	private Map map;
 	
 	private int noOfPlayer;

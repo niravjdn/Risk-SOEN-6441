@@ -138,6 +138,7 @@ public class PlayGameController implements Initializable{
     	
     	armyCount=CommonMapUtil.inputDialogueBoxForFortification();
     	if(armyCount > 0) {
+    		System.out.println("ArmyCount"+armyCount);
     		if(armyCount >= territory.getArmy()) {
     			CommonMapUtil.alertBox("Info", "The Army to be moved in fortification phase should be less than "
     					+ "existing army in territory.(e.g It can be maximum x-1, if x is the current army in territory.)", "Alert");
@@ -155,24 +156,8 @@ public class PlayGameController implements Initializable{
     		return;
     	}
     	
-    	
-    	boolean checkCounter=GameUtils.checkFortificationPhase(numPlayer);
-    	if (checkCounter) 
-    	{
-			scheduledExecutor.shutdownNow();
-			loadCurrentPlayer();
-			initializeReinforcement();
-		} 
-    	else 
-    	{
-			scheduledExecutor.shutdownNow();
-			if (scheduledExecutor.isShutdown()) 
-			{
-				startGame();
-			}
-		}
-    	
-    
+    	loadCurrentPlayer();
+    	initializeReinforcement();
     }
     
     /** This method will allow the players to place the armies one by one in round robin fashion
@@ -217,8 +202,6 @@ public class PlayGameController implements Initializable{
     void reinforce(ActionEvent event) {
     	if(currentPlayer.getArmies()>0)
     	{
-    		int getArmy=CommonMapUtil.inputDialogueBoxForRenforcement();
-
     		Territory territory = terrList.getSelectionModel().getSelectedItem();
 
     		if(territory == null) {
@@ -226,6 +209,7 @@ public class PlayGameController implements Initializable{
     			return;
     		}
 
+    		int getArmy=CommonMapUtil.inputDialogueBoxForRenforcement();
     		if(getArmy > 0) {
     			if(getArmy > currentPlayer.getArmies()) {
     				CommonMapUtil.alertBox("Info", "The Army to be moved in reinforce phase should be less than army you have.", "Alert");
@@ -233,10 +217,11 @@ public class PlayGameController implements Initializable{
     			}else {
     				territory.setArmy(territory.getArmy() + getArmy);
     				currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
-    				GameUtils.addTextToLog("====== "+getArmy+" assigned to : ==========="+territory+"  -- Player "+currentPlayer.getName(), txtAreaMsg);
+    				GameUtils.addTextToLog("==="+getArmy+" assigned to : === \n"+territory+"  -- Player "+currentPlayer.getName()+"\n", txtAreaMsg);
     				updateMap();
     				terrList.refresh();
     				GameUtils.addTextToLog("======Reinforce Phase Completed. ===========", txtAreaMsg);
+    				setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
     			}
     		}else {
     			CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");
@@ -410,9 +395,11 @@ public class PlayGameController implements Initializable{
 	 */
 	public void initializeAttack() {
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
+		GameUtils.addTextToLog("The Attack phase has begun.\n", txtAreaMsg);
 		GameUtils.addTextToLog("The Attack phase is under developmet.", txtAreaMsg);
 		btnAttack.setDisable(false);
 		btnAttack.requestFocus();
+		CommonMapUtil.enableControls(btnEndTurn);
 		CommonMapUtil.disableControls(btnReinforcement, btnFortify, btnPlaceArmy);
 		initializeFortification();
 	}
@@ -424,7 +411,7 @@ public class PlayGameController implements Initializable{
 		
 		if(GameUtils.isFortificationPhasePossible(map, currentPlayer)) {
 			GameUtils.addTextToLog("===============================\n", txtAreaMsg);
-			GameUtils.addTextToLog("Fortification phase has begun.", txtAreaMsg);
+			GameUtils.addTextToLog("The Fortification phase has begun.\n", txtAreaMsg);
 			btnFortify.setDisable(false);
 			btnFortify.requestFocus();
 			CommonMapUtil.disableControls(btnReinforcement, btnAttack);
@@ -447,6 +434,8 @@ public class PlayGameController implements Initializable{
 		btnReinforcement.requestFocus();
 		GameUtils.addTextToLog("=======================================\n", txtAreaMsg);
 		GameUtils.addTextToLog("Reinforcement phase has begun.", txtAreaMsg);
+		GameUtils.addTextToLog(currentPlayer.getName() + "\n", txtAreaMsg);
+		countReinforcementArmies();
 	}
 	
 	/**

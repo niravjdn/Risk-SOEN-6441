@@ -175,11 +175,7 @@ public class Territory {
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	
-	/** 
-	 * Checks if duplicates are present in a territory list and removes it
-	 */
+	 */	
 	@Override
 	public boolean equals(Object obj) {
 

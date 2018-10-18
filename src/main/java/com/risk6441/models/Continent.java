@@ -16,7 +16,6 @@ public class Continent {
 	private int value;
 	private HashMap<String, Territory> territoryMap;
 	private List<Territory> territories;
-	
 	private boolean isVisited = false;
 	
 	

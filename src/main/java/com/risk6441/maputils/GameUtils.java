@@ -79,13 +79,14 @@ public class GameUtils {
 	
 	/**
 	 * This method creates the players.
-	 * @param noOfPlayer
-	 * 			no of player to be created
+	 * @param noOfPlayers
+	 * 			no of players to be created
 	 * @param players
 	 * 			list of players
 	 * @param textArea
 	 * 		  textArea object to append the log
-	 * @return
+	 * @return 
+	 * 			list of players after creating players
 	 */
 	public static List<Player> createPlayers(int noOfPlayers, List<Player> players, TextArea textArea) {
 		for (int i = 0; i < noOfPlayers; i++) {

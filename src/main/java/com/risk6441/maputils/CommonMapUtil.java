@@ -6,22 +6,18 @@ package com.risk6441.maputils;
 import java.io.File;
 import java.util.Optional;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import com.risk6441.models.Continent;
 import com.risk6441.models.Territory;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 /**
@@ -101,9 +97,6 @@ public class CommonMapUtil {
 		ta.setText(msg);
 	}
 	
-	
-			
-	
 	/**
 	 * This method is used to enable controls.
 	 * @param controls
@@ -128,7 +121,7 @@ public class CommonMapUtil {
 	
 	
 	/**
-	 * This method is used to clear the textfields/texboxes
+	 * This method is used to clear the textfields/textboxes
 	 * @param fields
 	 * 			textfields 
 	 */
@@ -153,18 +146,16 @@ public class CommonMapUtil {
 		alert.showAndWait();
 	}
 	
-	/**
-	 * This method shows the alert box.
-	 * @param frame
-	 * @param msg
-	 */
-	public static void showAlertBox(JFrame frame, String msg) {
-		JOptionPane.showMessageDialog(frame, msg);
-	}
+
 	
-	public static TitledPane getNewPaneForVBox(Continent c) {
+	/**
+	 * This method loads up the territories the of particular continent and shows them in titled pane with number of armies on the territory.
+	 * @param continent object of the continent
+	 * @return the titled pane for the user interface of the game play.
+	 */
+	public static TitledPane getNewPaneForVBox(Continent continent) {
 		VBox hbox = new VBox();
-		for (Territory territory : c.getTerritories()) {
+		for (Territory territory : continent.getTerritories()) {
 			Label label1 = new Label();
 			if (territory.getPlayer() != null) {
 				label1.setText(
@@ -174,7 +165,7 @@ public class CommonMapUtil {
 			}
 			hbox.getChildren().add(label1);
 		}
-		TitledPane pane = new TitledPane(c.getName(), hbox);
+		TitledPane pane = new TitledPane(continent.getName(), hbox);
 
 		return pane;
 	}

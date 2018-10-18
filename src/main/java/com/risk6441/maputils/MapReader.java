@@ -22,14 +22,6 @@ import com.risk6441.models.Territory;
  */
 public class MapReader {
 	
-	public static void main(String[] args) throws InvalidMapException {
-		MapReader mr = new MapReader();
-		mr.map = new Map();
-		File file = new File("/Users/Nirav/Desktop/untitledfolder/continent_is_not_a subgraph.map");
-		System.out.println(mr.readMapFile(file));
-	}
-	
-	
 	//make a object of Map class to return it once map is processed successfully.
 	private Map map;
 	
@@ -186,7 +178,6 @@ public class MapReader {
 		
 		//here you can create continent map 
 		//pass it to territory method and set there only
-		
 		
 		HashMap<String, Territory> territoryMap = new HashMap<String, Territory>();
 		for (Territory t : territorieList) {

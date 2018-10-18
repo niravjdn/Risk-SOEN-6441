@@ -15,9 +15,6 @@ public class Player {
 	private int armies;
 	private List<Territory> assignedTerritory;
 	
-	
-	
-	
 	/**
 	 * @param id id of the player eg. 1
 	 * @param name name of the player

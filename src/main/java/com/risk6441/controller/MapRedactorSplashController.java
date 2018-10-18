@@ -34,6 +34,12 @@ public class MapRedactorSplashController {
     @FXML
     private Button btnExit;
 
+    /**
+     * The method gets executed when user clicks on create map button from the map splash screen.
+     * It opens the map editor with blank map. The user is allowed to create new map afterwards.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void btnCreateMap(ActionEvent event) throws IOException {
     	
@@ -58,6 +64,12 @@ public class MapRedactorSplashController {
 		stage.show();
     }
 
+    /**
+     * The method gets executed when user clicks on edit map button from the map splash screen.
+     * It opens the file chooser to allow user to choose a file. The user is allowed to edit a map afterwards. 
+     * @param event
+     * @throws IOException, if there is issue whlile reading a map file.
+     */
     @FXML
     void btnEditMap(ActionEvent event) throws IOException {
     	File file = CommonMapUtil.showFileDialog();
@@ -95,6 +107,10 @@ public class MapRedactorSplashController {
 		stage.show();
     }
 
+    /**
+     * This method is executed when user clicks on exit button. It closes the application.
+     * @param event
+     */
     @FXML
     void btnExit(ActionEvent event) {
     	Stage stage = (Stage) btnExit.getScene().getWindow();

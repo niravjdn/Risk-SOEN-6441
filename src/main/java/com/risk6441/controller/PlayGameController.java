@@ -108,7 +108,6 @@ public class PlayGameController implements Initializable{
      * 
      * @param event button click event will be passes as parameter
      */
-
     @FXML
     void fortify(ActionEvent event) {
 
@@ -175,7 +174,6 @@ public class PlayGameController implements Initializable{
      * 
      * @param event Button triggered event will be passed as parameter
      */
-
     @FXML
     void placeArmy(ActionEvent event) {
     	int playerArmies = currentPlayer.getArmies();
@@ -210,9 +208,7 @@ public class PlayGameController implements Initializable{
      * 
      * @param event button click event will be passed as parameter
      */
-
     @FXML
-    
     void reinforce(ActionEvent event) {
     	if(currentPlayer.getArmies()>0)
     	{
@@ -387,7 +383,7 @@ public class PlayGameController implements Initializable{
 	}
 	
 	/**
-	 * Update the map to show latest data.
+	 * Updates the map to show latest data.
 	 */
 	public void updateMap() {
 		vbox.getChildren().clear();
@@ -397,6 +393,9 @@ public class PlayGameController implements Initializable{
 		}
 	}
 	
+	/**
+	 * This method intializes the components for the attack phase.
+	 */
 	public void initializeAttack() {
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
 		GameUtils.addTextToLog("The Attack phase is under developmet.", txtAreaMsg);
@@ -406,6 +405,9 @@ public class PlayGameController implements Initializable{
 		initializeFortification();
 	}
 
+	/**
+	 * This method intializes the components for the fortification phase.
+	 */
 	private void initializeFortification() {
 		
 		if(GameUtils.isFortificationPhasePossible(map, currentPlayer)) {
@@ -424,6 +426,9 @@ public class PlayGameController implements Initializable{
 		
 	}
 
+	/**
+	 * This method initialized the component for the reinforcement phase.
+	 */
 	private void initializeReinforcement() {
 		CommonMapUtil.disableControls(btnPlaceArmy, btnAttack, btnFortify);
 		btnReinforcement.setDisable(false);

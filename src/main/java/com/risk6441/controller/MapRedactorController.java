@@ -245,31 +245,31 @@ public class MapRedactorController  implements Initializable{
     private TextField txtTerrName;
 
     /**
-     * @btnUpdateTerr for updating Territory details
+     * The btnUpdateTerr for updating Territory details
      */
     @FXML
     private Button btnUpdateTerr;
 
     /**
-     * @contList List for continents
+     * The contList List for continents
      */
     @FXML
     private ListView<Continent> contList;
 
     /**
-     * @terrList List for Territories
+     * The terrList List for Territories
      */
     @FXML
     private ListView<Territory> terrList;
 
     /**
-     * @adjTerrList List for adjacent Territories
+     * The adjTerrList List for adjacent Territories
      */
     @FXML
     private ListView<Territory> adjTerrList;
 
     /**
-     * @lblContList List for Continents
+     * The lblContList List for Continents
      */
     @FXML
     private Label lblContList;

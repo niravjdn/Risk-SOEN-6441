@@ -151,7 +151,7 @@ public class Territory {
 	}
 	
 	/**
-	 * @return the isProcessed
+	 * @return isProcessed returns boolean value whether a territory is processed or not
 	 */
 	public boolean isProcessed() {
 		return isProcessed;
@@ -175,6 +175,10 @@ public class Territory {
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	
+	/** 
+	 * Checks if duplicates are present in a territory list and removes it
 	 */
 	@Override
 	public boolean equals(Object obj) {

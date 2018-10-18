@@ -250,8 +250,10 @@ public class PlayGameController implements Initializable{
 		lblCurrPlayer.setText("Playing... : "+str); 
 	}
 	
-	/** 
-	 * Loads the current player and clears the selected & adjacent territory list
+	
+	/**
+	 * Loads the current player and clears the selected and adjacent territory list
+	 * @return The current player
 	 */
 	public Player loadCurrentPlayer() {
 		if (!playerListIterator.hasNext()) {
@@ -285,7 +287,7 @@ public class PlayGameController implements Initializable{
 	
 	/**
 	 * This method allocates territories to the player and start the game.
-	 * @throws InvalidMapException 
+	 * @throws InvalidMapException Throws IOException if there is an issue while loading the map.
 	 */
 	private void allocateTerritoriesToPlayer() throws InvalidMapException {
 		GameUtils.addTextToLog("===Assigning territories===\n", txtAreaMsg);

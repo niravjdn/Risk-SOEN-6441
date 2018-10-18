@@ -89,9 +89,9 @@ public class CommonMapUtil {
 	
 	
 	/**
-	 * This method writes the message int textarea.
-	 * @param ta
-	 * @param msg
+	 * This method writes the message in the text area.
+	 * @param ta This is the text area object.
+	 * @param msg This is the message to be set.
 	 */
 	public static void putMessgae(TextArea ta, String msg) {
 		ta.setText(msg);

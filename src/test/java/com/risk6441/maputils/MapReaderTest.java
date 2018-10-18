@@ -32,8 +32,10 @@ public class MapReaderTest {
 		mapReader = new MapReader();
 	}
 	
+	
 	/**
 	 * This method is executed before every method of the class.
+	 * @throws IOException Throws error if map is not valid.
 	 */
 	@Before
 	public void beforeMethod() throws IOException {
@@ -41,8 +43,8 @@ public class MapReaderTest {
 	}
 	
 	/**
-	 * This method tests the vaid map.
-	 * @throws InvalidMapException
+	 * This method tests the valid map.
+	 * @throws InvalidMapException Throws error if map is not valid.
 	 */
 	@Test
 	public void testValidMap() throws InvalidMapException {

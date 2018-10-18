@@ -18,11 +18,11 @@ public class MapOperations {
 	
 	/**
 	 * Adds continent to the map with details like control value etc.
-	 * @param map
-	 * @param name
-	 * @param ctrlValue
-	 * @return
-	 * @throws InvalidMapException
+	 * @param map Current map object.
+	 * @param name Name of the continent.
+	 * @param ctrlValue Control value of the continent.
+	 * @return Returns the newly created continent.
+	 * @throws InvalidMapException Throws IOException if there is an issue while reading a map file.
 	 */
 	public static Continent addContinent(Map map, String name, String ctrlValue) throws InvalidMapException {
 		Continent cnt = new Continent();
@@ -39,14 +39,14 @@ public class MapOperations {
 	
 	/**
 	 * Adds territory to the map and the continent with its respective details.
-	 * @param map
-	 * @param name
-	 * @param xCo
-	 * @param yCo
-	 * @param adjTerritory
-	 * @param continent
-	 * @return
-	 * @throws InvalidMapException
+	 * @param map Current map object.
+	 * @param name Name of the territory.
+	 * @param xCo X Co-ordinate of the territory.
+	 * @param yCo Y Co-ordinate of the territory.
+	 * @param adjTerr Adjacent territories of the current territory.
+	 * @param continent Continent to which the territory belongs to.
+	 * @return The newly created Territory. 
+	 * @throws InvalidMapException Throws IOException if there is an issue while reading a map file.
 	 */
 	public static Territory addTerritory(Map map, String name, String xCo, String yCo, Territory adjTerr,
 			Continent continent) throws InvalidMapException {
@@ -84,9 +84,9 @@ public class MapOperations {
 	
 	/**
 	 * This method updates the continent details if the user selects the continent.
-	 * @param continent
-	 * @param controlValue
-	 * @return
+	 * @param continent The continent whose details must be updated.
+	 * @param ctrlValue The control value of the continent.
+	 * @return The current continent.
 	 */
 	public static Continent updateContinent(Continent continent, String ctrlValue) {
 		
@@ -96,11 +96,11 @@ public class MapOperations {
 	
 	/**
 	 * This method updates the continent details when the user selects the territory.
-	 * @param territory
-	 * @param xCo
-	 * @param yCo
-	 * @param adjTerr
-	 * @return
+	 * @param territory The territory whose values must be updated.
+	 * @param xCo X-Co-ordinate of the territory.
+	 * @param yCo Y-Co-ordinate of the territory.
+	 * @param adjTerr The adjacent territories list. 
+	 * @return The object to the newly updated territory.
 	 */
 	public static Territory updateTerritory(Territory territory, String xCo, String yCo, 
 			Territory adjTerr) {
@@ -125,8 +125,8 @@ public class MapOperations {
 	 * This method adds the territory to the corresponding continent.
 	 * @param continent
 	 * 		   continent object which will be assigned territories
-	 * @param territory
-	 * @return
+	 * @param territory The territory which is added to the continent.
+	 * @return the Object to the newly updated continent.
 	 */
 	public static Continent mapTerritoriryToContinent(Continent continent, Territory territory) {
 		

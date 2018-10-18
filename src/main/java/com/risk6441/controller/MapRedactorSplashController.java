@@ -37,8 +37,8 @@ public class MapRedactorSplashController {
     /**
      * The method gets executed when user clicks on create map button from the map splash screen.
      * It opens the map editor with blank map. The user is allowed to create new map afterwards.
-     * @param event
-     * @throws IOException
+     * @param event Creates button for create map.
+     * @throws IOException Throws IOException if loader fails.
      */
     @FXML
     void btnCreateMap(ActionEvent event) throws IOException {
@@ -67,8 +67,8 @@ public class MapRedactorSplashController {
     /**
      * The method gets executed when user clicks on edit map button from the map splash screen.
      * It opens the file chooser to allow user to choose a file. The user is allowed to edit a map afterwards. 
-     * @param event
-     * @throws IOException, if there is issue whlile reading a map file.
+     * @param event  Creates button for edit map.  
+     * @throws IOException Throws IOException if there is an issue while reading a map file.
      */
     @FXML
     void btnEditMap(ActionEvent event) throws IOException {
@@ -109,7 +109,7 @@ public class MapRedactorSplashController {
 
     /**
      * This method is executed when user clicks on exit button. It closes the application.
-     * @param event
+     * @param event  Creates button for exit.
      */
     @FXML
     void btnExit(ActionEvent event) {

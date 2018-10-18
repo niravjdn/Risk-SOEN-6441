@@ -92,8 +92,10 @@ public class MapOperationsTest {
 		assertEquals(continent.getName(), continentName);
 	}
 	
+	
 	/**
 	 *  This method test the functionality to add the territory.
+	 * @throws InvalidMapException Throws invalid map if the map wasn't read properly.
 	 */
 	@Test
 	public void testAddTerritory() throws InvalidMapException {

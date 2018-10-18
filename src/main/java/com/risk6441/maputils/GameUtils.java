@@ -168,7 +168,7 @@ public class GameUtils {
 	 * 		  		list of the player
 	 * @param textAres
 	 * 				  textArea object
-	 * @throws InvalidMapException 
+	 * @throws InvalidMapException Throws IOException if there is an issue while reading a map file.
 	 */
 	public static void allocateTerritoryToPlayer(Map map, List<Player> players, TextArea textAres) throws InvalidMapException {
 

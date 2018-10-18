@@ -25,8 +25,8 @@ public class MapVerifier {
 
 	/**
 	 * This method validates the map.
-	 * @param map
-	 * @throws InvalidMapException
+	 * @param map map object for verifying map
+	 * @throws InvalidMapException if map has some errors
 	 */
 	public static void verifyMap(Map map) throws InvalidMapException{
 		if(map == null) {
@@ -50,8 +50,8 @@ public class MapVerifier {
 	
 	/**
 	 * This method verifies the continents.
-	 * @param map
-	 * @throws InvalidMapException
+	 * @param map map object to verify continents of the map
+	 * @throws InvalidMapException throws if map has some errors
 	 */
 	public static void verifyContinents(Map map) throws InvalidMapException {
 		

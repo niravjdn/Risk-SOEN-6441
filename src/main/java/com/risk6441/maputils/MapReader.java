@@ -43,9 +43,9 @@ public class MapReader {
 	
 	/**
 	 * This method reads the map file and verifies if the map is valid.
-	 * @param file
-	 * @return
-	 * @throws InvalidMapException
+	 * @param file The map file to be read.
+	 * @return The map object returned after reading the file.
+	 * @throws InvalidMapException Throws IOException if the map is invalid.
 	 */
 	public Map readMapFile(final File file) throws InvalidMapException{
 		
@@ -222,10 +222,10 @@ public class MapReader {
 	
 	/**
 	 * This method processes territories and check that it should be assign to only one continent
-	 * @param territoryLine line from the map file for the territory
-	 * @param continentList
-	 * @return territorieList after processing
-	 * @throws InvalidMapException throws InvalidMapException if map is not valid
+	 * @param territoryLine Line from the map file for the territory
+	 * @param continentList Produces the continent list.
+	 * @return territorieList After processing
+	 * @throws InvalidMapException Throws InvalidMapException if map is not valid
 	 */
 	private List<Territory> parseTerritories(String territoryLine, List<Continent> continentList) throws InvalidMapException{
 		

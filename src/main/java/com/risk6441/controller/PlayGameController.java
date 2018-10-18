@@ -107,6 +107,7 @@ public class PlayGameController implements Initializable{
     		scheduledExecutor.shutdown();
     	}
     	startGame();
+    	initializeReinforcement();
     }
     
     /** This method will be called by user to start the fortification phase
@@ -156,7 +157,7 @@ public class PlayGameController implements Initializable{
     		return;
     	}
     	
-    	loadCurrentPlayer();
+    	loadCurrentPlayer(false);
     	initializeReinforcement();
     }
     
@@ -183,8 +184,9 @@ public class PlayGameController implements Initializable{
 		boolean armiesExhausted = GameUtils.checkIfPlayersArmiesExhausted(playerList);
 		if (armiesExhausted) {
 			scheduledExecutor.shutdownNow();
-			loadCurrentPlayer();
-			initializeAttack();
+			loadCurrentPlayer(true);
+			//initialize reinforcement after all player has placed their army.
+			initializeReinforcement();
 		} else {
 			scheduledExecutor.shutdownNow();
 			if (scheduledExecutor.isShutdown()) {
@@ -255,8 +257,9 @@ public class PlayGameController implements Initializable{
 	 * Loads the current player and clears the selected and adjacent territory list
 	 * @return The current player
 	 */
-	public Player loadCurrentPlayer() {
-		if (!playerListIterator.hasNext()) {
+	public Player loadCurrentPlayer(boolean isLoadingFromFirstPlayer) {
+		
+		if (!playerListIterator.hasNext() || isLoadingFromFirstPlayer) {
 			playerListIterator = playerList.iterator();
 		}
 		currentPlayer = playerListIterator.next();
@@ -279,7 +282,7 @@ public class PlayGameController implements Initializable{
 		scheduledExecutor.scheduleWithFixedDelay(new Runnable() {
 			@Override
 			public void run() {
-				Platform.runLater(() -> loadCurrentPlayer());
+				Platform.runLater(() -> loadCurrentPlayer(false));
 			}
 
 		}, 0, 300000, TimeUnit.MILLISECONDS);
@@ -418,9 +421,9 @@ public class PlayGameController implements Initializable{
 			btnFortify.requestFocus();
 			CommonMapUtil.disableControls(btnReinforcement, btnAttack);
 		}else {
-			GameUtils.addTextToLog("Fortification phase has begun.", txtAreaMsg);
+			GameUtils.addTextToLog("Fortification phase has begun.\n", txtAreaMsg);
 			GameUtils.addTextToLog(currentPlayer.getName() + " does not have any armies for fortification.", txtAreaMsg);
-			loadCurrentPlayer();
+			loadCurrentPlayer(false);
 			initializeReinforcement();
 		}
 		

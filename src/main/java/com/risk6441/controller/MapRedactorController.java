@@ -547,13 +547,10 @@ public class MapRedactorController  implements Initializable{
 	 */
 	public void showTerritoryOfContInList(Continent continent) {
 		terrList.getItems().clear();
-		try {
+		if (continent != null && continent.getTerritories() != null)  {
 			for (Territory t : continent.getTerritories()) {
 				terrList.getItems().add(t);
 			}
-		}catch (Exception e) {
-			//CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
-			//exception  will be thrown if continent doesn't have any territories
 		}
 	}
 	

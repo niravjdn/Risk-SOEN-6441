@@ -257,6 +257,7 @@ public class PlayGameController implements Initializable{
 	
 	/**
 	 * Loads the current player and clears the selected and adjacent territory list
+	 * @param isLoadingFromFirstPlayer true if we are starting from player 0
 	 * @return The current player
 	 */
 	public Player loadCurrentPlayer(boolean isLoadingFromFirstPlayer) {

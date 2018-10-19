@@ -220,8 +220,6 @@ public class GameUtils {
 			addTextToLog(
 					territory.getName() + " is assigned to " + player.getName() + " ! \n", textAres);
 			
-			
-			
 		}
 	}
 	
@@ -279,7 +277,5 @@ public class GameUtils {
 			return true;
 		else
 			return false;
-		
-	
 	}
 }

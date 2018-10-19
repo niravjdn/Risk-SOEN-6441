@@ -17,6 +17,8 @@ import com.risk6441.models.Map;
 import com.risk6441.models.Player;
 import com.risk6441.models.Territory;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,6 +34,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * This class ....
@@ -106,8 +109,7 @@ public class PlayGameController implements Initializable{
     	if (!scheduledExecutor.isShutdown()) {
     		scheduledExecutor.shutdown();
     	}
-    	startGame();
-    	initializeReinforcement();
+    	startGame(true);
     }
     
     /** This method will be called by user to start the fortification phase
@@ -190,7 +192,7 @@ public class PlayGameController implements Initializable{
 		} else {
 			scheduledExecutor.shutdownNow();
 			if (scheduledExecutor.isShutdown()) {
-				startGame();
+				startGame(false);
 			}
 		}
     	
@@ -274,18 +276,39 @@ public class PlayGameController implements Initializable{
 		return currentPlayer;
 	}
 	
+	public void checkPlayerWithNoArmyWhilePlacingArmy() {
+		if(currentPlayer.getArmies()==0) {
+			scheduledExecutor.shutdown();
+			GameUtils.addTextToLog("Skipped "+currentPlayer.getName()+" It doesn't have army for placing.\n", txtAreaMsg);
+			if(scheduledExecutor.isShutdown())
+				startGame(false);
+		}
+	}
+	
 	/** 
-	 * Method for starting the game and performs the looping operation for each phase of game play   
+	 * Method for starting the game and performs the looping operation for each phase of game play
+	 * @param isCallingInitializeReinforce true if it needs to call method for initializing reinforcement, else false   
 	 */
-	public void startGame() {
+	public void startGame(boolean isCallingInitializeReinforce) {
 		scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+		//time out implementation
 		scheduledExecutor.scheduleWithFixedDelay(new Runnable() {
 			@Override
 			public void run() {
-				Platform.runLater(() -> loadCurrentPlayer(false));
+				KeyFrame kf1 = new KeyFrame(Duration.seconds(0.1), e -> loadCurrentPlayer(false));
+				KeyFrame kf2 = new KeyFrame(Duration.seconds(0.1), e -> checkPlayerWithNoArmyWhilePlacingArmy());
+				if(!isCallingInitializeReinforce) {
+					final Timeline timeline = new Timeline(kf1,kf2);
+				    Platform.runLater(timeline::play);
+				}else {
+					System.out.println("Pressed End Button");
+					KeyFrame kf3 = new KeyFrame(Duration.seconds(0.1), e -> initializeReinforcement());
+					final Timeline timeline = new Timeline(kf1, kf3);
+				    Platform.runLater(timeline::play);
+				}
 			}
 
-		}, 0, 300000, TimeUnit.MILLISECONDS);
+		}, 0, 30000, TimeUnit.MILLISECONDS);//3000000
 	}
 	
 	/**
@@ -297,7 +320,7 @@ public class PlayGameController implements Initializable{
 		GameUtils.allocateTerritoryToPlayer(map, playerList, txtAreaMsg);
 		GameUtils.addTextToLog("===Territories assignation complete===\n", txtAreaMsg);
 		updateMap();
-		startGame();
+		startGame(false);
 	}
 	
 	/* (non-Javadoc)
@@ -434,7 +457,8 @@ public class PlayGameController implements Initializable{
 	 * This method initialized the component for the reinforcement phase.
 	 */
 	private void initializeReinforcement() {
-		CommonMapUtil.disableControls(btnPlaceArmy, btnAttack, btnFortify);
+		System.out.println("Inside intialize reinforcement");
+		CommonMapUtil.disableControls(btnPlaceArmy, btnAttack, btnFortify, btnEndTurn);
 		btnReinforcement.setDisable(false);
 		btnReinforcement.requestFocus();
 		GameUtils.addTextToLog("=======================================\n", txtAreaMsg);

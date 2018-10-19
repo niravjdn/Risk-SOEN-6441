@@ -10,6 +10,7 @@ import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapReader;
 import com.risk6441.models.Map;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +47,7 @@ public class SplashController {
     	//get scene of that button and close it
     	Stage stage = (Stage) btnExit.getScene().getWindow();
     	stage.close();
+    	stage.setOnCloseRequest(e -> Platform.exit());
     }
 
     @FXML
@@ -79,6 +81,7 @@ public class SplashController {
     	Stage primaryStage = (Stage) btnExit.getScene().getWindow();
     	
     	PlayGameController controller = new PlayGameController(map);
+    	
     	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gameplay.fxml"));
 		loader.setController(controller);
 		

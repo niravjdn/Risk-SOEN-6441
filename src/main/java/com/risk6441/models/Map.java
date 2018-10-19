@@ -3,6 +3,7 @@ package com.risk6441.models;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
 
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @see Territory
  * @see Continent
  */
-public class Map {
+public class Map extends Observable{
 
 	private HashMap<String, String> mapData;
 	private List<Continent> continents;
@@ -65,6 +66,11 @@ public class Map {
 		this.continentMap = continentMap;
 	}
 
+	public void setChangedForMap() {
+		setChanged();
+		notifyObservers(this);
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

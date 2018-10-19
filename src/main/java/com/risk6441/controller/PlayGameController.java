@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -40,7 +42,7 @@ import javafx.util.Duration;
  * This class ....
  * @author Nirav Charles
  */
-public class PlayGameController implements Initializable{
+public class PlayGameController implements Initializable, Observer{
 
 	/**
 	 * The map object {@link Map}
@@ -178,7 +180,7 @@ public class PlayGameController implements Initializable{
 			territory.setArmy(territory.getArmy() + 1);
 			currentPlayer.setArmies(playerArmies - 1);
 		}
-		updateMap();
+		map.setChangedForMap();
 		terrList.refresh();
 		
 		//if exhausted then call next phases
@@ -242,6 +244,7 @@ public class PlayGameController implements Initializable{
     // constructor to initialize the Map object
 	public PlayGameController(Map map) {
 		this.map = map;
+		map.addObserver(this);
 	}
 	
 	// Default constructor
@@ -412,6 +415,7 @@ public class PlayGameController implements Initializable{
 	 * Updates the map to show latest data.
 	 */
 	public void updateMap() {
+		System.out.println("updateMap Called.");
 		vbox.getChildren().clear();
 		for(Continent c : map.getContinents()) {
 			vbox.autosize();
@@ -478,6 +482,16 @@ public class PlayGameController implements Initializable{
 		} else {
 			GameUtils.addTextToLog("Error! No Current Player.", txtAreaMsg);
 		}
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("Obervable is changed.");
+		updateMap();
 	}
 	
 

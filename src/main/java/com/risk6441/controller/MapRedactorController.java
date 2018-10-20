@@ -284,6 +284,7 @@ public class MapRedactorController  implements Initializable{
 		
 		if(continent!=null && continent.getTerritories().size() == 1) {
 			CommonMapUtil.putMessgae(txtAreaMsg, "Continent has only one territory, hence it can't be removed.");
+			CommonMapUtil.alertBox("Error", "Continent has only one territory, hence it can't be removed.", "Error");
 			return;
 		}
 		//now iterate and make a hash set
@@ -446,7 +447,7 @@ public class MapRedactorController  implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Intializer Called");
 		
-		CommonMapUtil.disableControls(btnAddTerr,btnUpdateTerr,btnDelTerr,txtTerrName,txtXCo,txtYCo,comboAdjTerr);
+		CommonMapUtil.disableControls(btnAddTerr,btnUpdateCont,btnDelCont,btnUpdateTerr,btnDelTerr,txtTerrName,txtXCo,txtYCo,comboAdjTerr);
 		comboAdjTerr.getItems().add(null);
 		CommonMapUtil.disableControls(btnDltAdjTerr);
 		
@@ -575,7 +576,7 @@ public class MapRedactorController  implements Initializable{
 		
 		CommonMapUtil.disableControls(btnAddCont,btnDltAdjTerr, txtXCo, txtYCo, comboAdjTerr,btnAddTerr, btnUpdateTerr, btnDelTerr);
 		CommonMapUtil.clearTextBox(txtTerrName, txtXCo, txtYCo);
-		CommonMapUtil.enableControls(txtTerrName,btnAddTerr,txtXCo, txtYCo, comboAdjTerr);
+		CommonMapUtil.enableControls(txtTerrName,btnDelCont,btnUpdateCont,btnAddTerr,txtXCo, txtYCo, comboAdjTerr);
 		
 		adjTerrList.getItems().clear();
 		//show territories in the territory list

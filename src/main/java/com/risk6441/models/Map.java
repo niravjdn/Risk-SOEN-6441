@@ -50,6 +50,8 @@ public class Map extends Observable{
 	 */
 	public void setContinents(List<Continent> continents) {
 		this.continents = continents;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**

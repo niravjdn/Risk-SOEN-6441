@@ -202,7 +202,7 @@ public class MapRedactorController  implements Initializable{
 		try {
 			cnt = MapOperations.addContinent(map, txtContName.getText(), txtContControlVal.getText());
 		}catch(InvalidMapException e) {
-			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+			CommonMapUtil.alertBox("Error", e.getMessage(), "Error");
 			return;
 		}
 		
@@ -284,6 +284,8 @@ public class MapRedactorController  implements Initializable{
 				if(adjTerr.getAdjacentTerritories().size()==1) {
 					CommonMapUtil.putMessgae(txtAreaMsg, adjTerr.getName()+" has only one neighbour "+territory
 							+ " , hence It can't be removed. OR add another territory as its neighbour and remove "+territory+".");
+					CommonMapUtil.alertBox("Error", adjTerr.getName()+" has only one neighbour "+territory
+							+ " , hence It can't be removed. OR add another territory as its neighbour and remove "+territory+".", "Error");
 					return;
 				}else {
 					fromTerrToBeRemoved.add(adjTerr);
@@ -298,6 +300,7 @@ public class MapRedactorController  implements Initializable{
 		terrList.getItems().remove(territory);
 		continent.getTerritories().remove(territory);
 		CommonMapUtil.disableControls(btnDelTerr,btnUpdateTerr);
+		CommonMapUtil.clearTextBox(txtTerrName,txtXCo,txtYCo);
 		CommonMapUtil.putMessgae(txtAreaMsg, "Removed Successfully : Territory :"+territory);
     }
 
@@ -324,6 +327,7 @@ public class MapRedactorController  implements Initializable{
     	if(terr!=null && adjTerr!=null) {
     		if(terr.getAdjacentTerritories().size() <= 1) {
     			CommonMapUtil.putMessgae(txtAreaMsg, "There should be at least one adjacent territory.");
+    			CommonMapUtil.alertBox("Error", "There should be at least one adjacent territory.", "Error");
     		}else {
     			//remove reference from both...adjacency relationship is mutual 
     			terr.getAdjacentTerritories().remove(adjTerr);
@@ -339,10 +343,18 @@ public class MapRedactorController  implements Initializable{
     /**
      * This method updates continent details.
      * @param event When the user clicks the update continent button, this event is triggered and passed to the method.
+     * @throws InvalidMapException InvalidMapException if any error occurs
      */
     @FXML
-    void updateContinent(ActionEvent event) {
-    	MapOperations.updateContinent(contList.getSelectionModel().getSelectedItem(), txtContControlVal.getText());
+    void updateContinent(ActionEvent event) throws InvalidMapException {
+    	try {
+    		MapOperations.updateContinent(contList.getSelectionModel().getSelectedItem(), map , txtContName.getText(),txtContControlVal.getText());
+		}catch(InvalidMapException e) {
+			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+			return;
+		}
+    	lblSelectedCont.setText(contList.getSelectionModel().getSelectedItem().getName());
+    	contList.refresh();
     	CommonMapUtil.enableControls(btnAddCont,txtContName);
     	CommonMapUtil.clearTextBox(txtContName,txtContControlVal);
     }
@@ -350,9 +362,10 @@ public class MapRedactorController  implements Initializable{
     /**
      * This method updates territories.
      * @param event When the user clicks the update territory button, this event is triggered and passed to the method.
+     * @throws InvalidMapException InvalidMapException if any error occurs
      */
     @FXML
-    void updateTerritiory(ActionEvent event) {
+    void updateTerritiory(ActionEvent event) throws InvalidMapException {
     	Territory territory = terrList.getSelectionModel().getSelectedItem();
     	Territory adjTerr = comboAdjTerr.getSelectionModel().getSelectedItem();
     	
@@ -361,7 +374,13 @@ public class MapRedactorController  implements Initializable{
     		return;
     	}
     	
-    	territory = MapOperations.updateTerritory(territory, txtXCo.getText(), txtYCo.getText(), adjTerr);
+    	try {
+    		territory = MapOperations.updateTerritory(territory, map, txtTerrName.getText(),txtXCo.getText(), txtYCo.getText(), adjTerr);
+		}catch(InvalidMapException e) {
+			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
+			return;
+		}
+    	terrList.refresh();
     	CommonMapUtil.enableControls(btnAddTerr,txtTerrName);
     	CommonMapUtil.clearTextBox(txtTerrName,txtXCo,txtYCo);
     	showAdjTerritoryOfTerrInList(territory);
@@ -532,7 +551,7 @@ public class MapRedactorController  implements Initializable{
 		txtContControlVal.setText(String.valueOf(cnt.getValue()));
 		lblSelectedCont.setText(cnt.getName());
 		
-		CommonMapUtil.disableControls(txtContName,btnAddCont,btnDltAdjTerr, txtTerrName, txtXCo, txtYCo, comboAdjTerr,btnAddTerr, btnUpdateTerr, btnDelTerr);
+		CommonMapUtil.disableControls(btnAddCont,btnDltAdjTerr, txtXCo, txtYCo, comboAdjTerr,btnAddTerr, btnUpdateTerr, btnDelTerr);
 		CommonMapUtil.clearTextBox(txtTerrName, txtXCo, txtYCo);
 		CommonMapUtil.enableControls(txtTerrName,btnAddTerr,txtXCo, txtYCo, comboAdjTerr);
 		
@@ -563,7 +582,7 @@ public class MapRedactorController  implements Initializable{
 		txtXCo.setText(String.valueOf(terr.getxCoordinate()));
 		txtYCo.setText(String.valueOf(terr.getyCoordinate()));
 		
-		CommonMapUtil.disableControls(txtTerrName,btnAddTerr,btnDltAdjTerr);
+		CommonMapUtil.disableControls(btnAddTerr,btnDltAdjTerr);
 		CommonMapUtil.clearTextBox(txtContName, txtContControlVal);
 		CommonMapUtil.enableControls(txtContName,btnAddCont, btnUpdateTerr, btnDelTerr);
 		

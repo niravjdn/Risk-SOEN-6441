@@ -61,7 +61,7 @@ public class MapWriter {
 	
 	
 	/**
-	 * This method process the map attriibutes.
+	 * This method process the map attributes.
 	 * @param map object of the map which is being processed
 	 * @return a String that contains the map properties.
 	 */

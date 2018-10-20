@@ -74,7 +74,7 @@ public class MapVerifier {
 	}
 
 	/**
-	 * This method checks that the continents are connected or not.
+	 * This method checks whether the continents are connected or not.
 	 * @param continent
 	 * 			continent to be verified
 	 * @param map
@@ -99,7 +99,7 @@ public class MapVerifier {
 	}
 	
 	/**
-	 * This method traverse the territories in BFS Manner.
+	 * This method traverses the territories in BFS Manner.
 	 * @param territory
 	 * 					territory to be traversed in bfs
 	 * @param map
@@ -146,7 +146,7 @@ public class MapVerifier {
 
 	
 	/**
-	 * This method checks that Continents form a connected graph(A Map).
+	 * This method checks that the Continents form a connected graph(A Map).
 	 * @param map
 	 * 			 object of the map
 	 * @return 
@@ -171,7 +171,7 @@ public class MapVerifier {
 	}
 	
 	/**
-	 * This method traverse the continents in BFS Manner.
+	 * This method traverses the continents in BFS Manner.
 	 * @param continent
 	 * 			       continent to be traversed in bfs
 	 * @param map
@@ -228,7 +228,7 @@ public class MapVerifier {
 	}
 	
 	/**
-	 * This method checks whether territory belongs to only one continent or not.
+	 * This method checks whether a territory belongs to only one continent or not.
 	 * @param map
 	 * 			 map object
 	 * @throws InvalidMapException

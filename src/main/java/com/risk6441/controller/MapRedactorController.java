@@ -40,7 +40,7 @@ import javafx.stage.Stage;
 public class MapRedactorController  implements Initializable{
 
 	/**
-	 * The map map object 
+	 * The Map map object 
 	 * {@link Map}
 	 */
 	private Map map;
@@ -170,7 +170,7 @@ public class MapRedactorController  implements Initializable{
 
 	
 	/**
-	 * This is parameterized constructor used in case of editing existing map.
+	 * This is a parameterized constructor used in case of editing existing map.
 	 * @param map Existing map which is passed.
 	 * @param file Map file in which it'll be saved.
 	 */
@@ -182,16 +182,15 @@ public class MapRedactorController  implements Initializable{
 	
 	
 	/**
-	 * This is a default constructor which doesn't take any parameters.
+	 * This is a default constructor without any parameters.
 	 */
 	public MapRedactorController() {
 		
 	}
 	
 	/**
-	 * This method adds the continent to the map
-	 * @param event
-	 * 		  event object containing details regarding origin of the event
+	 * This method adds continent to the map
+	 * @param event event object containing details regarding origin of the event
 	 */
 	@FXML
     void addContinent(ActionEvent event) {
@@ -220,7 +219,7 @@ public class MapRedactorController  implements Initializable{
 
     /**
      * This method adds a territory to the continent.
-     * @param event When the user clicks the add territory button, this event is triggered and passed to the method.
+     * @param event When user clicks the add territory button, this event is triggered and passed to the method.
      */
     @FXML
     void addTerritiory(ActionEvent event) {
@@ -265,7 +264,7 @@ public class MapRedactorController  implements Initializable{
 
     /**
      * This method deletes territory from the continent.
-     * @param event When the user clicks the delete territory button, this event is triggered and passed to the method.
+     * @param event When user clicks the delete territory button, this event is triggered and passed to the method.
      */
     @FXML
     void deleteTerritiory(ActionEvent event) {
@@ -303,7 +302,7 @@ public class MapRedactorController  implements Initializable{
 
     /**
      * This method exits the program when the button is clicked.
-     * @param event When the user clicks the exit button, this event is triggered and passed to the method.
+     * @param event When user clicks the exit button, this event is triggered and passed to the method.
      */
     @FXML
     void exitBtnClick(ActionEvent event) {
@@ -503,7 +502,7 @@ public class MapRedactorController  implements Initializable{
 	}
 	
 	/**
-	 * This method parses map data and stores in the map file
+	 * This method parses the map data and stores it in the map file
 	 */
 	public void parseMapData() {
 	
@@ -524,7 +523,7 @@ public class MapRedactorController  implements Initializable{
 	}
 	
 	/**
-	 * This method is to perform operations on the selected continent like update, delete etc
+	 * This method performs operations on the selected continent like update, delete etc
 	 */
 	public void onClickContList() {
 		Continent cnt = contList.getSelectionModel().getSelectedItem();
@@ -542,7 +541,7 @@ public class MapRedactorController  implements Initializable{
 	}
 	
 	/**
-	 * This displays the territories in the selected Continent.
+	 * This method displays territories in the selected Continent.
 	 * @param continent Continent whose territories are to be printed.
 	 */
 	public void showTerritoryOfContInList(Continent continent) {
@@ -555,7 +554,7 @@ public class MapRedactorController  implements Initializable{
 	}
 	
 	/**
-	 * This method is to perform operations on the selected territory like update, delete etc
+	 * This method performs operations on the selected territory like update, delete etc
 	 */
 	public void onClickTerrList() {
 		Territory terr = terrList.getSelectionModel().getSelectedItem();

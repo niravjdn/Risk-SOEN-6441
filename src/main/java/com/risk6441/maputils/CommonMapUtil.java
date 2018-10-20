@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 /**
- * This class provides a common method which is used by the UI, Map Editor and Game Play.
+ * This class provides common method which is used by UI, Map Editor and Game Play.
  * @author Nirav
  *
  */
@@ -89,7 +89,7 @@ public class CommonMapUtil {
 	
 	
 	/**
-	 * This method writes a message in the text area.
+	 * This method writes the message in the text area.
 	 * @param ta This is the text area object.
 	 * @param msg This is the message to be set.
 	 */
@@ -149,7 +149,7 @@ public class CommonMapUtil {
 
 	
 	/**
-	 * This method loads up the territories of a particular continent and shows them in a titled pane with the number of armies on the territory.
+	 * This method loads up the territories the of particular continent and shows them in titled pane with number of armies on the territory.
 	 * @param continent object of the continent
 	 * @return the titled pane for the user interface of the game play.
 	 */

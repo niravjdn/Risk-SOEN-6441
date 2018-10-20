@@ -15,7 +15,7 @@ import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
 /**
- * This class handles operations related to the game play.
+ * This class handles operations related with game play.
  * @author Nirav
  *
  */
@@ -24,7 +24,7 @@ public class GameUtils {
 	static int count=0;
 	
 	/**
-	 * This method allocates armies to the players and displays a log in textarea.
+	 * This method allocates armies to players and display log in textarea.
 	 * @param 
 	 * 		p list of players
 	 * @param txtArea 
@@ -131,7 +131,7 @@ public class GameUtils {
 
 	
 	/**
-	 * This method returns continent that are owned by the player.
+	 * This method return continent that are owned by the player.
 	 * @param map
 	 * 			 map object
 	 * @param currentPlayer
@@ -161,7 +161,7 @@ public class GameUtils {
 	
 	
 	/**
-	 * This method allocates armies to the player.
+	 * This method allocates the armies to the player.
 	 * @param map
 	 * 			map object
 	 * @param players
@@ -240,7 +240,7 @@ public class GameUtils {
 	}
 	
 	/**
-	 * This method checks if the fortification phase is valid.
+	 * This method checks if the fortification phase is valid or not.
 	 * @param map
 	 * 			 map object
 	 * @param currentPlayer
@@ -264,7 +264,7 @@ public class GameUtils {
 		return false;
 	}
 	/**
-	 * This method checks whether the fortification phase is completed.
+	 * This method checks whether the fortification phase is completed or not.
 	 * @param numPlayer
 	 * 			 count of active number of players in the game
 	 * @return

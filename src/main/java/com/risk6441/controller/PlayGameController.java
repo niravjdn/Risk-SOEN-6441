@@ -290,7 +290,7 @@ public class PlayGameController implements Initializable, Observer{
 	}
 	
 	/** 
-	 * This Method is used for starting the game and performs the looping operation for each phase of game play
+	 * Method for starting the game and performs the looping operation for each phase of game play
 	 * @param isCallingInitializeReinforce true if it needs to call method for initializing reinforcement, else false   
 	 */
 	public void startGame(boolean isCallingInitializeReinforce) {
@@ -399,7 +399,7 @@ public class PlayGameController implements Initializable, Observer{
 	}
 	
 	/**
-	 * This method shows the adjacent territories of a particular territory
+	 * Show adjacent territories of the particular territory
 	 * @param terr
 	 * 			  territory object
 	 */
@@ -412,7 +412,7 @@ public class PlayGameController implements Initializable, Observer{
 	}
 	
 	/**
-	 * This method updates the map to show latest data.
+	 * Updates the map to show latest data.
 	 */
 	public void updateMap() {
 		System.out.println("updateMap Called.");
@@ -424,7 +424,7 @@ public class PlayGameController implements Initializable, Observer{
 	}
 	
 	/**
-	 * This method intializes components for the attack phase.
+	 * This method intializes the components for the attack phase.
 	 */
 	public void initializeAttack() {
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
@@ -438,7 +438,7 @@ public class PlayGameController implements Initializable, Observer{
 	}
 
 	/**
-	 * This method intializes components for the fortification phase.
+	 * This method intializes the components for the fortification phase.
 	 */
 	private void initializeFortification() {
 		
@@ -459,7 +459,7 @@ public class PlayGameController implements Initializable, Observer{
 	}
 
 	/**
-	 * This method initialized component for the reinforcement phase.
+	 * This method initialized the component for the reinforcement phase.
 	 */
 	private void initializeReinforcement() {
 		System.out.println("Inside intialize reinforcement");
@@ -473,7 +473,7 @@ public class PlayGameController implements Initializable, Observer{
 	}
 	
 	/**
-	 * This method is used to count the number of armies to be assigned to a player in reinforcement phase.
+	 * method to count the number of armies to be assigned to a player in reinforcement phase.
 	 */
 	public void countReinforcementArmies() {
 		if (this.currentPlayer != null) {

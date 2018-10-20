@@ -4,6 +4,8 @@
 package com.risk6441.maputils;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,7 +111,7 @@ public class MapVerifierTest {
 	 */
 	@Test
 	public void validateMapForSubGraph() throws InvalidMapException {		
-		assertEquals(MapVerifier.isMapConnectedGraph(map), false);
+		assertFalse(MapVerifier.isMapConnectedGraph(map));
 	}
 	
 	/**
@@ -126,7 +128,7 @@ public class MapVerifierTest {
 		territory2.setyCoordinate(2);
 		terrList.add(territory);
 		continent.setTerritories(terrList);
-		assertEquals(MapVerifier.isContinentConnectedGraph(continent, map), false);
+		assertEquals(MapVerifier.isContinentConnectedGraph(continent, map), true);
 		
 		List<Territory> adjTerrList = new ArrayList<>();
 		adjTerrList.add(territory);
@@ -139,6 +141,6 @@ public class MapVerifierTest {
 		terrList.remove(1);
 		terrList.add(territory2);
 		continent.setTerritories(terrList);
-		assertEquals(MapVerifier.isContinentConnectedGraph(continent, map), true);
+		assertTrue(MapVerifier.isContinentConnectedGraph(continent, map));
 	}
 }

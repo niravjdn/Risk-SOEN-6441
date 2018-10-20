@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * This class controls behavior of MapEditor Splash Screen.
+ * This class controls the behavior of MapEditor Splash Screen.
  * @author Nirav
  *
  */
@@ -36,7 +36,7 @@ public class MapRedactorSplashController {
 
     /**
      * The method gets executed when user clicks on create map button from the map splash screen.
-     * It opens the map editor with blank map. The user is allowed to create new map afterwards.
+     * It opens the map editor with blank map and then the user is allowed to create new map.
      * @param event Creates button for create map.
      * @throws IOException Throws IOException if loader fails.
      */

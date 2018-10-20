@@ -40,7 +40,7 @@ public class MapOperations {
 	}
 	
 	/**
-	 * Adds territory to the map and the continent with its respective details.
+	 * This method adds territories to the map and the continent with its respective details.
 	 * @param map Current map object.
 	 * @param name Name of the territory.
 	 * @param xCo X Co-ordinate of the territory.
@@ -167,7 +167,7 @@ public class MapOperations {
 	}
 	
 	/**
-	 * This method adds the territory to the corresponding continent.
+	 * This method adds a territory to the corresponding continent.
 	 * @param continent
 	 * 		   continent object which will be assigned territories
 	 * @param territory The territory which is added to the continent.

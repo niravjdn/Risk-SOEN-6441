@@ -17,7 +17,7 @@ import com.risk6441.models.Map;
 import com.risk6441.models.Territory;
 
 /**
- * This class reads and parse the map file and sets data in corresponding objects.
+ * This class reads and parses the map file and sets data in corresponding objects.
  * @author Nirav
  */
 public class MapReader {
@@ -34,7 +34,7 @@ public class MapReader {
 	}
 	
 	/**
-	 * return the map object after processing the map file
+	 * return map object after processing the map file
 	 * @return the map
 	 */
 	private Map getMap() {
@@ -55,7 +55,7 @@ public class MapReader {
 	}
 
 	/**
-	 * This method is used to read and process map data
+	 * This method is used to read and process the map data
 	 * @param file file path
 	 * @return the map return the map object after processing the file data
 	 * @throws InvalidMapException throws InvalidMapException if map is not valid 
@@ -111,7 +111,7 @@ public class MapReader {
 	
 	
 	/**
-	 * This method process map attributes and call method for processing continents.
+	 * This method process map attributes and calls method for processing continents.
 	 * @param scan of type {@link Scanner}
 	 * @return Map of type {@link Map}
 	 * @throws InvalidMapException throws InvalidMapException if map is not valid.
@@ -221,7 +221,7 @@ public class MapReader {
 	}
 	
 	/**
-	 * This method processes territories and check that it should be assign to only one continent
+	 * This method processes territories and check that it should be assigned to only one continent
 	 * @param territoryLine Line from the map file for the territory
 	 * @param continentList Produces the continent list.
 	 * @return territorieList After processing

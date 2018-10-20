@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 /**
- * This is main entrance point of the program which allows the user to execute the game.
+ * This is the main entrance point of the program which allows user to execute the game.
  * @author Nirav
  *
  */

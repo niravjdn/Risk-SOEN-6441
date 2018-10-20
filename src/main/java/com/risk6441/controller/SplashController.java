@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 
 /**
- * This class controls the behavior of Splash Screen which allows player to select :
+ * This class controls the behavior of Splash Screen which allows a player to select :
  * <ul>
  * <li>Play Game</li>
  * <li>Map Editor</li>

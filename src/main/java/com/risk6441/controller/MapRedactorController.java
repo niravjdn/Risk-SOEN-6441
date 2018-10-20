@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapOperations;
@@ -195,9 +197,12 @@ public class MapRedactorController  implements Initializable{
 	 */
 	@FXML
     void addContinent(ActionEvent event) {
-		//get details from the event object and proceed
+
+		if(StringUtils.isEmpty(txtContName.getText())) {
+    		CommonMapUtil.alertBox("Error", "Continent Name Can't be empty.", "Map is not valid.");
+    		return;
+    	}
 		
-		//call MapOperation.addContinent similar for others
 		Continent cnt;
 		try {
 			cnt = MapOperations.addContinent(map, txtContName.getText(), txtContControlVal.getText());
@@ -225,6 +230,11 @@ public class MapRedactorController  implements Initializable{
     @FXML
     void addTerritiory(ActionEvent event) {
 
+    	if(StringUtils.isEmpty(txtTerrName.getText())) {
+    		CommonMapUtil.alertBox("Error", "Territory Name Can't be empty.", "Map is not valid.");
+    		return;
+    	}
+    	
     	Territory adjTerr = comboAdjTerr.getSelectionModel().getSelectedItem();
     	Continent continent = contList.getSelectionModel().getSelectedItem();
     	
@@ -347,6 +357,12 @@ public class MapRedactorController  implements Initializable{
      */
     @FXML
     void updateContinent(ActionEvent event) throws InvalidMapException {
+    	
+    	if(StringUtils.isEmpty(txtContName.getText())) {
+    		CommonMapUtil.alertBox("Error", "Continent Name Can't be empty.", "Error");
+    		return;
+    	}
+    	
     	try {
     		MapOperations.updateContinent(contList.getSelectionModel().getSelectedItem(), map , txtContName.getText(),txtContControlVal.getText());
 		}catch(InvalidMapException e) {
@@ -366,6 +382,12 @@ public class MapRedactorController  implements Initializable{
      */
     @FXML
     void updateTerritiory(ActionEvent event) throws InvalidMapException {
+    	
+    	if(StringUtils.isEmpty(txtTerrName.getText())) {
+    		CommonMapUtil.alertBox("Error", "Territory Name Can't be empty.", "Error");
+    		return;
+    	}
+    	
     	Territory territory = terrList.getSelectionModel().getSelectedItem();
     	Territory adjTerr = comboAdjTerr.getSelectionModel().getSelectedItem();
     	

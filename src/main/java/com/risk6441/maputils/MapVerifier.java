@@ -56,7 +56,7 @@ public class MapVerifier {
 	public static void verifyContinents(Map map) throws InvalidMapException {
 		
 		for(Continent continent : map.getContinents()) {
-			if(continent.getTerritories().size() < 1) {
+			if(continent.getTerritories().size() < 2) {
 				throw new InvalidMapException("At least one territory should be there in continent.");
 			}
 			

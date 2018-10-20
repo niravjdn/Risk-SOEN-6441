@@ -421,7 +421,7 @@ public class MapRedactorController  implements Initializable{
     	map.getMapData().put("scroll",txtScroll.getText());
     	map.getMapData().put("wrap",txtWrap.getText());
     	map.getMapData().put("warn",txtWarn.getText());
-    	
+    	System.out.println("Map Save Clicked");
     	try {
     		MapVerifier.verifyMap(map);
         }

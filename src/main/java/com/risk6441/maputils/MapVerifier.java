@@ -57,7 +57,7 @@ public class MapVerifier {
 		
 		for(Continent continent : map.getContinents()) {
 			if(continent.getTerritories().size() < 2) {
-				throw new InvalidMapException("At least one territory should be there in continent.");
+				throw new InvalidMapException("At least two territory should be there in continent.");
 			}
 			
 			//it's verified that map is a subgraph of continents. now check that continent is a subgraph of territories.
@@ -84,17 +84,22 @@ public class MapVerifier {
 	 */
 	public static boolean isContinentConnectedGraph(Continent continent,Map map) {
 		bfsTerritory(continent.getTerritories().get(0), map);
-		
+		boolean returnValue = true;
 		for(Territory t : continent.getTerritories()) {
 			if(t.isProcessed() == false) {
 				t.setProcessed(false);
 				message = t.getName()+" is not forming connected graph inside continent "+continent.getName()+".";
-				return false;
+				returnValue = false;
+				break;
 			}
+		}
+		
+		for(Territory t : continent.getTerritories()) {
 			t.setProcessed(false);
 		}
 		
-		return true;
+		
+		return returnValue;
 
 	}
 	
@@ -153,20 +158,28 @@ public class MapVerifier {
 	 * 			true if map is a connected graph
 	 */
 	public static boolean isMapConnectedGraph(Map map) {
-		
+		System.out.println("Inside is map connected");
 		if(map.getContinents().size()<2) {
 			return false;
 		}
 		
 		bfsContinent(map.getContinents().get(0), map);
 		
+		boolean returnValue = true;
 		for(Continent continent : map.getContinents()) {
 			if(continent.isVisited() == false) {
 				System.out.println(continent.getName()+"xxxxxxxxxxxxxx");
-				return false;
+				returnValue = false;
+				break;
 			}
 		}
-		return true;
+		
+		for(Continent continent : map.getContinents()) {
+			continent.setVisited(false);
+		}
+		
+		return returnValue;
+		
 
 	}
 	

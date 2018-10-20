@@ -83,10 +83,11 @@ public class MapOperationsTest {
 	
 	/**
 	 *  This method test the functionality to update the continent.
+	 * @throws InvalidMapException InvalidException if continent with same name already exists
 	 */
 	@Test
-	public void testUpdateContinent() {
-		continent = MapOperations.updateContinent(continent, String.valueOf(controlValue2));
+	public void testUpdateContinent() throws InvalidMapException {
+		continent = MapOperations.updateContinent(continent, map,continentName ,String.valueOf(controlValue2));
 		assertEquals(continent.getValue(), controlValue2);
 		assertNotEquals(continent.getValue(), controlValue1);
 		assertEquals(continent.getName(), continentName);
@@ -109,10 +110,11 @@ public class MapOperationsTest {
 	
 	/**
 	 *  This method test the functionality to update the territory.
+	 * @throws InvalidMapException InvalidException if territory with same name already exists
 	 */
 	@Test
-	public void testUpdateTerritory() {
-		territory = MapOperations.updateTerritory(territory, String.valueOf(x2), String.valueOf(y2), null);
+	public void testUpdateTerritory() throws InvalidMapException {
+		territory = MapOperations.updateTerritory(territory, map, terrName,String.valueOf(x2), String.valueOf(y2), null);
 		Assert.assertNotNull(territory);
 		Assert.assertEquals(territory.getxCoordinate(), x2);
 		Assert.assertEquals(territory.getyCoordinate(), y2);

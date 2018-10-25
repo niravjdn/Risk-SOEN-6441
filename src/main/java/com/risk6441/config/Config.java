@@ -32,4 +32,5 @@ public class Config {
 	 */
 	public static final Integer ARMIES_SIX_PLAYER = 20;
 	
+	
 }

@@ -199,14 +199,15 @@ public class MapRedactorController  implements Initializable{
     void addContinent(ActionEvent event) {
 
 		if(StringUtils.isEmpty(txtContName.getText())) {
-    		CommonMapUtil.alertBox("Error", "Continent Name Can't be empty.", "Map is not valid.");
+    		CommonMapUtil.alertBox("Error", "Continent Name shouldn't be empty.", "Map is not valid.");
     		return;
     	}
 		
 		Continent cnt;
 		try {
 			cnt = MapOperations.addContinent(map, txtContName.getText(), txtContControlVal.getText());
-		}catch(InvalidMapException e) {
+		}
+		catch(InvalidMapException e) {
 			CommonMapUtil.alertBox("Error", e.getMessage(), "Error");
 			return;
 		}
@@ -242,7 +243,8 @@ public class MapRedactorController  implements Initializable{
     	try {
     		territory = MapOperations.addTerritory(map, txtTerrName.getText(), txtXCo.getText(), txtYCo.getText(),
     				adjTerr, continent);
-    	}catch (InvalidMapException e) {
+    	}
+    	catch (InvalidMapException e) {
     		CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
     		return;
 		}

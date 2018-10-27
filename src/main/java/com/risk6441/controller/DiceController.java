@@ -11,7 +11,7 @@ import com.risk6441.config.Config;
 import com.risk6441.entity.Territory;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
-import com.risks6441.models.DiceModel;
+import com.risk6441.models.DiceModel;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

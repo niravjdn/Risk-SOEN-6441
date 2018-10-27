@@ -2,11 +2,15 @@ package com.risk6441.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.Map.Entry;
+
+import javax.sound.midi.ShortMessage;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,17 +23,27 @@ import com.risk6441.exception.InvalidGameActionException;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
-import com.risks6441.models.PlayerModel;
+import com.risk6441.models.PlayerModel;
+import com.risk6441.models.WorldDominationModel;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -38,6 +52,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
@@ -81,7 +96,13 @@ public class PlayGameController implements Initializable,Observer{
     @FXML
     private Button btnPlaceArmy;
 
+    @FXML
+    private PieChart worldDominationPieChart;
 
+    @FXML
+    private BarChart<String, Number> militaryDominationbarChart;
+
+    
     @FXML
     private Button btnFortify;
 
@@ -270,9 +291,6 @@ public class PlayGameController implements Initializable,Observer{
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer old, Integer newV) {
 				noOfPlayer = choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
-
-				
-				
 				playerList = PlayerModel.createPlayers(noOfPlayer, playerList, txtAreaMsg);
 				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
 
@@ -284,6 +302,8 @@ public class PlayGameController implements Initializable,Observer{
 					allocateTerritoriesToPlayer();
 					setPhase("Phase : Place Army");
 					loadCurrentPlayer(false);
+					showWorldDominationData();
+					showMilitaryDominationData();
 				} catch (InvalidMapException e) {
 					// TODO Auto-generated catch block
 					CommonMapUtil.alertBox("Alert", e.getMessage(), "Error");
@@ -465,7 +485,8 @@ public class PlayGameController implements Initializable,Observer{
 			Config.message = "";
 		}
 		updateMap();
-		//populateWorldDominationData();
+		showWorldDominationData();
+		showMilitaryDominationData();
 		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
 		if (!checkIfPlayerWonTheGame()) {
 			playerModel.playerHasAValidAttackMove(terrList, txtAreaMsg);
@@ -535,5 +556,31 @@ public class PlayGameController implements Initializable,Observer{
 		}
 	}
 
-
+	/**
+	 * Populate World Domination Data.
+	 */
+	private void showWorldDominationData() {
+		HashMap<Player, Double> playerTerPercent = WorldDominationModel.getWorldDominationData(map);
+		ArrayList<Data> chartData = new ArrayList<>();
+		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+		for (Entry<Player, Double> entry : playerTerPercent.entrySet()) {
+			chartData.add(new PieChart.Data(entry.getKey().getName(), entry.getValue()));
+		}
+		pieChartData.addAll(chartData);
+		worldDominationPieChart.setData(pieChartData);
+	}
+	
+	/**
+	 * Populate World Domination Data.
+	 */
+	private void showMilitaryDominationData() {
+		HashMap<String, Double> playerTerPercent = WorldDominationModel.getMilitaryDominationData(map);
+		Series<String, Number> dataSeries1 = new XYChart.Series();
+		for (Entry<String, Double> entry : playerTerPercent.entrySet()) {
+			dataSeries1.getData().add(new XYChart.Data<String, Number>(entry.getKey(), entry.getValue()));
+		}
+		militaryDominationbarChart.getData().clear();
+		militaryDominationbarChart.getData().addAll(dataSeries1);
+	}
+	
 }

@@ -19,7 +19,7 @@ import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.gameutils.GameUtils;
-import com.risks6441.models.PlayerModel;
+import com.risk6441.models.PlayerModel;
 
 /**
  * This is the test class for GameUtils. {@link GameUtils}

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.risks6441.models;
+package com.risk6441.models;
 
 import java.io.IOException;
 import java.util.ArrayList;

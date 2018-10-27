@@ -190,7 +190,7 @@ public class PlayerModel extends Observable implements Observer{
 	 * 
 	 * @return hasAValidMove true if player has valid move else false
 	 */
-	public static boolean playerHasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+	public boolean playerHasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
 		boolean hasAValidMove = false;
 		for (Territory territory : territories.getItems()) {
 			if (territory.getArmy() > 1) {
@@ -200,8 +200,8 @@ public class PlayerModel extends Observable implements Observer{
 		if (!hasAValidMove) {
 			GameUtils.addTextToLog("No valid attack move avialble move to Fortification phase.\n", gameConsole);
 			GameUtils.addTextToLog("===Attack phase ended! === \n", gameConsole);
-//			setChanged();
-//			notifyObservers("checkIfFortificationPhaseValid");
+			setChanged();
+			notifyObservers("checkIfFortificationPhaseValid");
 			return hasAValidMove;
 		}
 		return hasAValidMove;
@@ -267,7 +267,7 @@ public class PlayerModel extends Observable implements Observer{
 				throw new InvalidGameActionException("Attacking territory should have more than one army to attack.");
 			}
 		} else {
-			throw new InvalidGameActionException("You cannot attack on your own territory.");
+			throw new InvalidGameActionException("You can\'t attack on your own territory.");
 		}
 		return isValidAttackMove;
 	}
@@ -416,30 +416,33 @@ public class PlayerModel extends Observable implements Observer{
 	/**
 	 * Place Armies
 	 * 
-	 * @param playerPlaying
+	 * @param currentPlayer
 	 *            get current PlayerPlaying object
 	 * @param selectedTerritoryList
 	 *            get Selected Territory List for List View
 	 * @param gamePlayerList
 	 *            gamePlayer List
-	 * @param gameConsole gameConsole
+	 * @param txtAreaMsg gameConsole
 	 */
-	public void placeArmy(Player playerPlaying, ListView<Territory> terrList, List<Player> playerList,
-			TextArea gameConsole) {
+	public void placeArmy(ListView<Territory> terrList, List<Player> playerList,
+			TextArea txtAreaMsg) {
 		int playerArmies = currentPlayer.getArmies();
+		
 		if (playerArmies > 0) {
 			Territory territory = terrList.getSelectionModel().getSelectedItem();
 			if (territory == null) {
 				territory = terrList.getItems().get(0);
 			}
+			GameUtils.addTextToLog(currentPlayer.getName() + " === Assigned Armies to "+territory.getName()+"\n", txtAreaMsg);
 			territory.setArmy(territory.getArmy() + 1);
 			currentPlayer.setArmies(playerArmies - 1);
 		}
 		terrList.refresh();
-		//if exhausted then call next phases
 		
+		//if exhausted then call next phases
 		boolean armiesExhausted = GameUtils.checkIfPlayersArmiesExhausted(playerList);
 		if (armiesExhausted) {
+			GameUtils.addTextToLog("===Setup Phase Completed!===\n", txtAreaMsg);
 			setChanged();
 			notifyObservers("ReinforcementFirst");
 		} else {
@@ -447,5 +450,34 @@ public class PlayerModel extends Observable implements Observer{
 			notifyObservers("placeArmy");
 		}
     	
+	}
+	
+	/**
+	 * This method checks if the fortification phase is valid or not.
+	 * @param map
+	 * 			 map object
+	 * @param currentPlayer
+	 * 						current player
+	 * @return
+	 * 		  return if fortification phase is valid
+	 */
+	public boolean isFortificationPhasePossible(Map map, Player currentPlayer) {
+		for (Continent continent : map.getContinents()) {
+			for (Territory territory : continent.getTerritories()) {
+				if (territory.getPlayer().equals(currentPlayer) && territory.getArmy() > 1) {
+					for (Territory adjterritory : territory.getAdjacentTerritories()) {
+						if (adjterritory.getPlayer().equals(currentPlayer)) {
+							setChanged();
+							notifyObservers("Fortification");
+							return true;
+						}
+
+					}
+				}
+			}
+		}
+		setChanged();
+		notifyObservers("NoFortificationMove");
+		return false;
 	}
 }

@@ -120,7 +120,7 @@ public class PlayGameController implements Initializable,Observer{
 		if (playerModel.getTerritoryWon() > 0) {
 			//assignCardToPlayer();
 		}
-		initializeReinforcement();
+		initializeReinforcement(false);
     }
     
     /** This method will be called by user to start the fortification phase
@@ -144,9 +144,16 @@ public class PlayGameController implements Initializable,Observer{
      */
     @FXML
     void placeArmy(ActionEvent event) {
-    	playerModel.placeArmy(currentPlayer, terrList, playerList, txtAreaMsg);
+    	playerModel.placeArmy(terrList, playerList, txtAreaMsg);
     }
     
+    /**
+     * This method sets the label for the current phase.
+     * @param phase phase name
+     */
+    public void setPhase(String phase) {
+    	lblGamePhase.setText(phase);
+    }
     
     /**
 	 * Initialize place army view.
@@ -178,9 +185,15 @@ public class PlayGameController implements Initializable,Observer{
 			//to be implemented
 		}
 		GameUtils.addTextToLog("===Attack phase ended!===\\n", txtAreaMsg);
-		initializeFortification();
+		isValidFortificationPhase();
     }
     
+    /**
+	 * check if there is a valid fortification phase.
+	 */
+	private void isValidFortificationPhase() {
+		playerModel.isFortificationPhasePossible(map, currentPlayer);
+	}
     
     // constructor to initialize the Map object
 	public PlayGameController(Map map) {
@@ -232,24 +245,6 @@ public class PlayGameController implements Initializable,Observer{
 		}
 	}
 	
-	/** 
-	 * Method for starting the game and performs the looping operation for each phase of game play
-	 * @param isCallingInitializeReinforce true if it needs to call method for initializing reinforcement, else false   
-	 */
-	public void startGame(boolean isCallingInitializeReinforce) {
-		KeyFrame kf1 = new KeyFrame(Duration.seconds(0.1), e -> loadCurrentPlayer(false));
-		KeyFrame kf2 = new KeyFrame(Duration.seconds(0.1), e -> checkPlayerWithNoArmyWhilePlacingArmy());
-		if(!isCallingInitializeReinforce) {
-			final Timeline timeline = new Timeline(kf1,kf2);
-		    Platform.runLater(timeline::play);
-		}else {
-			System.out.println("Pressed End Button");
-			KeyFrame kf3 = new KeyFrame(Duration.seconds(0.1), e -> initializeReinforcement());
-			final Timeline timeline = new Timeline(kf1, kf3);
-		    Platform.runLater(timeline::play);
-		}
-	}
-	
 	/**
 	 * This method allocates territories to the player and start the game.
 	 * @throws InvalidMapException Throws IOException if there is an issue while loading the map.
@@ -270,7 +265,7 @@ public class PlayGameController implements Initializable,Observer{
 		lblGamePhase.setText("Phase: Start Up!");
 		updateMap();
 		
-		
+		CommonMapUtil.enableControls(btnNoMoreAttack);
 		choiceBoxNoOfPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer old, Integer newV) {
@@ -287,6 +282,7 @@ public class PlayGameController implements Initializable,Observer{
 				PlayerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
 				try {
 					allocateTerritoriesToPlayer();
+					setPhase("Phase : Place Army");
 					loadCurrentPlayer(false);
 				} catch (InvalidMapException e) {
 					// TODO Auto-generated catch block
@@ -365,15 +361,17 @@ public class PlayGameController implements Initializable,Observer{
 	public void initializeAttack() {
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
 		GameUtils.addTextToLog("The Attack phase has begun.\n", txtAreaMsg);
-		if (PlayerModel.playerHasAValidAttackMove(terrList, txtAreaMsg)) {
-			CommonMapUtil.enableControls(btnEndTurn);
+		if (playerModel.playerHasAValidAttackMove(terrList, txtAreaMsg)) {
+			CommonMapUtil.enableControls(btnEndTurn,btnNoMoreAttack);
 			CommonMapUtil.disableControls(btnReinforcement, btnFortify, btnPlaceArmy);
-			adjTerrList.setOnMouseClicked(e -> attack());
 		}
-		
+		adjTerrList.setOnMouseClicked(e -> attack());
 	}
 
 	public void attack() {
+		if(lblGamePhase.getText().contains("Fortification")) {
+			return;
+		}
 		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
 		Territory defendingTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 		try {
@@ -388,28 +386,31 @@ public class PlayGameController implements Initializable,Observer{
 	 * This method intializes the components for the fortification phase.
 	 */
 	private void initializeFortification() {
-		
-		if(GameUtils.isFortificationPhasePossible(map, currentPlayer)) {
-			GameUtils.addTextToLog("===============================\n", txtAreaMsg);
-			GameUtils.addTextToLog("The Fortification phase has begun.\n", txtAreaMsg);
-			btnFortify.setDisable(false);
-			btnFortify.requestFocus();
-			CommonMapUtil.disableControls(btnReinforcement);
-		}else {
-			GameUtils.addTextToLog("Fortification phase has begun.\n", txtAreaMsg);
-			GameUtils.addTextToLog(currentPlayer.getName() + " does not have any armies for fortification.", txtAreaMsg);
-			initializeReinforcement();
-		}
-		
-		
+		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
+		GameUtils.addTextToLog("The Fortification phase has begun.\n", txtAreaMsg);
+		btnFortify.setDisable(false);
+		CommonMapUtil.disableControls(btnNoMoreAttack);
+		btnFortify.requestFocus();
+		CommonMapUtil.disableControls(btnReinforcement);
+	}
+	
+	/**
+	 * This method handles the case in which fortificaiton is not possible.
+	 */
+	private void noFortification() {
+		GameUtils.addTextToLog("Fortification phase has begun.\n", txtAreaMsg);
+		GameUtils.addTextToLog(currentPlayer.getName() + " does not have any armies for fortification.\n", txtAreaMsg);
+		GameUtils.addTextToLog("Fortification phase has been ended.\n", txtAreaMsg);
+		initializeReinforcement(false);
 	}
 
 	/**
 	 * This method initialized the component for the reinforcement phase.
+	 * @param b 
 	 */
-	private void initializeReinforcement() {
-		System.out.println("Inside intialize reinforcement");
-		
+	private void initializeReinforcement(boolean loadPlayerFromStart) {
+		System.out.println("Inside intialize reinforcement "+loadPlayerFromStart);
+		loadCurrentPlayer(loadPlayerFromStart);
 		CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn);
 		btnReinforcement.setDisable(false);
 		btnReinforcement.requestFocus();
@@ -507,18 +508,30 @@ public class PlayGameController implements Initializable,Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("update called because of object change");
 		String str = (String) arg;
+		System.out.println("update called because of object change "+str);
+		
 		if (str.equals("rollDiceComplete")) {
 			refreshView();
 		}else if(str.equals("Attack")) {
+			setPhase("Phase : Attack");
 			initializeAttack();
 		}else if(str.equals("ReinforcementFirst")) {
-			loadCurrentPlayer(true);
-			initializeReinforcement();
+			setPhase("Phase : Reinforcement");
+			initializeReinforcement(true);
+		}else if(str.equals("Reinforcement")) {
+			setPhase("Phase : Reinforcement");
+			initializeReinforcement(false);
 		}else if(str.equals("placeArmy")) {
+			setPhase("Phase : Place Army");
 			initializePlaceArmy();
 			checkPlayerWithNoArmyWhilePlacingArmy();
+		}else if(str.equals("Fortification")) {
+			setPhase("Phase : Fortification");
+			initializeFortification();
+		}else if(str.equals("NoFortification")) {
+			setPhase("Phase : No Fortification");
+			initializeReinforcement(false);
 		}
 	}
 

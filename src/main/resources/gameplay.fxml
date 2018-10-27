@@ -12,22 +12,22 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="687.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="708.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <!-- fx:controller="com.risk6441.controller.PlayGameController" -->
    <children>
       <Label layoutX="6.0" layoutY="2.0" prefHeight="58.0" prefWidth="111.0" text="No. of players:" />
       <AnchorPane layoutX="3.0" layoutY="114.0" prefHeight="508.0" prefWidth="318.0" />
-      <AnchorPane layoutX="337.0" layoutY="43.0" prefHeight="638.0" prefWidth="251.0">
+      <AnchorPane layoutX="337.0" layoutY="43.0" prefHeight="638.0" prefWidth="288.0">
          <children>
             <Label layoutX="75.0" layoutY="10.0" text="Selected Territory" />
-            <Button fx:id="btnReinforcement" layoutX="25.0" layoutY="274.0" mnemonicParsing="false" onAction="#reinforce" text="Reinforcements" />
+            <Button fx:id="btnReinforcement" layoutX="32.0" layoutY="274.0" mnemonicParsing="false" onAction="#reinforce" text="Reinforcements" />
             <Label layoutX="76.0" layoutY="310.0" text="Adjacent Territory" />
-            <Button fx:id="btnFortify" layoutX="79.0" layoutY="570.0" mnemonicParsing="false" onAction="#fortify" prefHeight="27.0" prefWidth="87.0" text="Fortify" />
-            <Button fx:id="btnEndTurn" layoutX="85.0" layoutY="602.0" mnemonicParsing="false" onAction="#endTrun" text="End Turn" />
-            <ListView fx:id="terrList" layoutX="21.0" layoutY="33.0" prefHeight="234.0" prefWidth="200.0" />
-            <ListView fx:id="adjTerrList" layoutX="20.0" layoutY="333.0" prefHeight="200.0" prefWidth="200.0" />
-            <Button fx:id="btnCards" layoutX="157.0" layoutY="274.0" mnemonicParsing="false" text="Cards" />
-            <Button fx:id="btnNoMoreAttack" layoutX="68.0" layoutY="538.0" mnemonicParsing="false" onAction="#noMoreAttack" text="No More Attack" />
+            <Button fx:id="btnFortify" layoutX="162.0" layoutY="539.0" mnemonicParsing="false" onAction="#fortify" prefHeight="27.0" prefWidth="87.0" text="Fortify" />
+            <Button fx:id="btnEndTurn" layoutX="110.0" layoutY="581.0" mnemonicParsing="false" onAction="#endTrun" text="End Turn" />
+            <ListView fx:id="terrList" layoutX="15.0" layoutY="33.0" prefHeight="234.0" prefWidth="252.0" />
+            <ListView fx:id="adjTerrList" layoutX="22.0" layoutY="333.0" prefHeight="200.0" prefWidth="245.0" />
+            <Button fx:id="btnCards" layoutX="181.0" layoutY="274.0" mnemonicParsing="false" text="Cards" />
+            <Button fx:id="btnNoMoreAttack" layoutX="28.0" layoutY="538.0" mnemonicParsing="false" onAction="#noMoreAttack" text="No More Attack" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="13.0" layoutY="76.0" prefHeight="549.0" prefWidth="318.0">
@@ -37,9 +37,9 @@
          </children>
       </AnchorPane>
       <Label fx:id="lblCurrPlayer" layoutX="14.0" layoutY="60.0" prefHeight="25.0" prefWidth="237.0" text="Turn of Player:" />
-      <TitledPane layoutX="655.0" layoutY="14.0" text="World Domination">
+      <TitledPane layoutX="655.0" layoutY="14.0" prefHeight="671.0" prefWidth="299.0" text="World Domination">
          <content>
-             <VBox prefHeight="600.0" prefWidth="225.0">
+             <VBox prefHeight="270.0" prefWidth="281.0">
                <children>
                   <PieChart />
              <ScrollPane prefHeight="606.0" prefWidth="211.0">

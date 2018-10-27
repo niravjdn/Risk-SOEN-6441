@@ -35,20 +35,20 @@ public class PlayerModel extends Observable implements Observer{
 	/**
 	 * the @playerPlaying reference
 	 */
-	Player playerPlaying;
+	Player currentPlayer;
 
 	/**
 	 * @return player playing
 	 */
-	public Player getPlayerPlaying() {
-		return playerPlaying;
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	/**
 	 * @return player playing
 	 */
-	public void setPlayerPlaying(Player player) {
-		playerPlaying = player;
+	public void setCurrentPlayer(Player player) {
+		currentPlayer = player;
 	}
 	
 	/**
@@ -302,7 +302,7 @@ public class PlayerModel extends Observable implements Observer{
 	 */
 	public void reinforcementPhase(Territory territory, TextArea txtAreaMsg) {
 		
-		if(playerPlaying.getArmies()>0)
+		if(currentPlayer.getArmies()>0)
     	{
     		if(territory == null) {
     			CommonMapUtil.alertBox("infor", "Please select a territory to reinforce army on.", "Alert");
@@ -310,13 +310,13 @@ public class PlayerModel extends Observable implements Observer{
     		}
     		int getArmy=CommonMapUtil.inputDialogueBoxForRenforcement();
     		if(getArmy > 0) {
-    			if(getArmy > playerPlaying.getArmies()) {
+    			if(getArmy > currentPlayer.getArmies()) {
     				CommonMapUtil.alertBox("Info", "The Army to be moved in reinforce phase should be less than army you have.", "Alert");
     				return;
     			}else {
     				territory.setArmy(territory.getArmy() + getArmy);
-    				playerPlaying.setArmies(playerPlaying.getArmies() - getArmy);
-    				GameUtils.addTextToLog("==="+getArmy+" assigned to : === \n"+territory+"  -- Player "+playerPlaying.getName()+"\n", txtAreaMsg);
+    				currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
+    				GameUtils.addTextToLog("==="+getArmy+" assigned to : === \n"+territory+"  -- Player "+currentPlayer.getName()+"\n", txtAreaMsg);
     				GameUtils.addTextToLog("======Reinforce Phase Completed. ===========", txtAreaMsg);
     			}
     		}else {
@@ -326,7 +326,7 @@ public class PlayerModel extends Observable implements Observer{
     	}
 		
 		//start attack phase after completion of reinforcement phase
-    	if (playerPlaying.getArmies() <= 0) {
+    	if (currentPlayer.getArmies() <= 0) {
     		GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
 			setChanged();
 			notifyObservers("Attack");
@@ -334,6 +334,48 @@ public class PlayerModel extends Observable implements Observer{
 		
 	}
 	
+
+	/**
+	 * Fortification Phase
+	 * 
+	 * @param selectedTerritory
+	 *            selected Territory object
+	 * @param adjTerritory
+	 *            adj Territory object
+	 * @param gameConsole
+	 *            gameConsole
+	 */
+	public void fortificationPhase(Territory territory, Territory adjTerritory, TextArea txtAreaMsg) {
+		if(territory == null) {
+    		CommonMapUtil.alertBox("Info", "Please select a territory", "Alert");
+    		return;
+    	}else if(adjTerritory == null) {
+    		CommonMapUtil.alertBox("Info", "Please select a adjacent territory", "Alert");
+    		return;
+    	}else if(adjTerritory.getPlayer() != territory.getPlayer()) {
+    		CommonMapUtil.alertBox("Info", "The Adjacent Territory does not belong to you.", "Alert");
+    		return;
+    	}
+		int armyCount = CommonMapUtil.inputDialogueBoxForFortification();
+		
+		if(armyCount > 0) {
+    		System.out.println("ArmyCount"+armyCount);
+    		if(armyCount >= territory.getArmy()) {
+    			CommonMapUtil.alertBox("Info", "The Army to be moved in fortification phase should be less than "
+    					+ "existing army in territory.(e.g It can be maximum x-1, if x is the current army in territory.)", "Alert");
+        		return;
+    		}else {
+    			territory.setArmy(territory.getArmy() - armyCount);
+    			adjTerritory.setArmy(adjTerritory.getArmy() + armyCount);
+    			GameUtils.addTextToLog("======Fortification Done ===========", txtAreaMsg);
+    			setChanged();
+				notifyObservers("Reinforcement");
+    		}
+    	}else {
+    		CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");
+    		return;
+    	}
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
@@ -371,4 +413,39 @@ public class PlayerModel extends Observable implements Observer{
 		this.territoryWon = territoryWon;
 	}
 	
+	/**
+	 * Place Armies
+	 * 
+	 * @param playerPlaying
+	 *            get current PlayerPlaying object
+	 * @param selectedTerritoryList
+	 *            get Selected Territory List for List View
+	 * @param gamePlayerList
+	 *            gamePlayer List
+	 * @param gameConsole gameConsole
+	 */
+	public void placeArmy(Player playerPlaying, ListView<Territory> terrList, List<Player> playerList,
+			TextArea gameConsole) {
+		int playerArmies = currentPlayer.getArmies();
+		if (playerArmies > 0) {
+			Territory territory = terrList.getSelectionModel().getSelectedItem();
+			if (territory == null) {
+				territory = terrList.getItems().get(0);
+			}
+			territory.setArmy(territory.getArmy() + 1);
+			currentPlayer.setArmies(playerArmies - 1);
+		}
+		terrList.refresh();
+		//if exhausted then call next phases
+		
+		boolean armiesExhausted = GameUtils.checkIfPlayersArmiesExhausted(playerList);
+		if (armiesExhausted) {
+			setChanged();
+			notifyObservers("ReinforcementFirst");
+		} else {
+			setChanged();
+			notifyObservers("placeArmy");
+		}
+    	
+	}
 }

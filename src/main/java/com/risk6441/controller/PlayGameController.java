@@ -42,7 +42,8 @@ import javafx.util.Duration;
 
 /**
  * This class ....
- * @author Nirav Charles
+ * @author Nirav 
+ * @author Charles
  */
 public class PlayGameController implements Initializable,Observer{
 
@@ -115,8 +116,11 @@ public class PlayGameController implements Initializable,Observer{
      */
     @FXML
     void endTrun(ActionEvent event) {
-    	
-    	startGame(true);
+    	GameUtils.addTextToLog(currentPlayer.getName() + " ended his turn.\n", txtAreaMsg);
+		if (playerModel.getTerritoryWon() > 0) {
+			//assignCardToPlayer();
+		}
+		initializeReinforcement();
     }
     
     /** This method will be called by user to start the fortification phase
@@ -125,49 +129,13 @@ public class PlayGameController implements Initializable,Observer{
      */
     @FXML
     void fortify(ActionEvent event) {
+    Territory selectedTerritory = terrList.getSelectionModel().getSelectedItem();
+	Territory adjTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 
-    	int numPlayer= choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
-    	
-    	Territory territory = null;
-		Territory adjTerritory=null;
-    	int armyCount=0;
-    	territory=terrList.getSelectionModel().getSelectedItem();
-    	adjTerritory=adjTerrList.getSelectionModel().getSelectedItem();
-    	
-    	
-    	if(territory == null) {
-    		CommonMapUtil.alertBox("Info", "Please select a territory", "Alert");
-    		return;
-    	}else if(adjTerritory == null) {
-    		CommonMapUtil.alertBox("Info", "Please select a adjacent territory", "Alert");
-    		return;
-    	}else if(adjTerritory.getPlayer() != territory.getPlayer()) {
-    		CommonMapUtil.alertBox("Info", "The Adjacent Territory does not belong to you.", "Alert");
-    		return;
-    	}
-    	
-    	armyCount=CommonMapUtil.inputDialogueBoxForFortification();
-    	if(armyCount > 0) {
-    		System.out.println("ArmyCount"+armyCount);
-    		if(armyCount >= territory.getArmy()) {
-    			CommonMapUtil.alertBox("Info", "The Army to be moved in fortification phase should be less than "
-    					+ "existing army in territory.(e.g It can be maximum x-1, if x is the current army in territory.)", "Alert");
-        		return;
-    		}else {
-    			territory.setArmy(territory.getArmy() - armyCount);
-    			adjTerritory.setArmy(adjTerritory.getArmy() + armyCount);
-    			updateMap();
-				terrList.refresh();
-				adjTerrList.refresh();
-				GameUtils.addTextToLog("======Fortification Done ===========", txtAreaMsg);
-    		}
-    	}else {
-    		CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");
-    		return;
-    	}
-    	
-    	loadCurrentPlayer(false);
-    	initializeReinforcement();
+	playerModel.fortificationPhase(selectedTerritory, adjTerritory, txtAreaMsg);
+	terrList.refresh();
+	adjTerrList.refresh();
+	updateMap();
     }
     
     /** This method will allow the players to place the armies one by one in round robin fashion
@@ -176,30 +144,18 @@ public class PlayGameController implements Initializable,Observer{
      */
     @FXML
     void placeArmy(ActionEvent event) {
-    	int playerArmies = currentPlayer.getArmies();
-		if (playerArmies > 0) {
-			Territory territory = terrList.getSelectionModel().getSelectedItem();
-			if (territory == null) {
-				territory = terrList.getItems().get(0);
-			}
-			territory.setArmy(territory.getArmy() + 1);
-			currentPlayer.setArmies(playerArmies - 1);
-		}
-		map.setChangedForMap();
-		terrList.refresh();
-		
-		//if exhausted then call next phases
-		
-		boolean armiesExhausted = GameUtils.checkIfPlayersArmiesExhausted(playerList);
-		if (armiesExhausted) {
-			loadCurrentPlayer(true);
-			//initialize reinforcement after all player has placed their army.
-			initializeReinforcement();
-		} else {
-				startGame(false);
-		}
-    	
+    	playerModel.placeArmy(currentPlayer, terrList, playerList, txtAreaMsg);
     }
+    
+    
+    /**
+	 * Initialize place army view.
+	 */
+	private void initializePlaceArmy() {
+		loadCurrentPlayer(false);
+		updateMap();
+		terrList.refresh();
+	}
     
     /** This method will allow the user to place the armies after the fortification phase is completed
      * 
@@ -214,6 +170,17 @@ public class PlayGameController implements Initializable,Observer{
     	terrList.refresh();
     }
 
+    
+    @FXML
+    void noMoreAttack(ActionEvent event) {
+		if (playerModel.getTerritoryWon() > 0) {
+			//assignCardToPlayer(); 
+			//to be implemented
+		}
+		GameUtils.addTextToLog("===Attack phase ended!===\\n", txtAreaMsg);
+		initializeFortification();
+    }
+    
     
     // constructor to initialize the Map object
 	public PlayGameController(Map map) {
@@ -245,7 +212,7 @@ public class PlayGameController implements Initializable,Observer{
 		}
 		currentPlayer = playerListIterator.next();
 		
-		playerModel.setPlayerPlaying(currentPlayer);
+		playerModel.setCurrentPlayer(currentPlayer);
 		playerModel.setTerritoryWon(0);
 		GameUtils.addTextToLog("============================ \n", txtAreaMsg);
 		GameUtils.addTextToLog(currentPlayer.getName() + "!....started playing.\n", txtAreaMsg);
@@ -261,7 +228,7 @@ public class PlayGameController implements Initializable,Observer{
 	public void checkPlayerWithNoArmyWhilePlacingArmy() {
 		if(currentPlayer.getArmies()==0) {
 			GameUtils.addTextToLog("Skipped "+currentPlayer.getName()+" It doesn't have army for placing.\n", txtAreaMsg);
-			startGame(false);
+			loadCurrentPlayer(false);
 		}
 	}
 	
@@ -292,17 +259,17 @@ public class PlayGameController implements Initializable,Observer{
 		GameUtils.allocateTerritoryToPlayer(map, playerList, txtAreaMsg);
 		GameUtils.addTextToLog("===Territories assignation complete===\n", txtAreaMsg);
 		updateMap();
-		startGame(false);
 	}
 	
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		
 		choiceBoxNoOfPlayer.getItems().addAll(2,3, 4, 5, 6);
 		playerList = new ArrayList<>(); 
+		lblGamePhase.setText("Phase: Start Up!");
 		updateMap();
+		
 		
 		choiceBoxNoOfPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
 			@Override
@@ -320,6 +287,7 @@ public class PlayGameController implements Initializable,Observer{
 				PlayerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
 				try {
 					allocateTerritoriesToPlayer();
+					loadCurrentPlayer(false);
 				} catch (InvalidMapException e) {
 					// TODO Auto-generated catch block
 					CommonMapUtil.alertBox("Alert", e.getMessage(), "Error");
@@ -430,7 +398,6 @@ public class PlayGameController implements Initializable,Observer{
 		}else {
 			GameUtils.addTextToLog("Fortification phase has begun.\n", txtAreaMsg);
 			GameUtils.addTextToLog(currentPlayer.getName() + " does not have any armies for fortification.", txtAreaMsg);
-			loadCurrentPlayer(false);
 			initializeReinforcement();
 		}
 		
@@ -442,6 +409,7 @@ public class PlayGameController implements Initializable,Observer{
 	 */
 	private void initializeReinforcement() {
 		System.out.println("Inside intialize reinforcement");
+		
 		CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn);
 		btnReinforcement.setDisable(false);
 		btnReinforcement.requestFocus();
@@ -493,6 +461,7 @@ public class PlayGameController implements Initializable,Observer{
 		}
 		if(!StringUtils.isEmpty(Config.message)) {
 			GameUtils.addTextToLog(Config.message, txtAreaMsg);
+			Config.message = "";
 		}
 		updateMap();
 		//populateWorldDominationData();
@@ -531,6 +500,8 @@ public class PlayGameController implements Initializable,Observer{
 		
 	}
 
+	
+	
 	/* (non-Javadoc)
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
@@ -542,6 +513,12 @@ public class PlayGameController implements Initializable,Observer{
 			refreshView();
 		}else if(str.equals("Attack")) {
 			initializeAttack();
+		}else if(str.equals("ReinforcementFirst")) {
+			loadCurrentPlayer(true);
+			initializeReinforcement();
+		}else if(str.equals("placeArmy")) {
+			initializePlaceArmy();
+			checkPlayerWithNoArmyWhilePlacingArmy();
 		}
 	}
 

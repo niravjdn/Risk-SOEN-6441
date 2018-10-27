@@ -27,7 +27,7 @@
             <ListView fx:id="terrList" layoutX="21.0" layoutY="33.0" prefHeight="234.0" prefWidth="200.0" />
             <ListView fx:id="adjTerrList" layoutX="20.0" layoutY="333.0" prefHeight="200.0" prefWidth="200.0" />
             <Button fx:id="btnCards" layoutX="157.0" layoutY="274.0" mnemonicParsing="false" text="Cards" />
-            <Button fx:id="btnNoMoreAttack" layoutX="68.0" layoutY="538.0" mnemonicParsing="false" onAction="#fortify" text="No More Attack" />
+            <Button fx:id="btnNoMoreAttack" layoutX="68.0" layoutY="538.0" mnemonicParsing="false" onAction="#noMoreAttack" text="No More Attack" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="13.0" layoutY="76.0" prefHeight="549.0" prefWidth="318.0">

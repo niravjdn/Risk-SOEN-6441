@@ -147,7 +147,7 @@ public class DiceController implements Initializable{
 		if (defendingTerritory.getArmy() <= 0) {
 			playResult.add(
 					attackingTerritory.getPlayer().getName() + " won the territory: " + defendingTerritory.getName() + " From "+
-			defendingTerritory.getPlayer());
+			defendingTerritory.getPlayer().getName());
 			diceModel.setNumOfTerritoriesWon(diceModel.getNumOfTerritoriesWon() + 1);
 			GameUtils.enableViewPane(moveArmiesView);
 			CommonMapUtil.hideControls(btnRoll, btnContinueRoll, btnCancelDiceRoll);
@@ -161,7 +161,7 @@ public class DiceController implements Initializable{
 		defenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
 		attackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
 		winnerName.setText(playResult.toString());
-		Config.message = playResult.toString().replaceAll(",", "\n");
+		Config.message = "\n"+playResult.toString().replaceAll(",", "\n");
 		winnerName.setVisible(true);
     }
 

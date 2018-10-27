@@ -11,11 +11,12 @@ public class Config {
 	 */
 	public static final Integer ARMIES_TWO_PLAYER =20;
 
+	public static String message = "";
 	
 	/**
 	 * The @ARMIES_THREE_PLAYER.
 	 */
-	public static final Integer ARMIES_THREE_PLAYER =35;
+	public static final Integer ARMIES_THREE_PLAYER =17;//35
 	
 	/**
 	 * The @ARMIES_FOUR_PLAYER.
@@ -31,6 +32,5 @@ public class Config {
 	 * The @ARMIES_SIX_PLAYER.
 	 */
 	public static final Integer ARMIES_SIX_PLAYER = 20;
-	
 	
 }

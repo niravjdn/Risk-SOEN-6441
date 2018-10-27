@@ -10,14 +10,14 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.risk6441.entity.Continent;
+import com.risk6441.entity.Map;
+import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapOperations;
 import com.risk6441.maputils.MapVerifier;
 import com.risk6441.maputils.MapWriter;
-import com.risk6441.models.Continent;
-import com.risk6441.models.Map;
-import com.risk6441.models.Territory;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -199,15 +199,14 @@ public class MapRedactorController  implements Initializable{
     void addContinent(ActionEvent event) {
 
 		if(StringUtils.isEmpty(txtContName.getText())) {
-    		CommonMapUtil.alertBox("Error", "Continent Name shouldn't be empty.", "Map is not valid.");
+    		CommonMapUtil.alertBox("Error", "Continent Name Can't be empty.", "Map is not valid.");
     		return;
     	}
 		
 		Continent cnt;
 		try {
 			cnt = MapOperations.addContinent(map, txtContName.getText(), txtContControlVal.getText());
-		}
-		catch(InvalidMapException e) {
+		}catch(InvalidMapException e) {
 			CommonMapUtil.alertBox("Error", e.getMessage(), "Error");
 			return;
 		}
@@ -243,8 +242,7 @@ public class MapRedactorController  implements Initializable{
     	try {
     		territory = MapOperations.addTerritory(map, txtTerrName.getText(), txtXCo.getText(), txtYCo.getText(),
     				adjTerr, continent);
-    	}
-    	catch (InvalidMapException e) {
+    	}catch (InvalidMapException e) {
     		CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
     		return;
 		}

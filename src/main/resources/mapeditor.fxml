@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"> 
+<!-- fx:controller="com.risk6441.controller.MapRedactorController" -->
+   <children>
+      <AnchorPane layoutX="13.0" layoutY="16.0" prefHeight="277.0" prefWidth="213.0">
+         <children>
+            <Label fx:id="lblAuthor1" layoutX="52.0" layoutY="18.0" text="Map Details " />
+            <Label fx:id="lblWarn" layoutX="10.0" layoutY="88.0" text="Warn" />
+            <TextField fx:id="txtWarn" layoutX="55.0" layoutY="83.0" prefHeight="27.0" prefWidth="149.0" />
+            <Label fx:id="lblAuthor" layoutX="4.0" layoutY="52.0" text="Author " />
+            <Label fx:id="lblImage" layoutX="8.0" layoutY="120.0" text="Image" />
+            <Label fx:id="lblScroll" layoutX="8.0" layoutY="153.0" text="Scroll" />
+            <Label fx:id="lblWrap" layoutX="8.0" layoutY="187.0" text="Wrap" />
+            <TextField fx:id="txtAuthor" layoutX="54.0" layoutY="48.0" />
+            <TextField fx:id="txtImage" layoutX="54.0" layoutY="116.0" />
+            <TextField fx:id="txtScroll" layoutX="54.0" layoutY="149.0" />
+            <TextField fx:id="txtWrap" layoutX="54.0" layoutY="184.0" />
+         </children>
+      </AnchorPane>
+      <TitledPane layoutX="243.0" layoutY="269.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+      <AnchorPane layoutX="249.0" layoutY="264.0" prefHeight="234.0" prefWidth="221.0">
+         <children>
+            <TextField fx:id="txtXCo" layoutX="31.0" layoutY="88.0" prefHeight="25.0" prefWidth="55.0" />
+            <TextField fx:id="txtYCo" layoutX="126.0" layoutY="89.0" prefHeight="25.0" prefWidth="55.0" />
+            <Label fx:id="lblTerrname" layoutX="23.0" layoutY="56.0" text="Name " />
+            <Label fx:id="lblAdjTerr" layoutX="69.0" layoutY="125.0" prefHeight="17.0" prefWidth="84.0" text="Adjacency" />
+            <ComboBox fx:id="comboAdjTerr" layoutX="21.0" layoutY="150.0" prefHeight="27.0" prefWidth="158.0" />
+            <Label fx:id="tctAuthorLabel1211" layoutX="110.0" layoutY="92.0" text="Y" />
+            <Label fx:id="tctAuthorLabel121" layoutX="14.0" layoutY="92.0" text="X" />
+            <Button fx:id="btnDelTerr" layoutX="143.0" layoutY="216.0" mnemonicParsing="false" onAction="#deleteTerritiory" text="Delete" />
+            <Button fx:id="btnAddTerr" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" onAction="#addTerritiory" text="Add" />
+            <TextField fx:id="txtTerrName" layoutX="75.0" layoutY="53.0" prefHeight="27.0" prefWidth="134.0" />
+            <Label layoutX="59.0" layoutY="4.0" text="Territory Details" />
+            <Button fx:id="btnUpdateTerr" layoutX="69.0" layoutY="216.0" mnemonicParsing="false" onAction="#updateTerritiory" text="Update" />
+                  <Label fx:id="lblSelectedCont" layoutX="100.0" layoutY="28.0" prefHeight="17.0" prefWidth="103.0" text="Continent" />
+                  <Label layoutX="24.0" layoutY="29.0" prefHeight="17.0" prefWidth="103.0" text="Continent : " />
+         </children>
+      </AnchorPane>
+   </content>
+</TitledPane>
+      <ListView fx:id="contList" layoutX="491.0" layoutY="27.0" prefHeight="196.0" prefWidth="200.0" />
+      <ListView fx:id="terrList" layoutX="492.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
+      <ListView fx:id="adjTerrList" layoutX="694.0" layoutY="243.0" prefHeight="230.0" prefWidth="200.0" />
+      <Label fx:id="lblContList" layoutX="551.0" layoutY="6.0" text="Continents" />
+      <Label fx:id="lblTerrList" layoutX="551.0" layoutY="226.0" text="Territories" />
+      <Label fx:id="lblAdjTerr" layoutX="724.0" layoutY="223.0" text="Adjacent Territories" />
+      <Button fx:id="btnDltAdjTerr" layoutX="699.0" layoutY="189.0" mnemonicParsing="false" onAction="#deleteAdjTerritory" text="Delete Adjacent Territory" />
+      <AnchorPane layoutX="20.0" layoutY="292.0" prefHeight="258.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="72.0" layoutY="2.0" text="Message" />
+            <TextArea fx:id="txtAreaMsg" layoutY="19.0" prefHeight="230.0" prefWidth="200.0" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="btnSave" layoutX="510.0" layoutY="508.0" mnemonicParsing="false" onAction="#saveMap" text="Save" />
+      <Button fx:id="btnExit" layoutX="601.0" layoutY="508.0" mnemonicParsing="false" onAction="#exitBtnClick" text="Exit" />
+      <TitledPane layoutX="243.0" layoutY="27.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <AnchorPane prefHeight="208.0" prefWidth="213.0">
+               <children>
+                  <TextField fx:id="txtContName" layoutX="26.0" layoutY="45.0" />
+                  <Label fx:id="tctAuthorLabel1" layoutX="83.0" layoutY="22.0" text="Name " />
+                  <TextField fx:id="txtContControlVal" layoutX="26.0" layoutY="106.0" />
+                  <Button fx:id="btnAddCont" layoutX="13.0" layoutY="152.0" mnemonicParsing="false" onAction="#addContinent" text="Add" />
+                  <Button fx:id="btnDelCont" layoutX="142.0" layoutY="150.0" mnemonicParsing="false" onAction="#deleteContinent" text="Delete" />
+                  <Button fx:id="btnUpdateCont" layoutX="68.0" layoutY="151.0" mnemonicParsing="false" onAction="#updateContinent" text="Update" />
+                  <Label fx:id="tctAuthorLabel2" layoutX="64.0" layoutY="83.0" text="Control Value" />
+                  <Label fx:id="labelContDetail" layoutX="54.0" layoutY="5.0" text="Continent Details" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+   </children>
+</Pane>

@@ -196,6 +196,7 @@ public class PlayGameController implements Initializable,Observer{
     	setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
     	updateMap();
     	terrList.refresh();
+    	adjTerrList.refresh();
     }
 
     

@@ -123,8 +123,9 @@ public class DiceController implements Initializable{
      */
     @FXML
     void attackFullOnMode(ActionEvent event) throws InterruptedException {
-    	//check for the dice visibility
+    	
     	do {
+    		//check for the dice visibility
     		if(chkBoxattackerDice1.isVisible()) {
         		chkBoxattackerDice1.setSelected(true);
         	}
@@ -145,10 +146,10 @@ public class DiceController implements Initializable{
         		chkBoxdefenderDice2.setSelected(true);
         	}
         	
-        	//clcik attack    	
+        	//clcik Roll Dice    	
         	btnRoll.fire();
 
-        	//wait with thread sleep 3 seconds
+        	//wait with thread sleep 3 seconds to allow user to see results
         	Thread.sleep(3000);
         	btnContinueRoll.fire();
     	}while(!btnContinueRoll.isDisabled());

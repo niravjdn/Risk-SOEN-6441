@@ -92,10 +92,7 @@ public class DiceController implements Initializable{
     
     private DiceModel diceModel;
     
-    @FXML
-    void attackFullOnMode(ActionEvent event) {
-
-    }
+  
     
     /**
 	 * Constructor for dice roll controller.
@@ -119,6 +116,45 @@ public class DiceController implements Initializable{
 		showDice();
     }
 
+    /**
+     * This method handles the case for the attack full on mode.
+     * @param event event object for the javafx
+     * @throws InterruptedException 
+     */
+    @FXML
+    void attackFullOnMode(ActionEvent event) throws InterruptedException {
+    	//check for the dice visibility
+    	do {
+    		if(chkBoxattackerDice1.isVisible()) {
+        		chkBoxattackerDice1.setSelected(true);
+        	}
+        	
+        	if(chkBoxattackerDice2.isVisible()) {
+        		chkBoxattackerDice2.setSelected(true);
+        	}
+        	
+        	if(chkBoxattackerDice3.isVisible()) {
+        		chkBoxattackerDice3.setSelected(true);
+        	}
+        	
+        	if(chkBoxdefenderDice1.isVisible()) {
+        		chkBoxdefenderDice1.setSelected(true);
+        	}
+        	
+        	if(chkBoxdefenderDice2.isVisible()) {
+        		chkBoxdefenderDice2.setSelected(true);
+        	}
+        	
+        	//clcik attack    	
+        	btnRoll.fire();
+
+        	//wait with thread sleep 3 seconds
+        	Thread.sleep(3000);
+        	btnContinueRoll.fire();
+    	}while(!btnContinueRoll.isDisabled());
+    	
+    }
+    
     @FXML
     void moveAllArmies(ActionEvent event) {
     	diceModel.moveAllArmies();

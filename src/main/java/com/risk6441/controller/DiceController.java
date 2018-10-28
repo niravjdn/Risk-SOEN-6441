@@ -153,7 +153,7 @@ public class DiceController implements Initializable{
         	Thread.sleep(3000);
         	btnContinueRoll.fire();
     	}while(!btnContinueRoll.isDisabled());
-    	
+    	btnAttackFullOnMode.setDisable(true);
     }
     
     @FXML
@@ -206,6 +206,7 @@ public class DiceController implements Initializable{
 		defenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
 		attackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
 		winnerName.setText(playResult.toString());
+		System.out.println(playResult.toString());
 		Config.message = "\n"+playResult.toString().replaceAll(",", "\n");
 		winnerName.setVisible(true);
     }

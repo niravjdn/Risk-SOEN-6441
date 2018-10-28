@@ -13,6 +13,7 @@ import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.models.DiceModel;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -97,6 +98,7 @@ public class DiceController implements Initializable{
     
     private DiceModel diceModel;
     
+    private static String message = "";
   
     
     /**
@@ -157,10 +159,12 @@ public class DiceController implements Initializable{
         		chkBoxdefenderDice2.setSelected(true);
         	}
         	
-        	
-        	//clcik Roll Dice    	
+        	//click Roll Dice    	
         	btnRoll.fire();
-
+        	
+        	winnerName.setText(message);
+        	message = "";
+        	
         	//wait with thread sleep 3 seconds to allow user to see results
         	Thread.sleep(3000);
         	System.out.println("After Click roll "+btnContinueRoll.isDisabled());
@@ -218,8 +222,9 @@ public class DiceController implements Initializable{
 		defenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
 		attackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
 		winnerName.setText(playResult.toString());
+		message = playResult.toString();
 		System.out.println(playResult.toString());
-		Config.message = "\n"+playResult.toString().replaceAll(",", "\n");
+		Config.message += "\n"+playResult.toString().replaceAll(",", "\n");
 		winnerName.setVisible(true);
     }
 

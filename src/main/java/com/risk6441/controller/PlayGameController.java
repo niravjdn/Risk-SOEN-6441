@@ -260,11 +260,13 @@ public class PlayGameController implements Initializable,Observer{
 		return currentPlayer;
 	}
 	
-	public void checkPlayerWithNoArmyWhilePlacingArmy() {
+	public boolean checkPlayerWithNoArmyWhilePlacingArmy() {
 		if(currentPlayer.getArmies()==0) {
 			GameUtils.addTextToLog("Skipped "+currentPlayer.getName()+" It doesn't have army for placing.\n", txtAreaMsg);
 			loadCurrentPlayer(false);
+			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -548,6 +550,9 @@ public class PlayGameController implements Initializable,Observer{
 			setPhase("Phase : Place Army");
 			initializePlaceArmy();
 			checkPlayerWithNoArmyWhilePlacingArmy();
+			while(checkPlayerWithNoArmyWhilePlacingArmy()) {
+				System.out.println("Skipping "+currentPlayer.getName());
+			}
 		}else if(str.equals("Fortification")) {
 			setPhase("Phase : Fortification");
 			initializeFortification();

@@ -22,6 +22,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
+/**
+ * Controller for the dice
+ * @author Nirav
+ *
+ */
 public class DiceController implements Initializable{
 
     @FXML
@@ -125,7 +130,13 @@ public class DiceController implements Initializable{
     void attackFullOnMode(ActionEvent event) throws InterruptedException {
     	
     	do {
+    		
+    		System.out.println("Befor Click btnContinueRoll "+btnContinueRoll.isDisabled());
     		//check for the dice visibility
+        	if(!btnContinueRoll.isDisabled()) {
+        		btnContinueRoll.fire();
+        	}
+        	System.out.println("After clicking btnContinueRoll "+btnContinueRoll.isDisabled());        	
     		if(chkBoxattackerDice1.isVisible()) {
         		chkBoxattackerDice1.setSelected(true);
         	}
@@ -146,12 +157,13 @@ public class DiceController implements Initializable{
         		chkBoxdefenderDice2.setSelected(true);
         	}
         	
+        	
         	//clcik Roll Dice    	
         	btnRoll.fire();
 
         	//wait with thread sleep 3 seconds to allow user to see results
         	Thread.sleep(3000);
-        	btnContinueRoll.fire();
+        	System.out.println("After Click roll "+btnContinueRoll.isDisabled());
     	}while(!btnContinueRoll.isDisabled());
     	btnAttackFullOnMode.setDisable(true);
     }

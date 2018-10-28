@@ -87,6 +87,10 @@ public class DiceController implements Initializable{
     @FXML
     private Button btnContinueRoll;
     
+    @FXML
+    private Button btnAttackFullOnMode;
+    
+    private DiceModel diceModel;
     
     @FXML
     void attackFullOnMode(ActionEvent event) {

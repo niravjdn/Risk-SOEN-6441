@@ -131,46 +131,72 @@ public class DiceController implements Initializable{
     @FXML
     void attackFullOnMode(ActionEvent event) throws InterruptedException {
     	
-    	do {
-    		
-    		System.out.println("Befor Click btnContinueRoll "+btnContinueRoll.isDisabled());
-    		//check for the dice visibility
-        	if(!btnContinueRoll.isDisabled()) {
-        		btnContinueRoll.fire();
-        	}
-        	System.out.println("After clicking btnContinueRoll "+btnContinueRoll.isDisabled());        	
-    		if(chkBoxattackerDice1.isVisible()) {
-        		chkBoxattackerDice1.setSelected(true);
-        	}
-        	
-        	if(chkBoxattackerDice2.isVisible()) {
-        		chkBoxattackerDice2.setSelected(true);
-        	}
-        	
-        	if(chkBoxattackerDice3.isVisible()) {
-        		chkBoxattackerDice3.setSelected(true);
-        	}
-        	
-        	if(chkBoxdefenderDice1.isVisible()) {
-        		chkBoxdefenderDice1.setSelected(true);
-        	}
-        	
-        	if(chkBoxdefenderDice2.isVisible()) {
-        		chkBoxdefenderDice2.setSelected(true);
-        	}
-        	
-        	//click Roll Dice    	
-        	btnRoll.fire();
-        	
-        	winnerName.setText(message);
-        	message = "";
-        	
-        	//wait with thread sleep 3 seconds to allow user to see results
-        	Thread.sleep(3000);
-        	System.out.println("After Click roll "+btnContinueRoll.isDisabled());
-    	}while(!btnContinueRoll.isDisabled());
-    	btnAttackFullOnMode.setDisable(true);
+    	Runnable task = new Runnable()
+		{
+			public void run()
+			{
+				runTask();
+			}
+		};
+
+		// Run the task in a background thread
+		Thread backgroundThread = new Thread(task);
+		// Terminate the running thread if the application exits
+		backgroundThread.setDaemon(true);
+		// Start the thread
+		backgroundThread.start();
     }
+    
+    private void runTask() {
+		do {
+    		System.out.println("Befor Click btnContinueRoll " + btnContinueRoll.isDisabled());
+    		// wait with thread sleep 3 seconds to allow user to see results
+    		try {
+    			Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						// check for the dice visibility
+			    		if (!btnContinueRoll.isDisabled()) {
+			    			btnContinueRoll.fire();
+			    		}
+			    		System.out.println("After clicking btnContinueRoll " + btnContinueRoll.isDisabled());
+			    		if (chkBoxattackerDice1.isVisible()) {
+			    			chkBoxattackerDice1.setSelected(true);
+			    		}
+
+			    		if (chkBoxattackerDice2.isVisible()) {
+			    			chkBoxattackerDice2.setSelected(true);
+			    		}
+
+			    		if (chkBoxattackerDice3.isVisible()) {
+			    			chkBoxattackerDice3.setSelected(true);
+			    		}
+
+			    		if (chkBoxdefenderDice1.isVisible()) {
+			    			chkBoxdefenderDice1.setSelected(true);
+			    		}
+
+			    		if (chkBoxdefenderDice2.isVisible()) {
+			    			chkBoxdefenderDice2.setSelected(true);
+			    		}
+			    		// click Roll Dice
+			    		
+						btnRoll.fire();
+						winnerName.setText(message);
+			    		message = "";
+					}
+				});
+    			
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+    		
+    		System.out.println("After Click roll " + btnContinueRoll.isDisabled());
+    	} while (!btnContinueRoll.isDisabled());
+    	btnAttackFullOnMode.setDisable(true);
+	}
     
     @FXML
     void moveAllArmies(ActionEvent event) {

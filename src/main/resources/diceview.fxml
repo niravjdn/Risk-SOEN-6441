@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="3.0" prefHeight="382.0" prefWidth="542.0">
          <children>
@@ -54,6 +54,6 @@
       </Pane>
       <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="240.0" prefHeight="21.0" prefWidth="522.0" text="Winner Name" wrapText="true" />
       <Button fx:id="btnContinueRoll" layoutX="150.0" layoutY="265.0" mnemonicParsing="false" onAction="#continueDiceRoll" prefHeight="32.0" prefWidth="92.0" text="Continue" wrapText="true" />
-      <Button fx:id="btnAttackFullOnMode" layoutX="282.0" layoutY="266.0" mnemonicParsing="false" onAction="#attackFullOnMode" prefHeight="32.0" prefWidth="123.0" text="Full On Mode" wrapText="true" />
+      <Button fx:id="btnAttackAllOutMode" layoutX="282.0" layoutY="266.0" mnemonicParsing="false" onAction="#attackAllOutMode" prefHeight="32.0" prefWidth="123.0" text="All Out Mode" wrapText="true" />
    </children>
 </Pane>

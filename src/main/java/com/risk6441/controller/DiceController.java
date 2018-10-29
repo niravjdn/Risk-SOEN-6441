@@ -31,22 +31,22 @@ import javafx.scene.layout.Pane;
 public class DiceController implements Initializable{
 
     @FXML
-    private Label attackerPlayerName;
+    private Label lblAttackerPlayerName;
 
     @FXML
-    private Label defenderPlayerName;
+    private Label lblDefenderPlayerName;
 
     @FXML
-    private Label attackerTerritoryName;
+    private Label lblAttackerTerritoryName;
 
     @FXML
-    private Label defenderTerritoryName;
+    private Label lblDefenderTerritoryName;
 
     @FXML
-    private Label attackerArmies;
+    private Label lblAttackerArmies;
 
     @FXML
-    private Label defenderArmies;
+    private Label lblDefenderArmies;
 
     @FXML
     private Button btnRoll;
@@ -73,10 +73,10 @@ public class DiceController implements Initializable{
     private Pane moveArmiesView;
 
     @FXML
-    private Label noOfArmies;
+    private Label lblNoOfArmies;
 
     @FXML
-    private TextField numberOfArmiesInput;
+    private TextField txtNumberOfArmiesInput;
 
     @FXML
     private Button btnMoveArmies;
@@ -119,8 +119,8 @@ public class DiceController implements Initializable{
     void continueDiceRoll(ActionEvent event) {
     	diceModel.setAttackerDiceValues(new ArrayList<>());
 		diceModel.setDefenderDiceValues(new ArrayList<>());
-		loadAttackScreen();
-		showDice();
+		loadScreen();
+		loadAndShowDice();
     }
 
     /**
@@ -206,7 +206,7 @@ public class DiceController implements Initializable{
 
     @FXML
     void moveArmies(ActionEvent event) {
-    	String value = numberOfArmiesInput.getText();
+    	String value = txtNumberOfArmiesInput.getText();
 		if (StringUtils.isEmpty(value)) {
 			CommonMapUtil.alertBox("Info","Please enter a number of armies to move", "Error");
 			return;
@@ -227,7 +227,7 @@ public class DiceController implements Initializable{
 		rollAttackerDice(chkBoxattackerDice1, chkBoxattackerDice2, chkBoxattackerDice3);
 		rollDefenderDice(chkBoxdefenderDice1, chkBoxdefenderDice2);
 
-		List<String> playResult = diceModel.getPlayResultAfterDiceThrown();
+		List<String> playResult = diceModel.getPlayResultAfterDiceRoll();
 
 		Territory attackingTerritory = diceModel.getAttackingTerritory();
 		Territory defendingTerritory = diceModel.getDefendingTerritory();
@@ -245,8 +245,8 @@ public class DiceController implements Initializable{
 			CommonMapUtil.disableControls(btnRoll);
 			CommonMapUtil.enableControls(btnContinueRoll);
 		}
-		defenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
-		attackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
+		lblDefenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
+		lblAttackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
 		winnerName.setText(playResult.toString());
 		message = playResult.toString();
 		System.out.println(playResult.toString());
@@ -265,25 +265,25 @@ public class DiceController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		loadAttackScreen();
-		showDice();
+		loadScreen();
+		loadAndShowDice();
 	}
 
 	/**
 	 * Load attack Screen for attacker and defender.
 	 */
-	public void loadAttackScreen() {
+	public void loadScreen() {
 		// Load attacker details
 		Territory attackingTerritory = diceModel.getAttackingTerritory();
-		attackerPlayerName.setText(attackingTerritory.getPlayer().getName());
-		attackerTerritoryName.setText("Territory: " + attackingTerritory.getName());
-		attackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
+		lblAttackerPlayerName.setText(attackingTerritory.getPlayer().getName());
+		lblAttackerTerritoryName.setText("Territory: " + attackingTerritory.getName());
+		lblAttackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
 
 		// Load defender details
 		Territory defendingTerritory = diceModel.getDefendingTerritory();
-		defenderPlayerName.setText(defendingTerritory.getPlayer().getName());
-		defenderTerritoryName.setText("Territory: " + defendingTerritory.getName());
-		defenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
+		lblDefenderPlayerName.setText(defendingTerritory.getPlayer().getName());
+		lblDefenderTerritoryName.setText("Territory: " + defendingTerritory.getName());
+		lblDefenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
 		winnerName.setText(StringUtils.EMPTY);
 		// clear check boxes
 		GameUtils.clearCheckBoxes(chkBoxattackerDice1, chkBoxattackerDice2, chkBoxattackerDice3, chkBoxdefenderDice1, chkBoxdefenderDice2);
@@ -296,7 +296,7 @@ public class DiceController implements Initializable{
 	/**
 	 * Show dices according to number of armies .
 	 */
-	public void showDice() {
+	public void loadAndShowDice() {
 		if (diceModel.getAttackingTerritory().getArmy() >= 4) {
 			CommonMapUtil.showControls(chkBoxattackerDice1, chkBoxattackerDice2, chkBoxattackerDice3);
 		} else if (diceModel.getAttackingTerritory().getArmy() >= 3) {

@@ -8,26 +8,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="3.0" prefHeight="382.0" prefWidth="542.0">
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="542.0">
                <children>
-                  <Label fx:id="attackerPlayerName" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="181.0" text="attackerPlayerName" />
-                  <Label fx:id="defenderPlayerName" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="181.0" text="defenderPlayerName" />
+                  <Label fx:id="lblAttackerPlayerName" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="181.0" text="attackerPlayerName" />
+                  <Label fx:id="lblDefenderPlayerName" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="181.0" text="defenderPlayerName" />
                </children>
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="470.0">
                <children>
-                  <Label fx:id="attackerTerritoryName" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="196.0" text="attackerTerritoryName" wrapText="true" />
-                  <Label fx:id="defenderTerritoryName" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="199.0" text="defenderTerritoryName" wrapText="true" />
+                  <Label fx:id="lblAttackerTerritoryName" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="196.0" text="attackerTerritoryName" wrapText="true" />
+                  <Label fx:id="lblDefenderTerritoryName" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="199.0" text="defenderTerritoryName" wrapText="true" />
                </children>
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="31.0" prefWidth="470.0">
                <children>
-                  <Label fx:id="attackerArmies" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="156.0" text="attackerArmies" />
-                  <Label fx:id="defenderArmies" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="146.0" text="defenderArmies" />
+                  <Label fx:id="lblAttackerArmies" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="156.0" text="attackerArmies" />
+                  <Label fx:id="lblDefenderArmies" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="146.0" text="defenderArmies" />
                </children>
             </HBox>
          </children>
@@ -41,8 +41,8 @@
       <Button fx:id="btnCancelDiceRoll" layoutX="448.0" layoutY="269.0" mnemonicParsing="false" onAction="#cancelDiceRoll" prefHeight="32.0" prefWidth="76.0" text="Cancel" />
       <Pane fx:id="moveArmiesView" layoutX="8.0" layoutY="306.0" prefHeight="61.0" prefWidth="522.0">
          <children>
-            <Label fx:id="noOfArmies" layoutX="14.0" layoutY="23.0" text="No. of Armies to Move:" />
-            <TextField fx:id="numberOfArmiesInput" layoutX="183.0" layoutY="18.0" prefHeight="31.0" prefWidth="52.0" />
+            <Label fx:id="lblNoOfArmies" layoutX="14.0" layoutY="23.0" text="No. of Armies to Move:" />
+            <TextField fx:id="txtNumberOfArmiesInput" layoutX="183.0" layoutY="18.0" prefHeight="31.0" prefWidth="52.0" />
             <Button fx:id="btnMoveArmies" layoutX="251.0" layoutY="18.0" mnemonicParsing="false" onAction="#moveArmies" prefHeight="31.0" prefWidth="64.0" text="Move" />
             <Button fx:id="btnSkipMoveArmy" layoutX="439.0" layoutY="18.0" mnemonicParsing="false" onAction="#skipMoveArmy" prefHeight="31.0" prefWidth="70.0" text="Skip" />
             <Button fx:id="btnMoveAllArmies" layoutX="332.0" layoutY="18.0" mnemonicParsing="false" onAction="#moveAllArmies" prefHeight="31.0" prefWidth="85.0" text="Move all" />

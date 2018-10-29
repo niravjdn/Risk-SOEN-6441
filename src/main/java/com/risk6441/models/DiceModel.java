@@ -67,14 +67,14 @@ public class DiceModel extends Observable{
 	 * 
 	 * @return List list of players.
 	 */
-	public List<String> getPlayResultAfterDiceThrown() {
+	public List<String> getPlayResultAfterDiceRoll() {
 		List<String> playResult = new ArrayList<>();
 		Collections.sort(attackerDiceValues, Collections.reverseOrder());
 		Collections.sort(defenderDiceValues, Collections.reverseOrder());
 
 		for (Integer defenderDiceValue : defenderDiceValues) {
 			for (Integer attackerDiceValue : attackerDiceValues) {
-				updateArmiesAfterAttack(defenderDiceValue, attackerDiceValue, playResult);
+				updateArmiesAfterAttackFinished(defenderDiceValue, attackerDiceValue, playResult);
 				break;
 			}
 			if (attackerDiceValues.size() >= 1) {
@@ -94,7 +94,7 @@ public class DiceModel extends Observable{
 	 * @param playResult
 	 *            List playResult
 	 */
-	public void updateArmiesAfterAttack(Integer defenderDiceValue, Integer attackerDiceValue, List<String> playResult) {
+	public void updateArmiesAfterAttackFinished(Integer defenderDiceValue, Integer attackerDiceValue, List<String> playResult) {
 		if (attackerDiceValue.compareTo(defenderDiceValue) == 0) {
 			playResult.add("Attacker lost 1 army.");
 			if (attackingTerritory.getArmy() > 1) {
@@ -198,7 +198,7 @@ public class DiceModel extends Observable{
 	 * Check if more dice role available
 	 * @return diceRollAvailable
 	 */
-	public boolean moreDiceRollAvailable() {
+	public boolean isMoreDiceRollAvailable() {
 		if (attackingTerritory.getArmy() < 2 || defendingTerritory.getArmy() <= 0) {
 			return false;
 		}else

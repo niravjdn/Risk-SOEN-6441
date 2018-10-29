@@ -35,7 +35,7 @@ public class MapReaderTest {
 	
 	/**
 	 * This method is executed before every method of the class.
-	 * @throws IOException Throws error if map is not valid.
+	 * @throws IOException Throws error if map the is not valid.
 	 */
 	@Before
 	public void beforeMethod() throws IOException {

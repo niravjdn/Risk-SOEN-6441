@@ -1,7 +1,7 @@
 package com.risk6441.config;
 
 /**
- * This class define static properties for the game such as no of armies according to number of player.
+ * This class defines static properties for the game such as number of armies according to the number of players.
  * @author Nirav
  */
 public class Config {

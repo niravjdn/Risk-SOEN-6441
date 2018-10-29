@@ -9,13 +9,11 @@ package com.risk6441.exception;
  */
 public class InvalidGameActionException extends Exception {
 	
-	/**
-	 * The @serialVersionUID.
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @param message to be printed as exception
+	 * This method throws user define exception if map is not valid.
+	 * @param message message for the exception
 	 */
 	public InvalidGameActionException(String message) {
 		super(message);

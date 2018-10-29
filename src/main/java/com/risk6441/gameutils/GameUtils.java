@@ -172,33 +172,8 @@ public class GameUtils {
 	 * @param button
 	 *            button
 	 */
-	public static void closeScreen(Button button) {
+	public static void exitWindows(Button button) {
 		Stage stage = (Stage) button.getScene().getWindow();
 		stage.close();
-	}
-	
-	/**
-	 * This method checks if the fortification phase is valid or not.
-	 * @param map
-	 * 			 map object
-	 * @param currentPlayer
-	 * 						current player
-	 * @return
-	 * 		  return if fortification phase is valid
-	 */
-	public static boolean isFortificationPhasePossible(Map map, Player currentPlayer) {
-		for (Continent continent : map.getContinents()) {
-			for (Territory territory : continent.getTerritories()) {
-				if (territory.getPlayer().equals(currentPlayer) && territory.getArmy() > 1) {
-					for (Territory adjterritory : territory.getAdjacentTerritories()) {
-						if (adjterritory.getPlayer().equals(currentPlayer)) {
-							return true;
-						}
-
-					}
-				}
-			}
-		}
-		return false;
 	}
 }

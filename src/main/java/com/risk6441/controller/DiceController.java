@@ -88,7 +88,7 @@ public class DiceController implements Initializable{
     private Button btnMoveAllArmies;
 
     @FXML
-    private Label winnerName;
+    private Label lblStatus;
 
     @FXML
     private Button btnContinueRoll;
@@ -112,7 +112,7 @@ public class DiceController implements Initializable{
     @FXML
     void cancelDiceRoll(ActionEvent event) {
     	diceModel.cancelDiceRoll();
-		GameUtils.closeScreen(btnCancelDiceRoll);
+		GameUtils.exitWindows(btnCancelDiceRoll);
     }
 
     @FXML
@@ -135,7 +135,7 @@ public class DiceController implements Initializable{
 		{
 			public void run()
 			{
-				runTask();
+				attackFullOnModeHandler();
 			}
 		};
 
@@ -147,7 +147,7 @@ public class DiceController implements Initializable{
 		backgroundThread.start();
     }
     
-    private void runTask() {
+    private void attackFullOnModeHandler() {
 		do {
     		System.out.println("Befor Click btnContinueRoll " + btnContinueRoll.isDisabled());
     		// wait with thread sleep 3 seconds to allow user to see results
@@ -183,7 +183,7 @@ public class DiceController implements Initializable{
 			    		// click Roll Dice
 			    		
 						btnRoll.fire();
-						winnerName.setText(message);
+						lblStatus.setText(message);
 			    		message = "";
 					}
 				});
@@ -201,18 +201,18 @@ public class DiceController implements Initializable{
     @FXML
     void moveAllArmies(ActionEvent event) {
     	diceModel.moveAllArmies();
-		GameUtils.closeScreen(btnMoveAllArmies);
+		GameUtils.exitWindows(btnMoveAllArmies);
     }
 
     @FXML
     void moveArmies(ActionEvent event) {
     	String value = txtNumberOfArmiesInput.getText();
 		if (StringUtils.isEmpty(value)) {
-			CommonMapUtil.alertBox("Info","Please enter a number of armies to move", "Error");
+			CommonMapUtil.alertBox("Info","Input number of armies to move.", "Error");
 			return;
 		}
 		int armiesToMove = Integer.valueOf(value);
-		diceModel.moveArmies(armiesToMove, winnerName, btnMoveArmies);
+		diceModel.moveArmies(armiesToMove, lblStatus, btnMoveArmies);
     }
 
     @FXML
@@ -247,17 +247,17 @@ public class DiceController implements Initializable{
 		}
 		lblDefenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
 		lblAttackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
-		winnerName.setText(playResult.toString());
+		lblStatus.setText(playResult.toString());
 		message = playResult.toString();
 		System.out.println(playResult.toString());
 		Config.message += "\n"+playResult.toString().replaceAll(",", "\n");
-		winnerName.setVisible(true);
+		lblStatus.setVisible(true);
     }
 
     @FXML
     void skipMoveArmy(ActionEvent event) {
     	diceModel.skipMoveArmy();
-		GameUtils.closeScreen(btnSkipMoveArmy);
+		GameUtils.exitWindows(btnSkipMoveArmy);
     }
 
 	/* (non-Javadoc)
@@ -284,12 +284,12 @@ public class DiceController implements Initializable{
 		lblDefenderPlayerName.setText(defendingTerritory.getPlayer().getName());
 		lblDefenderTerritoryName.setText("Territory: " + defendingTerritory.getName());
 		lblDefenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
-		winnerName.setText(StringUtils.EMPTY);
+		lblStatus.setText(StringUtils.EMPTY);
 		// clear check boxes
 		GameUtils.clearCheckBoxes(chkBoxattackerDice1, chkBoxattackerDice2, chkBoxattackerDice3, chkBoxdefenderDice1, chkBoxdefenderDice2);
 		// Hide output details
 		CommonMapUtil.enableControls(btnRoll);
-		CommonMapUtil.disableControls(winnerName, btnContinueRoll);
+		CommonMapUtil.disableControls(lblStatus, btnContinueRoll);
 		GameUtils.disableViewPane(moveArmiesView);
 	}
 	
@@ -297,16 +297,22 @@ public class DiceController implements Initializable{
 	 * Show dices according to number of armies .
 	 */
 	public void loadAndShowDice() {
+		
 		if (diceModel.getAttackingTerritory().getArmy() >= 4) {
+			//if army >=4 then show all dice
 			CommonMapUtil.showControls(chkBoxattackerDice1, chkBoxattackerDice2, chkBoxattackerDice3);
 		} else if (diceModel.getAttackingTerritory().getArmy() >= 3) {
+			//if army ==3 then show two
 			CommonMapUtil.showControls(chkBoxattackerDice1, chkBoxattackerDice2);
 			CommonMapUtil.hideControls(chkBoxattackerDice3);
 		} else if (diceModel.getAttackingTerritory().getArmy() >= 2) {
+			//else only one dice
 			CommonMapUtil.showControls(chkBoxattackerDice1);
 			CommonMapUtil.hideControls(chkBoxattackerDice2, chkBoxattackerDice3);
 		}
+		
 		if (diceModel.getDefendingTerritory().getArmy() > 2) {
+			//if >2 means 3 then show 3 dice
 			CommonMapUtil.showControls(chkBoxdefenderDice1, chkBoxdefenderDice2);
 		} else if (diceModel.getDefendingTerritory().getArmy() >= 1) {
 			CommonMapUtil.showControls(chkBoxdefenderDice1);
@@ -315,10 +321,9 @@ public class DiceController implements Initializable{
 	}
 
 	/**
-	 * Roll Attacker Dice
-	 * 
+	 * Roll Dice of Attacker
 	 * @param dices
-	 *            checkBox... dices
+	 *            checkBox... dices (Varargs)
 	 */
 	public void rollAttackerDice(CheckBox... dices) {
 		for (CheckBox dice : dices) {
@@ -331,10 +336,9 @@ public class DiceController implements Initializable{
 	}
 	
 	/**
-	 * Roll Defender Dice
-	 * 
+	 * Roll dice of oponent
 	 * @param dices
-	 *            checkBox... dices
+	 *            checkBox... dices (Varargs)
 	 */
 	public void rollDefenderDice(CheckBox... dices) {
 		for (CheckBox dice : dices) {

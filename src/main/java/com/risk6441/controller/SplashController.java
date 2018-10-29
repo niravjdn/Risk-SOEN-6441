@@ -6,7 +6,6 @@ import java.io.IOException;
 import com.risk6441.entity.Map;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.main.Main;
-import com.risk6441.main.MapEditor;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapReader;
 

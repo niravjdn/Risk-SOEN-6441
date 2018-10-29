@@ -2,8 +2,6 @@ package com.risk6441.controller;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.channels.SeekableByteChannel;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -20,7 +18,6 @@ import com.risk6441.maputils.MapVerifier;
 import com.risk6441.maputils.MapWriter;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

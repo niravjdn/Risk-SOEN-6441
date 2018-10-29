@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import com.risk6441.entity.Map;
 import com.risk6441.exception.InvalidMapException;
-import com.risk6441.main.Main;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapReader;
 
@@ -15,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**

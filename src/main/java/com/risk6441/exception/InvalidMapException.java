@@ -14,5 +14,4 @@ public class InvalidMapException extends Exception{
 		super(message);
 		
 	}
-	
 }

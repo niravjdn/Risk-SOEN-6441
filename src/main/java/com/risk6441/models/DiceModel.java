@@ -46,7 +46,6 @@ public class DiceModel extends Observable{
 	
 	/**
 	 * Constructor for DiceModel
-	 * 
 	 * @param attackingTerritory
 	 *            reference to get details about attacking territory
 	 * 
@@ -168,7 +167,7 @@ public class DiceModel extends Observable{
 			getAttackingTerritory().setArmy(currentArmies - armiesToMove);
 			getDefendingTerritory().setArmy(armiesToMove);
 			swapOwnershipOfTerritory();
-			GameUtils.closeScreen(moveArmies);
+			GameUtils.exitWindows(moveArmies);
 			setChanged();
 			notifyObservers("rollDiceComplete");
 		}

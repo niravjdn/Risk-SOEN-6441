@@ -309,19 +309,7 @@ public class PlayGameController implements Initializable,Observer{
 		CommonMapUtil.disableControls(btnEndTurn, btnFortify, btnPlaceArmy, btnReinforcement);
 		
 		
-		terrList.setCellFactory(param -> new ListCell<Territory>() {
-			@Override
-			protected void updateItem(Territory item, boolean empty) {
-				super.updateItem(item, empty);
-
-				if (empty || item == null || item.getName() == null) {
-					setText(null);
-				} else {
-					setText(item.getName() + ":-" + item.getArmy() + "-" + item.getPlayer().getName());
-				}
-			}
-		});
-		
+				
 		adjTerrList.setCellFactory(param -> new ListCell<Territory>() {
 			@Override
 			protected void updateItem(Territory item, boolean empty) {

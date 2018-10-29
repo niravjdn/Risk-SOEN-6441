@@ -2,7 +2,7 @@ package com.risk6441.exception;
 
 /**
  * This class is used to handle any Invalid Game Move exceptions.
- * @author rahul
+ * @author Rohan 
  * @version 1.0.0
  *
  */

@@ -166,7 +166,6 @@ public class GameUtils {
 		}
 	}
 	
-	
 	/**
 	 * This method is used to close screen.
 	 * @param button

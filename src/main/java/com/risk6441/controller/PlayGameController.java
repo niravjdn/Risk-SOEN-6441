@@ -498,6 +498,7 @@ public class PlayGameController implements Initializable,Observer{
 	
 	/**
 	 * Check If Any Player Won the game.
+	 * @param playerWon returns true if a player won the game
 	 */
 	private boolean checkIfPlayerWonTheGame() {
 		boolean playerWon = false;
@@ -512,6 +513,7 @@ public class PlayGameController implements Initializable,Observer{
 
 	/**
 	 * Disable the game after game is over
+	 * 
 	 */
 	private void disableGamePanel() {
 		CommonMapUtil.disableControls(terrList, adjTerrList, btnReinforcement, btnFortify, btnCards,

@@ -129,13 +129,13 @@ public class DiceController implements Initializable{
      * @throws InterruptedException 
      */
     @FXML
-    void attackFullOnMode(ActionEvent event) throws InterruptedException {
+    void attackAllOutMode(ActionEvent event) throws InterruptedException {
     	
     	Runnable task = new Runnable()
 		{
 			public void run()
 			{
-				attackFullOnModeHandler();
+				attackAllOutMode();
 			}
 		};
 
@@ -147,7 +147,7 @@ public class DiceController implements Initializable{
 		backgroundThread.start();
     }
     
-    private void attackFullOnModeHandler() {
+    private void attackAllOutMode() {
 		do {
     		System.out.println("Befor Click btnContinueRoll " + btnContinueRoll.isDisabled());
     		// wait with thread sleep 3 seconds to allow user to see results

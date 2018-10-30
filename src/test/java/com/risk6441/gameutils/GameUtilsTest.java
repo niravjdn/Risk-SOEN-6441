@@ -22,7 +22,7 @@ import com.risk6441.gameutils.GameUtils;
 import com.risk6441.models.PlayerModel;
 
 /**
- * This is the test class for GameUtils. {@link GameUtils}
+ * This is a test class for GameUtils. {@link GameUtils}
  * @author Nirav
  */
 

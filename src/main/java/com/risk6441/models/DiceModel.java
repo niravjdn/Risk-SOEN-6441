@@ -120,7 +120,6 @@ public class DiceModel extends Observable{
 		notifyObservers("rollDiceComplete");
 	}
 
-	
 	/**
 	 * Move All Armies
 	 */

@@ -201,6 +201,10 @@ public class PlayGameController implements Initializable,Observer{
     }
 
     
+    /**
+     * This method is responsible for ending attack phase and providing notification.
+     * @param event event button click event will be passed as parameter
+     */
     @FXML
     void noMoreAttack(ActionEvent event) {
 		if (playerModel.getTerritoryWon() > 0) {
@@ -218,7 +222,11 @@ public class PlayGameController implements Initializable,Observer{
 		playerModel.isFortificationPhasePossible(map, currentPlayer);
 	}
     
-    // constructor to initialize the Map object
+    // 
+	/**
+	 * This is a constructor to initialize the Map object.
+	 * @param map
+	 */
 	public PlayGameController(Map map) {
 		this.map = map;
 		this.playerModel = new PlayerModel();
@@ -227,6 +235,9 @@ public class PlayGameController implements Initializable,Observer{
 	}
 	
 	// Default constructor
+	/**
+	 * The default constructor.
+	 */
 	public PlayGameController() {
 		
 	}

@@ -571,12 +571,16 @@ public class PlayGameController implements Initializable,Observer{
 	private void showWorldDominationData() {
 		HashMap<Player, Double> playerTerPercent = WorldDominationModel.getWorldDominationData(map);
 		ArrayList<Data> chartData = new ArrayList<>();
-		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
 		for (Entry<Player, Double> entry : playerTerPercent.entrySet()) {
-			chartData.add(new PieChart.Data(entry.getKey().getName()+":"+entry.getValue().intValue()+"%", entry.getValue()));
+			double d = entry.getValue();
+			String value = String.valueOf(d).substring(0, 5);
+			String label = entry.getKey().getName();
+			label += " : "+value;
+			chartData.add(new PieChart.Data(label, d));
 		}
-		pieChartData.addAll(chartData);
-		worldDominationPieChart.setData(pieChartData);
+		pieData.addAll(chartData);
+		worldDominationPieChart.setData(pieData);
 	}
 	
 	/**
@@ -589,10 +593,8 @@ public class PlayGameController implements Initializable,Observer{
 		ArrayList<String> sortedKeysList = new ArrayList(playerAndMilitaryCountMap.keySet());
 		Collections.sort(sortedKeysList);
 		for(String key : sortedKeysList) {
-			System.out.println(key+"dekho");
 			dataSeries1.getData().add(new XYChart.Data<String, Number>(key, playerAndMilitaryCountMap.get(key)));
 		}
-		
 		//militaryDominationbarChart.getData().clear();
 		militaryDominationbarChart.getData().addAll(dataSeries1);
 	}

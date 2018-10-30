@@ -234,7 +234,6 @@ public class PlayGameController implements Initializable,Observer{
 		
 	}
 	
-	// Default constructor
 	/**
 	 * The default constructor.
 	 */
@@ -242,7 +241,10 @@ public class PlayGameController implements Initializable,Observer{
 		
 	}
 	
-	//sets the label text of player to current player
+	/**
+	 * This method sets the label text of player to current player
+	 * @param str Contains the current player name.
+	 */
 	public void setCurrentPlayerLabel(String  str) {
 		lblCurrPlayer.setText("Playing... : "+str); 
 	}
@@ -272,6 +274,10 @@ public class PlayGameController implements Initializable,Observer{
 		return currentPlayer;
 	}
 	
+	/**
+	 * This method checks whether the player has armies or not for placement in territories.
+	 * @return Returns true or false (boolean) after testing condition.
+	 */
 	public boolean checkPlayerWithNoArmyWhilePlacingArmy() {
 		if(currentPlayer.getArmies()==0) {
 			GameUtils.addTextToLog("Skipped "+currentPlayer.getName()+" It doesn't have army for placing.\n", txtAreaMsg);

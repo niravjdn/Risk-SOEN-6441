@@ -12,7 +12,7 @@ import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 
 /**
- * This class handles the data for the graph of world domination coverage and military bar chart.
+ * This class handles data for the graph of world domination coverage and military bar chart.
  * @author Nirav
  */
 public class WorldDominationModel {
@@ -48,7 +48,7 @@ public class WorldDominationModel {
 	}
 	
 	/**
-	 * Show military distribution
+	 * Show military distributions
 	 * 
 	 * @param map
 	 *            map object

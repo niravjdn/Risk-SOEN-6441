@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -16,12 +15,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="984.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <!-- fx:controller="com.risk6441.controller.PlayGameController" -->
    <children>
-      <Label layoutX="6.0" layoutY="2.0" prefHeight="58.0" prefWidth="111.0" text="No. of players:" />
+      <Label layoutX="13.0" layoutY="2.0" prefHeight="58.0" prefWidth="111.0" text="No. of players:" />
       <AnchorPane layoutX="3.0" layoutY="114.0" prefHeight="508.0" prefWidth="318.0" />
-      <AnchorPane layoutX="337.0" layoutY="43.0" prefHeight="678.0" prefWidth="288.0">
+      <AnchorPane layoutX="345.0" layoutY="96.0" prefHeight="632.0" prefWidth="288.0">
          <children>
             <Label layoutX="75.0" layoutY="10.0" text="Selected Territory" />
             <Button fx:id="btnReinforcement" layoutX="32.0" layoutY="274.0" mnemonicParsing="false" onAction="#reinforce" text="Reinforcements" />
@@ -34,30 +33,26 @@
             <Button fx:id="btnNoMoreAttack" layoutX="28.0" layoutY="538.0" mnemonicParsing="false" onAction="#noMoreAttack" text="No More Attack" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="13.0" layoutY="76.0" prefHeight="549.0" prefWidth="318.0">
+      <AnchorPane layoutX="18.0" layoutY="76.0" prefHeight="549.0" prefWidth="318.0">
          <children>
-            <TextArea fx:id="txtAreaMsg" layoutX="6.0" layoutY="38.0" prefHeight="508.0" prefWidth="299.0" />
-            <Label layoutX="127.0" layoutY="14.0" text="Message" />
+            <TextArea fx:id="txtAreaMsg" layoutX="6.0" layoutY="299.0" prefHeight="333.0" prefWidth="299.0" />
+            <Label layoutX="122.0" layoutY="270.0" text="Message" />
+            <PieChart fx:id="worldDominationPieChart" layoutX="36.0" prefHeight="102.0" prefWidth="245.0" />
+            <BarChart fx:id="militaryDominationbarChart" animated="false" layoutX="11.0" layoutY="121.0" prefHeight="135.0" prefWidth="274.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
          </children>
       </AnchorPane>
-      <Label fx:id="lblCurrPlayer" layoutX="14.0" layoutY="60.0" prefHeight="25.0" prefWidth="237.0" text="Turn of Player:" />
-      <TitledPane layoutX="655.0" layoutY="14.0" maxHeight="800.0" prefHeight="671.0" prefWidth="299.0" text="World Domination">
+      <Label fx:id="lblCurrPlayer" layoutX="244.0" layoutY="16.0" prefHeight="25.0" prefWidth="237.0" text="Turn of Player:" />
+      <TitledPane layoutX="665.0" layoutY="14.0" maxHeight="800.0" prefHeight="671.0" prefWidth="299.0" text="World Domination By Player">
          <content>
              <VBox prefHeight="681.0" prefWidth="295.0">
                <children>
-                  <PieChart fx:id="worldDominationPieChart" prefHeight="184.0" prefWidth="277.0" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </PieChart>
-                  <BarChart fx:id="militaryDominationbarChart" animated="false">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </BarChart>
              <ScrollPane prefHeight="606.0" prefWidth="211.0">
                <content>
                   <VBox fx:id="vbox" prefHeight="400.0" prefWidth="273.0" />
@@ -67,8 +62,8 @@
       </VBox>
          </content>
       </TitledPane>
-      <ChoiceBox fx:id="choiceBoxNoOfPlayer" layoutX="117.0" layoutY="17.0" prefHeight="27.0" prefWidth="81.0" />
+      <ChoiceBox fx:id="choiceBoxNoOfPlayer" layoutX="128.0" layoutY="17.0" prefHeight="27.0" prefWidth="81.0" />
       <Button fx:id="btnPlaceArmy" layoutX="511.0" layoutY="14.0" mnemonicParsing="false" onAction="#placeArmy" text="Place Army" />
-      <Label fx:id="lblGamePhase" layoutX="261.0" layoutY="17.0" text="Game Phase" textFill="#eb0505" underline="true" />
+      <Label fx:id="lblGamePhase" layoutX="430.0" layoutY="76.0" text="Game Phase" textFill="#eb0505" underline="true" />
    </children>
 </Pane>

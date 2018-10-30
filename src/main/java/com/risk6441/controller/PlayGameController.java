@@ -2,6 +2,7 @@ package com.risk6441.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -498,7 +499,7 @@ public class PlayGameController implements Initializable,Observer{
 	
 	/**
 	 * Check If Any Player Won the game.
-	 * @param playerWon returns true if a player won the game
+	 * @return playerWon returns true if a player won the game
 	 */
 	private boolean checkIfPlayerWonTheGame() {
 		boolean playerWon = false;
@@ -582,12 +583,16 @@ public class PlayGameController implements Initializable,Observer{
 	 * Populate World Domination Data.
 	 */
 	private void showMilitaryDominationData() {
-		HashMap<String, Double> playerTerPercent = WorldDominationModel.getMilitaryDominationData(map);
+		HashMap<String, Double> playerAndMilitaryCountMap = WorldDominationModel.getMilitaryDominationData(map);
 		Series<String, Number> dataSeries1 = new XYChart.Series();
-		
-		for (Entry<String, Double> entry : playerTerPercent.entrySet()) {
-			dataSeries1.getData().add(new XYChart.Data<String, Number>(entry.getKey(), entry.getValue()));
+
+		ArrayList<String> sortedKeysList = new ArrayList(playerAndMilitaryCountMap.keySet());
+		Collections.sort(sortedKeysList);
+		for(String key : sortedKeysList) {
+			System.out.println(key+"dekho");
+			dataSeries1.getData().add(new XYChart.Data<String, Number>(key, playerAndMilitaryCountMap.get(key)));
 		}
+		
 		//militaryDominationbarChart.getData().clear();
 		militaryDominationbarChart.getData().addAll(dataSeries1);
 	}

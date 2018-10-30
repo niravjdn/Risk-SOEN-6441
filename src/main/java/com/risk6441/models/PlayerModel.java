@@ -393,6 +393,10 @@ public class PlayerModel extends Observable implements Observer{
 		
 	}
 	
+	public void endTurn() {
+		setChanged();
+		notifyObservers("Reinforcement");
+	}
 
 	/**
 	 * Get Territory Won

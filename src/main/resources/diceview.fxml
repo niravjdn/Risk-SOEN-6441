@@ -47,7 +47,7 @@
             <Button fx:id="btnMoveArmies" layoutX="221.0" layoutY="18.0" mnemonicParsing="false" onAction="#moveArmies" prefHeight="31.0" prefWidth="64.0" text="Move" />
             <Button fx:id="btnSkipMoveArmy" layoutX="404.0" layoutY="18.0" mnemonicParsing="false" onAction="#skipMoveArmy" prefHeight="31.0" prefWidth="113.0" text="Skip Move Army Phase">
                <font>
-                  <Font size="10.0" />
+                  <Font size="9.0" />
                </font></Button>
             <Button fx:id="btnMoveAllArmies" layoutX="304.0" layoutY="18.0" mnemonicParsing="false" onAction="#moveAllArmies" prefHeight="31.0" prefWidth="85.0" text="Move all" />
          </children>

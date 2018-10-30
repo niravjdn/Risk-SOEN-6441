@@ -141,7 +141,7 @@ public class PlayGameController implements Initializable,Observer{
 		if (playerModel.getTerritoryWon() > 0) {
 			//assignCardToPlayer();
 		}
-		initializeReinforcement(false);
+		playerModel.endTurn();
     }
     
     /** This method will be called by user to start the fortification phase

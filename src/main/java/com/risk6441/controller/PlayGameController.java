@@ -409,6 +409,9 @@ public class PlayGameController implements Initializable,Observer{
 		adjTerrList.setOnMouseClicked(e -> attack());
 	}
 
+	/**
+	 * This method starts the attack adjacent territory for the player.
+	 */
 	public void attack() {
 		if(lblGamePhase.getText().contains("Fortification")) {
 			return;
@@ -547,8 +550,9 @@ public class PlayGameController implements Initializable,Observer{
 
 	
 	
-	/* (non-Javadoc)
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	/* 
+	 *@see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 * 
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -583,7 +587,7 @@ public class PlayGameController implements Initializable,Observer{
 	}
 
 	/**
-	 * Populate World Domination Data.
+	 * This method populates World Domination Data into pie chart.
 	 */
 	private void showWorldDominationData() {
 		HashMap<Player, Double> playerTerPercent = WorldDominationModel.getWorldDominationData(map);
@@ -601,7 +605,7 @@ public class PlayGameController implements Initializable,Observer{
 	}
 	
 	/**
-	 * Populate World Domination Data.
+	 * This method populates World Domination Data(armies) into a bar chart.
 	 */
 	private void showMilitaryDominationData() {
 		HashMap<String, Double> playerAndMilitaryCountMap = WorldDominationModel.getMilitaryDominationData(map);

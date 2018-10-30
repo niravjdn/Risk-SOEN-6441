@@ -572,7 +572,7 @@ public class PlayGameController implements Initializable,Observer{
 		ArrayList<Data> chartData = new ArrayList<>();
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 		for (Entry<Player, Double> entry : playerTerPercent.entrySet()) {
-			chartData.add(new PieChart.Data(entry.getKey().getName(), entry.getValue()));
+			chartData.add(new PieChart.Data(entry.getKey().getName()+":"+entry.getValue().intValue()+"%", entry.getValue()));
 		}
 		pieChartData.addAll(chartData);
 		worldDominationPieChart.setData(pieChartData);

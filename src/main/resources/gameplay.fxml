@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <!-- fx:controller="com.risk6441.controller.PlayGameController" -->
    <children>
       <Label layoutX="6.0" layoutY="2.0" prefHeight="58.0" prefWidth="111.0" text="No. of players:" />
@@ -50,7 +50,7 @@
                         <Insets />
                      </VBox.margin>
                   </PieChart>
-                  <BarChart fx:id="militaryDominationbarChart">
+                  <BarChart fx:id="militaryDominationbarChart" animated="false">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>

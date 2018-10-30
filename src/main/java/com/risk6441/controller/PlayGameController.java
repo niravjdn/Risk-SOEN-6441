@@ -584,10 +584,11 @@ public class PlayGameController implements Initializable,Observer{
 	private void showMilitaryDominationData() {
 		HashMap<String, Double> playerTerPercent = WorldDominationModel.getMilitaryDominationData(map);
 		Series<String, Number> dataSeries1 = new XYChart.Series();
+		
 		for (Entry<String, Double> entry : playerTerPercent.entrySet()) {
 			dataSeries1.getData().add(new XYChart.Data<String, Number>(entry.getKey(), entry.getValue()));
 		}
-		militaryDominationbarChart.getData().clear();
+		//militaryDominationbarChart.getData().clear();
 		militaryDominationbarChart.getData().addAll(dataSeries1);
 	}
 	

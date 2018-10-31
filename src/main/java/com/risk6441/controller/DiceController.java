@@ -251,7 +251,7 @@ public class DiceController implements Initializable{
 			playResult.add(
 					attackingTerritory.getPlayer().getName() + " won the territory: " + defendingTerritory.getName() + " From "+
 			defendingTerritory.getPlayer().getName());
-			diceModel.setNumOfTerritoriesWon(diceModel.getNumOfTerritoriesWon() + 1);
+			diceModel.setNumberOfTerritoriesWon(diceModel.getNumOfTerritoriesWon() + 1);
 			GameUtils.enableViewPane(moveArmiesView);
 			CommonMapUtil.hideControls(btnRoll, btnContinueRoll, btnCancelDiceRoll);
 		} else if (attackingTerritory.getArmy() < 2) {

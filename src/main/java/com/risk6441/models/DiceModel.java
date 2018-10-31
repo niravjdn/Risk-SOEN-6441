@@ -284,7 +284,7 @@ public class DiceModel extends Observable{
 	 * Set Number Of Territories Won
 	 * @param numOfTerritoriesWon the numOfTerritoriesWon to set
 	 */
-	public void setNumOfTerritoriesWon(int numOfTerritoriesWon) {
+	public void setNumberOfTerritoriesWon(int numOfTerritoriesWon) {
 		this.numOfTerritoriesWon = numOfTerritoriesWon;
 	}
 }

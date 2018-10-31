@@ -54,7 +54,7 @@ public class PlayerModel extends Observable implements Observer{
 	/**
 	 * the @territoryWon
 	 */
-	private int territoryWon;
+	private int NumOfterritoryWon;
 	
 	
 	
@@ -386,7 +386,7 @@ public class PlayerModel extends Observable implements Observer{
 
 		if (str.equals("rollDiceComplete")) {
 			DiceModel diceModel = (DiceModel) o;
-			setTerritoryWon(diceModel.getNumOfTerritoriesWon());
+			setNumOfTerritoryWon(diceModel.getNumOfTerritoriesWon());
 			setChanged();
 			notifyObservers("rollDiceComplete");
 		}
@@ -399,22 +399,20 @@ public class PlayerModel extends Observable implements Observer{
 	}
 
 	/**
-	 * Get Territory Won
-	 * 
-	 * @return territoryWon
+	 * This methods returns the number of territory won by the player in a turn.
+	 * @return NumOfterritoryWon Number of Territory won by player in a turn
 	 */
-	public int getTerritoryWon() {
-		return territoryWon;
+	public int getNumOfTerritoryWon() {
+		return NumOfterritoryWon;
 	}
 
 	/**
-	 * Set territory Won
-	 * 
+	 * This method sets the number of territory won by the player.
 	 * @param territoryWon
 	 *            the territoryWon to set
 	 */
-	public void setTerritoryWon(int territoryWon) {
-		this.territoryWon = territoryWon;
+	public void setNumOfTerritoryWon(int territoryWon) {
+		this.NumOfterritoryWon = territoryWon;
 	}
 	
 	/**

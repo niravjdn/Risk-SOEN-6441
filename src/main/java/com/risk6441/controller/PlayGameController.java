@@ -142,7 +142,7 @@ public class PlayGameController implements Initializable,Observer{
     @FXML
     void endTrun(ActionEvent event) {
     	GameUtils.addTextToLog(currentPlayer.getName() + " ended his turn.\n", txtAreaMsg);
-		if (playerModel.getTerritoryWon() > 0) {
+		if (playerModel.getNumOfTerritoryWon() > 0) {
 			//assignCardToPlayer();
 		}
 		playerModel.endTurn();
@@ -210,7 +210,7 @@ public class PlayGameController implements Initializable,Observer{
      */
     @FXML
     void noMoreAttack(ActionEvent event) {
-		if (playerModel.getTerritoryWon() > 0) {
+		if (playerModel.getNumOfTerritoryWon() > 0) {
 			//assignCardToPlayer(); 
 			//to be implemented
 		}
@@ -265,7 +265,7 @@ public class PlayGameController implements Initializable,Observer{
 		currentPlayer = playerListIterator.next();
 		
 		playerModel.setCurrentPlayer(currentPlayer);
-		playerModel.setTerritoryWon(0);
+		playerModel.setNumOfTerritoryWon(0);
 		GameUtils.addTextToLog("============================ \n", txtAreaMsg);
 		GameUtils.addTextToLog(currentPlayer.getName() + "!....started playing.\n", txtAreaMsg);
 		terrList.getItems().clear();

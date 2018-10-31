@@ -14,7 +14,24 @@ public class Player {
 	private String name;
 	private int armies;
 	private List<Territory> assignedTerritory;
+	private List<Card> cardList;
 	
+	/**
+	 * get cards of player
+	 * @return the cardList
+	 */
+	public List<Card> getCardList() {
+		return cardList;
+	}
+
+	/**
+	 * set cards of the player
+	 * @param cardList the cardList to set
+	 */
+	public void setCardList(List<Card> cardList) {
+		this.cardList = cardList;
+	}
+
 	/**
 	 * @param id id of the player eg. 1
 	 * @param name name of the player

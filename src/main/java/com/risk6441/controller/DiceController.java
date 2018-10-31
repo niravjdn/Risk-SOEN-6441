@@ -108,13 +108,19 @@ public class DiceController implements Initializable{
 	public DiceController(DiceModel diceModel) {
 		this.diceModel = diceModel;
 	}
-
+	/**
+     * This method handles the case when user press cancel button 
+     * @param event event object for the javafx 
+     */
     @FXML
     void cancelDiceRoll(ActionEvent event) {
     	diceModel.cancelDiceRoll();
 		GameUtils.exitWindows(btnCancelDiceRoll);
     }
-
+    /**
+     * This method handles the case when user want to continue the attack after the first loss 
+     * @param event event object for the javafx 
+     */
     @FXML
     void continueDiceRoll(ActionEvent event) {
     	diceModel.setAttackerDiceValues(new ArrayList<>());

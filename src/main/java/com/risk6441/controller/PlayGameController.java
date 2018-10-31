@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Stack;
-import java.util.Map.Entry;
-
-import javax.sound.midi.ShortMessage;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,12 +24,10 @@ import com.risk6441.exception.InvalidGameActionException;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
+import com.risk6441.models.CardModel;
 import com.risk6441.models.PlayerModel;
 import com.risk6441.models.WorldDominationModel;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -41,8 +37,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.XYChart;
@@ -55,8 +49,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 /**
  * This class ....
@@ -83,9 +75,8 @@ public class PlayGameController implements Initializable,Observer{
 	
 	private Stack<Card> stackOfCards;
 	
-    /**
-     * The @btnReinforcement
-     */
+	private CardModel cardModel;
+	
     @FXML
     private Button btnReinforcement;
     
@@ -143,10 +134,17 @@ public class PlayGameController implements Initializable,Observer{
     void endTrun(ActionEvent event) {
     	GameUtils.addTextToLog(currentPlayer.getName() + " ended his turn.\n", txtAreaMsg);
 		if (playerModel.getNumOfTerritoryWon() > 0) {
-			//assignCardToPlayer();
+			allocateCardToPlayer();
 		}
 		playerModel.endTurn();
     }
+    
+    
+    @FXML
+    void  openCardPane(ActionEvent event) {
+    	//open card pane
+    }
+   
     
     /** This method will be called by user to start the fortification phase
      * 
@@ -196,6 +194,11 @@ public class PlayGameController implements Initializable,Observer{
     @FXML
     void reinforce(ActionEvent event) {
     	Territory territory = terrList.getSelectionModel().getSelectedItem();
+    	if (currentPlayer.getCardList().size() >= 5) {
+    		CommonMapUtil.alertBox("Info", "You have five or more Risk Card, please exchange these cards for army.", "Info");
+			return;
+		}
+    	
     	playerModel.reinforcementPhase(territory, txtAreaMsg);
     	setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
     	updateMap();
@@ -211,12 +214,22 @@ public class PlayGameController implements Initializable,Observer{
     @FXML
     void noMoreAttack(ActionEvent event) {
 		if (playerModel.getNumOfTerritoryWon() > 0) {
-			//assignCardToPlayer(); 
-			//to be implemented
+			allocateCardToPlayer(); 
 		}
 		GameUtils.addTextToLog("===Attack phase ended!===\\n", txtAreaMsg);
 		isValidFortificationPhase();
     }
+    
+    
+    /**
+	 * Allocate cards to player
+	 */
+	private void allocateCardToPlayer() {
+		Card card = stackOfCards.pop();
+		currentPlayer.getCardList().add(card);
+		playerModel.setNumOfTerritoryWon(0);
+		GameUtils.addTextToLog(currentPlayer.getName() + " has been assigned a card with type "+ card.getCardKind().toString() + " and territory " + card.getTerritoryToWhichCardBelong().getName() + "\n", txtAreaMsg);
+	}
     
     /**
 	 * check if there is a valid fortification phase.
@@ -233,6 +246,7 @@ public class PlayGameController implements Initializable,Observer{
 	public PlayGameController(Map map) {
 		this.map = map;
 		this.playerModel = new PlayerModel();
+		this.cardModel = new CardModel(currentPlayer);
 		playerModel.addObserver(this);
 		
 	}
@@ -263,7 +277,6 @@ public class PlayGameController implements Initializable,Observer{
 			playerListIterator = playerList.iterator();
 		}
 		currentPlayer = playerListIterator.next();
-		
 		playerModel.setCurrentPlayer(currentPlayer);
 		playerModel.setNumOfTerritoryWon(0);
 		GameUtils.addTextToLog("============================ \n", txtAreaMsg);
@@ -530,6 +543,14 @@ public class PlayGameController implements Initializable,Observer{
 		if (!checkIfPlayerWonTheGame()) {
 			playerModel.playerHasAValidAttackMove(terrList, txtAreaMsg);
 		}
+		
+		//pending
+		//add continents to log // left for karthik
+		//find continents owned by player
+		playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer);
+		//returns a list  add to txtAreaMsg ==> Player owns this much continents
+		
+		
 	}
 	
 	/**
@@ -565,9 +586,8 @@ public class PlayGameController implements Initializable,Observer{
 
 	
 	
-	/* 
-	 *@see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 * 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable o, Object arg) {

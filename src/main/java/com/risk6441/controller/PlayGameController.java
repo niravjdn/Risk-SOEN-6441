@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import java.util.Map.Entry;
 
 import javax.sound.midi.ShortMessage;
@@ -16,6 +17,7 @@ import javax.sound.midi.ShortMessage;
 import org.apache.commons.lang3.StringUtils;
 
 import com.risk6441.config.Config;
+import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
@@ -79,6 +81,7 @@ public class PlayGameController implements Initializable,Observer{
 	
 	private Iterator<Player> playerListIterator;
 	
+	private Stack<Card> stackOfCards;
 	
     /**
      * The @btnReinforcement
@@ -271,6 +274,17 @@ public class PlayGameController implements Initializable,Observer{
 	}
 	
 	/**
+	 * This method allocates cards to territorries.
+	 * @throws InvalidMapException Throws IOException if there is an issue while loading the map.
+	 */
+	private void allocateCardTOTerritories() {
+		GameUtils.addTextToLog("===Assigning Cards to Territories===\n", txtAreaMsg);
+		stackOfCards = GameUtils.allocateCardToTerritory(map);
+		GameUtils.allocateCardToTerritory(map);
+		GameUtils.addTextToLog("===Cards assignation complete===\n", txtAreaMsg);
+	}
+	
+	/**
 	 * This method allocates territories to the player and start the game.
 	 * @throws InvalidMapException Throws IOException if there is an issue while loading the map.
 	 */
@@ -289,7 +303,7 @@ public class PlayGameController implements Initializable,Observer{
 		playerList = new ArrayList<>(); 
 		lblGamePhase.setText("Phase: Start Up!");
 		updateMap();
-		
+		allocateCardTOTerritories();
 		CommonMapUtil.enableControls(btnNoMoreAttack);
 		choiceBoxNoOfPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
 			@Override
@@ -304,6 +318,7 @@ public class PlayGameController implements Initializable,Observer{
 				PlayerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
 				try {
 					allocateTerritoriesToPlayer();
+					
 					setPhase("Phase : Place Army");
 					loadCurrentPlayer(false);
 					showWorldDominationData();
@@ -549,6 +564,7 @@ public class PlayGameController implements Initializable,Observer{
 		}else if(str.equals("Reinforcement")) {
 			setPhase("Phase : Reinforcement");
 			initializeReinforcement(false);
+			//load card windows
 		}else if(str.equals("placeArmy")) {
 			setPhase("Phase : Place Army");
 			initializePlaceArmy();

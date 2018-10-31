@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Stack;
 
+import com.risk6441.config.CardKind;
+import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
@@ -51,19 +54,8 @@ public class GameUtils {
 	 */
 	public static void allocateTerritoryToPlayer(Map map, List<Player> players, TextArea textAres) throws InvalidMapException {
 
-		List<Territory> allterritoriesList = new ArrayList<>();
+		List<Territory> allterritoriesList = getTerritoryList(map);
 
-		if (map.getContinents() != null) {
-			for (Continent continent : map.getContinents()) {
-				if (continent != null && continent.getTerritories() != null) {
-					for (Territory territory : continent.getTerritories()) {
-						allterritoriesList.add(territory);
-					}
-				}
-			}
-		}
-		
-		
 		if(players.size() > allterritoriesList.size()) {
 			throw new InvalidMapException("Territories must be more than players.");
 		}
@@ -101,6 +93,41 @@ public class GameUtils {
 			
 		}
 	}
+
+	/**
+	 * @param map
+	 * @param allterritoriesList
+	 * @return 
+	 */
+	private static List<Territory> getTerritoryList(Map map) {
+		List<Territory> allterritoriesList = new ArrayList<Territory>();
+		if (map.getContinents() != null) {
+			for (Continent continent : map.getContinents()) {
+				if (continent != null && continent.getTerritories() != null) {
+					for (Territory territory : continent.getTerritories()) {
+						allterritoriesList.add(territory);
+					}
+				}
+			}
+		}
+		return allterritoriesList;
+	}
+	
+	
+	
+	public static Stack<Card> allocateCardToTerritory(Map map) {
+		Stack<Card> stackOfCards = new Stack<Card>();
+
+		List<Territory> allterritories = getTerritoryList(map);
+		
+		for (Territory territory : allterritories) {
+			Card card = new Card(CardKind.values()[(int) (Math.random() * CardKind.values().length)]);
+			card.setTerritoryToWhichCardBelong(territory);
+			stackOfCards.push(card);
+		}
+		return stackOfCards;
+	}
+
 	
 	/**
 	 * This method checks if players armies is exhausted.

@@ -57,12 +57,18 @@ public class CardExchangeController implements Initializable{
 		this.currentPlayer = currentPlayer;
 		this.cardModel = cardModel;
 	}
-
-	@FXML
+	/**
+     * This method handles the case when user press cancel button 
+     * @param event event object for the javafx 
+     */
+	@FXML		
 	void cancelTrade(ActionEvent event) {
 		GameUtils.exitWindows(btnTrade);
 	}
-
+	/**
+     * This method handles the case when user press trade button 
+     * @param event event object for the javafx 
+     */
 	@FXML
 	void trade(ActionEvent event) {
 

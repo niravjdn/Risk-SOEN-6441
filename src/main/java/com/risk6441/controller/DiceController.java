@@ -99,8 +99,7 @@ public class DiceController implements Initializable{
     private DiceModel diceModel;
     
     private static String message = "";
-  
-    
+      
     /**
 	 * Constructor for dice roll controller.
 	 * @param diceModel dice model object

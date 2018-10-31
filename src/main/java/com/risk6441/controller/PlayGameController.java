@@ -12,6 +12,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.risk6441.config.Config;
@@ -142,7 +143,7 @@ public class PlayGameController implements Initializable,Observer{
     
     @FXML
     void  openCardPane(ActionEvent event) {
-    	//open card pane
+    	cardModel.openCardWindow();
     }
    
     
@@ -246,9 +247,9 @@ public class PlayGameController implements Initializable,Observer{
 	public PlayGameController(Map map) {
 		this.map = map;
 		this.playerModel = new PlayerModel();
-		this.cardModel = new CardModel(currentPlayer);
+		this.cardModel = new CardModel();
 		playerModel.addObserver(this);
-		
+		cardModel.addObserver(this);
 	}
 	
 	/**
@@ -277,6 +278,8 @@ public class PlayGameController implements Initializable,Observer{
 			playerListIterator = playerList.iterator();
 		}
 		currentPlayer = playerListIterator.next();
+		
+		cardModel.setCurrentPlayer(currentPlayer);
 		playerModel.setCurrentPlayer(currentPlayer);
 		playerModel.setNumOfTerritoryWon(0);
 		GameUtils.addTextToLog("============================ \n", txtAreaMsg);
@@ -619,8 +622,28 @@ public class PlayGameController implements Initializable,Observer{
 		}else if(str.equals("NoFortification")) {
 			setPhase("Phase : No Fortification");
 			initializeReinforcement(false);
+		}else if(str.equals("tradeCard")) {
+			tradeCards();
 		}
 	}
+
+	/**
+	 * This method trades the cards of the player for tht army.
+	 */
+	private void tradeCards() {
+		List<Card> selectedCardsOfThePlayer = cardModel.getCardsToBeExchange();
+		currentPlayer.setNumeberOfTimesCardsExchanged(currentPlayer.getNumeberOfTimeCardsExchanged()+1);
+		playerModel.tradeCardsAndGetArmy(selectedCardsOfThePlayer,txtAreaMsg);
+		currentPlayer.getCardList().removeAll(selectedCardsOfThePlayer);
+		stackOfCards.addAll(selectedCardsOfThePlayer);
+		Collections.shuffle(stackOfCards);
+		terrList.refresh();
+		adjTerrList.refresh();
+		updateMap();
+		showMilitaryDominationData();
+		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
+	}
+
 
 	/**
 	 * This method populates World Domination Data into pie chart.

@@ -11,6 +11,7 @@ import java.util.Observer;
 
 import com.risk6441.config.Config;
 import com.risk6441.controller.DiceController;
+import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
@@ -481,5 +482,23 @@ public class PlayerModel extends Observable implements Observer{
 		setChanged();
 		notifyObservers("NoFortificationMove");
 		return false;
+	}
+
+	/**
+	 * @param selectedCardsByThePlayer
+	 * @param txtAreaMsg
+	 */
+	public void tradeCardsAndGetArmy(List<Card> selectedCardsByThePlayer, TextArea txtAreaMsg) {
+		currentPlayer.setArmies(currentPlayer.getArmies() + (5 * currentPlayer.getNumeberOfTimeCardsExchanged()));
+		GameUtils.addTextToLog(currentPlayer.getName()+" exchanged 3 cards for the army "+(5*currentPlayer.getNumeberOfTimeCardsExchanged()), txtAreaMsg);
+		for (Territory t : currentPlayer.getAssignedTerritory()) {
+			for (Card card : selectedCardsByThePlayer) {
+				if (t.equals(card.getTerritoryToWhichCardBelong())) {
+					t.setArmy(t.getArmy() + 2);
+					GameUtils.addTextToLog(currentPlayer.getName()+ " got 2 extra armies on the "+t.getName()+".", txtAreaMsg);
+					break;
+				}
+			}
+		}
 	}
 }

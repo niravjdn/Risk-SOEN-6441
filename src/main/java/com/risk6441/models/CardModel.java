@@ -1,16 +1,25 @@
 package com.risk6441.models;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import com.risk6441.config.CardKind;
+import com.risk6441.controller.CardExchangeController;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Player;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * This class is handles the behavior of the card.
  * @author Nirav
  */
-public class CardModel {
+public class CardModel extends Observable{
 
 	private Player currentPlayer;	
 	
@@ -23,6 +32,13 @@ public class CardModel {
 		return currentPlayer;
 	}
 
+	/**
+	 * Constructor for the CardModel Class
+	 */
+	public CardModel() {
+		
+	}
+	
 	/**
 	 * @param currentPlayer the currentPlayer to set
 	 */
@@ -50,10 +66,28 @@ public class CardModel {
 	public CardModel(Player currentPlayer) {
 		super();
 		this.currentPlayer = currentPlayer;
+		this.cardForExchange = new ArrayList<Card>();
 	}
 	
 	public void openCardWindow() {
-		
+		final Stage stage = new Stage();
+		stage.setTitle("Attack Window");
+
+		CardExchangeController controller = new CardExchangeController(currentPlayer, this);
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cardview.fxml"));
+		loader.setController(controller);
+
+		Parent root = null;
+		try {
+			root = (Parent) loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	public boolean isCardvalidForTrade(List<Card> selectedCards) {
@@ -79,4 +113,18 @@ public class CardModel {
 		return returnFlag;
 	}
 	
+
+	/**
+	 * This method notifies the observer of the cardmodel, which is playgamecontroller regarding trade
+	 * @param cardsForExchange list of the cards selected by the user
+	 */
+	public void setCardsForExchange(List<Card> cardsForExchange) {
+		setCardsForExchange(cardsForExchange);
+		setChanged();
+		notifyObservers("tradeCard");
+	}
+	
+	public void clear() {
+		this.cardForExchange = new ArrayList<Card>();
+	}
 }

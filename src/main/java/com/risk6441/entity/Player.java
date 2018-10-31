@@ -106,14 +106,14 @@ public class Player {
 	/**
 	 * @return the numeberOfCardsExchanged
 	 */
-	public int getNumeberOfCardsExchanged() {
+	public int getNumeberOfTimeCardsExchanged() {
 		return numeberOfCardsExchanged;
 	}
 
 	/**
 	 * @param numeberOfCardsExchanged the numeberOfCardsExchanged to set
 	 */
-	public void setNumeberOfCardsExchanged(int numeberOfCardsExchanged) {
+	public void setNumeberOfTimesCardsExchanged(int numeberOfCardsExchanged) {
 		this.numeberOfCardsExchanged = numeberOfCardsExchanged;
 	}
 

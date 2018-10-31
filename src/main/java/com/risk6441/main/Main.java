@@ -11,8 +11,7 @@ import javafx.stage.Stage;
  *
  */
 public class Main extends Application{
-	
-	
+		
 	/**
 	 * The main entry point of our application.
 	 * Starts the main to launch the game.

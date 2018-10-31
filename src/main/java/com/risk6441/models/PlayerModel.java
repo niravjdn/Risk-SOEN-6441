@@ -66,7 +66,7 @@ public class PlayerModel extends Observable implements Observer{
 	 * 			textArea object
 	 */
 	public static void assignArmiesToPlayers(List<Player> p, TextArea txtArea) {
-		GameUtils.addTextToLog("===>Assigning armies to players.===\n", txtArea);
+		GameUtils.addTextToLog("===>Assigning armies to the players.===\n", txtArea);
 
 		int armyForPlayer = 0;
 		int noOfPlayers = p.size();
@@ -102,7 +102,7 @@ public class PlayerModel extends Observable implements Observer{
 	}
 	
 	/**
-	 * This method creates the players.
+	 * This method creates space for the players.
 	 * @param noOfPlayers
 	 * 			no of players to be created
 	 * @param players
@@ -122,7 +122,7 @@ public class PlayerModel extends Observable implements Observer{
 	}
 	
 	/**
-	 * This method counts reinforcement armies for the player.
+	 * This method counts the number of reinforcement armies for each player.
 	 * @param map
 	 * 		  	map object
 	 * @param currentPlayer
@@ -152,7 +152,7 @@ public class PlayerModel extends Observable implements Observer{
 	}
 
 	/**
-	 * This method return continent that are owned by the player.
+	 * This method returns the continents owned by the player.
 	 * @param map
 	 * 			 map object
 	 * @param currentPlayer
@@ -181,7 +181,7 @@ public class PlayerModel extends Observable implements Observer{
 	}
 	
 	/**
-	 * Check if player has valid attack move
+	 * Check if the player has a valid attack move
 	 * 
 	 * @param territories
 	 *            territories List View

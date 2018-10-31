@@ -99,8 +99,7 @@ public class DiceController implements Initializable{
     private DiceModel diceModel;
     
     private static String message = "";
-  
-    
+      
     /**
 	 * Constructor for dice roll controller.
 	 * @param diceModel dice model object
@@ -108,13 +107,19 @@ public class DiceController implements Initializable{
 	public DiceController(DiceModel diceModel) {
 		this.diceModel = diceModel;
 	}
-
+	/**
+     * This method handles the case when user press cancel button 
+     * @param event event object for the javafx 
+     */
     @FXML
     void cancelDiceRoll(ActionEvent event) {
     	diceModel.cancelDiceRoll();
 		GameUtils.exitWindows(btnCancelDiceRoll);
     }
-
+    /**
+     * This method handles the case when user want to continue the attack after the first loss 
+     * @param event event object for the javafx 
+     */
     @FXML
     void continueDiceRoll(ActionEvent event) {
     	diceModel.setAttackerDiceValues(new ArrayList<>());
@@ -146,7 +151,9 @@ public class DiceController implements Initializable{
 		// Start the thread
 		backgroundThread.start();
     }
-    
+    /**
+	 *This method handles the case for the attack full on mode.
+	 */
     private void attackAllOutMode() {
 		do {
     		System.out.println("Befor Click btnContinueRoll " + btnContinueRoll.isDisabled());
@@ -197,13 +204,19 @@ public class DiceController implements Initializable{
     	} while (!btnContinueRoll.isDisabled());
     	btnAttackFullOnMode.setDisable(true);
 	}
-    
+    /**
+     * This method handles the case when user moves all the armies to its defeated adjacent territory 
+     * @param event event object for the javafx 
+     */
     @FXML
     void moveAllArmies(ActionEvent event) {
     	diceModel.moveAllArmies();
 		GameUtils.exitWindows(btnMoveAllArmies);
     }
-
+    /**
+     * This method handles the case when user moves the armies to its defeated adjacent territory 
+     * @param event event object for the javafx 
+     */
     @FXML
     void moveArmies(ActionEvent event) {
     	String value = txtNumberOfArmiesInput.getText();
@@ -214,7 +227,10 @@ public class DiceController implements Initializable{
 		int armiesToMove = Integer.valueOf(value);
 		diceModel.moveArmies(armiesToMove, lblStatus, btnMoveArmies);
     }
-
+    /**
+     * This method handles the case when dice is rolled
+     * @param event event object for the javafx 
+     */
     @FXML
     void rollDice(ActionEvent event) {
     	if (!chkBoxattackerDice1.isSelected() && !chkBoxattackerDice2.isSelected() && !chkBoxattackerDice3.isSelected()) {
@@ -253,7 +269,10 @@ public class DiceController implements Initializable{
 		Config.message += "\n"+playResult.toString().replaceAll(",", "\n");
 		lblStatus.setVisible(true);
     }
-
+    /**
+     * This method handles the case when user does not move any armies to its defeated adjacent territory 
+     * @param event event object for the javafx 
+     */
     @FXML
     void skipMoveArmy(ActionEvent event) {
     	diceModel.skipMoveArmy();

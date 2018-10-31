@@ -204,6 +204,10 @@ public class PlayGameController implements Initializable,Observer{
     }
 
     
+    /**
+     * This method is responsible for ending attack phase and providing notification.
+     * @param event event button click event will be passed as parameter
+     */
     @FXML
     void noMoreAttack(ActionEvent event) {
 		if (playerModel.getTerritoryWon() > 0) {
@@ -221,7 +225,11 @@ public class PlayGameController implements Initializable,Observer{
 		playerModel.isFortificationPhasePossible(map, currentPlayer);
 	}
     
-    // constructor to initialize the Map object
+    // 
+	/**
+	 * This is a constructor to initialize the Map object.
+	 * @param map
+	 */
 	public PlayGameController(Map map) {
 		this.map = map;
 		this.playerModel = new PlayerModel();
@@ -229,12 +237,17 @@ public class PlayGameController implements Initializable,Observer{
 		
 	}
 	
-	// Default constructor
+	/**
+	 * The default constructor.
+	 */
 	public PlayGameController() {
 		
 	}
 	
-	//sets the label text of player to current player
+	/**
+	 * This method sets the label text of player to current player
+	 * @param str Contains the current player name.
+	 */
 	public void setCurrentPlayerLabel(String  str) {
 		lblCurrPlayer.setText("Playing... : "+str); 
 	}
@@ -264,6 +277,10 @@ public class PlayGameController implements Initializable,Observer{
 		return currentPlayer;
 	}
 	
+	/**
+	 * This method checks whether the player has armies or not for placement in territories.
+	 * @return Returns true or false (boolean) after testing condition.
+	 */
 	public boolean checkPlayerWithNoArmyWhilePlacingArmy() {
 		if(currentPlayer.getArmies()==0) {
 			GameUtils.addTextToLog("Skipped "+currentPlayer.getName()+" It doesn't have army for placing.\n", txtAreaMsg);
@@ -407,6 +424,9 @@ public class PlayGameController implements Initializable,Observer{
 		adjTerrList.setOnMouseClicked(e -> attack());
 	}
 
+	/**
+	 * This method starts the attack adjacent territory for the player.
+	 */
 	public void attack() {
 		if(lblGamePhase.getText().contains("Fortification")) {
 			return;
@@ -545,8 +565,9 @@ public class PlayGameController implements Initializable,Observer{
 
 	
 	
-	/* (non-Javadoc)
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	/* 
+	 *@see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 * 
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -582,7 +603,7 @@ public class PlayGameController implements Initializable,Observer{
 	}
 
 	/**
-	 * Populate World Domination Data.
+	 * This method populates World Domination Data into pie chart.
 	 */
 	private void showWorldDominationData() {
 		HashMap<Player, Double> playerTerPercent = WorldDominationModel.getWorldDominationData(map);
@@ -600,7 +621,7 @@ public class PlayGameController implements Initializable,Observer{
 	}
 	
 	/**
-	 * Populate World Domination Data.
+	 * This method populates World Domination Data(armies) into a bar chart.
 	 */
 	private void showMilitaryDominationData() {
 		HashMap<String, Double> playerAndMilitaryCountMap = WorldDominationModel.getMilitaryDominationData(map);

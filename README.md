@@ -1,4 +1,4 @@
-SOEN 6441 Fall '17
+SOEN 6441 Fall '18
 
 How to Build and Run.
 

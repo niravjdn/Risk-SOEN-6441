@@ -19,30 +19,17 @@ import javafx.scene.control.Label;
  *
  */
 public class DiceModel extends Observable{
-	/**
-	 * The @attackingTerritory .
-	 */
 	private Territory attackingTerritory;
 
-	/**
-	 * The @defendingTerritory .
-	 */
 	private Territory defendingTerritory;
 
-	/**
-	 * The @attackerDiceValues .
-	 */
 	private List<Integer> attackerDiceValues;
 
-	/**
-	 * The @defenderDiceValues .
-	 */
 	private List<Integer> defenderDiceValues;
 
-	/**
-	 * The @numOfTerritoriesWon .
-	 */
 	private int numOfTerritoriesWon;
+
+	public static int noOfDiceUsedByAttacker = 0;
 	
 	/**
 	 * Constructor for DiceModel
@@ -149,24 +136,25 @@ public class DiceModel extends Observable{
 	/**
 	 * Move the desired number of armies.
 	 * 
-	 * @param armiesToMove
+	 * @param armyToMove
 	 *            armies to move
 	 * @param message
 	 *            message
-	 * @param moveArmies
-	 *            movearmies button refrence
+	 * @param btnMoveArmy
+	 *            btnMoveArmy button reference
 	 */
-	public void moveArmies(int armiesToMove, Label message, Button moveArmies) {
-		int currentArmies = getAttackingTerritory().getArmy();
-		if (currentArmies <= armiesToMove) {
+	public void moveArmies(int armyToMove, Label message, Button btnMoveArmy) {
+		int existingArmy = getAttackingTerritory().getArmy();
+		if ((existingArmy <= armyToMove) || (armyToMove < noOfDiceUsedByAttacker)) {
 			message.setVisible(true);
-			message.setText("You can move a miximum of " + (currentArmies - 1) + " armies");
+			message.setText("Maximum Army You Can Move is " + (existingArmy - 1) + "." + " And Minimum is "+noOfDiceUsedByAttacker+".");
+			
 			return;
 		} else {
-			getAttackingTerritory().setArmy(currentArmies - armiesToMove);
-			getDefendingTerritory().setArmy(armiesToMove);
+			getAttackingTerritory().setArmy(existingArmy - armyToMove);
+			getDefendingTerritory().setArmy(armyToMove);
 			swapOwnershipOfTerritory();
-			GameUtils.exitWindows(moveArmies);
+			GameUtils.exitWindows(btnMoveArmy);
 			setChanged();
 			notifyObservers("rollDiceComplete");
 		}

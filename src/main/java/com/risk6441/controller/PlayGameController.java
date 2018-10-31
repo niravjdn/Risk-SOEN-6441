@@ -194,11 +194,11 @@ public class PlayGameController implements Initializable,Observer{
     @FXML
     void reinforce(ActionEvent event) {
     	Territory territory = terrList.getSelectionModel().getSelectedItem();
-    	if (currentPlayer.getCardList().size() >= 5) {
-    		CommonMapUtil.alertBox("Info", "You have five or more Risk Card, please exchange these cards for army.", "Info");
-			return;
-		}
-    	
+//    	if (currentPlayer.getCardList().size() >= 5) {
+//    		CommonMapUtil.alertBox("Info", "You have five or more Risk Card, please exchange these cards for army.", "Info");
+//			return;
+//		}
+//    	
     	playerModel.reinforcementPhase(territory, txtAreaMsg);
     	setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
     	updateMap();

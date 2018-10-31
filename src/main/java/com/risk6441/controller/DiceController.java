@@ -94,9 +94,11 @@ public class DiceController implements Initializable{
     private Button btnContinueRoll;
     
     @FXML
-    private Button btnAttackFullOnMode;
+    private Button btnAttackAllOutMode;
     
     private DiceModel diceModel;
+    
+    
     
     private static String message = "";
       
@@ -202,7 +204,7 @@ public class DiceController implements Initializable{
     		
     		System.out.println("After Click roll " + btnContinueRoll.isDisabled());
     	} while (!btnContinueRoll.isDisabled());
-    	btnAttackFullOnMode.setDisable(true);
+    	btnAttackAllOutMode.setDisable(true);
 	}
     /**
      * This method handles the case when user moves all the armies to its defeated adjacent territory 
@@ -252,8 +254,12 @@ public class DiceController implements Initializable{
 					attackingTerritory.getPlayer().getName() + " won the territory: " + defendingTerritory.getName() + " From "+
 			defendingTerritory.getPlayer().getName());
 			diceModel.setNumberOfTerritoriesWon(diceModel.getNumOfTerritoriesWon() + 1);
-			GameUtils.enableViewPane(moveArmiesView);
-			CommonMapUtil.hideControls(btnRoll, btnContinueRoll, btnCancelDiceRoll);
+			GameUtils.enablePane(moveArmiesView);
+			
+			//attacker needs to move atleast as many army as used in attack
+			CommonMapUtil.disableControls(btnSkipMoveArmy);
+			
+			CommonMapUtil.hideControls(btnRoll, btnContinueRoll, btnCancelDiceRoll, btnAttackAllOutMode);
 		} else if (attackingTerritory.getArmy() < 2) {
 			playResult.add(attackingTerritory.getPlayer().getName() + " lost the match");
 			CommonMapUtil.disableControls(btnRoll, btnContinueRoll);
@@ -345,8 +351,10 @@ public class DiceController implements Initializable{
 	 *            checkBox... dices (Varargs)
 	 */
 	public void rollAttackerDice(CheckBox... dices) {
+		DiceModel.noOfDiceUsedByAttacker = 0;
 		for (CheckBox dice : dices) {
 			if (dice.isSelected()) {
+				DiceModel.noOfDiceUsedByAttacker++;
 				int value = diceModel.randomNumber();
 				dice.setText(String.valueOf(value));
 				diceModel.getAttackerDiceValues().add(value);

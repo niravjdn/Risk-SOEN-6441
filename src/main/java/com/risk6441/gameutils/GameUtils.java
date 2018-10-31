@@ -187,7 +187,7 @@ public class GameUtils {
 	 * @param panes
 	 *            panes
 	 */
-	public static void enableViewPane(Pane... panes) {
+	public static void enablePane(Pane... panes) {
 		for (Pane pane : panes) {
 			pane.setVisible(true);
 		}

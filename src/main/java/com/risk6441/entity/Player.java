@@ -15,6 +15,8 @@ public class Player {
 	private int armies;
 	private List<Territory> assignedTerritory;
 	private List<Card> cardList;
+	private int numeberOfCardsExchanged;
+	private List<Card> playerCardList;
 	
 	/**
 	 * get cards of player
@@ -41,6 +43,8 @@ public class Player {
 		this.id = id;
 		this.name = name;
 		this.assignedTerritory = new ArrayList<Territory>();
+		this.playerCardList = new ArrayList<>();
+		this.numeberOfCardsExchanged = 0;
 	}
 
 	/**
@@ -98,6 +102,21 @@ public class Player {
 	public void setAssignedTerritory(List<Territory> assignedTerritory) {
 		this.assignedTerritory = assignedTerritory;
 	}
+	
+	/**
+	 * @return the numeberOfCardsExchanged
+	 */
+	public int getNumeberOfCardsExchanged() {
+		return numeberOfCardsExchanged;
+	}
+
+	/**
+	 * @param numeberOfCardsExchanged the numeberOfCardsExchanged to set
+	 */
+	public void setNumeberOfCardsExchanged(int numeberOfCardsExchanged) {
+		this.numeberOfCardsExchanged = numeberOfCardsExchanged;
+	}
+
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)

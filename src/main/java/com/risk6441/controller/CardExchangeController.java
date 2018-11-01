@@ -3,7 +3,6 @@ package com.risk6441.controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import com.risk6441.entity.Card;
@@ -65,6 +64,7 @@ public class CardExchangeController implements Initializable{
 	void cancelTrade(ActionEvent event) {
 		GameUtils.exitWindows(btnTrade);
 	}
+	
 	/**
      * This method handles the case when user press trade button 
      * @param event event object for the javafx 
@@ -83,20 +83,22 @@ public class CardExchangeController implements Initializable{
 			counter++;
 		} 
 		
-		//if card size 3 then
-		if(selectedCardsForTrade.size()>3)
+		if(selectedCardsForTrade.size() == 3)
 		{
-			cardModel.setCardsForExchange(selectedCardsForTrade);
+			boolean flag = cardModel.isCardvalidForTrade(selectedCardsForTrade);
+			
+			if(flag) {
+				cardModel.setCardsForExchange(selectedCardsForTrade);
+				GameUtils.exitWindows(btnTrade);
+			}
+			else {			
+				CommonMapUtil.alertBox("Info", "Invalid Combination of Cards. All cards should be same or of different kind.", "Info");
+				CommonMapUtil.disableControls(btnTrade);
+				return;
+			}	
 		}
 		else
-			CommonMapUtil.alertBox("Less than minimum Cards", "The number of cards must be greater than 3", "");
-		// if it is valid useng cardmode.valid/
-		//then call cardmodel method setCardsForExchange
-		//else invalid combination of cards
-		
-		
-		//else select only 3 cards
-		
+			CommonMapUtil.alertBox("Info", "The number of cards must be 3", "Info");
 	}
 
 	/* (non-Javadoc)

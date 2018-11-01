@@ -81,7 +81,6 @@ public class CardModel extends Observable{
 		try {
 			root = (Parent) loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -90,11 +89,11 @@ public class CardModel extends Observable{
 		stage.show();
 	}
 	
-	public boolean isCardvalidForTrade(List<Card> selectedCards) {
+	public boolean isCardvalidForTrade(List<Card> selectedCardForExchange) {
 		boolean returnFlag = false;
-		if(selectedCards.size()==3) {
+		if(selectedCardForExchange.size()==3) {
 			int infantry = 0, cavalry = 0, artillery = 0;
-			for (Card card : selectedCards) {
+			for (Card card : selectedCardForExchange) {
 				if(card.getCardKind().toString().equals(CardKind.CAVALRY.toString())) {
 					infantry++;
 				}

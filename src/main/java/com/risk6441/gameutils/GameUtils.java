@@ -113,7 +113,12 @@ public class GameUtils {
 		return allterritoriesList;
 	}
 	
-	
+	/**
+	 * This method saves a particular card against a territory
+	 * @param map map file
+	 * @return stackOfCards returns a stack of cards along with its territories
+	 *
+	 */
 	
 	public static Stack<Card> allocateCardToTerritory(Map map) {
 		Stack<Card> stackOfCards = new Stack<Card>();

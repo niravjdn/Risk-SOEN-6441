@@ -7,6 +7,7 @@ import java.util.Observable;
 
 import com.risk6441.config.CardKind;
 import com.risk6441.controller.CardExchangeController;
+import com.risk6441.controller.MapRedactorController;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Player;
 
@@ -70,9 +71,6 @@ public class CardModel extends Observable{
 	}
 	
 	public void openCardWindow() {
-		final Stage stage = new Stage();
-		stage.setTitle("Attack Window");
-
 		CardExchangeController controller = new CardExchangeController(currentPlayer, this);
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cardview.fxml"));
 		loader.setController(controller);
@@ -83,7 +81,7 @@ public class CardModel extends Observable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		Stage stage = new Stage();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();

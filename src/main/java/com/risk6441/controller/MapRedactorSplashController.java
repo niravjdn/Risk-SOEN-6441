@@ -51,7 +51,6 @@ public class MapRedactorSplashController {
 		try {
 			root = (Parent) loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Stage stage = new Stage();

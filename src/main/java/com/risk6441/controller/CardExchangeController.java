@@ -70,28 +70,7 @@ public class CardExchangeController implements Initializable{
      * @param event event object for the javafx 
      */
 	@FXML
-	void trade(ActionEvent event) {
-
-		//get selected checkboxes from the vbox
-		List<Card> selectedCardsForTrade = new ArrayList<Card>();
-		
-		int counter=0;
-		for (CheckBox cb : cardCheckBoxes) {
-			if(cb.isSelected()) {
-				selectedCardsForTrade.add(cardsOfPlayer.get(counter));
-			}
-			counter++;
-		} 
-		
-		//if card size 3 then
-		// if it is valid useng cardmode.valid/
-		//then call cardmodel method setCardsForExchange
-		//else invalid combination of cards
-		
-		
-		//else select only 3 cards
-		
-	}
+	
 
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)

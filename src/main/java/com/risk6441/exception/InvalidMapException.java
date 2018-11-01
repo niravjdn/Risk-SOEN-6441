@@ -7,7 +7,7 @@ package com.risk6441.exception;
 public class InvalidMapException extends Exception{
 
 	/**
-	 * This method throws user define exception if map is not valid.
+	 * This method throws user defined exception if map is not valid.
 	 * @param message message for the exception
 	 */
 	public InvalidMapException(String message) {

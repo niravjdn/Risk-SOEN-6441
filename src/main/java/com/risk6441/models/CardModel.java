@@ -7,9 +7,11 @@ import java.util.Observable;
 
 import com.risk6441.config.CardKind;
 import com.risk6441.controller.CardExchangeController;
+import com.risk6441.controller.DiceController;
 import com.risk6441.controller.MapRedactorController;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Player;
+import com.risk6441.entity.Territory;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -72,6 +74,9 @@ public class CardModel extends Observable{
 	
 	public void openCardWindow() {
 		CardExchangeController controller = new CardExchangeController(currentPlayer, this);
+		final Stage stage = new Stage();
+		stage.setTitle("Attack Window");
+
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cardview.fxml"));
 		loader.setController(controller);
 
@@ -81,13 +86,13 @@ public class CardModel extends Observable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Stage stage = new Stage();
+
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
 	}
 	
-	public boolean isCardvalidForTrade(List<Card> selectedCardForExchange) {
+	public boolean isCardsvalidForTrade(List<Card> selectedCardForExchange) {
 		boolean returnFlag = false;
 		if(selectedCardForExchange.size()==3) {
 			int infantry = 0, cavalry = 0, artillery = 0;

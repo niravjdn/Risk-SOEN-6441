@@ -85,7 +85,7 @@ public class CardExchangeController implements Initializable{
 		
 		if(selectedCardsForTrade.size() == 3)
 		{
-			boolean flag = cardModel.isCardvalidForTrade(selectedCardsForTrade);
+			boolean flag = cardModel.isCardsvalidForTrade(selectedCardsForTrade);
 			
 			if(flag) {
 				cardModel.setCardsForExchange(selectedCardsForTrade);

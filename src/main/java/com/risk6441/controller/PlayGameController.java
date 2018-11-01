@@ -547,22 +547,17 @@ public class PlayGameController implements Initializable,Observer{
 		if (!checkIfPlayerWonTheGame()) {
 			playerModel.playerHasAValidAttackMove(terrList, txtAreaMsg);
 		}
-		
-		if(playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer)!=null)
+		List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
+		if(listOfContinentsOwnedSingly.size()!=0)
 		{
-			List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
-			for(Continent i : listOfContinentsOwnedSingly)
+			
+			for(Continent c : listOfContinentsOwnedSingly)
 			{
 				GameUtils.addTextToLog("\n============================ \n", txtAreaMsg);
-				GameUtils.addTextToLog(i.getName()+" is conquered by : "+currentPlayer.getName(), txtAreaMsg);
+				GameUtils.addTextToLog(c.getName()+" is owned by : "+currentPlayer.getName(), txtAreaMsg);
 				GameUtils.addTextToLog("\n============================ \n", txtAreaMsg);
 			}
 		}
-		
-		playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer);
-		//returns a list  add to txtAreaMsg ==> Player owns this much continents
-		
-		
 	}
 	
 	/**

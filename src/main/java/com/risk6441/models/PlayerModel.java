@@ -222,8 +222,8 @@ public class PlayerModel extends Observable implements Observer{
 
 			DiceModel diceModel = new DiceModel(attackingTerritory, defendingTerritory);
 			diceModel.addObserver(this);
-			final Stage newMapStage = new Stage();
-			newMapStage.setTitle("Attack Window");
+			final Stage stage = new Stage();
+			stage.setTitle("Attack Window");
 
 			DiceController diceController = new DiceController(diceModel);
 
@@ -234,13 +234,12 @@ public class PlayerModel extends Observable implements Observer{
 			try {
 				root = (Parent) loader.load();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			Scene scene = new Scene(root);
-			newMapStage.setScene(scene);
-			newMapStage.show();
+			stage.setScene(scene);
+			stage.show();
 		} else {
 			throw new InvalidGameActionException("Please choose both attacking and defending territory.");
 		}

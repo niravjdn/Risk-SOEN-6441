@@ -16,7 +16,6 @@ public class Player {
 	private List<Territory> assignedTerritory;
 	private List<Card> cardList;
 	private int numeberOfCardsExchanged;
-	private List<Card> playerCardList;
 	
 	/**
 	 * get cards of player
@@ -43,7 +42,7 @@ public class Player {
 		this.id = id;
 		this.name = name;
 		this.assignedTerritory = new ArrayList<Territory>();
-		this.playerCardList = new ArrayList<>();
+		this.cardList = new ArrayList<>();
 		this.numeberOfCardsExchanged = 0;
 	}
 

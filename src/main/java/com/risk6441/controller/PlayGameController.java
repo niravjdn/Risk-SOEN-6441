@@ -555,7 +555,9 @@ public class PlayGameController implements Initializable,Observer{
 			List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
 			for(Continent i : listOfContinentsOwnedSingly)
 			{
+				GameUtils.addTextToLog("============================ \n", txtAreaMsg);
 				GameUtils.addTextToLog(i.getName()+" is conquered by Player : "+currentPlayer.getName(), txtAreaMsg);
+				GameUtils.addTextToLog("============================ \n", txtAreaMsg);
 			}
 		}
 		//find continents owned by player

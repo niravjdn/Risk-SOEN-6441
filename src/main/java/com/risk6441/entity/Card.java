@@ -1,8 +1,4 @@
-/**
- * 
- */
 package com.risk6441.entity;
-
 import com.risk6441.config.CardKind;
 
 /**

@@ -22,6 +22,9 @@ import javafx.scene.layout.VBox;
 public class CardExchangeController implements Initializable{
 
 	@FXML
+	private VBox vBox;
+
+	@FXML
 	private Label lblPlayer;
 
 	@FXML
@@ -32,9 +35,6 @@ public class CardExchangeController implements Initializable{
 
 	@FXML
 	private Label lblTitle;
-
-	@FXML
-	private VBox vBox;
 
 	
 	private Player currentPlayer;
@@ -93,7 +93,6 @@ public class CardExchangeController implements Initializable{
 			}
 			else {			
 				CommonMapUtil.alertBox("Info", "Invalid Combination of Cards. All cards should be same or of different kind.", "Info");
-				CommonMapUtil.disableControls(btnTrade);
 				return;
 			}	
 		}

@@ -279,7 +279,6 @@ public class PlayGameController implements Initializable,Observer{
 			playerListIterator = playerList.iterator();
 		}
 		currentPlayer = playerListIterator.next();
-		
 		cardModel.setCurrentPlayer(currentPlayer);
 		playerModel.setCurrentPlayer(currentPlayer);
 		playerModel.setNumOfTerritoryWon(0);
@@ -314,6 +313,7 @@ public class PlayGameController implements Initializable,Observer{
 	private void allocateCardTOTerritories() {
 		GameUtils.addTextToLog("===Assigning Cards to Territories===\n", txtAreaMsg);
 		stackOfCards = GameUtils.allocateCardToTerritory(map);
+		Collections.shuffle(stackOfCards);
 		GameUtils.allocateCardToTerritory(map);
 		GameUtils.addTextToLog("===Cards assignation complete===\n", txtAreaMsg);
 	}
@@ -451,6 +451,7 @@ public class PlayGameController implements Initializable,Observer{
 		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
 		Territory defendingTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 		try {
+			GameUtils.addTextToLog(attackingTerritory.getName()+" attacking on "+defendingTerritory, txtAreaMsg);
 			playerModel.attackPhase(attackingTerritory, defendingTerritory);
 		} catch (InvalidGameActionException ex) {
 			CommonMapUtil.alertBox("Info", ex.getMessage(), "Alert");
@@ -487,7 +488,7 @@ public class PlayGameController implements Initializable,Observer{
 	private void initializeReinforcement(boolean loadPlayerFromStart) {
 		System.out.println("Inside intialize reinforcement "+loadPlayerFromStart);
 		loadCurrentPlayer(loadPlayerFromStart);
-		CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn);
+		CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn, btnNoMoreAttack);
 		btnReinforcement.setDisable(false);
 		btnReinforcement.requestFocus();
 		GameUtils.addTextToLog("=======================================\n", txtAreaMsg);
@@ -625,7 +626,7 @@ public class PlayGameController implements Initializable,Observer{
 			initializeFortification();
 		}else if(str.equals("NoFortification")) {
 			setPhase("Phase : No Fortification");
-			initializeReinforcement(false);
+			noFortification();
 		}else if(str.equals("tradeCard")) {
 			tradeCards();
 		}
@@ -680,6 +681,7 @@ public class PlayGameController implements Initializable,Observer{
 		for(String key : sortedKeysList) {
 			dataSeries1.getData().add(new XYChart.Data<String, Number>(key, playerAndMilitaryCountMap.get(key)));
 		}
+		militaryDominationbarChart.getData().clear();
 		//militaryDominationbarChart.getData().clear();
 		militaryDominationbarChart.getData().addAll(dataSeries1);
 	}

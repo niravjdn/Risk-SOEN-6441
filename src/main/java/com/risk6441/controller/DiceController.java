@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
+import org.omg.CORBA.COMM_FAILURE;
 
 import com.risk6441.config.Config;
 import com.risk6441.entity.Territory;
@@ -137,7 +138,7 @@ public class DiceController implements Initializable{
      */
     @FXML
     void attackAllOutMode(ActionEvent event) throws InterruptedException {
-    	
+    	CommonMapUtil.disableControls(btnRoll, btnContinueRoll, btnAttackAllOutMode);
     	Runnable task = new Runnable()
 		{
 			public void run()

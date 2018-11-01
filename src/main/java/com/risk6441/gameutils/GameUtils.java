@@ -35,11 +35,11 @@ public class GameUtils {
 	 * This method writes log in textArea.
 	 * @param str
 	 * 			 String to be written in textArea.
-	 * @param txtArea
+	 * @param txtAreaMsg
 	 * 				 Textarea object.
 	 */
-	public static void addTextToLog(String str, TextArea txtArea) {
-		Platform.runLater(() -> txtArea.appendText(str));
+	public static void addTextToLog(String str, TextArea txtAreaMsg) {
+		Platform.runLater(() -> txtAreaMsg.appendText(str));
 	}
 	
 	/**

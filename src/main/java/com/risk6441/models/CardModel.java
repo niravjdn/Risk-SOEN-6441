@@ -121,7 +121,7 @@ public class CardModel extends Observable{
 	 * @param cardsForExchange list of the cards selected by the user
 	 */
 	public void setCardsForExchange(List<Card> cardsForExchange) {
-		setCardsForExchange(cardsForExchange);
+		setCardsToBeExchange(cardsForExchange);
 		setChanged();
 		notifyObservers("tradeCard");
 	}

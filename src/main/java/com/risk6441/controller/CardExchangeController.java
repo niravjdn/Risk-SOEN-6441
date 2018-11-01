@@ -72,7 +72,7 @@ public class CardExchangeController implements Initializable{
 	@FXML
 	void trade(ActionEvent event) {
 
-		//get selected checkboxes from the vox
+		//get selected checkboxes from the vbox
 		List<Card> selectedCardsForTrade = new ArrayList<Card>();
 		
 		int counter=0;

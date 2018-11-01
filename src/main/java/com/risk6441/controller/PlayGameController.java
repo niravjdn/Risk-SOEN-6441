@@ -2,6 +2,7 @@ package com.risk6441.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -549,6 +550,14 @@ public class PlayGameController implements Initializable,Observer{
 		
 		//pending
 		//add continents to log // left for karthik
+		if(playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer)!=null)
+		{
+			List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
+			for(Continent i : listOfContinentsOwnedSingly)
+			{
+				GameUtils.addTextToLog(i.getName()+" is conquered by Player : "+currentPlayer.getName(), txtAreaMsg);
+			}
+		}
 		//find continents owned by player
 		playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer);
 		//returns a list  add to txtAreaMsg ==> Player owns this much continents

@@ -138,7 +138,7 @@ public class DiceController implements Initializable{
      */
     @FXML
     void attackAllOutMode(ActionEvent event) throws InterruptedException {
-    	CommonMapUtil.disableControls(btnRoll, btnContinueRoll, btnAttackAllOutMode);
+    	CommonMapUtil.hideControls(btnRoll, btnContinueRoll, btnAttackAllOutMode, btnCancelDiceRoll);
     	Runnable task = new Runnable()
 		{
 			public void run()
@@ -251,18 +251,19 @@ public class DiceController implements Initializable{
 		Territory attackingTerritory = diceModel.getAttackingTerritory();
 		Territory defendingTerritory = diceModel.getDefendingTerritory();
 		if (defendingTerritory.getArmy() <= 0) {
-			playResult.add(
-					attackingTerritory.getPlayer().getName() + " won the territory: " + defendingTerritory.getName() + " From "+
+			playResult.add(attackingTerritory.getPlayer().getName() + " won the territory: " + defendingTerritory.getName() + " From "+
 			defendingTerritory.getPlayer().getName());
 			diceModel.setNumberOfTerritoriesWon(diceModel.getNumOfTerritoriesWon() + 1);
 			GameUtils.enablePane(moveArmiesView);
-			
+
 			//attacker needs to move atleast as many army as used in attack
 			CommonMapUtil.disableControls(btnSkipMoveArmy);
 			
 			CommonMapUtil.hideControls(btnRoll, btnContinueRoll, btnCancelDiceRoll, btnAttackAllOutMode);
 		} else if (attackingTerritory.getArmy() < 2) {
 			playResult.add(attackingTerritory.getPlayer().getName() + " lost the match");
+			CommonMapUtil.showControls(btnCancelDiceRoll);
+			btnCancelDiceRoll.setDisable(false);
 			CommonMapUtil.disableControls(btnRoll, btnContinueRoll);
 		} else {
 			CommonMapUtil.disableControls(btnRoll);

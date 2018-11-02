@@ -196,14 +196,15 @@ public class PlayGameController implements Initializable,Observer{
     @FXML
     void reinforce(ActionEvent event) {
     	Territory territory = terrList.getSelectionModel().getSelectedItem();
-//    	if (currentPlayer.getCardList().size() >= 5) {
-//    		CommonMapUtil.alertBox("Info", "You have five or more Risk Card, please exchange these cards for army.", "Info");
-//			return;
-//		}
-//    	
+    	if (currentPlayer.getCardList().size() >= 5) {
+    		CommonMapUtil.alertBox("Info", "You Risk Cards >= 5, please exchange these cards for the army.", "Info");
+			return;
+		}
+
     	playerModel.reinforcementPhase(territory, txtAreaMsg);
     	setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
     	updateMap();
+    	showMilitaryDominationData();
     	terrList.refresh();
     	adjTerrList.refresh();
     }
@@ -227,10 +228,14 @@ public class PlayGameController implements Initializable,Observer{
 	 * Allocate cards to player
 	 */
 	private void allocateCardToPlayer() {
-		Card card = stackOfCards.pop();
-		currentPlayer.getCardList().add(card);
+		try {
+			Card card = stackOfCards.pop();
+			currentPlayer.getCardList().add(card);
+			GameUtils.addTextToLog(currentPlayer.getName() + " has been assigned a card with type "+ card.getCardKind().toString() + " and territory " + card.getTerritoryToWhichCardBelong().getName() + "\n", txtAreaMsg);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		playerModel.setNumOfTerritoryWon(0);
-		GameUtils.addTextToLog(currentPlayer.getName() + " has been assigned a card with type "+ card.getCardKind().toString() + " and territory " + card.getTerritoryToWhichCardBelong().getName() + "\n", txtAreaMsg);
 	}
     
     /**
@@ -445,7 +450,7 @@ public class PlayGameController implements Initializable,Observer{
 	 * This method starts the attack adjacent territory for the player.
 	 */
 	public void attack() {
-		if(lblGamePhase.getText().contains("Fortification")) {
+		if(!lblGamePhase.getText().contains("Attack")) {
 			return;
 		}
 		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
@@ -510,16 +515,15 @@ public class PlayGameController implements Initializable,Observer{
 	}
 
 	/**
-	 * Check If Any Player Lost the game.
+	 * Check if any player has lost the game
 	 */
-	private void checkIfAnyPlayerLostTheGame() {
-		Player playerLost = playerModel.checkIfAnyPlayerLostTheGame(playerList);
+	private void checkIfAnyPlayerLostTheMatch() {
+		Player playerLost = playerModel.checkAndGetIfAnyPlayerLostTheGame(playerList);
 		if (playerLost != null) {
 			playerList.remove(playerLost);
 			playerListIterator = playerList.iterator();
-			CommonMapUtil.alertBox("Info", "Player: " + playerLost.getName() + " lost all his territory and is out of the game",
+			CommonMapUtil.alertBox("Info", "Player: " + playerLost.getName() + " lost all his territory and no more in the game.",
 					"Info");
-			
 			GameUtils.addTextToLog(playerLost.getName() + " lost all territories and lost the game.\n",
 					txtAreaMsg);
 			GameUtils.addTextToLog("==============================================================\\n",
@@ -531,7 +535,7 @@ public class PlayGameController implements Initializable,Observer{
 	 * Refresh View
 	 */
 	private void refreshView() {
-		checkIfAnyPlayerLostTheGame();
+		checkIfAnyPlayerLostTheMatch();
 		terrList.getItems().clear();
 		adjTerrList.getItems().clear();
 		for (Territory territory : currentPlayer.getAssignedTerritory()) {
@@ -545,8 +549,8 @@ public class PlayGameController implements Initializable,Observer{
 		showWorldDominationData();
 		showMilitaryDominationData();
 		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
-		if (!checkIfPlayerWonTheGame()) {
-			playerModel.playerHasAValidAttackMove(terrList, txtAreaMsg);
+		if (checkIfPlayerWonTheGame()) {
+			return;
 		}
 		List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
 		if(listOfContinentsOwnedSingly.size()!=0)
@@ -566,21 +570,20 @@ public class PlayGameController implements Initializable,Observer{
 	 * @return playerWon returns true if a player won the game
 	 */
 	private boolean checkIfPlayerWonTheGame() {
-		boolean playerWon = false;
+		boolean isGameOver = false;
 		if (playerList.size() == 1) {
 			CommonMapUtil.alertBox("Player: " + playerList.get(0).getName() + " won the game!", "Info", "");
-			playerWon = true;
-			disableGamePanel();
+			isGameOver = true;
+			disableGameControls();
 		}
-
-		return playerWon;
+		return isGameOver;
 	}
 
 	/**
 	 * Disable the game after game is over
 	 * 
 	 */
-	private void disableGamePanel() {
+	private void disableGameControls() {
 		CommonMapUtil.disableControls(terrList, adjTerrList, btnReinforcement, btnFortify, btnCards,
 				btnEndTurn);
 		lblGamePhase.setText("GAME OVER");
@@ -588,8 +591,6 @@ public class PlayGameController implements Initializable,Observer{
 		GameUtils.addTextToLog("=====================================================\n", txtAreaMsg);
 		GameUtils.addTextToLog(currentPlayer.getName().toUpperCase() + " WON THE GAME\n", txtAreaMsg);
 		GameUtils.addTextToLog("=====================================================\n", txtAreaMsg);
-
-		
 	}
 
 	

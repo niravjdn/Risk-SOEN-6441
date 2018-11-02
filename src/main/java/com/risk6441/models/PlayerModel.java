@@ -218,7 +218,7 @@ public class PlayerModel extends Observable implements Observer{
 	public void attackPhase(Territory attackingTerritory, Territory defendingTerritory)
 			throws InvalidGameActionException {
 		if (attackingTerritory != null && defendingTerritory != null) {
-			isAValidAttackMove(attackingTerritory, defendingTerritory);
+			isValidAttackMove(attackingTerritory, defendingTerritory);
 
 			DiceModel diceModel = new DiceModel(attackingTerritory, defendingTerritory);
 			diceModel.addObserver(this);
@@ -258,7 +258,7 @@ public class PlayerModel extends Observable implements Observer{
 	 * 
 	 * @throws InvalidGameMoveException invalid game exception
 	 */
-	public boolean isAValidAttackMove(Territory attacking, Territory defending) throws InvalidGameActionException {
+	public boolean isValidAttackMove(Territory attacking, Territory defending) throws InvalidGameActionException {
 		boolean isValidAttackMove = false;
 		if (defending.getPlayer() != attacking.getPlayer()) {
 			if (attacking.getArmy() > 1) {
@@ -280,12 +280,12 @@ public class PlayerModel extends Observable implements Observer{
 	 * 
 	 * @return playerLost Player Object who lost the game
 	 */
-	public Player checkIfAnyPlayerLostTheGame(List<Player> playersPlaying) {
+	public Player checkAndGetIfAnyPlayerLostTheGame(List<Player> playerList) {
 		Player playerLost = null;
-		for (Player player : playersPlaying) {
+		for (Player player : playerList) {
 			if (player.getAssignedTerritory().isEmpty()) {
 				playerLost = player;
-				
+				currentPlayer.getCardList().addAll(playerLost.getCardList());
 			}
 		}
 		return playerLost;
@@ -317,7 +317,7 @@ public class PlayerModel extends Observable implements Observer{
     				territory.setArmy(territory.getArmy() + getArmy);
     				currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
     				GameUtils.addTextToLog("==="+getArmy+" assigned to : === \n"+territory+"  -- Player "+currentPlayer.getName()+"\n", txtAreaMsg);
-    				GameUtils.addTextToLog("======Reinforce Phase Completed. ===========", txtAreaMsg);
+    				GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n", txtAreaMsg);
     			}
     		}else {
     			CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");
@@ -489,7 +489,7 @@ public class PlayerModel extends Observable implements Observer{
 	 */
 	public void tradeCardsAndGetArmy(List<Card> selectedCardsByThePlayer, TextArea txtAreaMsg) {
 		currentPlayer.setArmies(currentPlayer.getArmies() + (5 * currentPlayer.getNumeberOfTimeCardsExchanged()));
-		GameUtils.addTextToLog(currentPlayer.getName()+" exchanged 3 cards for the army "+(5*currentPlayer.getNumeberOfTimeCardsExchanged()), txtAreaMsg);
+		GameUtils.addTextToLog(currentPlayer.getName()+" exchanged 3 cards for the army "+(5*currentPlayer.getNumeberOfTimeCardsExchanged()+"\n"), txtAreaMsg);
 		for (Territory t : currentPlayer.getAssignedTerritory()) {
 			for (Card card : selectedCardsByThePlayer) {
 				if (t.equals(card.getTerritoryToWhichCardBelong())) {

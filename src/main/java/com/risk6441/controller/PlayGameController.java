@@ -584,7 +584,7 @@ public class PlayGameController implements Initializable,Observer{
 	 * 
 	 */
 	private void disableGameControls() {
-		CommonMapUtil.disableControls(terrList, adjTerrList, btnReinforcement, btnFortify, btnCards,
+		CommonMapUtil.disableControls(terrList, adjTerrList, btnReinforcement, btnFortify, btnNoMoreAttack, btnCards,
 				btnEndTurn);
 		lblGamePhase.setText("GAME OVER");
 		setCurrentPlayerLabel(currentPlayer.getName().toUpperCase() + " WON THE GAME");
@@ -614,7 +614,7 @@ public class PlayGameController implements Initializable,Observer{
 		}else if(str.equals("Reinforcement")) {
 			setPhase("Phase : Reinforcement");
 			initializeReinforcement(false);
-			//load card windows
+			cardModel.openCardWindow();
 		}else if(str.equals("placeArmy")) {
 			setPhase("Phase : Place Army");
 			initializePlaceArmy();

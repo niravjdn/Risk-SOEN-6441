@@ -350,7 +350,7 @@ public class DiceController implements Initializable{
 	/**
 	 * Roll Dice of Attacker
 	 * @param dices
-	 *            checkBox... dices (Varargs)
+	 *            check Box... dices (Varargs)
 	 */
 	public void rollAttackerDice(CheckBox... dices) {
 		DiceModel.noOfDiceUsedByAttacker = 0;
@@ -367,7 +367,7 @@ public class DiceController implements Initializable{
 	/**
 	 * Roll dice of oponent
 	 * @param dices
-	 *            checkBox... dices (Varargs)
+	 *            check Box... dices (Varargs)
 	 */
 	public void rollDefenderDice(CheckBox... dices) {
 		for (CheckBox dice : dices) {

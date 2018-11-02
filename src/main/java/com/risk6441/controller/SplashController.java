@@ -28,7 +28,7 @@ import javafx.stage.Stage;
  * <li>Exit</li>
  * </ul>
  * @author Nirav
- *
+ * @author Krishnan
  */
 public class SplashController {
 
@@ -40,7 +40,10 @@ public class SplashController {
 
     @FXML
     private Button btnExit;
-
+    /**
+     * This method handles the case when user clicks the exist button
+     * @param event event object for the javafx 
+     */
     @FXML
     void btnExit(ActionEvent event) {
     	//get scene of that button and close it
@@ -48,7 +51,10 @@ public class SplashController {
     	stage.close();
     	stage.setOnCloseRequest(e -> Platform.exit());
     }
-
+    /**
+     * This method handles the case when user clicks the Map Edit Button
+     * @param event event object for the javafx 
+     */
     @FXML
     void btnMapEditor(ActionEvent event) throws IOException {
 
@@ -62,7 +68,10 @@ public class SplashController {
     	stage.show();
 
     }
-
+    /**
+     * This method handles the case when user clicks the Play Game button
+     * @param event event object for the javafx 
+     */
     @FXML
     void btnPlayGame(ActionEvent event) throws InvalidMapException, IOException {
     	File file= CommonMapUtil.showFileDialog();

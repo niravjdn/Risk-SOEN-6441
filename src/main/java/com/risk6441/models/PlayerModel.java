@@ -429,7 +429,6 @@ public class PlayerModel extends Observable implements Observer{
 	public void placeArmy(ListView<Territory> terrList, List<Player> playerList,
 			TextArea txtAreaMsg) {
 		int playerArmies = currentPlayer.getArmies();
-		
 		if (playerArmies > 0) {
 			Territory territory = terrList.getSelectionModel().getSelectedItem();
 			if (territory == null) {

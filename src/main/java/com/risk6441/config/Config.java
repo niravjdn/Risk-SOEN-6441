@@ -7,29 +7,33 @@ package com.risk6441.config;
 public class Config {
 
 	/**
-	 * The @ARMIES_TWO_PLAYER...
+	 * The ARMIES_TWO_PLAYER Constant
 	 */
-	public static final Integer ARMIES_TWO_PLAYER =20;
+	public static final Integer ARMIES_TWO_PLAYER = 25;//35
 
+	
+	/**
+	 *The message to be printed in text aread after attack is completed 
+	 */
 	public static String message = "";
 	
 	/**
-	 * The @ARMIES_THREE_PLAYER.
+	 * The ARMIES_THREE_PLAYER Constant
 	 */
 	public static final Integer ARMIES_THREE_PLAYER =17;//35
 	
 	/**
-	 * The @ARMIES_FOUR_PLAYER.
+	 * The ARMIES_FOUR_PLAYER Constant
 	 */
 	public static final Integer ARMIES_FOUR_PLAYER = 30;
 	
 	/**
-	 * The @ARMIES_FIVE_PLAYER.
+	 * The ARMIES_FIVE_PLAYER Constant
 	 */
 	public static final Integer ARMIES_FIVE_PLAYER = 25;
 	
 	/**
-	 * The @ARMIES_SIX_PLAYER.
+	 * The ARMIES_SIX_PLAYER Constant
 	 */
 	public static final Integer ARMIES_SIX_PLAYER = 20;
 	

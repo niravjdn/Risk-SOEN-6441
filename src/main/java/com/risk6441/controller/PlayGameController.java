@@ -157,7 +157,7 @@ public class PlayGameController implements Initializable,Observer{
     Territory selectedTerritory = terrList.getSelectionModel().getSelectedItem();
 	Territory adjTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 
-	playerModel.fortificationPhase(selectedTerritory, adjTerritory, txtAreaMsg);
+	playerModel.isfortificationPhase(selectedTerritory, adjTerritory, txtAreaMsg);
 	terrList.refresh();
 	adjTerrList.refresh();
 	updateMap();

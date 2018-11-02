@@ -126,22 +126,10 @@ public class GameUtils {
 		Stack<Card> stackOfCards = new Stack<Card>();
 
 		List<Territory> allterritories = getTerritoryList(map);
-		ArrayList<CardKind> cardsRandaomList = new ArrayList<CardKind>();
-		
-		int eachUniqueCards = allterritories.size() / 3;
-		cardsRandaomList.addAll(Collections.nCopies(eachUniqueCards, CardKind.valueOf("CAVALRY")));
-		cardsRandaomList.addAll(Collections.nCopies(eachUniqueCards, CardKind.valueOf("ARTILLERY")));
-		cardsRandaomList.addAll(Collections.nCopies(eachUniqueCards, CardKind.valueOf("INFANTRY")));
-		int diff = allterritories.size() - cardsRandaomList.size();
-		if(diff > 0) {
-			for(int i=0; i < diff; i++) {
-				System.out.println("inside");
-				cardsRandaomList.add(CardKind.values()[(int) (Math.random() * CardKind.values().length)]);
-			}
-		}
+	
 		int i = 0;
 		for (Territory territory : allterritories) {
-			Card card = new Card(cardsRandaomList.get(i++));
+			Card card = new Card(CardKind.values()[(int) (Math.random() * CardKind.values().length)]);
 			card.setTerritoryToWhichCardBelong(territory);
 			stackOfCards.push(card);
 		}

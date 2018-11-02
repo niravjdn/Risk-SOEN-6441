@@ -25,7 +25,6 @@ import com.risk6441.models.PlayerModel;
  * This is a test class for GameUtils. {@link GameUtils}
  * @author Nirav
  */
-
 public class GameUtilsTest {
 
 	static Map map;
@@ -203,7 +202,5 @@ public class GameUtilsTest {
 		map.setContinents(listOfContinents);
 		Player returnedPlayer = PlayerModel.countReinforcementArmies(map, player);
 		Assert.assertEquals(returnedPlayer.getArmies(), 108);
-	}
-	
-	
+	}	
 }

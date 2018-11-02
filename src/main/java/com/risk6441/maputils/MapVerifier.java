@@ -97,10 +97,7 @@ public class MapVerifier {
 		for(Territory t : continent.getTerritories()) {
 			t.setProcessed(false);
 		}
-		
-		
 		return returnValue;
-
 	}
 	
 	/**

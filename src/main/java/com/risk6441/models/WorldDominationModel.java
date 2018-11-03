@@ -66,7 +66,7 @@ public class WorldDominationModel {
 				if(playerAndMilitaryCountMap.containsKey(player.getName())) {
 					playerAndMilitaryCountMap.put(player.getName(), playerAndMilitaryCountMap.get(player.getName())+ter.getArmy());
 				} else {
-					playerAndMilitaryCountMap.put(player.getName(), Double.valueOf("0"));
+					playerAndMilitaryCountMap.put(player.getName(), Double.valueOf(ter.getArmy()));
 				}
 			}
 		}

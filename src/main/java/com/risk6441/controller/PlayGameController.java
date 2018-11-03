@@ -357,6 +357,10 @@ public class PlayGameController implements Initializable,Observer{
 				CommonMapUtil.enableControls(btnPlaceArmy);
 				PlayerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
 				try {
+					if(playerList.size() > GameUtils.getTerritoryList(map).size()) {
+						throw new InvalidMapException("Territories must be more than players.");
+					}
+					
 					allocateTerritoriesToPlayer();
 					
 					setPhase("Phase : Place Army");

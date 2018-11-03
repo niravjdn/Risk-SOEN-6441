@@ -55,9 +55,6 @@ public class GameUtils {
 
 		List<Territory> allterritoriesList = getTerritoryList(map);
 
-		if(players.size() > allterritoriesList.size()) {
-			throw new InvalidMapException("Territories must be more than players.");
-		}
 		Collections.shuffle(allterritoriesList); 
 		int playerNo = 0;
 		for (int i = 0; i < allterritoriesList.size(); i++) {
@@ -98,7 +95,7 @@ public class GameUtils {
 	 * @param map Current map object.
 	 * @return Territory list.
 	 */
-	private static List<Territory> getTerritoryList(Map map) {
+	public static List<Territory> getTerritoryList(Map map) {
 		List<Territory> allterritoriesList = new ArrayList<Territory>();
 		if (map.getContinents() != null) {
 			for (Continent continent : map.getContinents()) {

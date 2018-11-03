@@ -71,7 +71,9 @@ public class CardModel extends Observable{
 		this.currentPlayer = currentPlayer;
 		this.cardForExchange = new ArrayList<Card>();
 	}
-	
+	/**
+	 * This method opens the card view when the card button is clicked	
+	 */
 	public void openCardWindow() {
 		CardExchangeController controller = new CardExchangeController(currentPlayer, this);
 		final Stage stage = new Stage();
@@ -91,7 +93,9 @@ public class CardModel extends Observable{
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+	/**
+	 * This method checks if the trade is valid or not	
+	 */
 	public boolean isCardsvalidForTrade(List<Card> selectedCardForExchange) {
 		boolean returnFlag = false;
 		if(selectedCardForExchange.size()==3) {
@@ -125,7 +129,9 @@ public class CardModel extends Observable{
 		setChanged();
 		notifyObservers("tradeCard");
 	}
-	
+	/**
+	 * This method clears the array list	
+	 */
 	public void clear() {
 		this.cardForExchange = new ArrayList<Card>();
 	}

@@ -127,6 +127,7 @@ public class CardExchangeController implements Initializable{
 	 * show cards of the player in the box 
 	 */
 	private void showCards() {
+		vBox.getChildren().clear();
 		cardsOfPlayer = currentPlayer.getCardList();
 		if(cardsOfPlayer.size() < 3) {
 			CommonMapUtil.disableControls(btnTrade);			
@@ -140,6 +141,7 @@ public class CardExchangeController implements Initializable{
 	}
 	
 	private void showCardsByRemoving(List<Card> soldCardss) {
+		vBox.getChildren().clear();
 		cardsOfPlayer = currentPlayer.getCardList();
 		cardsOfPlayer.removeAll(soldCardss);
 		if(cardsOfPlayer.size() < 3) {

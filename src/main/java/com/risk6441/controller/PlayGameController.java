@@ -352,6 +352,20 @@ public class PlayGameController implements Initializable,Observer{
 				playerList = PlayerModel.createPlayers(noOfPlayer, playerList, txtAreaMsg);
 				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
 
+				
+				//temp
+				playerList.get(0).getCardList().add(stackOfCards.pop());
+				playerList.get(0).getCardList().add(stackOfCards.pop());
+				playerList.get(0).getCardList().add(stackOfCards.pop());
+				
+				playerList.get(1).getCardList().add(stackOfCards.pop());
+				playerList.get(1).getCardList().add(stackOfCards.pop());
+
+				playerList.get(2).getCardList().add(stackOfCards.pop());
+				playerList.get(2).getCardList().add(stackOfCards.pop());
+				
+				
+				
 				choiceBoxNoOfPlayer.setDisable(true);
 				playerListIterator = playerList.iterator();
 				CommonMapUtil.enableControls(btnPlaceArmy);

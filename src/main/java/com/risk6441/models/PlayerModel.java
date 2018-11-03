@@ -500,7 +500,7 @@ public class PlayerModel extends Observable implements Observer{
 			for (Card card : selectedCardsByThePlayer) {
 				if (t.equals(card.getTerritoryToWhichCardBelong())) {
 					t.setArmy(t.getArmy() + 2);
-					GameUtils.addTextToLog(currentPlayer.getName()+ " got 2 extra armies on the "+t.getName()+".", txtAreaMsg);
+					GameUtils.addTextToLog(currentPlayer.getName()+ " got 2 extra armies on the "+t.getName()+".\n", txtAreaMsg);
 					break;
 				}
 			}

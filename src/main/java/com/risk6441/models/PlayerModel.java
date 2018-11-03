@@ -416,15 +416,18 @@ public class PlayerModel extends Observable implements Observer{
 	}
 	
 	/**
-	 * Place Armies
 	 * 
-	 * @param currentPlayer
-	 *            get current PlayerPlaying object
-	 * @param selectedTerritoryList
-	 *            get Selected Territory List for List View
-	 * @param gamePlayerList
-	 *            gamePlayer List
-	 * @param txtAreaMsg gameConsole
+	 * 
+	 * @param currentPlayer get current PlayerPlaying object
+	 * @param selectedTerritoryList get Selected Territory List for List View
+	 * @param gamePlayerList gamePlayer List
+	 * @param txtAreaMsg gameConsole 
+	 */
+	/**
+	 * This method is to place Armies in territories.
+	 * @param terrList The list of territories.
+	 * @param playerList The players in the game.
+	 * @param txtAreaMsg The area where the message is to be displayed.
 	 */
 	public void placeArmy(ListView<Territory> terrList, List<Player> playerList,
 			TextArea txtAreaMsg) {
@@ -483,8 +486,9 @@ public class PlayerModel extends Observable implements Observer{
 	}
 
 	/**
-	 * @param selectedCardsByThePlayer
-	 * @param txtAreaMsg
+	 * This method is used to exchange cards for army.
+	 * @param selectedCardsByThePlayer List of cards selected by the current player.
+	 * @param txtAreaMsg The area where the message has to be displayed.
 	 */
 	public void tradeCardsAndGetArmy(List<Card> selectedCardsByThePlayer, TextArea txtAreaMsg) {
 		currentPlayer.setArmies(currentPlayer.getArmies() + (5 * currentPlayer.getNumeberOfTimeCardsExchanged()));

@@ -627,6 +627,7 @@ public class PlayGameController implements Initializable,Observer{
 		}else if(str.equals("placeArmy")) {
 			setPhase("Phase : Place Army");
 			initializePlaceArmy();
+			showMilitaryDominationData();
 			checkPlayerWithNoArmyWhilePlacingArmy();
 			while(checkPlayerWithNoArmyWhilePlacingArmy()) {
 				System.out.println("Skipping "+currentPlayer.getName());
@@ -639,6 +640,8 @@ public class PlayGameController implements Initializable,Observer{
 			noFortification();
 		}else if(str.equals("tradeCard")) {
 			tradeCards();
+		}else if(str.equals("opencardWindowForCardExchangeTillLessThan5")) {
+			cardModel.openCardWindow();
 		}
 	}
 

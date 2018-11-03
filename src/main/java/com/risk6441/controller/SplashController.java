@@ -51,9 +51,11 @@ public class SplashController {
     	stage.close();
     	stage.setOnCloseRequest(e -> Platform.exit());
     }
+    
     /**
-     * This method handles the case when user clicks the Map Edit Button
+     * This method handles the case when user clicks the Map Edit Button.
      * @param event event object for the javafx 
+     * @throws IOException Produces an IOException.
      */
     @FXML
     void btnMapEditor(ActionEvent event) throws IOException {

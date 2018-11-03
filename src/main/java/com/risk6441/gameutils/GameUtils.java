@@ -213,7 +213,7 @@ public class GameUtils {
 	
 	/**
 	 * This method is used to close screen.
-	 * @param button            
+	 * @param button Button to exit windows.
 	 */
 	public static void exitWindows(Button button) {
 		Stage stage = (Stage) button.getScene().getWindow();

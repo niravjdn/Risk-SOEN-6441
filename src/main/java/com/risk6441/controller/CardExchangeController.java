@@ -112,13 +112,13 @@ public class CardExchangeController implements Initializable{
 		else
 			CommonMapUtil.alertBox("Info", "The number of cards must be 3", "Info");
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		setPlayerLabel();
 		showCards();
 	}
@@ -140,10 +140,14 @@ public class CardExchangeController implements Initializable{
 		vBox.getChildren().addAll(cardCheckBoxes);
 	}
 	
-	private void showCardsByRemoving(List<Card> soldCardss) {
+	/**
+	 * show cards of the player after player has sold the cards
+	 * @param soldCards list of the cards which player has sold
+	 */
+	private void showCardsByRemoving(List<Card> soldCards) {
 		vBox.getChildren().clear();
 		cardsOfPlayer = currentPlayer.getCardList();
-		cardsOfPlayer.removeAll(soldCardss);
+		cardsOfPlayer.removeAll(soldCards);
 		if(cardsOfPlayer.size() < 3) {
 			CommonMapUtil.disableControls(btnTrade);			
 		}

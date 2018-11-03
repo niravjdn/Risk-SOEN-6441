@@ -218,7 +218,10 @@ public class PlayerModelTest {
 		t.setPlayer(player);
 		listOfTerr2.add(t);
 
-
+		t = new  Territory();
+		t.setName("Canada10");
+		t.setPlayer(new Player(2,"Krishnan"));
+		listOfTerr2.add(t);
 		
 		newContinent.setTerritories(listOfTerr2);
 		

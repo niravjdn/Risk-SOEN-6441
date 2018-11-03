@@ -329,11 +329,10 @@ public class PlayerModel extends Observable implements Observer{
 	
 
 	/**
-	 * Fortification Phase
-	 * 
-	 * @param selectedTerritory selected Territory object
-	 * @param adjTerritory adj Territory object
-	 * @param txtAreaMsg gameConsole
+	 * Fortification Phase.
+	 * @param territory  selected Territory object.
+	 * @param adjTerritory Territory object.
+	 * @param txtAreaMsg gameConsole.
 	 */
 	public void fortificationPhase(Territory territory, Territory adjTerritory, TextArea txtAreaMsg) {
 		if(territory == null) {

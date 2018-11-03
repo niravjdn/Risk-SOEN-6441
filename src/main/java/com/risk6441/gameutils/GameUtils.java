@@ -94,9 +94,9 @@ public class GameUtils {
 	}
 
 	/**
-	 * @param map
-	 * @param allterritoriesList
-	 * @return 
+	 * This method returns the territory list.
+	 * @param map Current map object.
+	 * @return Territory list.
 	 */
 	private static List<Territory> getTerritoryList(Map map) {
 		List<Territory> allterritoriesList = new ArrayList<Territory>();

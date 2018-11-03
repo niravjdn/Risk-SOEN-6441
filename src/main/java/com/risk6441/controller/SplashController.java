@@ -70,9 +70,12 @@ public class SplashController {
     	stage.show();
 
     }
+    
     /**
      * This method handles the case when user clicks the Play Game button
-     * @param event event object for the javafx 
+     * @param event event event object for the javafx 
+     * @throws InvalidMapException Throws invalid map exception.
+     * @throws IOException Throws IOException.
      */
     @FXML
     void btnPlayGame(ActionEvent event) throws InvalidMapException, IOException {

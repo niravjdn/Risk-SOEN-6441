@@ -28,6 +28,7 @@ public class CardModel extends Observable{
 	
 	private List<Card> cardForExchange;
 
+	public boolean isRestrictedModeTillLessThan5 = false;
 	/**
 	 * @return the currentPlayer
 	 */
@@ -75,7 +76,9 @@ public class CardModel extends Observable{
 	/**
 	 * This method opens the card view when the card button is clicked	
 	 */
-	public void openCardWindow() {
+	public void openCardWindow(boolean isRestrictedModeTillLessThan5) {
+
+		this.isRestrictedModeTillLessThan5 = isRestrictedModeTillLessThan5;
 		CardExchangeController controller = new CardExchangeController(currentPlayer, this);
 		final Stage stage = new Stage();
 		stage.setTitle("Attack Window");

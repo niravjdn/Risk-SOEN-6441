@@ -145,7 +145,7 @@ public class PlayGameController implements Initializable,Observer{
     
     @FXML
     void  openCardPane(ActionEvent event) {
-    	cardModel.openCardWindow();
+    	cardModel.openCardWindow(false);
     }
    
     
@@ -623,7 +623,7 @@ public class PlayGameController implements Initializable,Observer{
 		}else if(str.equals("Reinforcement")) {
 			setPhase("Phase : Reinforcement");
 			initializeReinforcement(false);
-			cardModel.openCardWindow();
+			cardModel.openCardWindow(false);
 		}else if(str.equals("placeArmy")) {
 			setPhase("Phase : Place Army");
 			initializePlaceArmy();
@@ -641,7 +641,7 @@ public class PlayGameController implements Initializable,Observer{
 		}else if(str.equals("tradeCard")) {
 			tradeCards();
 		}else if(str.equals("opencardWindowForCardExchangeTillLessThan5")) {
-			cardModel.openCardWindow();
+			cardModel.openCardWindow(true);
 		}
 	}
 

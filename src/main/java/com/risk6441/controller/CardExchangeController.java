@@ -19,6 +19,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class is the controller for the card exchange view.
+ * @author Nirav
+ *
+ */
 public class CardExchangeController implements Initializable{
 
 	@FXML
@@ -89,7 +94,15 @@ public class CardExchangeController implements Initializable{
 			
 			if(flag) {
 				cardModel.setCardsForExchange(selectedCardsForTrade);
-				GameUtils.exitWindows(btnTrade);
+				//card exchange done now
+				//so consider the player has exchanged 3 cards and check if cards - 3 less then 5 then disable trade button
+				if(cardModel.isRestrictedModeTillLessThan5) {
+					if(currentPlayer.getCardList().size()-3 < 5) {
+						CommonMapUtil.disableControls(btnTrade);
+					}
+				}
+				showCardsByRemoving(selectedCardsForTrade);
+				//GameUtils.exitWindows(btnTrade);
 			}
 			else {			
 				CommonMapUtil.alertBox("Info", "Invalid Combination of Cards. All cards should be same or of different kind.", "Info");
@@ -105,8 +118,30 @@ public class CardExchangeController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		setPlayerLabel();
+		showCards();
+	}
+	
+	/**
+	 * show cards of the player in the box 
+	 */
+	private void showCards() {
 		cardsOfPlayer = currentPlayer.getCardList();
+		if(cardsOfPlayer.size() < 3) {
+			CommonMapUtil.disableControls(btnTrade);			
+		}
+			
+		cardCheckBoxes = new CheckBox[cardsOfPlayer.size()];				
+		for (int i = 0; i < cardsOfPlayer.size(); i++){
+			cardCheckBoxes[i] = new CheckBox(cardsOfPlayer.get(i).getCardKind().toString() + " => " + cardsOfPlayer.get(i).getTerritoryToWhichCardBelong().getName());
+		}
+		vBox.getChildren().addAll(cardCheckBoxes);
+	}
+	
+	private void showCardsByRemoving(List<Card> soldCardss) {
+		cardsOfPlayer = currentPlayer.getCardList();
+		cardsOfPlayer.removeAll(soldCardss);
 		if(cardsOfPlayer.size() < 3) {
 			CommonMapUtil.disableControls(btnTrade);			
 		}

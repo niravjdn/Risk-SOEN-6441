@@ -147,22 +147,6 @@ public class GameUtils {
 	}
 
 	
-	/**
-	 * This method checks if players armies is exhausted.
-	 * @param players
-	 * 				 player object
-	 * @return
-	 * 		  returns true if player has exhausted the armies
-	 */
-	public static boolean checkIfPlayersArmiesExhausted(List<Player> players) {
-		for(Player player : players) {
-			if(player.getArmies() != 0) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
 
 	/**
 	 * This method checks whether the fortification phase is completed or not.

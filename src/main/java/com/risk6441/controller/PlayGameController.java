@@ -15,6 +15,7 @@ import java.util.Stack;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.CORBA.COMM_FAILURE;
 
 import com.risk6441.config.Config;
 import com.risk6441.entity.Card;
@@ -343,7 +344,7 @@ public class PlayGameController implements Initializable,Observer{
 		lblGamePhase.setText("Phase: Start Up!");
 		updateMap();
 		allocateCardTOTerritories();
-		CommonMapUtil.enableControls(btnNoMoreAttack);
+		CommonMapUtil.disableControls(btnNoMoreAttack,btnCards);
 		choiceBoxNoOfPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer old, Integer newV) {
@@ -443,6 +444,8 @@ public class PlayGameController implements Initializable,Observer{
 			CommonMapUtil.enableControls(btnEndTurn,btnNoMoreAttack);
 			CommonMapUtil.disableControls(btnReinforcement, btnFortify, btnPlaceArmy);
 		}
+		CommonMapUtil.disableControls(btnCards);
+		CommonMapUtil.enableControls(btnNoMoreAttack);
 		adjTerrList.setOnMouseClicked(e -> attack());
 	}
 
@@ -493,6 +496,7 @@ public class PlayGameController implements Initializable,Observer{
 	 */
 	private void initializeReinforcement(boolean loadPlayerFromStart) {
 		System.out.println("Inside intialize reinforcement "+loadPlayerFromStart);
+		CommonMapUtil.enableControls(btnCards);
 		loadCurrentPlayer(loadPlayerFromStart);
 		CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn, btnNoMoreAttack);
 		btnReinforcement.setDisable(false);

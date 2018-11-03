@@ -1,25 +1,25 @@
 package com.risk6441.gameutils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidMapException;
-import com.risk6441.gameutils.GameUtils;
 import com.risk6441.models.PlayerModel;
+
+import javafx.embed.swing.JFXPanel;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 
 /**
  * This is a test class for GameUtils. {@link GameUtils}
@@ -32,6 +32,12 @@ public class GameUtilsTest {
 	String continentName = "Asia";
 	String terrName1 = "India";
 	String terrName2 = "Canada";
+	
+	@FXML
+	static TextArea txtAreaMsg;
+	
+	static JFXPanel fxPanel;
+	
 	int controlValue1 = 5;
 	static Territory terr1;
 	static Territory terr2;
@@ -44,7 +50,7 @@ public class GameUtilsTest {
 	
 	List<Continent> listOfContinents = new ArrayList<>();	
 	List<Territory> listOfTerritories = new ArrayList<>();
-	
+	static List<Player> playerList;
 	String mapAuthor = "Robert";
 	String mapImage = "world.map";
 	String mapWrap = "no";
@@ -61,6 +67,9 @@ public class GameUtilsTest {
 		terr2 = new Territory();
 		map = new Map();
 		player = new Player(1, "Nirav");
+		fxPanel = new JFXPanel();
+		txtAreaMsg =  new TextArea();
+		playerList =new ArrayList<Player>();
 	}
 	
 	/**
@@ -89,118 +98,36 @@ public class GameUtilsTest {
 		map.setContinents(listOfContinents);
 		
 		player.setArmies(99);
-		
 		listOfTerritories.add(terr1);
 		player.setAssignedTerritory(listOfTerritories);
+		playerList.add(player);
 	}
 	
+
 	/**
-	 * This method test reinforcement armies for 99 initials army and player own entire continent with two territories.
+	 * This method tests the allocation of cards to territory is working or not.
 	 */
 	@Test
-	public void testCountReinforcementArmiesCaseOne() {		
-		Player returnedPlayer = PlayerModel.countReinforcementArmies(map, player);
-		Assert.assertEquals(returnedPlayer.getArmies(), 107);
+	public void testAssignCardToTerritory() {
+		Stack<Card> stackOfCards = GameUtils.allocateCardToTerritory(map);
+		Assert.assertNotNull(stackOfCards);		
 	}
 	
+	
 	/**
-	 * This method counts reinforcement armies with initial army 99 and player has two continents.
+	 * This method tests the allocation of territory to player is working or not.
+	 * @throws InvalidMapException
 	 */
 	@Test
-	public void testCountReinforcementArmiesUseCaseTwo() {	
-		Continent newContinent = new Continent();
-		newContinent.setName("North America");
-		newContinent.setValue(10);
-		
-		Territory t = new  Territory();
-		t.setName("Canada");
-		t.setPlayer(player);
-		List<Territory> listOfTerr2 = new ArrayList<>();
-		listOfTerr2.add(t);
-		newContinent.setTerritories(listOfTerr2);
-		
-		//99 +5 +3 +10
-		listOfContinents.add(newContinent);
+	public void testAllocateTerritoryToPlayer() throws InvalidMapException {
+		playerList.get(0).getAssignedTerritory().clear();
+		listOfTerritories.clear();
+		listOfTerritories.add(terr1);
+		listOfTerritories.add(terr2);
+		continent.setTerritories(listOfTerritories);
 		map.setContinents(listOfContinents);
-		Player returnedPlayer = PlayerModel.countReinforcementArmies(map, player);
-		Assert.assertEquals(returnedPlayer.getArmies(), 117);
+		System.out.println(map.getContinents().get(0).getTerritories());
+		GameUtils.allocateTerritoryToPlayer(map, playerList, txtAreaMsg);
+		Assert.assertTrue(playerList.get(0).getAssignedTerritory().size() > 0 );		
 	}
-	
-	
-	/**
-	 * This method counts reinforcement armies for the player who owns one continent and 12 territories.
-	 */
-	@Test
-	public void testCountReinforcementArmiesUseCaseThree() {	
-		Continent newContinent = new Continent();
-		newContinent.setName("North America");
-		newContinent.setValue(10);
-		
-		List<Territory> listOfTerr2 = new ArrayList<>();
-		
-		Territory t = new  Territory();
-		t.setName("Canada");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-		
-		t = new  Territory();
-		t.setName("Canada2");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-
-		t = new  Territory();
-		t.setName("Canada3");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-
-		t = new  Territory();
-		t.setName("Canada4");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-
-		t = new  Territory();
-		t.setName("Canada5");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-
-		t = new  Territory();
-		t.setName("Canada6");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-
-		t = new  Territory();
-		t.setName("Canada7");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-
-		t = new  Territory();
-		t.setName("Canada8");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-
-		t = new  Territory();
-		t.setName("Canada9");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-		
-		t = new  Territory();
-		t.setName("Canada99");
-		t.setPlayer(player);
-		listOfTerr2.add(t);
-
-		t = new  Territory();
-		t.setName("Canada10");
-		t.setPlayer(new Player(2,"Krishnan"));
-		listOfTerr2.add(t);
-		
-		newContinent.setTerritories(listOfTerr2);
-		
-		player.getAssignedTerritory().addAll(listOfTerr2);
-		System.out.println(player.getAssignedTerritory().size()+"a");
-		//99 +5 +(12/3)
-		listOfContinents.add(newContinent);
-		map.setContinents(listOfContinents);
-		Player returnedPlayer = PlayerModel.countReinforcementArmies(map, player);
-		Assert.assertEquals(returnedPlayer.getArmies(), 108);
-	}	
 }

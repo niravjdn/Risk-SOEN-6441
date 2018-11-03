@@ -64,7 +64,8 @@ public class CardModel extends Observable{
 	}
 
 	/**
-	 * @param currentPlayer
+	 * This is parameterized constructor for card model.
+	 * @param currentPlayer current player.
 	 */
 	public CardModel(Player currentPlayer) {
 		super();
@@ -93,8 +94,11 @@ public class CardModel extends Observable{
 		stage.setScene(scene);
 		stage.show();
 	}
+	
 	/**
-	 * This method checks if the trade is valid or not	
+	 * This method checks if the trade is valid or not.
+	 * @param selectedCardForExchange Selected cards for exchange.
+	 * @return Boolean variable.
 	 */
 	public boolean isCardsvalidForTrade(List<Card> selectedCardForExchange) {
 		boolean returnFlag = false;

@@ -364,6 +364,7 @@ public class PlayGameController implements Initializable,Observer{
 				playerList.get(2).getCardList().add(stackOfCards.pop());
 				playerList.get(2).getCardList().add(stackOfCards.pop());
 				
+				//till this
 				
 				
 				choiceBoxNoOfPlayer.setDisable(true);

@@ -71,7 +71,7 @@ public class MapOperationsTest {
 	}
 	
 	/**
-	 * This method test the functionality to add the continent.
+	 * This method tests the functionality to add a continent.
 	 * @throws InvalidMapException InvalidMapException
 	 */
 	@Test
@@ -83,7 +83,7 @@ public class MapOperationsTest {
 	}
 	
 	/**
-	 *  This method test the functionality to update the continent.
+	 *  This method test the functionality to update the continents.
 	 * @throws InvalidMapException InvalidException if continent with same name already exists
 	 */
 	@Test
@@ -96,7 +96,7 @@ public class MapOperationsTest {
 	
 	
 	/**
-	 *  This method test the functionality to add the territory.
+	 *  This method test the functionality to add territories.
 	 * @throws InvalidMapException Throws invalid map if the map wasn't read properly.
 	 */
 	@Test
@@ -124,7 +124,7 @@ public class MapOperationsTest {
 	}
 	
 	/**
-	 * This method test the functionality to map territory with the continent.
+	 * This method tests the functionality to map a territory with the continent.
 	 * @throws InvalidMapException InvalidMapException
 	 */
 	@Test

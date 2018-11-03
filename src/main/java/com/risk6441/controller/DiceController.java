@@ -134,7 +134,7 @@ public class DiceController implements Initializable{
     /**
      * This method handles the case for the attack full on mode.
      * @param event event object for the javafx
-     * @throws InterruptedException 
+     * @throws InterruptedException This produces an interrupted exception.
      */
     @FXML
     void attackAllOutMode(ActionEvent event) throws InterruptedException {

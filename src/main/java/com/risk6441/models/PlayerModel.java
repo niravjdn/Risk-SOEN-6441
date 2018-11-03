@@ -273,11 +273,8 @@ public class PlayerModel extends Observable implements Observer{
 	}
 	
 	/**
-	 * Check if any Player Lost the Game
-	 * 
-	 * @param playersPlaying
-	 *            playerPlaying List
-	 * 
+	 * Check if any Player Lost the Game.
+	 * @param playerList  playerPlaying List
 	 * @return playerLost Player Object who lost the game
 	 */
 	public Player checkAndGetIfAnyPlayerLostTheGame(List<Player> playerList) {
@@ -338,12 +335,9 @@ public class PlayerModel extends Observable implements Observer{
 	/**
 	 * Fortification Phase
 	 * 
-	 * @param selectedTerritory
-	 *            selected Territory object
-	 * @param adjTerritory
-	 *            adj Territory object
-	 * @param gameConsole
-	 *            gameConsole
+	 * @param selectedTerritory selected Territory object
+	 * @param adjTerritory adj Territory object
+	 * @param txtAreaMsg gameConsole
 	 */
 	public void fortificationPhase(Territory territory, Territory adjTerritory, TextArea txtAreaMsg) {
 		if(territory == null) {
@@ -415,14 +409,6 @@ public class PlayerModel extends Observable implements Observer{
 		this.NumOfterritoryWon = territoryWon;
 	}
 	
-	/**
-	 * 
-	 * 
-	 * @param currentPlayer get current PlayerPlaying object
-	 * @param selectedTerritoryList get Selected Territory List for List View
-	 * @param gamePlayerList gamePlayer List
-	 * @param txtAreaMsg gameConsole 
-	 */
 	/**
 	 * This method is to place Armies in territories.
 	 * @param terrList The list of territories.

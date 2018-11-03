@@ -48,8 +48,8 @@ public class CardExchangeController implements Initializable{
 	
 	/**
 	 * Parameterized Constructor for the Controller
-	 * @param currentPlayer
-	 * @param cardModel
+	 * @param currentPlayer This the current player object.
+	 * @param cardModel This is the card model object.
 	 */
 	public CardExchangeController(Player currentPlayer, CardModel cardModel) {
 		super();

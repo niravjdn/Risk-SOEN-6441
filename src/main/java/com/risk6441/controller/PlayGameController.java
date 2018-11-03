@@ -248,7 +248,7 @@ public class PlayGameController implements Initializable,Observer{
     // 
 	/**
 	 * This is a constructor to initialize the Map object.
-	 * @param map
+	 * @param map Current map object.
 	 */
 	public PlayGameController(Map map) {
 		this.map = map;
@@ -311,9 +311,9 @@ public class PlayGameController implements Initializable,Observer{
 		return false;
 	}
 	
+	
 	/**
-	 * This method allocates cards to territorries.
-	 * @throws InvalidMapException Throws IOException if there is an issue while loading the map.
+	 * This method allocates cards to territories.
 	 */
 	private void allocateCardTOTerritories() {
 		GameUtils.addTextToLog("===Assigning Cards to Territories===\n", txtAreaMsg);
@@ -486,9 +486,10 @@ public class PlayGameController implements Initializable,Observer{
 		initializeReinforcement(false);
 	}
 
+	
 	/**
-	 * This method initialized the component for the reinforcement phase.
-	 * @param b 
+	 *  This method initialized the component for the reinforcement phase.
+	 * @param loadPlayerFromStart A boolean variable whether to load the player from start.
 	 */
 	private void initializeReinforcement(boolean loadPlayerFromStart) {
 		System.out.println("Inside intialize reinforcement "+loadPlayerFromStart);

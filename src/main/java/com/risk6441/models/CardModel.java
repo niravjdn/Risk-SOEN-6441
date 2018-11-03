@@ -133,10 +133,6 @@ public class CardModel extends Observable{
 		setChanged();
 		notifyObservers("tradeCard");
 	}
-	/**
-	 * This method clears the array list	
-	 */
-	public void clear() {
-		this.cardForExchange = new ArrayList<Card>();
-	}
+	
+	
 }

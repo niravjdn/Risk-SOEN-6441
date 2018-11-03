@@ -108,7 +108,7 @@ public class DiceModel extends Observable{
 	}
 
 	/**
-	 * Move All Armies
+	 * This method is used to Move All Armies
 	 */
 	public void moveAllArmies() {
 		int attckingArmies = getAttackingTerritory().getArmy();

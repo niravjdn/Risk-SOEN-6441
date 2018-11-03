@@ -62,7 +62,7 @@ public class PlayerModelTest {
 	String mapWarn = "yes";
 	
 	/**
-	 * This method executed before all the methods of the class.
+	 * This method is executed before all the methods of a class.
 	 */
 	@BeforeClass
 	public static void beforeClass() {
@@ -125,7 +125,7 @@ public class PlayerModelTest {
 	}
 	
 	/**
-	 * This method test reinforcement armies for 99 initials army and player own entire continent with two territories.
+	 * This method tests reinforcement of armies for 99 initials army and player owns entire continent with two territories.
 	 */
 	@Test
 	public void testCountReinforcementArmiesCaseOne() {		
@@ -218,10 +218,7 @@ public class PlayerModelTest {
 		t.setPlayer(player);
 		listOfTerr2.add(t);
 
-		t = new  Territory();
-		t.setName("Canada10");
-		t.setPlayer(new Player(2,"Krishnan"));
-		listOfTerr2.add(t);
+
 		
 		newContinent.setTerritories(listOfTerr2);
 		

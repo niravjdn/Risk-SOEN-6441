@@ -46,7 +46,8 @@ public class PlayerModel extends Observable implements Observer{
 	}
 	
 	/**
-	 * @return player playing
+	 * This method is to set the current player.
+	 * @param player Current player.
 	 */
 	public void setCurrentPlayer(Player player) {
 		currentPlayer = player;
@@ -208,12 +209,11 @@ public class PlayerModel extends Observable implements Observer{
 		return hasAValidMove;
 	}
 	
-	
 	/**
-	 * Attack phase
-	 * @param attackingTerritory attacking territory
-	 * @param defendingTerritory defending territory
-	 * @throws InvalidGameMoveException invalid game exception
+	 * This method is to implement attack phase.
+	 * @param attackingTerritory attacking territory.
+	 * @param defendingTerritory defending territory.
+	 * @throws InvalidGameActionException Throws invalid game exception.
 	 */
 	public void attackPhase(Territory attackingTerritory, Territory defendingTerritory)
 			throws InvalidGameActionException {
@@ -246,17 +246,13 @@ public class PlayerModel extends Observable implements Observer{
 	}
 
 
+	
 	/**
-	 * Check if Attack Move is Valid
-	 * 
-	 * @param attacking
-	 *            attacking Territory
-	 * @param defending
-	 *            defending Territory
-	 * 
+	 * Check if Attack Move is Valid.
+	 * @param attacking attacking Territory
+	 * @param defending defending Territory
 	 * @return isValidAttackMove if the attack move is valid
-	 * 
-	 * @throws InvalidGameMoveException invalid game exception
+	 * @throws InvalidGameActionException invalid game exception.
 	 */
 	public boolean isValidAttackMove(Territory attacking, Territory defending) throws InvalidGameActionException {
 		boolean isValidAttackMove = false;

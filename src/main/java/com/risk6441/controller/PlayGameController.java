@@ -142,7 +142,10 @@ public class PlayGameController implements Initializable,Observer{
 		playerModel.endTurn();
     }
     
-    
+    /** This method will open the card pane
+     * 
+     * @param event button click event will be passes as parameter
+     */
     @FXML
     void  openCardPane(ActionEvent event) {
     	cardModel.openCardWindow(false);

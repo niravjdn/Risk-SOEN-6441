@@ -229,7 +229,7 @@ public class PlayGameController implements Initializable,Observer{
     
     
     /**
-	 * Allocate cards to player
+	 *This method Allocate cards to player
 	 */
 	private void allocateCardToPlayer() {
 		try {

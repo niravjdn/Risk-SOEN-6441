@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-
 /**
  * This class defines Continent and its properties such as name, control value, list of territories it has.
  * @author Nirav

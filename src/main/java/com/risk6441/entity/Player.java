@@ -3,7 +3,6 @@ package com.risk6441.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * @author Nirav
  * This class defines Player and its properties such as id, name, armies and number of territories owned by player

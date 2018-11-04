@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class MapEditor implements EventHandler<ActionEvent> {
 
 	/* 
-	 * Launches the Map editor splash screen.
+	 *This method Launches the Map editor splash screen.
 	 */
 	public void handle(ActionEvent event) {
 		System.out.println("Called");

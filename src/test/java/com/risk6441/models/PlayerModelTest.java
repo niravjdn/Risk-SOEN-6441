@@ -122,6 +122,7 @@ public class PlayerModelTest {
 		listOfTerritories.add(terr2);
 		player.setAssignedTerritory(listOfTerritories);
 		playerList.add(player);
+		
 	}
 	
 	/**

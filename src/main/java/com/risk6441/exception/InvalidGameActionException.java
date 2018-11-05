@@ -13,7 +13,7 @@ public class InvalidGameActionException extends Exception {
 
 	/**
 	 * This method throws a user defined exception if a map is not valid.
-	 * @param message message for the exception
+	 * @param message message for the exceptions thrown
 	 */
 	public InvalidGameActionException(String message) {
 		super(message);

@@ -36,9 +36,7 @@ Bourke,560,351,New South Wales,Sydney,Toowoomba,Flinders Ranges,Canberra
 Flinders Ranges,499,358,New South Wales,Bourke,Charleville,Birdsville,Lake frome,Broken Hill,Canberra,Toowoomba
 Broken Hill,492,388,New South Wales,Port Pirie,Lake frome,Flinders Ranges,Canberra,Sydney,Bendigo
 
-Bendigo,498,420,Victoria,Port Pirie,Broken Hill,Melbourne,Geelong,Sydney
-Melbourne,551,441,Victoria,Sydney,Bendigo,Geelong,Hobart
-Geelong,488,446,Victoria,Bendigo,Port Pirie,Melbourne
+
 
 Port Pirie,433,405,South Australia,Adelaide,Lake Frome,Broken Hill,Bendigo,Geelong,India
 Lake Frome,434,343,South Australia,Lake Eyre,Adelaide,Port Pirie,Birdsville,Flinders Ranges,Broken HIll

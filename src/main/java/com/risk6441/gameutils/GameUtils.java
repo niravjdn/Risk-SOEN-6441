@@ -157,7 +157,8 @@ public class GameUtils {
 		count++;
 		if(count==numPlayer)
 			return true;
-		
+		else
+			return false;
 	}
 	
 	public static void clearCheckBoxes(CheckBox... checkboxes) {

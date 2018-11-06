@@ -219,7 +219,8 @@ public class DiceController implements Initializable{
     @FXML
     void moveArmies(ActionEvent event) {
     	String value = txtNumberOfArmiesInput.getText();
-		if (StringUtils.isEmpty(value)) {
+		if (StringUtils.isEmpty(value)) 
+		{
 			CommonMapUtil.alertBox("Info","Input number of armies to move.", "Error");
 			return;
 		}

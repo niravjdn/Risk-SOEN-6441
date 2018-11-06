@@ -40,7 +40,6 @@ public class CardExchangeController implements Initializable{
 
 	@FXML
 	private Label lblTitle;
-
 	
 	private Player currentPlayer;
 	

@@ -33,7 +33,7 @@ public class GameUtils {
 	
 	
 	/**
-	 * This method writes log in textArea.
+	 * This method writes a log in textArea.
 	 * @param str String to be written in textArea.
 	 * @param txtAreaMsg Textarea object.
 	 */
@@ -42,7 +42,7 @@ public class GameUtils {
 	}
 	
 	/**
-	 * This method allocates the armies to the player.
+	 * This method allocates armies to the players.
 	 * @param map
 	 * 			map object
 	 * @param players

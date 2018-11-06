@@ -42,7 +42,7 @@ public class CommonMapUtil {
 	}
 	
 	/**
-	 * This method is used for saving maps .
+	 * This method is used for saving the maps .
 	 * @return file of type object
 	 */
 	public static File saveFileDialog() {

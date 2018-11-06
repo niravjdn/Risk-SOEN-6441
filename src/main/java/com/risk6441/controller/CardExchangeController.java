@@ -95,8 +95,10 @@ public class CardExchangeController implements Initializable{
 				cardModel.setCardsForExchange(selectedCardsForTrade);
 				//card exchange done now
 				//so consider the player has exchanged 3 cards and check if cards - 3 less then 5 then disable trade button
-				if(cardModel.isRestrictedModeTillLessThan5) {
-					if(currentPlayer.getCardList().size()-3 < 5) {
+				if(cardModel.isRestrictedModeTillLessThan5) 
+				{
+					if(currentPlayer.getCardList().size()-3 < 5) 
+					{
 						CommonMapUtil.disableControls(btnTrade);
 					}
 				}
@@ -147,11 +149,12 @@ public class CardExchangeController implements Initializable{
 		vBox.getChildren().clear();
 		cardsOfPlayer = currentPlayer.getCardList();
 		cardsOfPlayer.removeAll(soldCards);
-		if(cardsOfPlayer.size() < 3) {
+		if(cardsOfPlayer.size() < 3) 
+		{
 			CommonMapUtil.disableControls(btnTrade);			
 		}
-			
-		cardCheckBoxes = new CheckBox[cardsOfPlayer.size()];				
+		cardCheckBoxes = new CheckBox[cardsOfPlayer.size()];	
+						
 		for (int i = 0; i < cardsOfPlayer.size(); i++){
 			cardCheckBoxes[i] = new CheckBox(cardsOfPlayer.get(i).getCardKind().toString() + " => " + cardsOfPlayer.get(i).getTerritoryToWhichCardBelong().getName());
 		}

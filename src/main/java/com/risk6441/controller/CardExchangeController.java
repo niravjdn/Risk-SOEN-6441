@@ -125,7 +125,7 @@ public class CardExchangeController implements Initializable{
 	}
 	
 	/**
-	 * show cards of the player in the box 
+	 * This method show cards of the player in the box 
 	 */
 	private void showCards() {
 		vBox.getChildren().clear();
@@ -142,7 +142,7 @@ public class CardExchangeController implements Initializable{
 	}
 	
 	/**
-	 * show cards of the player after player has sold the cards
+	 * This method show cards of the player after player has sold the cards
 	 * @param soldCards list of the cards which player has sold
 	 */
 	private void showCardsByRemoving(List<Card> soldCards) {
@@ -162,7 +162,7 @@ public class CardExchangeController implements Initializable{
 	}
 
 	/**
-	 * set label for the current player who is playing the game.
+	 *This method set label for the current player who is playing the game.
 	 */
 	private void setPlayerLabel() {
 		lblPlayer.setText("Player : "+currentPlayer.getName());

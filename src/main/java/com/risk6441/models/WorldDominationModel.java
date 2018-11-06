@@ -55,7 +55,7 @@ public class WorldDominationModel {
 	 * 
 	 * @param map
 	 *            map object
-	 * @return playerTerPercent.
+	 * @return playerTerPercent returns the military count in a territory
 	 */
 	public static HashMap<String, Double> getMilitaryDominationData(Map map) {
 		HashMap<String, Double> playerAndMilitaryCountMap = new HashMap<>();

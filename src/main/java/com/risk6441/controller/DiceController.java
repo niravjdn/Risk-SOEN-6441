@@ -99,8 +99,6 @@ public class DiceController implements Initializable{
     
     private DiceModel diceModel;
     
-    
-    
     private static String message = "";
       
     /**
@@ -162,8 +160,7 @@ public class DiceController implements Initializable{
     		System.out.println("Befor Click btnContinueRoll " + btnContinueRoll.isDisabled());
     		// wait with thread sleep 3 seconds to allow user to see results
     		try {
-    			Platform.runLater(new Runnable() {
-					
+    			Platform.runLater(new Runnable() {					
 					@Override
 					public void run() {
 						// check for the dice visibility
@@ -196,8 +193,7 @@ public class DiceController implements Initializable{
 						lblStatus.setText(message);
 			    		message = "";
 					}
-				});
-    			
+				});   			
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

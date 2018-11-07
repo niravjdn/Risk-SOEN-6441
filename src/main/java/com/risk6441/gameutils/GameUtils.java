@@ -172,7 +172,7 @@ public class GameUtils {
 	 * This method is used to set visible false of pane.
 	 * 
 	 * @param panes
-	 *            panes
+	 *            list of panes to be disabled
 	 */
 	public static void disableViewPane(Pane... panes) {
 		for (Pane pane : panes) {
@@ -184,7 +184,7 @@ public class GameUtils {
 	 * This method is used to set visible true of pane.
 	 * 
 	 * @param panes
-	 *            panes
+	 *            list of panes to be enabled
 	 */
 	public static void enablePane(Pane... panes) {
 		for (Pane pane : panes) {

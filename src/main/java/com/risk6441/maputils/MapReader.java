@@ -44,7 +44,7 @@ public class MapReader {
 	/**
 	 * This method reads the map file and verifies if the map is valid.
 	 * @param file The map file to be read.
-	 * @return The map object returned after reading the file.
+	 * @return map The map object returned after reading the file.
 	 * @throws InvalidMapException Throws IOException if the map is invalid.
 	 */
 	public Map readMapFile(final File file) throws InvalidMapException{
@@ -57,7 +57,7 @@ public class MapReader {
 	/**
 	 * This method is used to read and process map data
 	 * @param file file path
-	 * @return the map return the map object after processing the file data
+	 * @return map returns the map object after processing the file data
 	 * @throws InvalidMapException throws InvalidMapException if map is not valid 
 	 */
 	private Map processMapFile(File file) throws InvalidMapException {

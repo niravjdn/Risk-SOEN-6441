@@ -31,7 +31,6 @@ public class GameUtils {
 	
 	static int count=0;
 	
-	
 	/**
 	 * This method writes a log in textArea.
 	 * @param str String to be written in textArea.

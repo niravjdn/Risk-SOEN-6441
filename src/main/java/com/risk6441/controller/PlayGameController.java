@@ -139,6 +139,12 @@ public class PlayGameController implements Initializable,Observer{
 		if (playerModel.getNumOfTerritoryWon() > 0) {
 			allocateCardToPlayer();
 		}
+		
+		if(currentPlayer.getCardList().size()>5) {
+			cardModel.openCardWindow(true);
+			return;
+		}
+		
 		playerModel.endTurn();
     }
     
@@ -362,7 +368,7 @@ public class PlayGameController implements Initializable,Observer{
 					playerList.get(0).getCardList().add(stackOfCards.pop());
 					playerList.get(0).getCardList().add(stackOfCards.pop());
 					
-					playerList.get(1).getCardList().add(stackOfCards.pop());
+					playerList.get(0).getCardList().add(stackOfCards.pop());
 					playerList.get(1).getCardList().add(stackOfCards.pop());
 
 					playerList.get(2).getCardList().add(stackOfCards.pop());
@@ -664,6 +670,7 @@ public class PlayGameController implements Initializable,Observer{
 			tradeCards();
 		}else if(str.equals("opencardWindowForCardExchangeTillLessThan5")) {
 			cardModel.openCardWindow(true);
+			System.out.println("Inside 5 more cards");
 		}
 	}
 

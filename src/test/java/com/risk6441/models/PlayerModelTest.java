@@ -1,5 +1,7 @@
 package com.risk6441.models;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -337,6 +339,29 @@ public class PlayerModelTest {
 		Assert.assertEquals(3, playerTest.size());
 	}
 	
+	@Test
+	public void testGameOver() {
+		List<Player> playerListForPlayer = new ArrayList<>();
+		playerList = new ArrayList<>();
+		Player player1 = new Player(0, "Player0");
+		playerList.add(player1);
+		playerList.add(new Player(1, "Player1"));
+		playerList.add(new Player(2, "Player2"));
+		
+		terr1.setPlayer(player1);
+		player1.getAssignedTerritory().add(terr1);
+		
+		playerModel.setCurrentPlayer(player1);
+		Player p = playerModel.checkAndGetIfAnyPlayerLostTheGame(playerListForPlayer);
+		if(p!=null) {
+			playerListForPlayer.remove(p);
+		}
+		playerModel.checkAndGetIfAnyPlayerLostTheGame(playerListForPlayer);
+		if(p!=null) {
+			playerListForPlayer.remove(p);
+		}
+		Assert.assertEquals(0, playerListForPlayer.size());
+	}
 	
 	
 	/**

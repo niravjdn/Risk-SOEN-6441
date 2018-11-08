@@ -65,7 +65,7 @@ public class DiceModelTest {
 	public void moreDiceRollAvailable() {
 		assertTrue(attackingTerritory.getArmy() > 2);
 		assertTrue(defendingTerritory.getArmy() > 0);
-		assertEquals(true, diceModel.isMoreDiceRollAvailable());
+		assertTrue(diceModel.isMoreDiceRollAvailable());
 	}
 	
 	
@@ -78,7 +78,7 @@ public class DiceModelTest {
 		defendingTerritory.setArmy(0);
 		assertFalse(attackingTerritory.getArmy() > 2);
 		assertFalse(defendingTerritory.getArmy() > 0);
-		assertEquals(false, diceModel.isMoreDiceRollAvailable());
+		assertFalse(diceModel.isMoreDiceRollAvailable());
 	}
 	
 	

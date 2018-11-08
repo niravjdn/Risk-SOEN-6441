@@ -253,7 +253,7 @@ public class PlayerModelTest {
 	
 	
 	/**
-	 * This method tests the method which checks if all player has complted the place army phase or not.
+	 * This method tests the method which checks if all player has completed the place army phase or not.
 	 */
 	@Test
 	public void testCheckIfPlayersArmiesExhaustedTrue() {
@@ -266,7 +266,7 @@ public class PlayerModelTest {
 	
 	
 	/**
-	 * This method tests the method which checks if all player has complted the place army phase or not.
+	 * This method tests the method which checks if all player has completed the place army phase or not.
 	 */
 	@Test
 	public void testCheckIfPlayersArmiesExhaustedFalse() {
@@ -324,7 +324,7 @@ public class PlayerModelTest {
 	
 	
 	/**
-	 * This mehtod tests cretion of the player.
+	 * This method tests creation of the player.
 	 */
 	@Test
 	public void testCreatePlayer() {

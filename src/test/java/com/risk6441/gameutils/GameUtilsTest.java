@@ -116,7 +116,7 @@ public class GameUtilsTest {
 	
 	/**
 	 * This method tests the allocation of territory to player is working or not.
-	 * @throws InvalidMapException
+	 * @throws InvalidMapException Throws invalid map if territory allocation is not done properly.
 	 */
 	@Test
 	public void testAllocateTerritoryToPlayer() throws InvalidMapException {

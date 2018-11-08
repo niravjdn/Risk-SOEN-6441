@@ -73,8 +73,10 @@ public class CardModel extends Observable{
 		this.currentPlayer = currentPlayer;
 		this.cardForExchange = new ArrayList<Card>();
 	}
+	
 	/**
 	 * This method opens the card view when the card button is clicked	
+	 * @param isRestrictedModeTillLessThan5 Boolean variable denoting if player has less than 5 cards.
 	 */
 	public void openCardWindow(boolean isRestrictedModeTillLessThan5) {
 

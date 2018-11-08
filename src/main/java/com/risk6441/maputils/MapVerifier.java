@@ -59,18 +59,15 @@ public class MapVerifier {
 			if(continent.getTerritories().size() < 2) {
 				throw new InvalidMapException("At least two territory should be there in continent.");
 			}
-			
 			//it's verified that map is a subgraph of continents. now check that continent is a subgraph of territories.
 			for(Territory territory : continent.getTerritories()) {
 				verifyTerritory(territory,map);
 			}
-			
 			//check if continent is connected graph formed by territories
 			if(!isContinentConnectedGraph(continent, map)) {
 				throw new InvalidMapException(message+"The Continent "+continent.getName()+" is not connected by its territories. A Continent should be a connected graph formed by territories in the map.");
 			}
-		}
-		
+		}	
 	}
 
 	/**
@@ -137,7 +134,8 @@ public class MapVerifier {
 		
 		if((adjTerrList == null) || (adjTerrList.size() < 1)) {
 			throw new InvalidMapException("Territory: "+territory.getName()+" must have atleast one adjacent territory.");
-		}else  {
+		}
+		else  {
 			for(Territory adjTerr : adjTerrList) {
 				if(!adjTerr.getAdjacentTerritories().contains(territory)) {
 					throw new InvalidMapException("Territory "+adjTerr.getName()+" is not mapped with its adjacent territory "+territory.getName());

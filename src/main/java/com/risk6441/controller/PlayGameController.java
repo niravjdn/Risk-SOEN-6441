@@ -356,22 +356,22 @@ public class PlayGameController implements Initializable,Observer{
 				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
 
 				
-				//temp
-				try {
-					playerList.get(0).getCardList().add(stackOfCards.pop());
-					playerList.get(0).getCardList().add(stackOfCards.pop());
-					playerList.get(0).getCardList().add(stackOfCards.pop());
-					
-					playerList.get(1).getCardList().add(stackOfCards.pop());
-					playerList.get(1).getCardList().add(stackOfCards.pop());
-
-					playerList.get(2).getCardList().add(stackOfCards.pop());
-					playerList.get(2).getCardList().add(stackOfCards.pop());
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-				//till this
+//				//temp
+//				try {
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					
+//					playerList.get(1).getCardList().add(stackOfCards.pop());
+//					playerList.get(1).getCardList().add(stackOfCards.pop());
+//
+//					playerList.get(2).getCardList().add(stackOfCards.pop());
+//					playerList.get(2).getCardList().add(stackOfCards.pop());
+//				}catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				
+//				//till this
 				
 				
 				choiceBoxNoOfPlayer.setDisable(true);

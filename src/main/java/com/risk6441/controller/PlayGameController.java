@@ -485,7 +485,7 @@ public class PlayGameController implements Initializable,Observer{
 		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
 		Territory defendingTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 		try {
-			GameUtils.addTextToLog(attackingTerritory.getName()+" attacking on "+defendingTerritory, txtAreaMsg);
+			GameUtils.addTextToLog(attackingTerritory.getName()+" attacking on "+defendingTerritory+"\n", txtAreaMsg);
 			playerModel.attackPhase(attackingTerritory, defendingTerritory);
 		} catch (InvalidGameActionException ex) {
 			CommonMapUtil.alertBox("Info", ex.getMessage(), "Alert");
@@ -603,7 +603,7 @@ public class PlayGameController implements Initializable,Observer{
 	private boolean checkIfPlayerWonTheGame() {
 		boolean isGameOver = false;
 		if (playerList.size() == 1) {
-			CommonMapUtil.alertBox("Player: " + playerList.get(0).getName() + " won the game!", "Info", "");
+			CommonMapUtil.alertBox("Info","Player: " + playerList.get(0).getName() + " won the game!", "");
 			isGameOver = true;
 			disableGameControls();
 		}

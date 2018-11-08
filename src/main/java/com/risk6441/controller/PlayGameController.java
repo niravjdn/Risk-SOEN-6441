@@ -362,7 +362,6 @@ public class PlayGameController implements Initializable,Observer{
 				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
 
 				
-<<<<<<< HEAD
 				//temp
 				try {
 					playerList.get(0).getCardList().add(stackOfCards.pop());
@@ -377,7 +376,6 @@ public class PlayGameController implements Initializable,Observer{
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 				//till this
 				
 				

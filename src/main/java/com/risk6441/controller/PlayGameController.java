@@ -376,22 +376,22 @@ public class PlayGameController implements Initializable,Observer{
 				playerList = PlayerModel.createPlayers(noOfPlayer, playerList, txtAreaMsg);
 				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
 
-				//temp
-				try {
-					playerList.get(0).getCardList().add(stackOfCards.pop());
-					playerList.get(0).getCardList().add(stackOfCards.pop());
-					playerList.get(0).getCardList().add(stackOfCards.pop());
-					
-					
-					playerList.get(0).getCardList().add(stackOfCards.pop());
-					playerList.get(1).getCardList().add(stackOfCards.pop());
-
-					playerList.get(1).getCardList().add(stackOfCards.pop());
-					playerList.get(1).getCardList().add(stackOfCards.pop());
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-				//till this
+//				//temp
+//				try {
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					
+//					
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					playerList.get(1).getCardList().add(stackOfCards.pop());
+//
+//					playerList.get(1).getCardList().add(stackOfCards.pop());
+//					playerList.get(1).getCardList().add(stackOfCards.pop());
+//				}catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				//till this
 				
 				
 				choiceBoxNoOfPlayer.setDisable(true);
@@ -719,6 +719,7 @@ public class PlayGameController implements Initializable,Observer{
 		}else if(str.equals("ReinforcementFirst")) {
 			setPhase("Phase : Reinforcement");
 			initializeReinforcement(true);
+			cardModel.openCardWindow(false);
 		}else if(str.equals("Reinforcement")) {
 			setPhase("Phase : Reinforcement");
 			initializeReinforcement(false);

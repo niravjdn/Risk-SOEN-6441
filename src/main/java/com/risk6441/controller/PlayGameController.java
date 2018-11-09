@@ -379,7 +379,7 @@ public class PlayGameController implements Initializable,Observer{
 				CommonMapUtil.enableControls(btnPlaceArmy);
 				PlayerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
 				
-				playerList.get(0).setArmies(50);
+				//playerList.get(0).setArmies(50);
 				
 				try {
 					if(playerList.size() > GameUtils.getTerritoryList(map).size()) {

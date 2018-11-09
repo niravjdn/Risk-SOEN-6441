@@ -13,14 +13,14 @@ public class Config {
 
 	
 	/**
-	 *The message to be printed in text aread after attack is completed 
+	 *The message to be printed in text area after attack is completed 
 	 */
 	public static String message = "";
 	
 	/**
 	 * The ARMIES_THREE_PLAYER Constant
 	 */
-	public static final Integer ARMIES_THREE_PLAYER =7;//35
+	public static final Integer ARMIES_THREE_PLAYER = 35;//35
 	
 	/**
 	 * The ARMIES_FOUR_PLAYER Constant

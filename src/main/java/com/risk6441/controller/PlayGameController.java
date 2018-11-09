@@ -67,7 +67,7 @@ public class PlayGameController implements Initializable,Observer{
 	 */
 	private Map map;
 	
-	
+	private Player playerLost = null;
 	
 	private int noOfPlayer;
 	
@@ -287,6 +287,24 @@ public class PlayGameController implements Initializable,Observer{
 	 * @return The current player
 	 */
 	public Player loadCurrentPlayer(boolean isLoadingFromFirstPlayer) {
+		
+		if(playerLost != null) {
+			playerListIterator = playerList.iterator();
+			int playerLostNum = Integer.parseInt(playerLost.getName().substring(playerLost.getName().length()-1));
+			int currentPlyerNum = Integer.parseInt(currentPlayer.getName().substring(currentPlayer.getName().length()-1));
+			if(currentPlyerNum<playerLostNum) {
+				for(int i=0;i<currentPlyerNum;i++) {
+					currentPlayer = playerListIterator.next();
+				}
+			}else {
+				//player 2 conquered player 1
+				for(int i=0;i<currentPlyerNum-1;i++) {
+					currentPlayer = playerListIterator.next();
+				}
+			}
+			playerLost = null;
+		}
+		
 		if (!playerListIterator.hasNext() || isLoadingFromFirstPlayer) {
 			playerListIterator = playerList.iterator();
 		}
@@ -561,7 +579,6 @@ public class PlayGameController implements Initializable,Observer{
 	 * @param loadPlayerFromStart A boolean variable whether to load the player from start.
 	 */
 	private void initializeReinforcement(boolean loadPlayerFromStart) {
-		//playerList.get(0).setArmies(10);
 		System.out.println("Inside intialize reinforcement "+loadPlayerFromStart);
 		CommonMapUtil.enableControls(btnCards);
 		loadCurrentPlayer(loadPlayerFromStart);
@@ -593,7 +610,10 @@ public class PlayGameController implements Initializable,Observer{
 		Player playerLost = playerModel.checkAndGetIfAnyPlayerLostTheGame(playerList);
 		if (playerLost != null) {
 			playerList.remove(playerLost);
-			playerListIterator = playerList.iterator();
+			
+			//playerListIterator = playerList.iterator();
+			this.playerLost = playerLost;
+			
 			CommonMapUtil.alertBox("Info", "Player: " + playerLost.getName() + " lost all his territory and no more in the game.",
 					"Info");
 			GameUtils.addTextToLog(playerLost.getName() + " lost all territories and lost the game.\n",

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -444,11 +445,43 @@ public class PlayGameController implements Initializable,Observer{
 	 * 			  territory object
 	 */
 	public void showAdjTerritoryOfTerrInList(Territory terr) {
-		adjTerrList.getItems().clear();
-		for (Territory t : terr.getAdjacentTerritories()) {
-			adjTerrList.getItems().add(t);
+		if(lblGamePhase.getText().contains("Fortification")) {
+			
+			List<Territory> reachableTerrList = new ArrayList<Territory>();
+			List<Territory> allTerr = GameUtils.getTerritoryList(map);
+			
+			this.bfsTerritory(terr,reachableTerrList);
+			
+			for(Territory t : allTerr) {
+				t.setProcessed(false);
+			}
+			
+			adjTerrList.getItems().clear();
+			adjTerrList.getItems().addAll(reachableTerrList);
+			  
+		}else {
+			adjTerrList.getItems().clear();
+			for (Territory t : terr.getAdjacentTerritories()) {
+				adjTerrList.getItems().add(t);
+			}
 		}
 
+	}
+	
+	
+	public  void bfsTerritory(Territory territory, List<Territory> reachableTerrList) {
+
+		if(territory.isProcessed() == true) {
+			return;
+		}
+		
+		territory.setProcessed(true);
+		reachableTerrList.add(territory);
+		for(Territory t : territory.getAdjacentTerritories()){
+			if(t.isProcessed() == false && t.getPlayer().equals(this.currentPlayer)){
+				bfsTerritory(t,reachableTerrList);
+			}
+		}		
 	}
 	
 	/**
@@ -673,6 +706,7 @@ public class PlayGameController implements Initializable,Observer{
 			}
 		}else if(str.equals("Fortification")) {
 			setPhase("Phase : Fortification");
+			adjTerrList.getItems().clear();
 			initializeFortification();
 		}else if(str.equals("NoFortification")) {
 			setPhase("Phase : No Fortification");

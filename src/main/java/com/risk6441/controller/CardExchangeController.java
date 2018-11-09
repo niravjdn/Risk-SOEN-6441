@@ -100,6 +100,10 @@ public class CardExchangeController implements Initializable{
 					if(currentPlayer.getCardList().size()-3 < 5) 
 					{
 						CommonMapUtil.disableControls(btnTrade);
+						CommonMapUtil.enableControls(btnCancel);
+					}else {
+						//it's still greater than 5 //must exchange
+						CommonMapUtil.disableControls(btnCancel);
 					}
 				}
 				showCardsByRemoving(selectedCardsForTrade);

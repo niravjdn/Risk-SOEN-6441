@@ -139,12 +139,6 @@ public class PlayGameController implements Initializable,Observer{
 		if (playerModel.getNumOfTerritoryWon() > 0) {
 			allocateCardToPlayer();
 		}
-		
-		if(currentPlayer.getCardList().size()>5) {
-			cardModel.openCardWindow(true);
-			return;
-		}
-		
 		playerModel.endTurn();
     }
     
@@ -368,11 +362,12 @@ public class PlayGameController implements Initializable,Observer{
 					playerList.get(0).getCardList().add(stackOfCards.pop());
 					playerList.get(0).getCardList().add(stackOfCards.pop());
 					
+					
 					playerList.get(0).getCardList().add(stackOfCards.pop());
 					playerList.get(1).getCardList().add(stackOfCards.pop());
 
-					playerList.get(2).getCardList().add(stackOfCards.pop());
-					playerList.get(2).getCardList().add(stackOfCards.pop());
+					playerList.get(1).getCardList().add(stackOfCards.pop());
+					playerList.get(1).getCardList().add(stackOfCards.pop());
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -383,6 +378,9 @@ public class PlayGameController implements Initializable,Observer{
 				playerListIterator = playerList.iterator();
 				CommonMapUtil.enableControls(btnPlaceArmy);
 				PlayerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
+				
+				playerList.get(0).setArmies(50);
+				
 				try {
 					if(playerList.size() > GameUtils.getTerritoryList(map).size()) {
 						throw new InvalidMapException("Territories must be more than players.");
@@ -553,7 +551,7 @@ public class PlayGameController implements Initializable,Observer{
 	/**
 	 * Check if any player has lost the game
 	 */
-	private void checkIfAnyPlayerLostTheMatch() {
+	private boolean checkIfAnyPlayerLostTheMatch() {
 		Player playerLost = playerModel.checkAndGetIfAnyPlayerLostTheGame(playerList);
 		if (playerLost != null) {
 			playerList.remove(playerLost);
@@ -564,14 +562,28 @@ public class PlayGameController implements Initializable,Observer{
 					txtAreaMsg);
 			GameUtils.addTextToLog("==============================================================\\n",
 					txtAreaMsg);
+			//check if player has more than 6 cards now, open card window, and allow to trade cards till he has cards less than 5
+			System.out.println("Inside open card window "+currentPlayer.getCardList().size());
+			return true;
 		}
+		return false;
 	}
 	
 	/**
 	 * Refresh View
 	 */
 	private void refreshView() {
-		checkIfAnyPlayerLostTheMatch();
+		if(checkIfAnyPlayerLostTheMatch()) {
+			
+			System.out.println(currentPlayer.getCardList().size()+" inside");
+			if(currentPlayer.getCardList().size()>5) {
+				cardModel.openCardWindow(true);
+				CommonMapUtil.disableControls(btnEndTurn,btnNoMoreAttack);
+				return;
+			}
+
+		}
+		CommonMapUtil.enableControls(btnEndTurn,btnNoMoreAttack);
 		terrList.getItems().clear();
 		adjTerrList.getItems().clear();
 		for (Territory territory : currentPlayer.getAssignedTerritory()) {

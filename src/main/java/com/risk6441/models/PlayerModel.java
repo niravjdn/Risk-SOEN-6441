@@ -281,12 +281,7 @@ public class PlayerModel extends Observable implements Observer{
 				currentPlayer.getCardList().addAll(playerLost.getCardList());
 			}
 		}
-		//check if player has more than 6 cards now, open card window, and allow to trade cards till he has cards less than 5
-		if(currentPlayer.getCardList().size()>5) {
-			setChanged();
-			notifyObservers("opencardWindowForCardExchangeTillLessThan5");
-		}
-		return playerLost;
+	  return playerLost;
 	}
 	
 

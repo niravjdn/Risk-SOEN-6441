@@ -414,7 +414,6 @@ public class PlayGameController implements Initializable,Observer{
 					showWorldDominationData();
 					showMilitaryDominationData();
 				} catch (InvalidMapException e) {
-					// TODO Auto-generated catch block
 					CommonMapUtil.alertBox("Alert", e.getMessage(), "Error");
 					e.printStackTrace();
 				}

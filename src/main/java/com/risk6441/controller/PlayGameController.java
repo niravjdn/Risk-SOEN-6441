@@ -607,6 +607,7 @@ public class PlayGameController implements Initializable,Observer{
 
 	/**
 	 * Check if any player has lost the game
+	 * @return true if any player lost the game else false.
 	 */
 	private boolean checkIfAnyPlayerLostTheMatch() {
 		Player playerLost = playerModel.checkAndGetIfAnyPlayerLostTheGame(playerList);

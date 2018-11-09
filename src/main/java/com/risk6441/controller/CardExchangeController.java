@@ -55,6 +55,7 @@ public class CardExchangeController implements Initializable{
 	 * Parameterized Constructor for the Controller
 	 * @param currentPlayer This the current player object.
 	 * @param cardModel This is the card model object.
+	 * @param isCancleBtnDisable True if cancle btn is disabled by default else false.
 	 */
 	public CardExchangeController(Player currentPlayer, CardModel cardModel, boolean isCancleBtnDisable) {
 		super();

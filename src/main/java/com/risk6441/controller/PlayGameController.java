@@ -570,7 +570,9 @@ public class PlayGameController implements Initializable,Observer{
 		GameUtils.addTextToLog("Fortification phase has begun.\n", txtAreaMsg);
 		GameUtils.addTextToLog(currentPlayer.getName() + " does not have any armies for fortification.\n", txtAreaMsg);
 		GameUtils.addTextToLog("Fortification phase has been ended.\n", txtAreaMsg);
+		setPhase("Phase : Reinforcement");
 		initializeReinforcement(false);
+		cardModel.openCardWindow(false);
 	}
 
 	

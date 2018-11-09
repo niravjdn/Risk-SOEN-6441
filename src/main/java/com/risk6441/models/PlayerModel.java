@@ -479,7 +479,7 @@ public class PlayerModel extends Observable implements Observer{
 			}
 		}
 		setChanged();
-		notifyObservers("NoFortificationMove");
+		notifyObservers("NoFortification");
 		return false;
 	}
 

@@ -7,11 +7,8 @@ import java.util.Observable;
 
 import com.risk6441.config.CardKind;
 import com.risk6441.controller.CardExchangeController;
-import com.risk6441.controller.DiceController;
-import com.risk6441.controller.MapRedactorController;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Player;
-import com.risk6441.entity.Territory;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -142,6 +139,6 @@ public class CardModel extends Observable{
 		setChanged();
 		notifyObservers("tradeCard");
 	}
-	
-	
+
+
 }

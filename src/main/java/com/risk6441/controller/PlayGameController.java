@@ -67,6 +67,8 @@ public class PlayGameController implements Initializable,Observer{
 	 */
 	private Map map;
 	
+	
+	
 	private int noOfPlayer;
 	
 	private List<Player> playerList;
@@ -224,7 +226,7 @@ public class PlayGameController implements Initializable,Observer{
 		if (playerModel.getNumOfTerritoryWon() > 0) {
 			allocateCardToPlayer(); 
 		}
-		GameUtils.addTextToLog("===Attack phase ended!===\\n", txtAreaMsg);
+		GameUtils.addTextToLog("===Attack phase ended!===\n", txtAreaMsg);
 		isValidFortificationPhase();
     }
     
@@ -356,7 +358,6 @@ public class PlayGameController implements Initializable,Observer{
 				playerList = PlayerModel.createPlayers(noOfPlayer, playerList, txtAreaMsg);
 				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
 
-				
 				//temp
 				try {
 					playerList.get(0).getCardList().add(stackOfCards.pop());
@@ -388,6 +389,7 @@ public class PlayGameController implements Initializable,Observer{
 					}
 					
 					allocateTerritoriesToPlayer();
+					
 					
 					setPhase("Phase : Place Army");
 					loadCurrentPlayer(false);
@@ -559,6 +561,7 @@ public class PlayGameController implements Initializable,Observer{
 	 * @param loadPlayerFromStart A boolean variable whether to load the player from start.
 	 */
 	private void initializeReinforcement(boolean loadPlayerFromStart) {
+		//playerList.get(0).setArmies(10);
 		System.out.println("Inside intialize reinforcement "+loadPlayerFromStart);
 		CommonMapUtil.enableControls(btnCards);
 		loadCurrentPlayer(loadPlayerFromStart);
@@ -613,11 +616,11 @@ public class PlayGameController implements Initializable,Observer{
 			System.out.println(currentPlayer.getCardList().size()+" inside");
 			if(currentPlayer.getCardList().size()>5) {
 				cardModel.openCardWindow(true);
-				CommonMapUtil.disableControls(btnEndTurn,btnNoMoreAttack);
 				return;
 			}
 
 		}
+		
 		CommonMapUtil.enableControls(btnEndTurn,btnNoMoreAttack);
 		terrList.getItems().clear();
 		adjTerrList.getItems().clear();
@@ -748,7 +751,7 @@ public class PlayGameController implements Initializable,Observer{
 		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
 		for (Entry<Player, Double> entry : playerTerPercent.entrySet()) {
 			double d = entry.getValue();
-			String value = String.valueOf(d).substring(0, 2);
+			String value = String.valueOf(d).substring(0, 4);
 			String label = entry.getKey().getName();
 			label += "-"+value+"%";
 			System.out.println(label);

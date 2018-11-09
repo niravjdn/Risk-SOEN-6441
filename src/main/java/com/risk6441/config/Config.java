@@ -9,11 +9,11 @@ public class Config {
 	/**
 	 * The ARMIES_TWO_PLAYER Constant
 	 */
-	public static final Integer ARMIES_TWO_PLAYER = 25;//35
+	public static final Integer ARMIES_TWO_PLAYER = 35;//35
 
 	
 	/**
-	 *The message to be printed in text aread after attack is completed 
+	 *The message to be printed in text after after attack is completed 
 	 */
 	public static String message = "";
 	

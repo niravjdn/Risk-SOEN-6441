@@ -476,7 +476,9 @@ public class PlayGameController implements Initializable,Observer{
 		}
 		
 		territory.setProcessed(true);
-		reachableTerrList.add(territory);
+		if(!territory.equals(terrList.getSelectionModel().getSelectedItem())){
+				reachableTerrList.add(territory);
+			}
 		for(Territory t : territory.getAdjacentTerritories()){
 			if(t.isProcessed() == false && t.getPlayer().equals(this.currentPlayer)){
 				bfsTerritory(t,reachableTerrList);

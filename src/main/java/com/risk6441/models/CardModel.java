@@ -81,13 +81,14 @@ public class CardModel extends Observable{
 	public void openCardWindow(boolean isRestrictedModeTillLessThan5) {
 
 		this.isRestrictedModeTillLessThan5 = isRestrictedModeTillLessThan5;
-		CardExchangeController controller = new CardExchangeController(currentPlayer, this);
+		CardExchangeController controller = new CardExchangeController(currentPlayer, this, isRestrictedModeTillLessThan5);
 		final Stage stage = new Stage();
 		stage.setTitle("Attack Window");
 
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cardview.fxml"));
 		loader.setController(controller);
-
+		
+				
 		Parent root = null;
 		try {
 			root = (Parent) loader.load();
@@ -98,6 +99,9 @@ public class CardModel extends Observable{
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		
+		
+
 	}
 	
 	/**

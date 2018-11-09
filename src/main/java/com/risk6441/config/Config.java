@@ -20,7 +20,7 @@ public class Config {
 	/**
 	 * The ARMIES_THREE_PLAYER Constant
 	 */
-	public static final Integer ARMIES_THREE_PLAYER =35;//35
+	public static final Integer ARMIES_THREE_PLAYER = 35;//35
 	
 	/**
 	 * The ARMIES_FOUR_PLAYER Constant

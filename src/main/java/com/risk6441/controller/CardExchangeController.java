@@ -49,14 +49,16 @@ public class CardExchangeController implements Initializable{
 	
 	private CheckBox[] cardCheckBoxes;
 	
+	private boolean isCancleBtnDisable;
 	
 	/**
 	 * Parameterized Constructor for the Controller
 	 * @param currentPlayer This the current player object.
 	 * @param cardModel This is the card model object.
 	 */
-	public CardExchangeController(Player currentPlayer, CardModel cardModel) {
+	public CardExchangeController(Player currentPlayer, CardModel cardModel, boolean isCancleBtnDisable) {
 		super();
+		this.isCancleBtnDisable= isCancleBtnDisable;
 		this.currentPlayer = currentPlayer;
 		this.cardModel = cardModel;
 	}
@@ -126,6 +128,10 @@ public class CardExchangeController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		setPlayerLabel();
 		showCards();
+		
+		if(isCancleBtnDisable) {
+			CommonMapUtil.disableControls(btnCancel);
+		}
 	}
 	
 	/**
@@ -165,6 +171,7 @@ public class CardExchangeController implements Initializable{
 		vBox.getChildren().addAll(cardCheckBoxes);
 	}
 
+	
 	/**
 	 *This method set label for the current player who is playing the game.
 	 */

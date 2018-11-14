@@ -132,6 +132,9 @@ public class PlayGameController implements Initializable,Observer{
     @FXML
     private ChoiceBox<Integer> choiceBoxNoOfPlayer;
     
+    @FXML
+    private Button btnSaveGame;
+    
     /** This method ends the turn of particular player using Scheduled Executor class
      * 
      * @param event button event will be passed as a parameter
@@ -154,6 +157,14 @@ public class PlayGameController implements Initializable,Observer{
     	cardModel.openCardWindow(false);
     }
    
+    /**
+     * This method saves the state of the game. 
+     * @param event Event for JavaFX
+     */
+    @FXML
+    void saveGame(ActionEvent event) {
+
+    }
     
     /** This method will be called by user to start the fortification phase
      * 

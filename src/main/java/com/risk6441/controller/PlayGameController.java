@@ -307,6 +307,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		this.cardModel = new CardModel();
 		playerModel.addObserver(this);
 		cardModel.addObserver(this);
+		playerList  = new ArrayList<Player>();
 	}
 	
 	/**
@@ -545,6 +546,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		playerListIterator  = playerList.iterator();
 		int count =0;
 		System.out.println(count);
+		System.out.println(stackOfCards.size());
 		while(playerListIterator.hasNext() ) {
 			if(playerListIterator.next().equals(currentPlayer)) {
 				System.out.println(count);
@@ -898,9 +900,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	private void showMilitaryDominationData() {
 		HashMap<String, Double> playerAndMilitaryCountMap = WorldDominationModel.getMilitaryDominationData(map);
-		Series<String, Number> dataSeries1 = new XYChart.Series();
+		Series<String, Number> dataSeries1 = new XYChart.Series<String, Number>();
 
-		ArrayList<String> sortedKeysList = new ArrayList(playerAndMilitaryCountMap.keySet());
+		ArrayList<String> sortedKeysList = new ArrayList<String>(playerAndMilitaryCountMap.keySet());
 		Collections.sort(sortedKeysList);
 		for(String key : sortedKeysList) {
 			dataSeries1.getData().add(new XYChart.Data<String, Number>(key, playerAndMilitaryCountMap.get(key)));
@@ -921,8 +923,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		out.writeObject(playerModel);
 		out.writeObject(cardModel);
 		
-//		out.writeObject(stackOfCards);
-//		out.writeObject(playerList);
+		out.writeObject(stackOfCards);
+		out.writeObject(playerList);
+		
 		
 		GameUIState state = new GameUIState();
 		
@@ -971,8 +974,10 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		playerModel = (PlayerModel) in.readObject();
 		cardModel = (CardModel) in.readObject();
 		
-	//	stackOfCards = (Stack<Card>) in.readObject();
-	//	playerList = (List<Player>) in.readObject();
+		stackOfCards = (Stack<Card>) in.readObject();
+		
+		playerList = new ArrayList<Player>();
+		playerList = (ArrayList<Player>) in.readObject();
 
 		state = (GameUIState) in.readObject();
 		

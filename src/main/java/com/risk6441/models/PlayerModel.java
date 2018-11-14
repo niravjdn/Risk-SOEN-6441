@@ -38,9 +38,8 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	/**
 	 * The serial ID
 	 */
-	private static final long serialVersionUID = 5803408235114330185L;
-	
-	
+	private static final long serialVersionUID = 6224554451688312772L;
+
 	/**
 	 * the @playerPlaying reference
 	 */

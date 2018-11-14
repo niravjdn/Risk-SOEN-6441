@@ -4,6 +4,7 @@ import java.io.Serializable;
 import com.risk6441.config.CardKind;
 
 /**
+ * This is the bean class for the card.
  * @author Nirav
  *
  */

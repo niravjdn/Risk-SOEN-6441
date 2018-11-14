@@ -39,6 +39,9 @@ public class SplashController {
     private Button btnMapEditor;
 
     @FXML
+    private Button btnLoadGame;
+    
+    @FXML
     private Button btnExit;
     /**
      * This method handles the case when user clicks the exist button
@@ -51,6 +54,16 @@ public class SplashController {
     	stage.close();
     	stage.setOnCloseRequest(e -> Platform.exit());
     }
+    
+    /**
+     * This method loads a previously saved game.
+     * @param event Event object for JavaFX
+     */
+    @FXML
+    void loadGame(ActionEvent event) {
+
+    }
+
     
     /**
      * This method handles the case when user clicks the Map Edit Button.

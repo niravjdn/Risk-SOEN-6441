@@ -11,7 +11,6 @@ public class Config {
 	 */
 	public static final Integer ARMIES_TWO_PLAYER = 35;//35
 
-	
 	/**
 	 *The message to be printed in text after after attack is completed 
 	 */

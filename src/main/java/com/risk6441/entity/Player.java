@@ -10,11 +10,6 @@ import java.util.List;
  */
 public class Player implements Serializable{
 	
-	/**
-	 * The serial ID 
-	 */
-	private static final long serialVersionUID = 5829517328643796188L;
-	
 	
 	private int id;
 	private String name;

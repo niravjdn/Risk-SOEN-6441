@@ -409,7 +409,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		choiceBoxNoOfPlayer.getItems().addAll(2,3, 4, 5, 6);
-		playerList = new ArrayList<>(); 
+		 
 		lblGamePhase.setText("Phase: Start Up!");
 		updateMap();
 		allocateCardTOTerritories();
@@ -804,7 +804,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	private void disableGameControls() {
 		CommonMapUtil.disableControls(terrList, adjTerrList, btnReinforcement, btnFortify, btnNoMoreAttack, btnCards,
-				btnEndTurn);
+				btnEndTurn, btnSaveGame);
 		lblGamePhase.setText("GAME OVER");
 		setCurrentPlayerLabel(currentPlayer.getName().toUpperCase() + " WON THE GAME");
 		GameUtils.addTextToLog("=====================================================\n", txtAreaMsg);
@@ -927,6 +927,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		out.writeObject(playerList);
 		
 		
+		
 		GameUIState state = new GameUIState();
 		
 		if(!btnPlaceArmy.isDisabled()) {
@@ -975,9 +976,11 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		cardModel = (CardModel) in.readObject();
 		
 		stackOfCards = (Stack<Card>) in.readObject();
+		playerList = new ArrayList<>();
+		playerList = (List<Player>) in.readObject();
 		
-		playerList = new ArrayList<Player>();
-		playerList = (ArrayList<Player>) in.readObject();
+		
+		//playerList = (ArrayList<Player>) in.readObject();
 
 		state = (GameUIState) in.readObject();
 		

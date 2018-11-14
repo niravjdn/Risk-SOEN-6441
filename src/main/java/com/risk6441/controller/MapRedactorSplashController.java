@@ -69,7 +69,7 @@ public class MapRedactorSplashController {
      */
     @FXML
     void btnEditMap(ActionEvent event) throws IOException {
-    	File file = CommonMapUtil.showFileDialog();
+    	File file = CommonMapUtil.showFileDialogForMap();
     	
     	//get map object by reading file
     	MapReader mapReader = new MapReader();

@@ -1,11 +1,16 @@
 package com.risk6441.controller;
 
+import java.io.Externalizable;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -14,9 +19,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
-import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.CORBA.COMM_FAILURE;
 
 import com.risk6441.config.Config;
 import com.risk6441.entity.Card;
@@ -59,7 +62,7 @@ import javafx.scene.layout.VBox;
  * @author Nirav 
  * @author Charles
  */
-public class PlayGameController implements Initializable,Observer{
+public class PlayGameController implements Initializable, Observer, Externalizable{
 
 	/**
 	 * The map object {@link Map}
@@ -134,6 +137,14 @@ public class PlayGameController implements Initializable,Observer{
     
     @FXML
     private Button btnSaveGame;
+
+	private boolean isGameSaved = false;
+
+	private String txtMsgAreaTxt;
+
+	private String phaseOfTheGame;
+
+	private String lblPlayerString;
     
     /** This method ends the turn of particular player using Scheduled Executor class
      * 
@@ -163,10 +174,29 @@ public class PlayGameController implements Initializable,Observer{
      */
     @FXML
     void saveGame(ActionEvent event) {
-
+    		File file = CommonMapUtil.saveFileDialogForGame();
+    		saveGame(file);
     }
     
-    /** This method will be called by user to start the fortification phase
+    /**
+     * This method writes the game data for saving the game to given path of the file.
+	 * @param file file path for writing it
+	 */
+	private void saveGame(File file) {
+		try {
+			FileOutputStream fileOutputStream = new FileOutputStream(file);
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(this);
+			objectOutputStream.close();
+			fileOutputStream.close();
+			System.out.printf("Game Saved at : "+file.getPath());
+			CommonMapUtil.alertBox("Game Saved", "Game Saved at : "+file.getPath(), "Info");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/** This method will be called by user to start the fortification phase
      * 
      * @param event button click event will be passes as parameter
      */
@@ -810,6 +840,46 @@ public class PlayGameController implements Initializable,Observer{
 		militaryDominationbarChart.getData().clear();
 		//militaryDominationbarChart.getData().clear();
 		militaryDominationbarChart.getData().addAll(dataSeries1);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.io.Externalizable#writeExternal(java.io.ObjectOutput)
+	 */
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(map);
+		out.writeObject(currentPlayer);
+		out.writeObject(cardModel);
+		out.writeObject(stackOfCards);
+		out.writeObject(playerList);
+		out.writeObject(playerModel);
+
+		out.writeObject(txtAreaMsg.getText());
+		out.writeObject(lblGamePhase.getText());
+		out.writeObject(lblCurrPlayer.getText());
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see java.io.Externalizable#readExternal(java.io.ObjectInput)
+	 */
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		isGameSaved  = true;
+		map = (Map) in.readObject();
+		currentPlayer = (Player) in.readObject();
+		playerModel = (PlayerModel) in.readObject();
+		cardModel = (CardModel) in.readObject();
+		stackOfCards = (Stack<Card>) in.readObject();
+		playerList = (List<Player>) in.readObject();
+
+		txtMsgAreaTxt = (String) in.readObject();
+		phaseOfTheGame = (String) in.readObject();
+		lblPlayerString = (String) in.readObject();
+		
+		playerModel.addObserver(this);
+		cardModel.addObserver(this);
+		
 	}
 	
 }

@@ -1,7 +1,9 @@
 package com.risk6441.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
 import com.risk6441.entity.Map;
 import com.risk6441.exception.InvalidMapException;
@@ -61,11 +63,49 @@ public class SplashController {
      */
     @FXML
     void loadGame(ActionEvent event) {
+    	File file = CommonMapUtil.showFileDialogForLoadingGame();
+    	PlayGameController playGameController = readGameData(file);
+    	
+    	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gameplay.fxml"));
+		loader.setController(playGameController);
+		
+		Parent root = null;
+		try {
+			root = (Parent) loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Stage primaryStage = (Stage) btnExit.getScene().getWindow();
 
+		Stage stage = new Stage();
+		Scene scene = new Scene(root);
+    	stage.setX(primaryStage.getX() + 200);
+    	stage.setY(primaryStage.getY() + 200);
+		stage.setScene(scene);
+		stage.show();
     }
 
     
     /**
+	 * @param file
+	 * @return
+	 */
+	public PlayGameController readGameData(File file) {
+		PlayGameController playGameController = null;
+		try {
+			FileInputStream fileInputStream = new FileInputStream(file);
+			ObjectInputStream in = new ObjectInputStream(fileInputStream);
+			playGameController  = (PlayGameController) in.readObject();
+			in.close();
+			fileInputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return playGameController;
+	}
+
+	/**
      * This method handles the case when user clicks the Map Edit Button.
      * @param event event object for the javafx 
      * @throws IOException Produces an IOException.
@@ -92,7 +132,7 @@ public class SplashController {
      */
     @FXML
     void btnPlayGame(ActionEvent event) throws InvalidMapException, IOException {
-    	File file= CommonMapUtil.showFileDialog();
+    	File file= CommonMapUtil.showFileDialogForMap();
     	//get map object by reading file
     	MapReader mapReader = new MapReader();
     	Map map = null;

@@ -433,7 +433,7 @@ public class MapRedactorController  implements Initializable{
     	MapWriter write = new MapWriter();
     	
     	if(file==null) {
-    		file = CommonMapUtil.saveFileDialog();
+    		file = CommonMapUtil.saveFileDialogForMap();
     	}
     	write.writeMapFile(map, file);
     }

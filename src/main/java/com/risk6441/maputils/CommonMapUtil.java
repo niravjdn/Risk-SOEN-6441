@@ -32,7 +32,7 @@ public class CommonMapUtil {
 	 * This method opens a dialog box to choose a map file.
 	 * @return file of type object {@link File}
 	 */
-	public static File showFileDialog() {
+	public static File showFileDialogForMap() {
 		FileChooser fileChooser = new FileChooser();
 		File file = null;
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Map files (*.map)", "*.map");
@@ -42,14 +42,44 @@ public class CommonMapUtil {
 	}
 	
 	/**
-	 * This method is used for saving the maps .
+	 * This method opens a dialog box to choose a map file.
+	 * @return file of type object {@link File}
+	 */
+	public static File showFileDialogForLoadingGame() {
+		FileChooser fileChooser = new FileChooser();
+		File file = null;
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Map files (*.game)", "*.game");
+		fileChooser.getExtensionFilters().add(extFilter);
+		file = fileChooser.showOpenDialog(null);
+		return file;
+	}
+	
+	
+	
+	/**
+	 * This method is used for saving the maps.
 	 * @return file of type object
 	 */
-	public static File saveFileDialog() {
+	public static File saveFileDialogForMap() {
 		FileChooser fileChooser = new FileChooser();
 		File file = null;
 		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Map files (*.map)", "*.map");
 		fileChooser.getExtensionFilters().add(extensionFilter);
+		file = fileChooser.showSaveDialog(null);
+		return file;
+	}
+	
+	
+	/**
+	 * This method is used for saving the game.
+	 * @return file of type object
+	 */
+	public static File saveFileDialogForGame() {
+		FileChooser fileChooser = new FileChooser();
+		File file = null;
+		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Map files (*.game)", "*.game");
+		fileChooser.getExtensionFilters().add(extensionFilter);
+		fileChooser.setInitialFileName("savedGame");
 		file = fileChooser.showSaveDialog(null);
 		return file;
 	}

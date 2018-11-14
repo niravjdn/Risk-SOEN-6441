@@ -261,7 +261,7 @@ public class DiceController implements Initializable{
 			playResult.add(attackingTerritory.getPlayer().getName() + " lost the match");
 			CommonMapUtil.showControls(btnCancelDiceRoll);
 			btnCancelDiceRoll.setDisable(false);
-			CommonMapUtil.disableControls(btnRoll, btnContinueRoll);
+			CommonMapUtil.disableControls(btnRoll, btnContinueRoll, btnAttackAllOutMode);
 		} else {
 			CommonMapUtil.disableControls(btnRoll);
 			CommonMapUtil.enableControls(btnContinueRoll);

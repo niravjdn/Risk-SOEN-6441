@@ -1,5 +1,6 @@
 package com.risk6441.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,12 @@ import java.util.List;
  * @author Nirav
  * This class defines Player and its properties such as id, name, armies and number of territories owned by player
  */
-public class Player {
+public class Player implements Serializable{
+	
+	/**
+	 * The serial ID 
+	 */
+	private static final long serialVersionUID = 5829517328643796188L;
 	
 	private int id;
 	private String name;

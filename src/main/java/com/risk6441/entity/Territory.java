@@ -1,5 +1,6 @@
 package com.risk6441.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,14 @@ import java.util.List;
  * belongs, its adjacent territories and whether its been assigned to any player or not.
  * @see Continent 
  */
-public class Territory {
+public class Territory implements Serializable{
+	
+	
+	/**
+	 * The serial ID
+	 */
+	private static final long serialVersionUID = -2741974265396284180L;
+	
 	private String name;
 	private int xCoordinate;
 	private int yCoordinate;

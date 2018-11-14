@@ -335,7 +335,7 @@ public class PlayerModelTest {
 		playerList.add(new Player(0, "Player0"));
 		playerList.add(new Player(1, "Player1"));
 		playerList.add(new Player(2, "Player2"));
-		playerModel.createPlayers(playerList.size(), playerTest, txtAreaMsg);
+		playerTest = playerModel.createPlayers(playerList.size(), txtAreaMsg);
 		Assert.assertEquals(3, playerTest.size());
 	}
 	

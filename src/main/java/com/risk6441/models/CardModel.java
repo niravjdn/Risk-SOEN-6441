@@ -1,6 +1,7 @@
 package com.risk6441.models;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -19,7 +20,13 @@ import javafx.stage.Stage;
  * This class is handles the behavior of the card.
  * @author Nirav
  */
-public class CardModel extends Observable{
+public class CardModel extends Observable implements Serializable{
+
+
+	/**
+	 * The serial ID
+	 */
+	private static final long serialVersionUID = -5002509561959806377L;
 
 	private Player currentPlayer;	
 	

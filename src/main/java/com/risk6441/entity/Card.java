@@ -1,12 +1,19 @@
 package com.risk6441.entity;
+import java.io.Serializable;
+
 import com.risk6441.config.CardKind;
 
 /**
  * @author Nirav
  *
  */
-public class Card {
+public class Card implements Serializable{
 	
+	/**
+	 * The serial ID
+	 */
+	private static final long serialVersionUID = 745413331877577285L;
+
 	CardKind cardKind;
 	
 	private Territory territoryToWhichCardBelong;

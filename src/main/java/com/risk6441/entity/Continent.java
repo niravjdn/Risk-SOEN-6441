@@ -1,5 +1,6 @@
 package com.risk6441.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,13 @@ import java.util.List;
  * @author Nirav
  * @see Territory
  */
-public class Continent {
+public class Continent implements Serializable{
+	
+	/**
+	 * The serial ID
+	 */
+	private static final long serialVersionUID = -8840145817364335110L;
+	
 	private String name;
 	private int value;
 	private HashMap<String, Territory> territoryMap;

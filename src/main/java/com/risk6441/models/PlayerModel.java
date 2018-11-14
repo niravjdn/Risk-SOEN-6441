@@ -4,7 +4,9 @@
 package com.risk6441.models;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,8 +33,14 @@ import javafx.stage.Stage;
  * @author Nirav
  *
  */
-public class PlayerModel extends Observable implements Observer{
-
+public class PlayerModel extends Observable implements Observer,Serializable{
+	
+	/**
+	 * The serial ID
+	 */
+	private static final long serialVersionUID = 5803408235114330185L;
+	
+	
 	/**
 	 * the @playerPlaying reference
 	 */
@@ -114,7 +122,8 @@ public class PlayerModel extends Observable implements Observer{
 	 * @return 
 	 * 			list of players after creating players
 	 */
-	public static List<Player> createPlayers(int noOfPlayers, List<Player> players, TextArea textArea) {
+	public static List<Player> createPlayers(int noOfPlayers, TextArea textArea) {
+		List<Player> players  =  new ArrayList<Player>();
 		for (int i = 1; i <= noOfPlayers; i++) {
 			String name = "Player" + i;
 			players.add(new Player(i, name));

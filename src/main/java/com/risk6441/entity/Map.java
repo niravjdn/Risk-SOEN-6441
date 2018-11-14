@@ -1,5 +1,6 @@
 package com.risk6441.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +13,13 @@ import java.util.Observable;
  * @see Territory
  * @see Continent
  */
-public class Map extends Observable{
+public class Map extends Observable implements Serializable{
 
+	/**
+	 * The serial ID
+	 */
+	private static final long serialVersionUID = -1455266814146248057L;
+	
 	private HashMap<String, String> mapData;
 	private List<Continent> continents;
 	private HashMap<String, Continent> continentMap;

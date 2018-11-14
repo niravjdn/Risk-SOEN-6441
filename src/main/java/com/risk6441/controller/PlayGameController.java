@@ -32,6 +32,7 @@ import com.risk6441.exception.InvalidMapException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.models.CardModel;
+import com.risk6441.models.GameUIState;
 import com.risk6441.models.PlayerModel;
 import com.risk6441.models.WorldDominationModel;
 
@@ -145,6 +146,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	private String phaseOfTheGame;
 
 	private String lblPlayerString;
+
+	private GameUIState state;
     
     /** This method ends the turn of particular player using Scheduled Executor class
      * 
@@ -414,7 +417,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer old, Integer newV) {
 				noOfPlayer = choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
-				playerList = PlayerModel.createPlayers(noOfPlayer, playerList, txtAreaMsg);
+				playerList = PlayerModel.createPlayers(noOfPlayer, txtAreaMsg);
 				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
 
 //				//temp
@@ -497,8 +500,59 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 				showAdjTerritoryOfTerrInList(terr);
 			}
 		});
+	   
+	   if (isGameSaved) {
+			loadMapDataAfterLoadingSavedGame();
+		}
 	}
 	
+	/**
+	 * This method loads the game panel after loading the saved game.
+	 */
+	private void loadMapDataAfterLoadingSavedGame() {
+		CommonMapUtil.disableControls(choiceBoxNoOfPlayer);
+		lblCurrPlayer.setText(lblPlayerString);
+		lblGamePhase.setText(phaseOfTheGame);
+		GameUtils.addTextToLog(txtMsgAreaTxt, txtAreaMsg);
+		showWorldDominationData();
+		showMilitaryDominationData();
+		
+		terrList.getItems().addAll(FXCollections
+				.observableArrayList(currentPlayer.getAssignedTerritory()));
+		
+		if(state.isPlaceArmyEnable)
+			CommonMapUtil.enableControls(btnPlaceArmy);
+		
+		if(state.isReinforcemetnEnable)
+			CommonMapUtil.enableControls(btnReinforcement);
+		
+		if(state.isCardsEnable)
+			CommonMapUtil.enableControls(btnCards);
+		
+		if(state.isNoMoreAttackEnable)
+			CommonMapUtil.enableControls(btnNoMoreAttack);
+		
+		if(state.isFortificationEnable)
+			CommonMapUtil.enableControls(btnFortify);
+		
+		if(state.isEndTurnEnable)
+			CommonMapUtil.enableControls(btnEndTurn);
+		
+		
+		playerListIterator  = playerList.iterator();
+		System.out.println(playerList);
+		
+		playerListIterator  = playerList.iterator();
+		int count =0;
+		System.out.println(count);
+		while(playerListIterator.hasNext() ) {
+			if(playerListIterator.next().equals(currentPlayer)) {
+				System.out.println(count);
+				break;
+			}
+		}
+	}
+
 	/**
 	 * Show adjacent territories of the particular territory
 	 * @param terr
@@ -631,6 +685,20 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		GameUtils.addTextToLog("Reinforcement phase has begun.", txtAreaMsg);
 		GameUtils.addTextToLog(currentPlayer.getName() + "\n", txtAreaMsg);
 		countReinforcementArmies();
+	}
+	
+	private void enableAndDisable(String phase) {
+		switch (phase) {
+			case "Reinforcement":
+			    CommonMapUtil.enableControls(btnCards);
+			    CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn, btnNoMoreAttack);
+				btnReinforcement.setDisable(false);
+				btnReinforcement.requestFocus();
+				break;
+			
+			case "Attack":	
+				
+			}
 	}
 	
 	/**
@@ -849,11 +917,41 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeObject(map);
 		out.writeObject(currentPlayer);
-		out.writeObject(cardModel);
-		out.writeObject(stackOfCards);
-		out.writeObject(playerList);
+		
 		out.writeObject(playerModel);
+		out.writeObject(cardModel);
+		
+//		out.writeObject(stackOfCards);
+//		out.writeObject(playerList);
+		
+		GameUIState state = new GameUIState();
+		
+		if(!btnPlaceArmy.isDisabled()) {
+			state.isPlaceArmyEnable = true;
+		}
+		
+		if(!btnReinforcement.isDisabled()) {
+			state.isReinforcemetnEnable = true;
+		}
+		
+		if(!btnCards.isDisabled()) {
+			state.isCardsEnable = true;
+		}
+		
+		if(!btnNoMoreAttack.isDisabled()) {
+			state.isNoMoreAttackEnable = true;
+		}
+		
+		if(!btnFortify.isDisabled()) {
+			state.isFortificationEnable = true;
+		}
+		
+		if(!btnEndTurn.isDisabled()) {
+			state.isEndTurnEnable = true;
+		}
 
+		out.writeObject(state);
+		
 		out.writeObject(txtAreaMsg.getText());
 		out.writeObject(lblGamePhase.getText());
 		out.writeObject(lblCurrPlayer.getText());
@@ -866,13 +964,18 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	@Override
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		isGameSaved  = true;
+		
 		map = (Map) in.readObject();
 		currentPlayer = (Player) in.readObject();
+		
 		playerModel = (PlayerModel) in.readObject();
 		cardModel = (CardModel) in.readObject();
-		stackOfCards = (Stack<Card>) in.readObject();
-		playerList = (List<Player>) in.readObject();
+		
+	//	stackOfCards = (Stack<Card>) in.readObject();
+	//	playerList = (List<Player>) in.readObject();
 
+		state = (GameUIState) in.readObject();
+		
 		txtMsgAreaTxt = (String) in.readObject();
 		phaseOfTheGame = (String) in.readObject();
 		lblPlayerString = (String) in.readObject();

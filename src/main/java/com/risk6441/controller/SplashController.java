@@ -89,7 +89,7 @@ public class SplashController {
     
     /**
 	 * @param file
-	 * @return
+	 * @return playGameController object of the controller class
 	 */
 	public PlayGameController readGameData(File file) {
 		PlayGameController playGameController = null;

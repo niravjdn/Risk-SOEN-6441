@@ -114,8 +114,6 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * This method creates space for the players.
 	 * @param noOfPlayers
 	 * 			no of players to be created
-	 * @param players
-	 * 			list of players
 	 * @param textArea
 	 * 		  textArea object to append the log
 	 * @return 

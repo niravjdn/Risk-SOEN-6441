@@ -64,7 +64,7 @@ public class SplashController {
     @FXML
     void loadGame(ActionEvent event) {
     	File file = CommonMapUtil.showFileDialogForLoadingGame();
-    	PlayGameController playGameController = readGameData(file);
+    	PlayGameController playGameController = readSavedGame(file);
     	
     	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gameplay.fxml"));
 		loader.setController(playGameController);
@@ -88,10 +88,11 @@ public class SplashController {
 
     
     /**
-	 * @param file
+     * This method reads the saved game file and creates the instance of the PlayGameController
+	 * @param file saved File
 	 * @return playGameController object of the controller class
 	 */
-	public PlayGameController readGameData(File file) {
+	public PlayGameController readSavedGame(File file) {
 		PlayGameController playGameController = null;
 		try {
 			FileInputStream fileInputStream = new FileInputStream(file);

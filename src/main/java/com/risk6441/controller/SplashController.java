@@ -106,6 +106,7 @@ public class SplashController {
 		return playGameController;
 	}
 
+	
 	/**
      * This method handles the case when user clicks the Map Edit Button.
      * @param event event object for the javafx 

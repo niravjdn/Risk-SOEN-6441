@@ -162,7 +162,7 @@ public class MapReader {
 			} else {
 				Continent continent = new Continent();
 				String[] data = line.split("=");
-				continent.setName(WordUtils.capitalizeFully(data[0]));
+				continent.setName(WordUtils.capitalizeFully(data[0].trim()));
 				System.out.println(data[0]);
 				continent.setValue(Integer.parseInt(data[1]));
 				continentList.add(continent);
@@ -241,7 +241,7 @@ public class MapReader {
 				Territory territory = new Territory();
 				List<String> adjacentTerritories = new ArrayList<String>();
 				String[] dataOfTerritory = element.split(",");
-				dataOfTerritory[0] = WordUtils.capitalizeFully(dataOfTerritory[0]);
+				dataOfTerritory[0] = WordUtils.capitalizeFully(dataOfTerritory[0].trim());
 				
 				territory.setName(dataOfTerritory[0]);
 				territory.setxCoordinate(Integer.parseInt(dataOfTerritory[1]));
@@ -263,7 +263,7 @@ public class MapReader {
 				}
 				
 				for (int i = 4; i < dataOfTerritory.length; i++) {
-					adjacentTerritories.add(WordUtils.capitalizeFully(dataOfTerritory[i]));
+					adjacentTerritories.add(WordUtils.capitalizeFully(dataOfTerritory[i].trim()));
 				}
 				territory.setAdjTerritories(adjacentTerritories);
 				territorieList.add(territory);

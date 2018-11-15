@@ -56,8 +56,8 @@ public class MapVerifier {
 	public static void verifyContinents(Map map) throws InvalidMapException {
 		
 		for(Continent continent : map.getContinents()) {
-			if(continent.getTerritories().size() < 2) {
-				throw new InvalidMapException("At least two territory should be there in continent.");
+			if(continent.getTerritories().size() < 1) {
+				throw new InvalidMapException("At least one territory should be there in continent.");
 			}
 			//it's verified that map is a subgraph of continents. now check that continent is a subgraph of territories.
 			for(Territory territory : continent.getTerritories()) {
@@ -138,7 +138,8 @@ public class MapVerifier {
 		else  {
 			for(Territory adjTerr : adjTerrList) {
 				if(!adjTerr.getAdjacentTerritories().contains(territory)) {
-					throw new InvalidMapException("Territory "+adjTerr.getName()+" is not mapped with its adjacent territory "+territory.getName());
+					adjTerr.getAdjacentTerritories().add(territory);
+					//throw new InvalidMapException("Territory "+adjTerr.getName()+" is not mapped with its adjacent territory "+territory.getName());
 				}
 			}
 		}

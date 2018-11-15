@@ -1,0 +1,17 @@
+[Map]
+image=image
+warn=warn
+author=author
+scroll=scroll
+wrap=wrap
+
+[Continents]
+Asia=1
+Europe=1
+
+[Territories]
+India,1,1,Asia,UK
+
+UK,1,1,Europe,India,Neth
+Neth,1,1,Europe,UK
+

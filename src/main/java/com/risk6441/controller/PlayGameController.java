@@ -639,7 +639,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
 		Territory defendingTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 		try {
-			GameUtils.addTextToLog(attackingTerritory.getName()+" attacking on "+defendingTerritory+"\n", txtAreaMsg);
+			GameUtils.addTextToLog(attackingTerritory.getName()+"("+attackingTerritory.getPlayer().getName()+") attacking on "+defendingTerritory+"("+defendingTerritory.getPlayer().getName()+")\n", txtAreaMsg);
 			playerModel.attackPhase(attackingTerritory, defendingTerritory);
 		} catch (InvalidGameActionException ex) {
 			CommonMapUtil.alertBox("Info", ex.getMessage(), "Alert");
@@ -855,6 +855,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		}else if(str.equals("opencardWindowForCardExchangeTillLessThan5")) {
 			cardModel.openCardWindow(true);
 			System.out.println("Inside 5 more cards");
+		}
+		else if(str.equals("checkForValidFortificaion")) {
+			isValidFortificationPhase();
 		}
 	}
 

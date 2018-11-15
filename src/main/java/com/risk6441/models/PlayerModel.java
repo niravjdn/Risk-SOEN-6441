@@ -199,20 +199,20 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * @return hasAValidMove true if player has valid move else false
 	 */
 	public boolean playerHasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
-		boolean hasAValidMove = false;
+		boolean isValidAttackMove = false;
 		for (Territory territory : territories.getItems()) {
 			if (territory.getArmy() > 1) {
-				hasAValidMove = true;
+				isValidAttackMove = true;
 			}
 		}
-		if (!hasAValidMove) {
+		if (!isValidAttackMove) {
 			GameUtils.addTextToLog("No valid attack move avialble move to Fortification phase.\n", gameConsole);
 			GameUtils.addTextToLog("===Attack phase ended! === \n", gameConsole);
 			setChanged();
-			notifyObservers("checkIfFortificationPhaseValid");
-			return hasAValidMove;
+			notifyObservers("checkForValidFortificaion");
+			return isValidAttackMove;
 		}
-		return hasAValidMove;
+		return isValidAttackMove;
 	}
 	
 	/**

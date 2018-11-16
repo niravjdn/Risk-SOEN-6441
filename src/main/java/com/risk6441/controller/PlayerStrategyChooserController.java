@@ -78,8 +78,8 @@ public class PlayerStrategyChooserController extends Observable implements Initi
     }
 
 	/**
-	 * @param string
-	 * @return
+	 * @param str string defining type of strategy for the player
+	 * @return strategy object
 	 */
 	private IStrategy getStrategyObjectForThePlayer(String str) {
 		IStrategy strategy = null;

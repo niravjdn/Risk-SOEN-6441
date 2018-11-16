@@ -451,7 +451,6 @@ public class PlayerModel extends Observable implements Observer,Serializable{
     	
 	}
 	
-	
 	/**
 	 * This method assign armies to player's territories randmomly for all strategy except human strategy
 	 * @param txtAreaMsg The area where the message is to be displayed. 

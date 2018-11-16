@@ -24,6 +24,7 @@ import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.strategy.Human;
 import com.risk6441.strategy.IStrategy;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -298,42 +299,18 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * 
 	 * @param territory
 	 *            territory Object
+	 * @param observableList 
 	 * @param txtAreaMsg
 	 *            the Game Console
 	 */
-	public void reinforcementPhase(Territory territory, TextArea txtAreaMsg) {
-		
-		if(currentPlayer.getArmies()>0)
-    	{
-    		if(territory == null) {
-    			CommonMapUtil.alertBox("infor", "Please select a territory to reinforce army on.", "Alert");
-    			return;
-    		}
-    		int getArmy=CommonMapUtil.inputDialogueBoxForRenforcement();
-    		if(getArmy > 0) {
-    			if(getArmy > currentPlayer.getArmies()) {
-    				CommonMapUtil.alertBox("Info", "The Army to be moved in reinforce phase should be less than army you have.", "Alert");
-    				return;
-    			}else {
-    				territory.setArmy(territory.getArmy() + getArmy);
-    				currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
-    				CommonMapUtil.enableOrDisableSave(false);
-    				GameUtils.addTextToLog("==="+getArmy+" assigned to : === \n"+territory+"  -- Player "+currentPlayer.getName()+"\n", txtAreaMsg);
-    				GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n", txtAreaMsg);
-    			}
-    		}else {
-    			CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");
-    			return;
-    		}
-    	}
-		
+	public void reinforcementPhase(Territory territory, ObservableList<Territory> terrList, TextArea txtAreaMsg) {
+		currentPlayer.getStrategy().reinforcementPhase(terrList, territory, txtAreaMsg, currentPlayer);
 		//start attack phase after completion of reinforcement phase
     	if (currentPlayer.getArmies() <= 0) {
     		GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
 			setChanged();
 			notifyObservers("Attack");
     	}
-		
 	}
 	
 

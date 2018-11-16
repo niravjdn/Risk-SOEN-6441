@@ -3,8 +3,11 @@ package com.risk6441.models;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
+import java.util.stream.Collectors;
 
 import com.risk6441.config.CardKind;
 import com.risk6441.controller.CardExchangeController;
@@ -147,5 +150,65 @@ public class CardModel extends Observable implements Serializable{
 		notifyObservers("tradeCard");
 	}
 
+	/**
+	 * @param b
+	 */
+	public void openCardWindowForOther(boolean b) {
+		this.isRestrictedModeTillLessThan5 = b;
+		CardExchangeController controller = new CardExchangeController(currentPlayer, this, b);
+		controller.tradeIfPossibleForStrategy();
+	}
+
+	/**
+	 * @param cardsOfPlayer
+	 * @return
+	 */
+	public List<Card> getCombinationOfCards(List<Card> cardsOfPlayer) {
+		System.out.println("================Cards avaliable with the player====================");
+		for (Card card : cardsOfPlayer) {
+			System.out.println("Cards :" + card.getCardKind().toString());
+		}
+		
+		System.out.println("====================================================================");
+		
+		int diffTypeOfCards = 0;
+		List<Integer> ar = new ArrayList<>();
+		
+		HashMap<String, Integer> map = new HashMap<>();
+		for (int i=0;i<cardsOfPlayer.size();i++) {
+			Card card = cardsOfPlayer.get(i);
+			if (map.containsKey(card.getCardKind().toString())) {
+				map.put(card.getCardKind().toString(), map.get(card.getCardKind().toString()) + 1);
+				diffTypeOfCards++;
+				ar.add(i);
+			} else {
+				map.put(card.getCardKind().toString(), 1);
+			}
+
+		}
+		
+		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+			if (entry.getValue() >= 3) {
+				List<Card> selectedCards = cardsOfPlayer.stream().filter(t -> t.getCardKind().toString().equals(entry.getKey()))
+						.collect(Collectors.toList());
+				System.out.println("Cards being exchangeds " + selectedCards);
+				return selectedCards;
+			}
+		}
+		
+		if(diffTypeOfCards==3) {
+			//still it's possible to trade because player has 3 different cards but not all 3 of same sort
+			List<Card> selectedCards = new ArrayList<>();
+			for(int i=0;i<3;i++) {
+				selectedCards.add(cardsOfPlayer.get(ar.get(i)));
+			}
+			System.out.println("Cards being exchangeds " + selectedCards);
+			return selectedCards;
+		}
+		
+		
+		
+		return null;
+	}
 
 }

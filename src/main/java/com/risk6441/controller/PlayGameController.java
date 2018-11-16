@@ -260,13 +260,20 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			return;
 		}
 
-    	playerModel.reinforcementPhase(territory, txtAreaMsg);
+    	reinforceArmy(territory);
+    }
+
+	/**
+	 * @param territory
+	 */
+	private void reinforceArmy(Territory territory) {
+		playerModel.reinforcementPhase(territory, terrList.getItems(),txtAreaMsg);
     	setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
     	updateMap();
     	showMilitaryDominationData();
     	terrList.refresh();
     	adjTerrList.refresh();
-    }
+	}
 
     
     /**
@@ -712,21 +719,15 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		GameUtils.addTextToLog("Reinforcement phase has begun.", txtAreaMsg);
 		GameUtils.addTextToLog(currentPlayer.getName() + "\n", txtAreaMsg);
 		countReinforcementArmies();
+		
+		if ((currentPlayer.getStrategy() instanceof Human)) {
+			cardModel.openCardWindow(false);
+		} else {
+			cardModel.openCardWindowForOther(false);
+			reinforceArmy(null);
+		}
 	}
 	
-	private void enableAndDisable(String phase) {
-		switch (phase) {
-			case "Reinforcement":
-			    CommonMapUtil.enableControls(btnCards);
-			    CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn, btnNoMoreAttack);
-				btnReinforcement.setDisable(false);
-				btnReinforcement.requestFocus();
-				break;
-			
-			case "Attack":	
-				
-			}
-	}
 	
 	/**
 	 * method to count the number of armies to be assigned to a player in reinforcement phase.
@@ -855,11 +856,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		}else if(str.equals("ReinforcementFirst")) {
 			setPhase("Phase : Reinforcement");
 			initializeReinforcement(true);
-			cardModel.openCardWindow(false);
 		}else if(str.equals("Reinforcement")) {
 			setPhase("Phase : Reinforcement");
 			initializeReinforcement(false);
-			cardModel.openCardWindow(false);
 		}else if(str.equals("placeArmy")) {
 			setPhase("Phase : Place Army");
 			initializePlaceArmy();
@@ -884,8 +883,14 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		else if(str.equals("checkForValidFortificaion")) {
 			isValidFortificationPhase();
 		}else if(str.equals("playerStrategyChoosen")) {
+			GameUtils.addTextToLog(Config.message, txtAreaMsg);
+			Config.message = "";
 			allocateArmyAndTerr();
+		}else if(str.equals("printMessageOnMsgArea")) {
+			GameUtils.addTextToLog(Config.message, txtAreaMsg);
+			Config.message = "";
 		}
+		
 	}
 
 	/**

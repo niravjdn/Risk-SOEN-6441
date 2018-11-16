@@ -179,6 +179,16 @@ public class CardExchangeController implements Initializable{
 	private void setPlayerLabel() {
 		lblPlayer.setText("Player : "+currentPlayer.getName());
 	}
+	/**
+	 * 
+	 */
+	public void tradeIfPossibleForStrategy() {
+		cardsOfPlayer = currentPlayer.getCardList();
+		List<Card> cards = cardModel.getCombinationOfCards(cardsOfPlayer);
+		if (cards != null && cards.size() == 3) {
+			cardModel.setCardsForExchange(cards);
+		}
+	}
 	
 	
 

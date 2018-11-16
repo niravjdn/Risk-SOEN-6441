@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import com.risk6441.config.Config;
 import com.risk6441.config.PlayerStrategy;
 import com.risk6441.entity.Player;
 import com.risk6441.gameutils.GameUtils;
@@ -71,9 +72,16 @@ public class PlayerStrategyChooserController extends Observable implements Initi
 		}
     	
     	if(count == playerList.size()) {
+    		String msg = "";
+    		for(Player p : playerList) {
+    			msg += p.getName()+" is a playing with strategy : "+p.getPlayerStrategy()+"\n";
+    		}
+    		Config.message = msg; 
+    		
     		GameUtils.exitWindows(btnSubmit);
     		setChanged();
 			notifyObservers("playerStrategyChoosen"); 	
+			notifyObservers("printMessageOnMsgArea"); 	
     	}
     }
 

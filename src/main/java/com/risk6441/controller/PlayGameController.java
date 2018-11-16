@@ -654,7 +654,11 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		}
 		CommonMapUtil.disableControls(btnCards);
 		CommonMapUtil.enableControls(btnNoMoreAttack);
-		adjTerrList.setOnMouseClicked(e -> attack());
+		if(currentPlayer.getStrategy() instanceof Human) {
+			adjTerrList.setOnMouseClicked(e -> attack());
+		}else {
+			attack();
+		}
 	}
 
 	/**
@@ -664,11 +668,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		if(!lblGamePhase.getText().contains("Attack")) {
 			return;
 		}
-		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
-		Territory defendingTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 		try {
-			GameUtils.addTextToLog(attackingTerritory.getName()+"("+attackingTerritory.getPlayer().getName()+") attacking on "+defendingTerritory+"("+defendingTerritory.getPlayer().getName()+")\n", txtAreaMsg);
-			playerModel.attackPhase(attackingTerritory, defendingTerritory);
+			//GameUtils.addTextToLog(attackingTerritory.getName()+"("+attackingTerritory.getPlayer().getName()+") attacking on "+defendingTerritory+"("+defendingTerritory.getPlayer().getName()+")\n", txtAreaMsg);
+			playerModel.attackPhase(terrList, adjTerrList, txtAreaMsg);
 		} catch (InvalidGameActionException ex) {
 			CommonMapUtil.alertBox("Info", ex.getMessage(), "Alert");
 			return;
@@ -863,10 +865,12 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			setPhase("Phase : Place Army");
 			initializePlaceArmy();
 			showMilitaryDominationData();
-			checkPlayerWithNoArmyWhilePlacingArmy();
-			while(checkPlayerWithNoArmyWhilePlacingArmy()) {
-				System.out.println("Skipping "+currentPlayer.getName());
-			}
+			Player p = currentPlayer;
+//			checkPlayerWithNoArmyWhilePlacingArmy();
+//			
+//			while(checkPlayerWithNoArmyWhilePlacingArmy() && currentPlayer!=p) {
+//				System.out.println("Skipping "+currentPlayer.getName());
+//			}
 		}else if(str.equals("Fortification")) {
 			setPhase("Phase : Fortification");
 			adjTerrList.getItems().clear();
@@ -915,7 +919,10 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		} catch (InvalidMapException e) {
 			CommonMapUtil.alertBox("Alert", e.getMessage(), "Error");
 			e.printStackTrace();
-		}		
+		}
+		if (!(currentPlayer.getStrategy() instanceof Human)) {
+			placeArmy(null);
+		}
 	}
 
 	/**

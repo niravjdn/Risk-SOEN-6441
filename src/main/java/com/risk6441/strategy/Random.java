@@ -5,10 +5,13 @@ package com.risk6441.strategy;
 
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
+import com.risk6441.exception.InvalidGameActionException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
+import com.risk6441.models.PlayerModel;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
 /**
@@ -31,6 +34,16 @@ public class Random implements IStrategy {
 			GameUtils.addTextToLog("==="+army+" assigned to : === \n"+territory+"  -- Player "+currentPlayer.getName()+"\n", txtAreaMsg);
 		}
 
+	}
+
+	/* (non-Javadoc)
+	 * @see com.risk6441.strategy.IStrategy#attackPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, com.risk6441.models.PlayerModel, javafx.scene.control.TextArea)
+	 */
+	@Override
+	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
+			TextArea txtAreaMsg) throws InvalidGameActionException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

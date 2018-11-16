@@ -220,38 +220,14 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	
 	/**
 	 * This method is to implement attack phase.
-	 * @param attackingTerritory attacking territory.
-	 * @param defendingTerritory defending territory.
+	 * @param terrList attacking territory.
+	 * @param adjTerrList defending territory.
+	 * @param txtAreaMsg 
 	 * @throws InvalidGameActionException Throws invalid game exception.
 	 */
-	public void attackPhase(Territory attackingTerritory, Territory defendingTerritory)
+	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
 			throws InvalidGameActionException {
-		if (attackingTerritory != null && defendingTerritory != null) {
-			isValidAttackMove(attackingTerritory, defendingTerritory);
-
-			DiceModel diceModel = new DiceModel(attackingTerritory, defendingTerritory);
-			diceModel.addObserver(this);
-			final Stage stage = new Stage();
-			stage.setTitle("Attack Window");
-			
-			DiceController diceController = new DiceController(diceModel);
-
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("diceview.fxml"));
-			loader.setController(diceController);
-			
-			Parent root = null;
-			try {
-				root = (Parent) loader.load();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		} else {
-			throw new InvalidGameActionException("Please choose both attacking and defending territory.");
-		}
+		currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this, txtAreaMsg);
 	}
 
 

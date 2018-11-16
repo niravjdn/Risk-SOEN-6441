@@ -35,6 +35,7 @@ import com.risk6441.models.CardModel;
 import com.risk6441.models.GameUIState;
 import com.risk6441.models.PlayerModel;
 import com.risk6441.models.WorldDominationModel;
+import com.risk6441.strategy.Human;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -236,12 +237,15 @@ public class PlayGameController implements Initializable, Observer, Externalizab
     }
     
     /**
-	 * Initialize place army view.
+	 * Initialize components for placing army.
 	 */
 	private void initializePlaceArmy() {
 		loadCurrentPlayer(false);
 		updateMap();
 		terrList.refresh();
+		if (!(currentPlayer.getStrategy() instanceof Human)) {
+			placeArmy(null);
+		}
 	}
     
     /** This method will allow the user to place the armies after the fortification phase is completed
@@ -665,7 +669,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	}
 	
 	/**
-	 * This method intializes the components for the fortification phase.
+	 * This method initializes the components for the fortification phase.
 	 */
 	private void initializeFortification() {
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);

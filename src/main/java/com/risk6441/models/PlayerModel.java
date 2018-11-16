@@ -21,6 +21,8 @@ import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidGameActionException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
+import com.risk6441.strategy.Human;
+import com.risk6441.strategy.IStrategy;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -419,22 +421,27 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 */
 	public void placeArmy(ListView<Territory> terrList, List<Player> playerList,
 			TextArea txtAreaMsg) {
-		int playerArmies = currentPlayer.getArmies();
-		if (playerArmies > 0) {
-			Territory territory = terrList.getSelectionModel().getSelectedItem();
-			if (territory == null) {
-				territory = terrList.getItems().get(0);
+		if(currentPlayer.getStrategy() instanceof Human) {
+			int playerArmies = currentPlayer.getArmies();
+			if (playerArmies > 0) {
+				Territory territory = terrList.getSelectionModel().getSelectedItem();
+				if (territory == null) {
+					territory = terrList.getItems().get(0);
+				}
+				GameUtils.addTextToLog(currentPlayer.getName() + " === Assigned Armies to "+territory.getName()+"\n", txtAreaMsg);
+				territory.setArmy(territory.getArmy() + 1);
+				currentPlayer.setArmies(playerArmies - 1);
 			}
-			GameUtils.addTextToLog(currentPlayer.getName() + " === Assigned Armies to "+territory.getName()+"\n", txtAreaMsg);
-			territory.setArmy(territory.getArmy() + 1);
-			currentPlayer.setArmies(playerArmies - 1);
+		}else {
+			assignArmiesToTerr(txtAreaMsg);
 		}
 		terrList.refresh();
 		
+		
 		//if exhausted then call next phases
-		boolean armiesExhausted = this.checkIfPlayersArmiesExhausted(playerList);
-		if (armiesExhausted) {
-			GameUtils.addTextToLog("===Setup Phase Completed!===\n", txtAreaMsg);
+		if (this.checkIfPlayersArmiesExhausted(playerList)) {
+			GameUtils.addTextToLog("=== Place Army Phase Completed ===\n", txtAreaMsg);
+			GameUtils.addTextToLog("=== Start up Phase Completed ===\n", txtAreaMsg);
 			setChanged();
 			notifyObservers("ReinforcementFirst");
 		} else {
@@ -445,6 +452,19 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	}
 	
 	
+	/**
+	 * This method assign armies to player's territories randmomly for all strategy except human strategy
+	 * @param txtAreaMsg The area where the message is to be displayed. 
+	 */
+	private void assignArmiesToTerr(TextArea txtAreaMsg) {
+		if(currentPlayer.getArmies()>0) {
+			Territory terr = currentPlayer.getAssignedTerritory().get(CommonMapUtil.getRandomNo(currentPlayer.getAssignedTerritory().size()-1));
+			GameUtils.addTextToLog(currentPlayer.getName() + " === Assigned Armies to "+terr.getName()+"\n", txtAreaMsg);
+			terr.setArmy(terr.getArmy()+1);
+			currentPlayer.setArmies(currentPlayer.getArmies()-1);
+		}
+	}
+
 	/**
 	 * This method checks if players armies is exhausted.
 	 * @param players

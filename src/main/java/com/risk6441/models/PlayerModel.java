@@ -74,7 +74,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * @param txtArea 
 	 * 			textArea object
 	 */
-	public static void assignArmiesToPlayers(List<Player> p, TextArea txtArea) {
+	public static void allocateArmiesToPlayers(List<Player> p, TextArea txtArea) {
 		GameUtils.addTextToLog("===>Assigning armies to the players.===\n", txtArea);
 
 		int armyForPlayer = 0;
@@ -230,12 +230,12 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 			diceModel.addObserver(this);
 			final Stage stage = new Stage();
 			stage.setTitle("Attack Window");
-
+			
 			DiceController diceController = new DiceController(diceModel);
 
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("diceview.fxml"));
 			loader.setController(diceController);
-
+			
 			Parent root = null;
 			try {
 				root = (Parent) loader.load();
@@ -315,6 +315,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
     			}else {
     				territory.setArmy(territory.getArmy() + getArmy);
     				currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
+    				CommonMapUtil.enableOrDisableSave(false);
     				GameUtils.addTextToLog("==="+getArmy+" assigned to : === \n"+territory+"  -- Player "+currentPlayer.getName()+"\n", txtAreaMsg);
     				GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n", txtAreaMsg);
     			}

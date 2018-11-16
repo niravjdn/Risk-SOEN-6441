@@ -266,6 +266,7 @@ public class DiceController implements Initializable{
 			CommonMapUtil.disableControls(btnRoll);
 			CommonMapUtil.enableControls(btnContinueRoll);
 		}
+		CommonMapUtil.enableOrDisableSave(false);
 		lblDefenderArmies.setText("Armies: " + String.valueOf(defendingTerritory.getArmy()));
 		lblAttackerArmies.setText("Armies: " + String.valueOf(attackingTerritory.getArmy()));
 		lblStatus.setText(playResult.toString());

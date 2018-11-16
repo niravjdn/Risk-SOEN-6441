@@ -43,7 +43,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
@@ -57,6 +60,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * This class ....
@@ -414,56 +418,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		updateMap();
 		allocateCardTOTerritories();
 		CommonMapUtil.disableControls(btnNoMoreAttack,btnCards);
-		choiceBoxNoOfPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
-			@Override
-			public void changed(ObservableValue<? extends Integer> observable, Integer old, Integer newV) {
-				noOfPlayer = choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
-				playerList = PlayerModel.createPlayers(noOfPlayer, txtAreaMsg);
-				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
-
-//				//temp
-//				try {
-//					playerList.get(0).getCardList().add(stackOfCards.pop());
-//					playerList.get(0).getCardList().add(stackOfCards.pop());
-//					playerList.get(0).getCardList().add(stackOfCards.pop());
-//					
-//					
-//					playerList.get(0).getCardList().add(stackOfCards.pop());
-//					playerList.get(1).getCardList().add(stackOfCards.pop());
-//
-//					playerList.get(1).getCardList().add(stackOfCards.pop());
-//					playerList.get(1).getCardList().add(stackOfCards.pop());
-//				}catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				//till this
-				
-				
-				choiceBoxNoOfPlayer.setDisable(true);
-				playerListIterator = playerList.iterator();
-				CommonMapUtil.enableControls(btnPlaceArmy);
-				PlayerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
-				
-				//playerList.get(0).setArmies(50);
-				
-				try {
-					if(playerList.size() > GameUtils.getTerritoryList(map).size()) {
-						throw new InvalidMapException("Territories must be more than players.");
-					}
-					
-					allocateTerritoriesToPlayer();
-					
-					
-					setPhase("Phase : Place Army");
-					loadCurrentPlayer(false);
-					showWorldDominationData();
-					showMilitaryDominationData();
-				} catch (InvalidMapException e) {
-					CommonMapUtil.alertBox("Alert", e.getMessage(), "Error");
-					e.printStackTrace();
-				}
-			}
-		});
+		CommonMapUtil.btnSave = btnSaveGame;
+		listenerForNumberOfPlayer();
 		
 		CommonMapUtil.disableControls(btnEndTurn, btnFortify, btnPlaceArmy, btnReinforcement);
 		
@@ -506,6 +462,66 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			loadMapDataAfterLoadingSavedGame();
 		}
 	}
+
+	/**
+	 * 
+	 */
+	private void listenerForNumberOfPlayer() {
+		choiceBoxNoOfPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
+			@Override
+			public void changed(ObservableValue<? extends Integer> observable, Integer old, Integer newV) {
+				noOfPlayer = choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
+				playerList = PlayerModel.createPlayers(noOfPlayer, txtAreaMsg);
+				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
+
+//				//temp
+//				try {
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					
+//					
+//					playerList.get(0).getCardList().add(stackOfCards.pop());
+//					playerList.get(1).getCardList().add(stackOfCards.pop());
+//
+//					playerList.get(1).getCardList().add(stackOfCards.pop());
+//					playerList.get(1).getCardList().add(stackOfCards.pop());
+//				}catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				//till this
+				
+				showPlayerStrategyChooserPane();
+				
+			}
+		});
+	}
+	
+	
+	
+	/**
+	 * This method opens the pane to allow user to select strategy for the players.
+	 */
+	private void showPlayerStrategyChooserPane() {
+		final Stage stage = new Stage();
+		stage.setTitle("Player Strategy Chooser");
+		PlayerStrategyChooserController controller = new PlayerStrategyChooserController(playerList);
+		controller.addObserver(this);
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("playerStrategyChooser.fxml"));
+		loader.setController(controller);
+		
+		Parent root = null;
+		try {
+			root = (Parent) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
 	
 	/**
 	 * This method loads the game panel after loading the saved game.
@@ -620,6 +636,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	public void initializeAttack() {
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
 		GameUtils.addTextToLog("The Attack phase has begun.\n", txtAreaMsg);
+		CommonMapUtil.enableOrDisableSave(true);
 		if (playerModel.playerHasAValidAttackMove(terrList, txtAreaMsg)) {
 			CommonMapUtil.enableControls(btnEndTurn,btnNoMoreAttack);
 			CommonMapUtil.disableControls(btnReinforcement, btnFortify, btnPlaceArmy);
@@ -653,6 +670,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	private void initializeFortification() {
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
 		GameUtils.addTextToLog("The Fortification phase has begun.\n", txtAreaMsg);
+		CommonMapUtil.enableOrDisableSave(true);
 		btnFortify.setDisable(false);
 		CommonMapUtil.disableControls(btnNoMoreAttack);
 		btnFortify.requestFocus();
@@ -678,6 +696,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	private void initializeReinforcement(boolean loadPlayerFromStart) {
 		System.out.println("Inside intialize reinforcement "+loadPlayerFromStart);
+		
+		CommonMapUtil.enableOrDisableSave(true);
+		
 		CommonMapUtil.enableControls(btnCards);
 		loadCurrentPlayer(loadPlayerFromStart);
 		CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn, btnNoMoreAttack);
@@ -858,7 +879,34 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		}
 		else if(str.equals("checkForValidFortificaion")) {
 			isValidFortificationPhase();
+		}else if(str.equals("playerStrategyChoosen")) {
+			allocateArmyAndTerr();
 		}
+	}
+
+	/**
+	 * This method assigns armies and territories to players.
+	 */
+	private void allocateArmyAndTerr() {
+		choiceBoxNoOfPlayer.setDisable(true);
+		playerListIterator = playerList.iterator();
+		CommonMapUtil.enableControls(btnPlaceArmy);
+		PlayerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
+		
+		try {
+			if(playerList.size() > GameUtils.getTerritoryList(map).size()) {
+				throw new InvalidMapException("Territories must be more than players.");
+			}
+			
+			allocateTerritoriesToPlayer();
+			setPhase("Phase : Place Army");
+			loadCurrentPlayer(false);
+			showWorldDominationData();
+			showMilitaryDominationData();
+		} catch (InvalidMapException e) {
+			CommonMapUtil.alertBox("Alert", e.getMessage(), "Error");
+			e.printStackTrace();
+		}		
 	}
 
 	/**

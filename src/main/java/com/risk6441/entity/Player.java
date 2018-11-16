@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.risk6441.config.PlayerStrategy;
+import com.risk6441.strategy.IStrategy;
+
 /**
  * @author Nirav
  * This class defines Player and its properties such as id, name, armies and number of territories owned by player
@@ -18,6 +21,42 @@ public class Player implements Serializable{
 	private List<Card> cardList;
 	private int numeberOfCardsExchanged;
 	
+	/**
+	 * Player's Strategy For the Behavior 
+	 */
+	private IStrategy strategy;
+	
+	private PlayerStrategy playerStrategy;
+	
+	
+	/**
+	 * @return the strategy
+	 */
+	public IStrategy getStrategy() {
+		return strategy;
+	}
+
+	/**
+	 * @param strategy the strategy to set
+	 */
+	public void setStrategy(IStrategy strategy) {
+		this.strategy = strategy;
+	}
+
+	/**
+	 * @return the playerStrategy
+	 */
+	public PlayerStrategy getPlayerStrategy() {
+		return playerStrategy;
+	}
+
+	/**
+	 * @param playerStrategy the playerStrategy to set
+	 */
+	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
+		this.playerStrategy = playerStrategy;
+	}
+
 	/**
 	 * get cards of player
 	 * @return the cardList

@@ -420,7 +420,7 @@ public class PlayerModelTest {
 		playerList.add(new Player(1, "A"));
 		playerList.add(new Player(2, "B"));
 		playerList.add(new Player(3, "C"));
-		playerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
+		playerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
 		Assert.assertEquals(Config.ARMIES_THREE_PLAYER, (Integer) playerList.get(0).getArmies());
 
 		playerList = new ArrayList<>();
@@ -428,7 +428,7 @@ public class PlayerModelTest {
 		playerList.add(new Player(2, "B"));
 		playerList.add(new Player(3, "C"));
 		playerList.add(new Player(4, "D"));
-		playerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
+		playerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
 		Assert.assertEquals(Config.ARMIES_FOUR_PLAYER, (Integer) playerList.get(0).getArmies());
 
 		playerList = new ArrayList<>();
@@ -437,7 +437,7 @@ public class PlayerModelTest {
 		playerList.add(new Player(3, "C"));
 		playerList.add(new Player(4, "D"));
 		playerList.add(new Player(5, "E"));
-		playerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
+		playerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
 		Assert.assertEquals(Config.ARMIES_FIVE_PLAYER, (Integer) playerList.get(0).getArmies());
 
 		playerList = new ArrayList<>();
@@ -447,7 +447,7 @@ public class PlayerModelTest {
 		playerList.add(new Player(4, "D"));
 		playerList.add(new Player(5, "E"));
 		playerList.add(new Player(6, "F"));
-		playerModel.assignArmiesToPlayers(playerList, txtAreaMsg);
+		playerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
 		Assert.assertEquals(Config.ARMIES_SIX_PLAYER, (Integer) playerList.get(0).getArmies());
 	}
 }

@@ -11,6 +11,7 @@ import com.risk6441.entity.Territory;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -27,6 +28,7 @@ import javafx.stage.FileChooser;
  */
 public class CommonMapUtil {
 
+	public static Button btnSave = null;
 	
 	/**
 	 * This method opens a dialog box to choose a map file.
@@ -221,6 +223,13 @@ public class CommonMapUtil {
 		TitledPane pane = new TitledPane(continent.getName(), hbox);
 
 		return pane;
+	}
+
+	/**
+	 * @param b true for enabling the button; false for disabling button
+	 */
+	public static void enableOrDisableSave(boolean b) {
+		btnSave.setDisable(!b);
 	}
 	
 }

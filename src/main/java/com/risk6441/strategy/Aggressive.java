@@ -96,6 +96,7 @@ public class Aggressive implements IStrategy {
 				attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
 				break;
 			}else {
+				System.out.println("No More Attack");
 				goToNoMoreAttack();
 			}
 		}

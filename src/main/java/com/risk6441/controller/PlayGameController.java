@@ -364,7 +364,12 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			}else {
 				//player 2 conquered player 1
 				for(int i=0;i<currentPlyerNum-1;i++) {
-					currentPlayer = playerListIterator.next();
+					try {
+						currentPlayer = playerListIterator.next();
+					}catch (Exception e) {
+						playerListIterator = playerList.iterator();
+						currentPlayer = playerListIterator.next();
+					}
 				}
 			}
 			playerLost = null;
@@ -640,7 +645,6 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * Updates the map to show latest data.
 	 */
 	public void updateMap() {
-		System.out.println("updateMap Called.");
 		vbox.getChildren().clear();
 		for(Continent c : map.getContinents()) {
 			vbox.autosize();
@@ -794,7 +798,11 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			//handle case here
 			System.out.println(currentPlayer.getCardList().size()+" inside");
 			if(currentPlayer.getCardList().size()>5 && playerList.size()>1) {
-				cardModel.openCardWindow(true);
+				if(currentPlayer.getStrategy() instanceof Human) {
+					cardModel.openCardWindow(true);
+				}else {
+					cardModel.openCardWindowForOther(true);
+				}
 				return;
 			}
 

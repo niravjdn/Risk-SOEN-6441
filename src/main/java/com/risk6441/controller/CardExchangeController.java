@@ -187,7 +187,7 @@ public class CardExchangeController implements Initializable{
 		doTrade();
 		
 		if(cardModel.isRestrictedModeTillLessThan5) {
-			while(currentPlayer.getCardList().size() < 5) {
+			while(currentPlayer.getCardList().size() > 5) {
 				doTrade();
 			}
 		}

@@ -358,12 +358,15 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			int playerLostNum = Integer.parseInt(playerLost.getName().substring(playerLost.getName().length()-1));
 			int currentPlyerNum = Integer.parseInt(currentPlayer.getName().substring(currentPlayer.getName().length()-1));
 			if(currentPlyerNum<playerLostNum) {
+				//player 3 conquered player 4
 				for(int i=0;i<currentPlyerNum;i++) {
+					System.out.println("Inside a"+i);
 					currentPlayer = playerListIterator.next();
 				}
 			}else {
 				//player 2 conquered player 1
 				for(int i=0;i<currentPlyerNum-1;i++) {
+					System.out.println("Inside b"+i);
 					try {
 						currentPlayer = playerListIterator.next();
 					}catch (Exception e) {
@@ -781,7 +784,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 					"Info");
 			GameUtils.addTextToLog(playerLost.getName() + " lost all territories and lost the game.\n",
 					txtAreaMsg);
-			GameUtils.addTextToLog("==============================================================\\n",
+			GameUtils.addTextToLog("==============================================================\n",
 					txtAreaMsg);
 			//check if player has more than 6 cards now, open card window, and allow to trade cards till he has cards less than 5
 			System.out.println("Inside open card window "+currentPlayer.getCardList().size());

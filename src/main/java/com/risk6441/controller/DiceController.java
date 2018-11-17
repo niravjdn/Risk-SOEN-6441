@@ -442,7 +442,7 @@ public class DiceController implements Initializable {
 		System.out.println(moveArmiesView.isVisible()+"Anna");
 		System.out.println(btnCancelDiceRoll.isVisible()+"Anna");
 		if (moveArmiesView.isVisible()) {
-			diceModel.moveArmies(count, new Label("Hello"), btnMoveAllArmies);
+			diceModel.moveAllArmies();
 		} else {
 			diceModel.cancelDiceRoll();
 		}	

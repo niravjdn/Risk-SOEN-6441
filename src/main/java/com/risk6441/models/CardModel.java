@@ -179,17 +179,17 @@ public class CardModel extends Observable implements Serializable{
 			Card card = cardsOfPlayer.get(i);
 			if (map.containsKey(card.getCardKind().toString())) {
 				map.put(card.getCardKind().toString(), map.get(card.getCardKind().toString()) + 1);
-				diffTypeOfCards++;
-				ar.add(i);
 			} else {
 				map.put(card.getCardKind().toString(), 1);
+				diffTypeOfCards++;
+				ar.add(i);
 			}
 
 		}
 		
 		for (Map.Entry<String, Integer> entry : map.entrySet()) {
 			if (entry.getValue() >= 3) {
-				List<Card> selectedCards = cardsOfPlayer.stream().filter(t -> t.getCardKind().toString().equals(entry.getKey()))
+				List<Card> selectedCards = cardsOfPlayer.stream().filter(t -> t.getCardKind().toString().equals(entry.getKey())).limit(3)
 						.collect(Collectors.toList());
 				System.out.println("Cards being exchangeds " + selectedCards);
 				return selectedCards;

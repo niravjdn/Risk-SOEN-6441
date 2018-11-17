@@ -95,10 +95,6 @@ public class Aggressive implements IStrategy {
 				GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
 				attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
 				break;
-			}else {
-				System.out.println("No More Attack");
-				goToNoMoreAttack();
-				return;
 			}
 		}
 		goToNoMoreAttack();

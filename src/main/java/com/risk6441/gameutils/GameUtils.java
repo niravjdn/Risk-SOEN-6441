@@ -206,7 +206,7 @@ public class GameUtils {
 			Stage stage = (Stage) button.getScene().getWindow();
 			stage.close();
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage()+" Error Message");
 		}
 	}
 }

@@ -43,6 +43,22 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 */
 	private static final long serialVersionUID = 6224554451688312772L;
 
+	private List<Player> playerList;
+	
+	/**
+	 * @return the playerList
+	 */
+	public List<Player> getPlayerList() {
+		return playerList;
+	}
+
+	/**
+	 * @param playerList the playerList to set
+	 */
+	public void setPlayerList(List<Player> playerList) {
+		this.playerList = playerList;
+	}
+
 	/**
 	 * the @playerPlaying reference
 	 */
@@ -201,13 +217,9 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * 
 	 * @return hasAValidMove true if player has valid move else false
 	 */
-	public boolean playerHasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
-		boolean isValidAttackMove = false;
-		for (Territory territory : territories.getItems()) {
-			if (territory.getArmy() > 1) {
-				isValidAttackMove = true;
-			}
-		}
+	public boolean hasasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+		boolean isValidAttackMove = currentPlayer.getStrategy().hasAValidAttackMove(territories, gameConsole);
+		
 		if (!isValidAttackMove) {
 			GameUtils.addTextToLog("No valid attack move avialble move to Fortification phase.\n", gameConsole);
 			GameUtils.addTextToLog("===Attack phase ended! === \n", gameConsole);
@@ -215,6 +227,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 			notifyObservers("checkForValidFortificaion");
 			return isValidAttackMove;
 		}
+		
 		return isValidAttackMove;
 	}
 	
@@ -281,8 +294,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 */
 	public void reinforcementPhase(Territory territory, ObservableList<Territory> terrList, TextArea txtAreaMsg) {
 		currentPlayer.getStrategy().reinforcementPhase(terrList, territory, txtAreaMsg, currentPlayer);
-		//start attack phase after completion of reinforcement phase
-    	if (currentPlayer.getArmies() <= 0) {
+    	if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
     		GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
 			setChanged();
 			notifyObservers("Attack");
@@ -296,36 +308,14 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * @param adjTerritory Territory object.
 	 * @param txtAreaMsg gameConsole.
 	 */
-	public void fortificationPhase(Territory territory, Territory adjTerritory, TextArea txtAreaMsg) {
-		if(territory == null) {
-    		CommonMapUtil.alertBox("Info", "Please select a territory", "Alert");
-    		return;
-    	}else if(adjTerritory == null) {
-    		CommonMapUtil.alertBox("Info", "Please select a adjacent territory", "Alert");
-    		return;
-    	}else if(adjTerritory.getPlayer() != territory.getPlayer()) {
-    		CommonMapUtil.alertBox("Info", "The Adjacent Territory does not belong to you.", "Alert");
-    		return;
-    	}
-		int armyCount = CommonMapUtil.inputDialogueBoxForFortification();
-		
-		if(armyCount > 0) {
-    		System.out.println("ArmyCount"+armyCount);
-    		if(armyCount >= territory.getArmy()) {
-    			CommonMapUtil.alertBox("Info", "The Army to be moved in fortification phase should be less than "
-    					+ "existing army in territory.(e.g It can be maximum x-1, if x is the current army in territory.)", "Alert");
-        		return;
-    		}else {
-    			territory.setArmy(territory.getArmy() - armyCount);
-    			adjTerritory.setArmy(adjTerritory.getArmy() + armyCount);
-    			GameUtils.addTextToLog("======Fortification Done ===========", txtAreaMsg);
-    			setChanged();
-				notifyObservers("Reinforcement");
-    		}
-    	}else {
-    		CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");
-    		return;
-    	}
+	public void fortificationPhase(ListView<Territory> territoryList, ListView<Territory> adjTerritoryList, Map map) {
+		boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map
+				);
+
+		if (isFortificationDone  && playerList.size() > 1) {
+			setChanged();
+			notifyObservers("Reinforcement");
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -334,7 +324,6 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	@Override
 	public void update(Observable o, Object arg) {
 		String str = (String) arg;
-
 		if (str.equals("rollDiceComplete")) {
 			DiceModel diceModel = (DiceModel) o;
 			setNumOfTerritoryWon(diceModel.getNumOfTerritoriesWon());
@@ -392,7 +381,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 		
 		
 		//if exhausted then call next phases
-		if (this.checkIfPlayersArmiesExhausted(playerList)) {
+		if (checkIfPlayersArmiesExhausted(playerList)) {
 			GameUtils.addTextToLog("=== Place Army Phase Completed ===\n", txtAreaMsg);
 			GameUtils.addTextToLog("=== Start up Phase Completed ===\n", txtAreaMsg);
 			setChanged();
@@ -479,5 +468,15 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 				}
 			}
 		}
+	}
+
+	/**
+	 * 
+	 */
+	public void noMoreAttack() {
+		if(playerList.size() <= 1)
+			return;
+		setChanged();
+		notifyObservers("noMoreAttack");
 	}
 }

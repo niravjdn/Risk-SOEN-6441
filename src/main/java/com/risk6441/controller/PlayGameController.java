@@ -151,6 +151,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	private String lblPlayerString;
 
 	private GameUIState state;
+
+	private int attackCount = 5;
     
     /** This method ends the turn of particular player using Scheduled Executor class
      * 
@@ -255,10 +257,13 @@ public class PlayGameController implements Initializable, Observer, Externalizab
     void reinforce(ActionEvent event) {
     	Territory territory = terrList.getSelectionModel().getSelectedItem();
     	if (currentPlayer.getCardList().size() >= 5) {
-    		CommonMapUtil.alertBox("Info", "You Risk Cards >= 5, please exchange these cards for the army.", "Info");
-			return;
+    		if(currentPlayer.getStrategy() instanceof Human) {
+    			CommonMapUtil.alertBox("Info", "You Risk Cards >= 5, please exchange these cards for the army.", "Info");
+    			return;	
+    		}else {
+    			
+    		}
 		}
-
     	reinforceArmy(territory);
     }
 
@@ -650,7 +655,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
 		GameUtils.addTextToLog("The Attack phase has begun.\n", txtAreaMsg);
 		CommonMapUtil.enableOrDisableSave(true);
-		if (playerModel.playerHasAValidAttackMove(terrList, txtAreaMsg)) {
+		if (playerModel.hasasAValidAttackMove(terrList, txtAreaMsg)) {
 			CommonMapUtil.enableControls(btnEndTurn,btnNoMoreAttack);
 			CommonMapUtil.disableControls(btnReinforcement, btnFortify, btnPlaceArmy);
 		}
@@ -659,7 +664,6 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		if(currentPlayer.getStrategy() instanceof Human) {
 			adjTerrList.setOnMouseClicked(e -> attack());
 		}else {
-			adjTerrList.setOnMouseClicked(e -> attack());
 			attack();
 		}
 	}
@@ -789,7 +793,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		if(checkIfAnyPlayerLostTheMatch()) {
 			//handle case here
 			System.out.println(currentPlayer.getCardList().size()+" inside");
-			if(currentPlayer.getCardList().size()>5) {
+			if(currentPlayer.getCardList().size()>5 && playerList.size()>1) {
 				cardModel.openCardWindow(true);
 				return;
 			}
@@ -806,10 +810,33 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		updateMap();
 		showWorldDominationData();
 		showMilitaryDominationData();
-		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
-		if (checkIfPlayerWonTheGame()) {
-			return;
+		setLabelAndShowWorldDomination();
+		
+		if (!checkIfPlayerWonTheGame()) {
+			if (playerModel.hasasAValidAttackMove(terrList, txtAreaMsg)) {
+				if (!(currentPlayer.getStrategy() instanceof Human)) {
+					if (attackCount > 0) {
+						attackCount--;
+						if (playerList.size() > 1) {
+							attack();
+						}
+					} else {
+						attackCount  = 5;
+						if (playerList.size() > 1) {
+							noMoreAttack(null);
+						}
+					}
+				}
+			}
 		}
+	}
+
+	/**
+	 * 
+	 */
+	private void setLabelAndShowWorldDomination() {
+		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
+		
 		
 		List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
 		if(listOfContinentsOwnedSingly.size()!=0)
@@ -904,6 +931,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			GameUtils.addTextToLog(Config.message, txtAreaMsg);
 			Config.message = "";
 		}else if(str.equals("noMoreAttack")) {
+			attackCount = 5;
 			noMoreAttack(null);
 		}
 		

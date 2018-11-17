@@ -151,11 +151,11 @@ public class CardModel extends Observable implements Serializable{
 	}
 
 	/**
-	 * @param b
+	 * @param isRestrictedModeTillLessThan5
 	 */
-	public void openCardWindowForOther(boolean b) {
-		this.isRestrictedModeTillLessThan5 = b;
-		CardExchangeController controller = new CardExchangeController(currentPlayer, this, b);
+	public void openCardWindowForOther(boolean isRestrictedModeTillLessThan5) {
+		this.isRestrictedModeTillLessThan5 = isRestrictedModeTillLessThan5;
+		CardExchangeController controller = new CardExchangeController(currentPlayer, this, isRestrictedModeTillLessThan5);
 		controller.tradeIfPossibleForStrategy();
 	}
 

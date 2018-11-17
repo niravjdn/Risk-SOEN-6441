@@ -3,6 +3,7 @@
  */
 package com.risk6441.strategy;
 
+import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidGameActionException;
@@ -46,4 +47,15 @@ public class Random implements IStrategy {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.risk6441.strategy.IStrategy#fortificationPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, javafx.scene.control.TextArea, com.risk6441.entity.Player, com.risk6441.entity.Map)
+	 */
+	@Override
+	public boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory,
+			 Player currentPlayer, Map map) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
 }

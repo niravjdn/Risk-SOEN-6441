@@ -301,7 +301,7 @@ public class PlayerModelTest {
 	public void testPlayerHasAValidAttackMoveTrue() {
 		terr1.setArmy(5);
 		terr2.setArmy(3);
-		boolean actualResult = playerModel.playerHasAValidAttackMove(terrListView, txtAreaMsg);
+		boolean actualResult = playerModel.hasasAValidAttackMove(terrListView, txtAreaMsg);
 		Assert.assertTrue(actualResult);
 	}
 

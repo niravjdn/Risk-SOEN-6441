@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 public class GameUtils {
 	
 	static int count=0;
+	public static TextArea txtMsgArea = null;
 	
 	/**
 	 * This method writes a log in textArea.
@@ -38,6 +39,10 @@ public class GameUtils {
 	 */
 	public static void addTextToLog(String str, TextArea txtAreaMsg) {
 		Platform.runLater(() -> txtAreaMsg.appendText(str));
+	}
+	
+	public static void addTextToLog(String str) {
+		Platform.runLater(() -> txtMsgArea.appendText(str));
 	}
 	
 	/**

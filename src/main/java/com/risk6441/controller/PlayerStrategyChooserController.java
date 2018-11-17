@@ -76,12 +76,11 @@ public class PlayerStrategyChooserController extends Observable implements Initi
     		for(Player p : playerList) {
     			msg += p.getName()+" is a playing with strategy : "+p.getPlayerStrategy()+"\n";
     		}
-    		Config.message = msg; 
+    		GameUtils.addTextToLog(msg);
     		
     		GameUtils.exitWindows(btnSubmit);
     		setChanged();
 			notifyObservers("playerStrategyChoosen"); 	
-			notifyObservers("printMessageOnMsgArea"); 	
     	}
     }
 

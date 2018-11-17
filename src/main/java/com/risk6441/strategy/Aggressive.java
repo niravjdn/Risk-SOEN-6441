@@ -4,11 +4,13 @@
 package com.risk6441.strategy;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import com.risk6441.controller.DiceController;
+import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidGameActionException;
@@ -32,7 +34,8 @@ import javafx.stage.Stage;
 public class Aggressive implements IStrategy {
 
 	private Territory attackingTerr;
-	
+	private PlayerModel playerModel;
+	private Player currentPlayer = null;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -67,7 +70,7 @@ public class Aggressive implements IStrategy {
 			 */
 			@Override
 			public int compare(Territory t1, Territory t2) {
-				return Integer.valueOf(getDefendingTerr(t1).size()).compareTo(getDefendingTerr(t2).size());
+				return Integer.valueOf(getDefendingTerr(t2).size()).compareTo(getDefendingTerr(t1).size());
 			}
 		});
 		return territoryList;
@@ -83,15 +86,26 @@ public class Aggressive implements IStrategy {
 	 */
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			TextArea txtAreaMsg) throws InvalidGameActionException {
+  		TextArea txtAreaMsg) throws InvalidGameActionException {
+		this.playerModel = playerModel;
 		attackingTerr = getAttackingTerritory(terrList.getItems());
 		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
 		for(Territory defTerr : defendingTerrList) {
 			if (attackingTerr.getArmy() > 1) {
+				GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
 				attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
 				break;
+			}else {
+				goToNoMoreAttack();
 			}
 		}
+	}
+
+	/**
+	 * 
+	 */
+	private void goToNoMoreAttack() {
+		playerModel.noMoreAttack();
 	}
 
 	/**
@@ -106,36 +120,18 @@ public class Aggressive implements IStrategy {
 			diceModel.addObserver(playerModel);
 		}
 		
-		final Stage stage = new Stage();
-		stage.setTitle("Attack Window");
-		
 		DiceController diceController = new DiceController(diceModel, this);
-
-		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("diceview.fxml"));
-		loader.setController(diceController);
-		
-		Parent root = null;
-		try {
-			root = (Parent) loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-		
 		diceController.loadDiceControllerForStrategy();
 		
 	}
 
 	/**
-	 * @param terrList2 
+	 * @param terrList
 	 * @return
 	 */
 	private Territory getAttackingTerritory(ObservableList<Territory> terrList) {
 		List<Territory> sortedListFromMaxAdjacent = getMaxOppTerr(terrList);
-		if(attackingTerr == null || (attackingTerr.getArmy() <= 1 || getDefendingTerr(attackingTerr).size() == 0)) {
+		if(attackingTerr == null || (!attackingTerr.equals(sortedListFromMaxAdjacent.get(0)))) {
 			for (Territory t : sortedListFromMaxAdjacent) {
 				if (t.getArmy() > 1) {
 					attackingTerr = t;
@@ -145,5 +141,72 @@ public class Aggressive implements IStrategy {
 		}
 		System.out.println(attackingTerr+"Dekho");
 		return attackingTerr;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.risk6441.strategy.IStrategy#fortificationPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, javafx.scene.control.TextArea, com.risk6441.entity.Player)
+	 */
+	@Override
+	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerritory,
+			Player currentPlayer, Map map) {
+		this.currentPlayer = currentPlayer;
+		List<Territory> sortedMaxAdjTerr = getMaxOppTerr(terrList.getItems());
+		for (Territory territory : sortedMaxAdjTerr) {
+			if (territory.getArmy() > 1) {
+
+				List<Territory> reachableTerrList = new ArrayList<Territory>();
+				List<Territory> allTerr = GameUtils.getTerritoryList(map);
+				
+				this.bfsTerritory(territory,reachableTerrList,territory);
+				
+				for(Territory t : allTerr) {
+					t.setProcessed(false);
+				}	
+				
+				System.out.println("Reachable Terr "+reachableTerrList.size());
+				if (reachableTerrList.size() != 0) {
+					Collections.sort(reachableTerrList, new Comparator<Territory>() {
+						@Override
+						public int compare(Territory o1, Territory o2) {
+							return Integer.valueOf(o2.getArmy()).compareTo(Integer.valueOf(o1.getArmy()));
+						}
+					});
+					GameUtils.addTextToLog((territory.getArmy()-1)+" Armies Moved From "+territory.getName()+" to "+reachableTerrList.get(0).getName());
+					reachableTerrList.get(0)
+							.setArmy(reachableTerrList.get(0).getArmy() + territory.getArmy() - 1);
+					territory.setArmy(1);
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public  void bfsTerritory(Territory territory, List<Territory> reachableTerrList, Territory root) {
+
+		if(territory.isProcessed() == true) {
+			return;
+		}
+		
+		territory.setProcessed(true);
+		if(!territory.equals(root)){
+				reachableTerrList.add(territory);
+			}
+		for(Territory t : territory.getAdjacentTerritories()){
+			if(t.isProcessed() == false && t.getPlayer().equals(currentPlayer)){
+				bfsTerritory(t,reachableTerrList,root);
+			}
+		}		
+	}
+	
+	
+	public boolean playerHasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+		attackingTerr = getAttackingTerritory(territories.getItems());
+		List<Territory> defendingTerritoryList = getDefendingTerr(attackingTerr);
+		if (defendingTerritoryList.size() > 0 && attackingTerr.getArmy() > 1) {
+			return true;
+		}
+		return false;
 	}
 }

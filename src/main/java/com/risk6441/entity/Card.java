@@ -57,6 +57,14 @@ public class Card implements Serializable{
 	public void setTerritoryToWhichCardBelong(Territory territoryToWhichCardBelong) {
 		this.territoryToWhichCardBelong = territoryToWhichCardBelong;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Card [cardType =" + cardKind + ", TerritoryofCard=" + territoryToWhichCardBelong + "]";
+	}
 	
 	
 }

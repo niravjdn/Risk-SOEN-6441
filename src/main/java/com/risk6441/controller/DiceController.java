@@ -152,27 +152,8 @@ public class DiceController implements Initializable {
 		{
 			public void run()
 			{ 
-				try {
 					attackAllOutMode();
-				} finally {
-					if (!(strategy instanceof Human)) {
-						Platform.runLater(new Runnable() {
-							
-							@Override
-							public void run() {
-								if (!btnMoveAllArmies.isDisabled()) {
-									btnMoveAllArmies.fire();
-								} else {
-									btnCancelDiceRoll.fire();
-								}								
-							}
-						});
-					}
-				}
-				
 			}
-
-			
 		};
 
 		// Run the task in a background thread
@@ -273,6 +254,7 @@ public class DiceController implements Initializable {
 	 */
 	@FXML
 	void rollDice(ActionEvent event) {
+		System.out.println("Inside roll dice");
 		if (!chkBoxattackerDice1.isSelected() && !chkBoxattackerDice2.isSelected()
 				&& !chkBoxattackerDice3.isSelected()) {
 			CommonMapUtil.alertBox("Info", "Please Select atleast one of the attacker dice", "Message");
@@ -290,7 +272,7 @@ public class DiceController implements Initializable {
 		Territory defendingTerritory = diceModel.getDefendingTerritory();
 		if (defendingTerritory.getArmy() <= 0) {
 			playResult.add(attackingTerritory.getPlayer().getName() + " won the territory: "
-					+ defendingTerritory.getName() + " From " + defendingTerritory.getPlayer().getName());
+					+ defendingTerritory.getName() + " From " + defendingTerritory.getPlayer().getName()+"\n");
 			diceModel.setNumberOfTerritoriesWon(diceModel.getNumOfTerritoriesWon() + 1);
 			GameUtils.enablePane(moveArmiesView);
 
@@ -313,7 +295,7 @@ public class DiceController implements Initializable {
 		lblStatus.setText(playResult.toString());
 		message = playResult.toString();
 		System.out.println(playResult.toString());
-		Config.message += "\n" + playResult.toString().replaceAll(",", "\n");
+		GameUtils.addTextToLog(playResult.toString().replaceAll(",", "\n")+"\n");
 		lblStatus.setVisible(true);
 	}
 
@@ -429,7 +411,83 @@ public class DiceController implements Initializable {
 	 * 
 	 */
 	public void loadDiceControllerForStrategy() {
-		btnAttackAllOutMode.fire();
+		
+		btnAttackAllOutMode = new Button();
+		btnCancelDiceRoll = new Button();
+		btnContinueRoll = new Button();
+		btnMoveAllArmies = new Button();
+		btnMoveArmies = new Button();
+		btnRoll = new Button();
+		btnSkipMoveArmy = new Button();
+		lblAttackerArmies = new Label();
+		lblAttackerPlayerName = new Label();
+		lblAttackerTerritoryName = new Label();
+		lblDefenderArmies = new Label();
+		lblDefenderPlayerName = new Label();
+		lblDefenderTerritoryName = new Label();
+		lblNoOfArmies = new Label();
+		lblStatus = new Label();
+		chkBoxattackerDice1 = new CheckBox();
+		chkBoxattackerDice2 = new CheckBox();
+		chkBoxattackerDice3 = new CheckBox();
+		chkBoxdefenderDice1 = new CheckBox();
+		chkBoxdefenderDice2 = new CheckBox();
+		txtNumberOfArmiesInput = new TextField();
+		moveArmiesView = new Pane();
+		
+		loadScreen();
+		loadAndShowDice();
+		
+		attackFullOnForStrategy();
+		System.out.println(moveArmiesView.isVisible()+"Anna");
+		System.out.println(btnCancelDiceRoll.isVisible()+"Anna");
+		if (moveArmiesView.isVisible()) {
+			diceModel.moveAllArmies();
+		} else {
+			diceModel.cancelDiceRoll();
+		}	
 	}
 
+	public void attackFullOnForStrategy() {
+		do {
+			System.out.println("Befor Click btnContinueRoll " + btnContinueRoll.isDisabled());
+			// wait with thread sleep 3 seconds to allow user to see results
+			try {
+				// check for the dice visibility
+				if (!btnContinueRoll.isDisabled()) {
+					continueDiceRoll(null);
+				}
+				System.out.println("After clicking btnContinueRoll " + btnContinueRoll.isDisabled());
+				if (chkBoxattackerDice1.isVisible()) {
+					chkBoxattackerDice1.setSelected(true);
+				}
+
+				if (chkBoxattackerDice2.isVisible()) {
+					chkBoxattackerDice2.setSelected(true);
+				}
+
+				if (chkBoxattackerDice3.isVisible()) {
+					chkBoxattackerDice3.setSelected(true);
+				}
+
+				if (chkBoxdefenderDice1.isVisible()) {
+					chkBoxdefenderDice1.setSelected(true);
+				}
+
+				if (chkBoxdefenderDice2.isVisible()) {
+					chkBoxdefenderDice2.setSelected(true);
+				}
+				// click Roll Dice
+
+				rollDice(null);
+				lblStatus.setText(message);
+				message = "";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("After Click roll " + btnContinueRoll.isDisabled());
+		} while (!btnContinueRoll.isDisabled());
+		btnAttackAllOutMode.setDisable(true);
+	}
+	
 }

@@ -19,8 +19,6 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.risk6441.config.Config;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
@@ -210,13 +208,14 @@ public class PlayGameController implements Initializable, Observer, Externalizab
      */
     @FXML
     void fortify(ActionEvent event) {
-    Territory selectedTerritory = terrList.getSelectionModel().getSelectedItem();
-	Territory adjTerritory = adjTerrList.getSelectionModel().getSelectedItem();
-
-	playerModel.fortificationPhase(selectedTerritory, adjTerritory, txtAreaMsg);
-	terrList.refresh();
-	adjTerrList.refresh();
-	updateMap();
+//	    Territory selectedTerritory = terrList.getSelectionModel().getSelectedItem();
+//		Territory adjTerritory = adjTerrList.getSelectionModel().getSelectedItem();
+//	
+//		playerModel.fortificationPhase(selectedTerritory, adjTerritory, txtAreaMsg);
+//		terrList.refresh();
+//		adjTerrList.refresh();
+//		updateMap();
+    	fortifyArmy();
     }
     
     /** This method will allow the players to place the armies one by one in round robin fashion
@@ -285,6 +284,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		if (playerModel.getNumOfTerritoryWon() > 0) {
 			allocateCardToPlayer(); 
 		}
+		CommonMapUtil.enableControls(btnEndTurn);
 		GameUtils.addTextToLog("===Attack phase ended!===\n", txtAreaMsg);
 		isValidFortificationPhase();
     }
@@ -299,7 +299,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			currentPlayer.getCardList().add(card);
 			GameUtils.addTextToLog(currentPlayer.getName() + " has been assigned a card with type "+ card.getCardKind().toString() + " and territory " + card.getTerritoryToWhichCardBelong().getName() + "\n", txtAreaMsg);
 		}catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		playerModel.setNumOfTerritoryWon(0);
 	}
@@ -311,7 +311,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		playerModel.isFortificationPhasePossible(map, currentPlayer);
 	}
     
-    // 
+ 
 	/**
 	 * This is a constructor to initialize the Map object.
 	 * @param map Current map object.
@@ -370,6 +370,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		}
 		currentPlayer = playerListIterator.next();
 		cardModel.setCurrentPlayer(currentPlayer);
+		playerModel.setPlayerList(playerList);
 		playerModel.setCurrentPlayer(currentPlayer);
 		playerModel.setNumOfTerritoryWon(0);
 		GameUtils.addTextToLog("============================ \n", txtAreaMsg);
@@ -430,6 +431,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		allocateCardTOTerritories();
 		CommonMapUtil.disableControls(btnNoMoreAttack,btnCards);
 		CommonMapUtil.btnSave = btnSaveGame;
+		GameUtils.txtMsgArea = txtAreaMsg;
 		listenerForNumberOfPlayer();
 		
 		CommonMapUtil.disableControls(btnEndTurn, btnFortify, btnPlaceArmy, btnReinforcement);
@@ -657,6 +659,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		if(currentPlayer.getStrategy() instanceof Human) {
 			adjTerrList.setOnMouseClicked(e -> attack());
 		}else {
+			adjTerrList.setOnMouseClicked(e -> attack());
 			attack();
 		}
 	}
@@ -665,11 +668,10 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * This method starts the attack adjacent territory for the player.
 	 */
 	public void attack() {
-		if(!lblGamePhase.getText().contains("Attack")) {
+		if(!lblGamePhase.getText().contains("Attack") && currentPlayer.getStrategy() instanceof Human) {
 			return;
 		}
 		try {
-			//GameUtils.addTextToLog(attackingTerritory.getName()+"("+attackingTerritory.getPlayer().getName()+") attacking on "+defendingTerritory+"("+defendingTerritory.getPlayer().getName()+")\n", txtAreaMsg);
 			playerModel.attackPhase(terrList, adjTerrList, txtAreaMsg);
 		} catch (InvalidGameActionException ex) {
 			CommonMapUtil.alertBox("Info", ex.getMessage(), "Alert");
@@ -688,8 +690,21 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		CommonMapUtil.disableControls(btnNoMoreAttack);
 		btnFortify.requestFocus();
 		CommonMapUtil.disableControls(btnReinforcement);
+		if (!(currentPlayer.getStrategy() instanceof Human)) {
+			fortifyArmy();
+		}
 	}
 	
+	/**
+	 * 
+	 */
+	private void fortifyArmy() {
+		playerModel.fortificationPhase(terrList, adjTerrList, map);
+		terrList.refresh();
+		adjTerrList.refresh();
+		updateMap();
+	}
+
 	/**
 	 * This method handles the case in which fortificaiton is not possible.
 	 */
@@ -699,7 +714,6 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		GameUtils.addTextToLog("Fortification phase has been ended.\n", txtAreaMsg);
 		setPhase("Phase : Reinforcement");
 		initializeReinforcement(false);
-		cardModel.openCardWindow(false);
 	}
 
 	
@@ -773,7 +787,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	private void refreshView() {
 		if(checkIfAnyPlayerLostTheMatch()) {
-			
+			//handle case here
 			System.out.println(currentPlayer.getCardList().size()+" inside");
 			if(currentPlayer.getCardList().size()>5) {
 				cardModel.openCardWindow(true);
@@ -788,10 +802,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		for (Territory territory : currentPlayer.getAssignedTerritory()) {
 			terrList.getItems().add(territory);
 		}
-		if(!StringUtils.isEmpty(Config.message)) {
-			GameUtils.addTextToLog(Config.message, txtAreaMsg);
-			Config.message = "";
-		}
+		
 		updateMap();
 		showWorldDominationData();
 		showMilitaryDominationData();
@@ -799,6 +810,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		if (checkIfPlayerWonTheGame()) {
 			return;
 		}
+		
 		List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
 		if(listOfContinentsOwnedSingly.size()!=0)
 		{
@@ -887,12 +899,12 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		else if(str.equals("checkForValidFortificaion")) {
 			isValidFortificationPhase();
 		}else if(str.equals("playerStrategyChoosen")) {
-			GameUtils.addTextToLog(Config.message, txtAreaMsg);
-			Config.message = "";
 			allocateArmyAndTerr();
 		}else if(str.equals("printMessageOnMsgArea")) {
 			GameUtils.addTextToLog(Config.message, txtAreaMsg);
 			Config.message = "";
+		}else if(str.equals("noMoreAttack")) {
+			noMoreAttack(null);
 		}
 		
 	}

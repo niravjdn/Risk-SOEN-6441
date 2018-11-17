@@ -114,6 +114,7 @@ public class DiceModel extends Observable{
 		int attckingArmies = getAttackingTerritory().getArmy();
 		getAttackingTerritory().setArmy(1);
 		getDefendingTerritory().setArmy(attckingArmies - 1);
+		GameUtils.addTextToLog("Moved "+(attckingArmies-1)+" armies from "+getAttackingTerritory().getName()+" to "+getDefendingTerritory().getName());
 		swapOwnershipOfTerritory();
 		setChanged();
 		notifyObservers("rollDiceComplete");

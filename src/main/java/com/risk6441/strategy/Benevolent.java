@@ -15,6 +15,7 @@ import com.risk6441.exception.InvalidGameActionException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.models.PlayerModel;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -80,12 +81,7 @@ public class Benevolent implements IStrategy {
 				
 				System.out.println("Reachable Terr "+reachableTerrList.size());
 				if (reachableTerrList.size() != 0) {
-					Collections.sort(reachableTerrList, new Comparator<Territory>() {
-						@Override
-						public int compare(Territory t1, Territory t2) {
-							return Integer.valueOf(t2.getArmy()).compareTo(Integer.valueOf(t1.getArmy()));
-						}
-					});
+					reachableTerrList = getMinOppTerr(FXCollections.observableArrayList(reachableTerrList));
 					GameUtils.addTextToLog((territory.getArmy()-1)+" Armies Moved From "+territory.getName()+" to "+reachableTerrList.get(0).getName());
 					reachableTerrList.get(0)
 							.setArmy(reachableTerrList.get(0).getArmy() + territory.getArmy() - 1);

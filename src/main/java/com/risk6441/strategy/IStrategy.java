@@ -37,12 +37,12 @@ public interface IStrategy extends Serializable{
 	 * 
 	 * @param territories
 	 *            territories List View
-	 * @param gameConsole
+	 * @param txtGameArea
 	 *            gameConsole text area
 	 * 
 	 * @return hasAValidMove true if player has valid move else false
 	 */
-	default public boolean hasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+	default public boolean hasAValidAttackMove(ListView<Territory> territories) {
 		boolean isValidAttackMove = false;
 		for (Territory territory : territories.getItems()) {
 			if (territory.getArmy() > 1 && getDefendingTerr(territory).size() > 0) {
@@ -50,12 +50,13 @@ public interface IStrategy extends Serializable{
 			}
 		}
 		if (!isValidAttackMove) {
-			GameUtils.addTextToLog("No valid attack move avialble move to Fortification phase.\n", gameConsole);
-			GameUtils.addTextToLog("===Attack phase ended! === \n", gameConsole);
+			GameUtils.addTextToLog("No valid attack move avialble move to Fortification phase.\n");
+			GameUtils.addTextToLog("===Attack phase ended! === \n");
 			return isValidAttackMove;
 		}
 		return isValidAttackMove;
 	}
+	
 	default public List<Territory> getDefendingTerr(Territory terr) {
 		List<Territory> defTerrList = terr.getAdjacentTerritories().stream()
 				.filter(t -> (terr.getPlayer() != t.getPlayer())).collect(Collectors.toList());

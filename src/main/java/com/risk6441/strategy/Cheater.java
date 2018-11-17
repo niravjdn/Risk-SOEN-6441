@@ -52,7 +52,8 @@ public class Cheater implements IStrategy {
 				for(Territory deffTerr : deffTerrList) {
 					deffTerr.setArmy(1);
 					attackingTerr.setArmy(attackingTerr.getArmy() - 1);
-
+					GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+""
+							+ ") attacking on "+deffTerr+"("+deffTerr.getPlayer().getName()+")\n");
 					deffTerr.getPlayer().getAssignedTerritory().remove(deffTerr);
 					deffTerr.setPlayer(attackingTerr.getPlayer());
 
@@ -77,6 +78,7 @@ public class Cheater implements IStrategy {
 		for(Territory terr: terrList) {
 			List<Territory> adjDefTerrList = getDefendingTerr(terr);
 			if(adjDefTerrList!=null && adjDefTerrList.size()>0) {
+				GameUtils.addTextToLog("Doubled the army on territory :"+terr.getName());
 				terr.setArmy(terr.getArmy() * 2);
 			}
 		}
@@ -88,17 +90,16 @@ public class Cheater implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#hasAValidAttackMove(javafx.scene.control.ListView, javafx.scene.control.TextArea)
 	 */
 	@Override
-	public boolean hasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+	public boolean hasAValidAttackMove(ListView<Territory> territories) {
 		boolean isValidAttackMove =false;
 		for (Territory territory : territories.getItems()) {
 			if (getDefendingTerr(territory).size() > 0) {
 				isValidAttackMove = true;
 			}
 		}
-		
 		if (!isValidAttackMove) {
-			GameUtils.addTextToLog("No valid attack move avialble.\n", gameConsole);
-			GameUtils.addTextToLog("===> Attack phase ended! === \n", gameConsole);
+			GameUtils.addTextToLog("No valid attack move avialble.\n");
+			GameUtils.addTextToLog("===> Attack phase ended! === \n");
 		}
 		return isValidAttackMove;
 	}

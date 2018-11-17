@@ -194,8 +194,8 @@ public class Aggressive implements IStrategy {
 		}		
 	}
 	
-	
-	public boolean playerHasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+	@Override
+	public boolean hasAValidAttackMove(ListView<Territory> territories) {
 		attackingTerr = getAttackingTerritory(territories.getItems());
 		List<Territory> defendingTerritoryList = getDefendingTerr(attackingTerr);
 		if (defendingTerritoryList.size() > 0 && attackingTerr.getArmy() > 1) {

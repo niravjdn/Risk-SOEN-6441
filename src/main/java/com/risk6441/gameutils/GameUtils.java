@@ -202,7 +202,11 @@ public class GameUtils {
 	 * @param button Button to exit windows.
 	 */
 	public static void exitWindows(Button button) {
-		Stage stage = (Stage) button.getScene().getWindow();
-		stage.close();
+		try {
+			Stage stage = (Stage) button.getScene().getWindow();
+			stage.close();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }

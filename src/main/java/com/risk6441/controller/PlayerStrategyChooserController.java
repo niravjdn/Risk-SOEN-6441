@@ -124,7 +124,7 @@ public class PlayerStrategyChooserController extends Observable implements Initi
 	public HBox getElementsWindow(Player player) {
 		ChoiceBox<PlayerStrategy> playerStrategyType = new ChoiceBox<>();
 		playerStrategyType.getItems().addAll(PlayerStrategy.values());
-		playerStrategyType.getSelectionModel().selectFirst();
+		playerStrategyType.getSelectionModel().select(1);;
 
 		HBox hBox = new HBox();
 		hBox.setSpacing(25);

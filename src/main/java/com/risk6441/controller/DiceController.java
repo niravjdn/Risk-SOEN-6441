@@ -438,19 +438,21 @@ public class DiceController implements Initializable {
 		loadScreen();
 		loadAndShowDice();
 		
-		attackFullOnForStrategy();
+		int count = attackFullOnForStrategy();
 		System.out.println(moveArmiesView.isVisible()+"Anna");
 		System.out.println(btnCancelDiceRoll.isVisible()+"Anna");
 		if (moveArmiesView.isVisible()) {
-			diceModel.moveAllArmies();
+			diceModel.moveArmies(count, new Label("Hello"), btnMoveAllArmies);
 		} else {
 			diceModel.cancelDiceRoll();
 		}	
 	}
 
-	public void attackFullOnForStrategy() {
+	public int attackFullOnForStrategy() {
+		int count = 0;
 		do {
 			System.out.println("Befor Click btnContinueRoll " + btnContinueRoll.isDisabled());
+			count = 0;
 			// wait with thread sleep 3 seconds to allow user to see results
 			try {
 				// check for the dice visibility
@@ -460,14 +462,17 @@ public class DiceController implements Initializable {
 				System.out.println("After clicking btnContinueRoll " + btnContinueRoll.isDisabled());
 				if (chkBoxattackerDice1.isVisible()) {
 					chkBoxattackerDice1.setSelected(true);
+					count++;
 				}
 
 				if (chkBoxattackerDice2.isVisible()) {
 					chkBoxattackerDice2.setSelected(true);
+					count++;
 				}
 
 				if (chkBoxattackerDice3.isVisible()) {
 					chkBoxattackerDice3.setSelected(true);
+					count++;
 				}
 
 				if (chkBoxdefenderDice1.isVisible()) {
@@ -488,6 +493,7 @@ public class DiceController implements Initializable {
 			System.out.println("After Click roll " + btnContinueRoll.isDisabled());
 		} while (!btnContinueRoll.isDisabled());
 		btnAttackAllOutMode.setDisable(true);
+		return count;
 	}
 	
 }

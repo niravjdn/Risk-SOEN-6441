@@ -98,8 +98,10 @@ public class Aggressive implements IStrategy {
 			}else {
 				System.out.println("No More Attack");
 				goToNoMoreAttack();
+				return;
 			}
 		}
+		goToNoMoreAttack();
 	}
 
 	/**

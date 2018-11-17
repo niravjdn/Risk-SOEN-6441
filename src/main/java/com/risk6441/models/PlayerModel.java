@@ -3,16 +3,13 @@
  */
 package com.risk6441.models;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import com.risk6441.config.Config;
-import com.risk6441.controller.DiceController;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
@@ -21,16 +18,13 @@ import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidGameActionException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
+import com.risk6441.strategy.Benevolent;
+import com.risk6441.strategy.Cheater;
 import com.risk6441.strategy.Human;
-import com.risk6441.strategy.IStrategy;
 
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 
 /**
  * @author Nirav
@@ -221,6 +215,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 		boolean isValidAttackMove = currentPlayer.getStrategy().hasAValidAttackMove(territories, gameConsole);
 		
 		if (!isValidAttackMove) {
+			GameUtils.addTextToLog("Player - "+currentPlayer.getName());
 			GameUtils.addTextToLog("No valid attack move avialble move to Fortification phase.\n", gameConsole);
 			GameUtils.addTextToLog("===Attack phase ended! === \n", gameConsole);
 			setChanged();
@@ -241,6 +236,14 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
 			throws InvalidGameActionException {
 		currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this, txtAreaMsg);
+		
+		if ((currentPlayer.getStrategy() instanceof Cheater
+				|| currentPlayer.getStrategy() instanceof Benevolent) && playerList.size() > 1) {
+			GameUtils.addTextToLog(
+					currentPlayer.getPlayerStrategy().toString() + " startegy performed attack....going to fortification phase\n");
+			setChanged();
+			notifyObservers("skipAndGoToFortify");
+		}
 	}
 
 

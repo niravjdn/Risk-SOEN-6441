@@ -33,6 +33,7 @@ import com.risk6441.models.CardModel;
 import com.risk6441.models.GameUIState;
 import com.risk6441.models.PlayerModel;
 import com.risk6441.models.WorldDominationModel;
+import com.risk6441.strategy.Aggressive;
 import com.risk6441.strategy.Human;
 
 import javafx.beans.value.ChangeListener;
@@ -286,6 +287,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
      */
     @FXML
     void noMoreAttack(ActionEvent event) {
+    	refreshList();
 		if (playerModel.getNumOfTerritoryWon() > 0) {
 			allocateCardToPlayer(); 
 		}
@@ -388,11 +390,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		playerModel.setNumOfTerritoryWon(0);
 		GameUtils.addTextToLog("============================ \n", txtAreaMsg);
 		GameUtils.addTextToLog(currentPlayer.getName() + "!....started playing.\n", txtAreaMsg);
-		terrList.getItems().clear();
-		adjTerrList.getItems().clear();
-		for (Territory territory : currentPlayer.getAssignedTerritory()) {
-			terrList.getItems().add(territory);
-		}
+		refreshList();
 		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
 		return currentPlayer;
 	}
@@ -648,6 +646,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * Updates the map to show latest data.
 	 */
 	public void updateMap() {
+		
 		vbox.getChildren().clear();
 		for(Continent c : map.getContinents()) {
 			vbox.autosize();
@@ -812,12 +811,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		}
 		
 		CommonMapUtil.enableControls(btnEndTurn,btnNoMoreAttack);
-		terrList.getItems().clear();
-		adjTerrList.getItems().clear();
-		for (Territory territory : currentPlayer.getAssignedTerritory()) {
-			terrList.getItems().add(territory);
-		}
 		
+		refreshList();
 		updateMap();
 		showWorldDominationData();
 		showMilitaryDominationData();
@@ -825,7 +820,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		
 		if (!checkIfPlayerWonTheGame()) {
 			if (playerModel.hasasAValidAttackMove(terrList, txtAreaMsg)) {
-				if (!(currentPlayer.getStrategy() instanceof Human)) {
+				if ((currentPlayer.getStrategy() instanceof Aggressive)) {
 					if (attackCount > 0) {
 						attackCount--;
 						if (playerList.size() > 1) {
@@ -839,6 +834,17 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 					}
 				}
 			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void refreshList() {
+		terrList.getItems().clear();
+		adjTerrList.getItems().clear();
+		for (Territory territory : currentPlayer.getAssignedTerritory()) {
+			terrList.getItems().add(territory);
 		}
 	}
 
@@ -944,8 +950,10 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		}else if(str.equals("noMoreAttack")) {
 			attackCount = 5;
 			noMoreAttack(null);
+		}else if(str.equals("skipAndGoToFortify")) {
+			refreshView();
+			noMoreAttack(null);
 		}
-		
 	}
 
 	/**

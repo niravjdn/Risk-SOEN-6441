@@ -3,6 +3,7 @@
  */
 package com.risk6441.strategy;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,6 +12,7 @@ import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidGameActionException;
+import com.risk6441.gameutils.GameUtils;
 import com.risk6441.models.PlayerModel;
 
 import javafx.collections.ObservableList;
@@ -59,7 +61,7 @@ public class Benevolent implements IStrategy {
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
 			TextArea txtAreaMsg) throws InvalidGameActionException {
-		// TODO Auto-generated method stub
+		// Benevolent Player does not attack
 		
 	}
 
@@ -67,9 +69,31 @@ public class Benevolent implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#fortificationPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, javafx.scene.control.TextArea, com.risk6441.entity.Player, com.risk6441.entity.Map)
 	 */
 	@Override
-	public boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory,
+	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
 			Player currentPlayer, Map map) {
-		// TODO Auto-generated method stub
+		List<Territory> sortedMinAdjTerr = getMinOppTerr(terrList.getItems());
+		for (Territory territory : sortedMinAdjTerr) {
+			if (territory.getArmy() > 1) {
+
+				List<Territory> reachableTerrList = new ArrayList<Territory>();
+				reachableTerrList = GameUtils.getAdjTerrForFortifiction(territory,map,currentPlayer);
+				
+				System.out.println("Reachable Terr "+reachableTerrList.size());
+				if (reachableTerrList.size() != 0) {
+					Collections.sort(reachableTerrList, new Comparator<Territory>() {
+						@Override
+						public int compare(Territory t1, Territory t2) {
+							return Integer.valueOf(t2.getArmy()).compareTo(Integer.valueOf(t1.getArmy()));
+						}
+					});
+					GameUtils.addTextToLog((territory.getArmy()-1)+" Armies Moved From "+territory.getName()+" to "+reachableTerrList.get(0).getName());
+					reachableTerrList.get(0)
+							.setArmy(reachableTerrList.get(0).getArmy() + territory.getArmy() - 1);
+					territory.setArmy(1);
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 

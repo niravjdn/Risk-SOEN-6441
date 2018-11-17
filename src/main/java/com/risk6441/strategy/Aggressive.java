@@ -46,6 +46,7 @@ public class Aggressive implements IStrategy {
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, TextArea txtAreaMsg,
 			Player currentPlayer) {
+		System.out.println(territoryList.size()+" - Terr List Szie");
 		List<Territory> maximumOponentTerr = getMaxOppTerr(territoryList);
 		territory = maximumOponentTerr.get(0);
 		int army = currentPlayer.getArmies();
@@ -154,20 +155,14 @@ public class Aggressive implements IStrategy {
 			if (territory.getArmy() > 1) {
 
 				List<Territory> reachableTerrList = new ArrayList<Territory>();
-				List<Territory> allTerr = GameUtils.getTerritoryList(map);
-				
-				this.bfsTerritory(territory,reachableTerrList,territory);
-				
-				for(Territory t : allTerr) {
-					t.setProcessed(false);
-				}	
+				reachableTerrList = GameUtils.getAdjTerrForFortifiction(territory,map,currentPlayer);
 				
 				System.out.println("Reachable Terr "+reachableTerrList.size());
 				if (reachableTerrList.size() != 0) {
 					Collections.sort(reachableTerrList, new Comparator<Territory>() {
 						@Override
-						public int compare(Territory o1, Territory o2) {
-							return Integer.valueOf(o2.getArmy()).compareTo(Integer.valueOf(o1.getArmy()));
+						public int compare(Territory t1, Territory t2) {
+							return Integer.valueOf(t2.getArmy()).compareTo(Integer.valueOf(t1.getArmy()));
 						}
 					});
 					GameUtils.addTextToLog((territory.getArmy()-1)+" Armies Moved From "+territory.getName()+" to "+reachableTerrList.get(0).getName());

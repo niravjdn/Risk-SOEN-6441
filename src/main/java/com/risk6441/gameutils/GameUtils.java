@@ -209,4 +209,39 @@ public class GameUtils {
 			System.out.println(e.getMessage()+" Error Message");
 		}
 	}
+
+	/**
+	 * @param map
+	 * @return
+	 */
+	public static List<Territory> getAdjTerrForFortifiction(Territory territory,Map map,Player currentPlayer) {
+		
+		List<Territory> reachableTerrList = new ArrayList<Territory>();
+		List<Territory> allTerr = GameUtils.getTerritoryList(map);
+		
+		bfsTerritory(territory,reachableTerrList,territory,currentPlayer);
+		
+		for(Territory t : allTerr) {
+			t.setProcessed(false);
+		}	
+		return reachableTerrList;
+	}
+	
+	public static  void bfsTerritory(Territory territory, List<Territory> reachableTerrList, Territory root, Player currentPlayer) {
+
+		if(territory.isProcessed() == true) {
+			return;
+		}
+		
+		territory.setProcessed(true);
+		if(!territory.equals(root)){
+				reachableTerrList.add(territory);
+			}
+		for(Territory t : territory.getAdjacentTerritories()){
+			if(t.isProcessed() == false && t.getPlayer().equals(currentPlayer)){
+				bfsTerritory(t,reachableTerrList,root,currentPlayer);
+			}
+		}		
+	}
+	
 }

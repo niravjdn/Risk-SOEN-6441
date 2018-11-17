@@ -3,6 +3,9 @@
  */
 package com.risk6441.strategy;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
@@ -40,8 +43,28 @@ public class Cheater implements IStrategy {
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
 			TextArea txtAreaMsg) throws InvalidGameActionException {
-		// TODO Auto-generated method stub
-		
+
+		Iterator<Territory> terrListIterator = (terrList.getItems().iterator());
+		while (terrListIterator.hasNext()) {
+			Territory attackingTerr = terrListIterator.next();
+			List<Territory> deffTerrList = getDefendingTerr(attackingTerr);
+			if (deffTerrList.size() > 0) {
+				for(Territory deffTerr : deffTerrList) {
+					deffTerr.setArmy(1);
+					attackingTerr.setArmy(attackingTerr.getArmy() - 1);
+
+					deffTerr.getPlayer().getAssignedTerritory().remove(deffTerr);
+					deffTerr.setPlayer(attackingTerr.getPlayer());
+
+					attackingTerr.getPlayer().getAssignedTerritory().add(deffTerr);
+					GameUtils.addTextToLog(deffTerr.getName() + " is conquered by "
+							+ attackingTerr.getPlayer().getName() + "\n");
+					playerModel.setNumOfTerritoryWon(playerModel.getNumOfTerritoryWon()+1);
+				}
+			} else {
+				continue;
+			}
+		}
 	}
 
 	/* (non-Javadoc)
@@ -50,10 +73,34 @@ public class Cheater implements IStrategy {
 	@Override
 	public boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory,
 			Player currentPlayer, Map map) {
-		// TODO Auto-generated method stub
-		return false;
+		List<Territory> terrList = selectedTerritory.getItems();
+		for(Territory terr: terrList) {
+			List<Territory> adjDefTerrList = getDefendingTerr(terr);
+			if(adjDefTerrList!=null && adjDefTerrList.size()>0) {
+				terr.setArmy(terr.getArmy() * 2);
+			}
+		}
+		return true;
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see com.risk6441.strategy.IStrategy#hasAValidAttackMove(javafx.scene.control.ListView, javafx.scene.control.TextArea)
+	 */
+	@Override
+	public boolean hasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+		boolean isValidAttackMove =false;
+		for (Territory territory : territories.getItems()) {
+			if (getDefendingTerr(territory).size() > 0) {
+				isValidAttackMove = true;
+			}
+		}
+		
+		if (!isValidAttackMove) {
+			GameUtils.addTextToLog("No valid attack move avialble.\n", gameConsole);
+			GameUtils.addTextToLog("===> Attack phase ended! === \n", gameConsole);
+		}
+		return isValidAttackMove;
+	}
 
 }

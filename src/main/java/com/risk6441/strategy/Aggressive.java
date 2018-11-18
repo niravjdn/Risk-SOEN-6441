@@ -46,7 +46,7 @@ public class Aggressive implements IStrategy {
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, TextArea txtAreaMsg,
 			Player currentPlayer) {
-		System.out.println(territoryList.size()+" - Terr List Szie");
+		System.out.println(currentPlayer.getName()+" - "+territoryList.size()+" - Terr List Szie");
 		List<Territory> maximumOponentTerr = getMaxOppTerr(territoryList);
 		territory = maximumOponentTerr.get(0);
 		int army = currentPlayer.getArmies();
@@ -93,7 +93,8 @@ public class Aggressive implements IStrategy {
 		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
 		for(Territory defTerr : defendingTerrList) {
 			if (attackingTerr.getArmy() > 1) {
-				GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
+				GameUtils.addTextToLog("Army on defending "+defTerr.getArmy()+"\n");
+				GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr.getName()+"("+defTerr.getPlayer().getName()+")\n");
 				attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
 				break;
 			}

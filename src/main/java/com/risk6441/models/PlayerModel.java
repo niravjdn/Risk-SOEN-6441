@@ -332,6 +332,11 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 			setNumOfTerritoryWon(diceModel.getNumOfTerritoriesWon());
 			setChanged();
 			notifyObservers("rollDiceComplete");
+		}else {
+			if (str.equals("oneAttackDoneForCheater")) {
+				setChanged();
+				notifyObservers("oneAttackDoneForCheater");
+			}
 		}
 		
 	}

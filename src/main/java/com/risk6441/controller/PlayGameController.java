@@ -288,11 +288,12 @@ public class PlayGameController implements Initializable, Observer, Externalizab
     @FXML
     void noMoreAttack(ActionEvent event) {
     	refreshList();
+    	GameUtils.addTextToLog("===Attack phase ended!===\n", txtAreaMsg);
 		if (playerModel.getNumOfTerritoryWon() > 0) {
 			allocateCardToPlayer(); 
 		}
 		CommonMapUtil.enableControls(btnEndTurn);
-		GameUtils.addTextToLog("===Attack phase ended!===\n", txtAreaMsg);
+		
 		isValidFortificationPhase();
     }
     
@@ -361,10 +362,17 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			int currentPlyerNum = Integer.parseInt(currentPlayer.getName().substring(currentPlayer.getName().length()-1));
 			if(currentPlyerNum<playerLostNum) {
 				//player 3 conquered player 4
-				for(int i=0;i<currentPlyerNum;i++) {
-					System.out.println("Inside a"+i);
-					currentPlayer = playerListIterator.next();
+				while(playerListIterator.hasNext()) {
+					Player temp = playerListIterator.next();
+					if(temp.equals(currentPlayer)) {
+						currentPlayer = temp;
+						break;
+					}
 				}
+//				for(int i=0;i<currentPlyerNum;i++) {
+//					System.out.println("Inside a"+i);
+//					currentPlayer = playerListIterator.next();
+//				}
 			}else {
 				//player 2 conquered player 1
 				for(int i=0;i<currentPlyerNum-1;i++) {
@@ -785,8 +793,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 					txtAreaMsg);
 			GameUtils.addTextToLog("==============================================================\n",
 					txtAreaMsg);
-			//check if player has more than 6 cards now, open card window, and allow to trade cards till he has cards less than 5
-			System.out.println("Inside open card window "+currentPlayer.getCardList().size());
+			
 			return true;
 		}
 		return false;
@@ -797,8 +804,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	private void refreshView() {
 		if(checkIfAnyPlayerLostTheMatch()) {
-			//handle case here
-			System.out.println(currentPlayer.getCardList().size()+" inside");
+			//check if player has more than 6 cards now, open card window, and allow to trade cards till he has cards less than 5
+			System.out.println("Inside open card window "+currentPlayer.getCardList().size());
 			if(currentPlayer.getCardList().size()>5 && playerList.size()>1) {
 				if(currentPlayer.getStrategy() instanceof Human) {
 					cardModel.openCardWindow(true);
@@ -814,8 +821,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		
 		refreshList();
 		updateMap();
-		showWorldDominationData();
-		showMilitaryDominationData();
+		
 		setLabelAndShowWorldDomination();
 		
 		if (!checkIfPlayerWonTheGame()) {
@@ -854,7 +860,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	private void setLabelAndShowWorldDomination() {
 		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
 		
-		
+		showWorldDominationData();
+		showMilitaryDominationData();
 		List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
 		if(listOfContinentsOwnedSingly.size()!=0)
 		{
@@ -877,6 +884,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		if (playerList.size() == 1) {
 			CommonMapUtil.alertBox("Info","Player: " + playerList.get(0).getName() + " won the game!", "");
 			isGameOver = true;
+			refreshList();
+			updateMap();
+			setLabelAndShowWorldDomination();
 			disableGameControls();
 		}
 		return isGameOver;
@@ -953,6 +963,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		}else if(str.equals("skipAndGoToFortify")) {
 			refreshView();
 			noMoreAttack(null);
+		}else if(str.equals("oneAttackDoneForCheater")) {
+			checkIfAnyPlayerLostTheMatch();
+			checkIfPlayerWonTheGame();
 		}
 	}
 

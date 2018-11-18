@@ -90,9 +90,13 @@ public class Random implements IStrategy {
 			 Player currentPlayer, Map map) {
 		this.currentPlayer = currentPlayer;
 		Territory frmTerr = getRandomTerritory(selectedTerritory.getItems());
-		while(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()==0)
+		int count = -1;
+		while(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()==0 && ++count!=(selectedTerritory.getItems().size()-1))
 		{
 			frmTerr = getRandomTerritory(selectedTerritory.getItems());
+		}
+		if(count >= selectedTerritory.getItems().size()) {
+			return false;
 		}
 		int temp = CommonMapUtil.getRandomNo(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()-1);
 		while(temp<0)

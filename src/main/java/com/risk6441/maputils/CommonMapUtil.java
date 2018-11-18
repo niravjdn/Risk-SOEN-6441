@@ -230,7 +230,7 @@ public class CommonMapUtil {
 			}
 			hbox.getChildren().add(label1);
 		}
-		TitledPane pane = new TitledPane(continent.getName(), hbox);
+		TitledPane pane = new TitledPane(continent.getName()+" - "+continent.getValue(), hbox);
 
 		return pane;
 	}

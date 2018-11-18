@@ -211,7 +211,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * 
 	 * @return hasAValidMove true if player has valid move else false
 	 */
-	public boolean hasasAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+	public boolean hasaAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
 		boolean isValidAttackMove = currentPlayer.getStrategy().hasAValidAttackMove(territories);
 		
 		if (!isValidAttackMove) {

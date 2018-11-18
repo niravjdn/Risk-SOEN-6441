@@ -503,7 +503,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	}
 
 	/**
-	 * 
+	 * This method listens for the selection of number of player in chosen box
 	 */
 	private void listenerForNumberOfPlayer() {
 		choiceBoxNoOfPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -676,7 +676,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
 		GameUtils.addTextToLog("The Attack phase has begun.\n", txtAreaMsg);
 		CommonMapUtil.enableOrDisableSave(true);
-		if (playerModel.hasasAValidAttackMove(terrList, txtAreaMsg)) {
+		if (playerModel.hasaAValidAttackMove(terrList, txtAreaMsg)) {
 			CommonMapUtil.enableControls(btnEndTurn,btnNoMoreAttack);
 			CommonMapUtil.disableControls(btnReinforcement, btnFortify, btnPlaceArmy);
 		}
@@ -829,9 +829,10 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		updateMap();
 		
 		setLabelAndShowWorldDomination();
+		showContinentThatBelongsToPlayer();
 		
 		if (!checkIfPlayerWonTheGame()) {
-			if (playerModel.hasasAValidAttackMove(terrList, txtAreaMsg)) {
+			if (playerModel.hasaAValidAttackMove(terrList, txtAreaMsg)) {
 				if ((currentPlayer.getStrategy() instanceof Aggressive)) {
 					if (attackCount > 0) {
 						attackCount--;
@@ -865,9 +866,14 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	private void setLabelAndShowWorldDomination() {
 		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
-		
 		showWorldDominationData();
 		showMilitaryDominationData();
+	}
+
+	/**
+	 * This method prints the continents owned by a player.
+	 */
+	private void showContinentThatBelongsToPlayer() {
 		List<Continent> listOfContinentsOwnedSingly = (playerModel.getContinentsThatBelongsToPlayer(map, currentPlayer));
 		if(listOfContinentsOwnedSingly.size()!=0)
 		{

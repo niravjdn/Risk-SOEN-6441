@@ -3,7 +3,6 @@
  */
 package com.risk6441.strategy;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,12 +19,8 @@ import com.risk6441.models.PlayerModel;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 
 /**
  * @author Nirav
@@ -35,7 +30,7 @@ public class Aggressive implements IStrategy {
 
 	private Territory attackingTerr;
 	private PlayerModel playerModel;
-	private Player currentPlayer = null;
+	private DiceModel diceModel;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -47,7 +42,7 @@ public class Aggressive implements IStrategy {
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, TextArea txtAreaMsg,
 			Player currentPlayer) {
 		System.out.println(currentPlayer.getName()+" - "+territoryList.size()+" - Terr List Szie");
-		List<Territory> maximumOponentTerr = getMaxOppTerr(territoryList);
+		List<Territory> maximumOponentTerr = sortAndGetStrongestTerr(territoryList);
 		territory = maximumOponentTerr.get(0);
 		int army = currentPlayer.getArmies();
 		territory.setArmy(territory.getArmy() + army);
@@ -57,25 +52,6 @@ public class Aggressive implements IStrategy {
 
 	}
 
-	/**
-	 * @param territoryList list of territories which belong to player
-	 * @return return list of territory in sorted order .... with minOpp Territory
-	 *         at Top
-	 */
-	private List<Territory> getMaxOppTerr(ObservableList<Territory> territoryList) {
-		Collections.sort(territoryList, new Comparator<Territory>() {
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-			 */
-			@Override
-			public int compare(Territory t1, Territory t2) {
-				return Integer.valueOf(getDefendingTerr(t2).size()).compareTo(getDefendingTerr(t1).size());
-			}
-		});
-		return territoryList;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -116,7 +92,7 @@ public class Aggressive implements IStrategy {
 	 * @param txtAreaMsg
 	 */
 	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel, TextArea txtAreaMsg) {
-		DiceModel diceModel = new DiceModel(attackingTerr, defTerr);
+		diceModel = new DiceModel(attackingTerr, defTerr);
 		if (playerModel != null) {
 			diceModel.addObserver(playerModel);
 		}
@@ -126,12 +102,80 @@ public class Aggressive implements IStrategy {
 		
 	}
 
+	
+
+	/* (non-Javadoc)
+	 * @see com.risk6441.strategy.IStrategy#fortificationPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, javafx.scene.control.TextArea, com.risk6441.entity.Player)
+	 */
+	@Override
+	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerritory,
+			Player currentPlayer, Map map) {
+		System.out.println(terrList.getItems().size() + "------ size");
+		if(diceModel.getNumOfTerritoriesWon() == 0) {
+			System.out.println("Territory Won 0");
+			List<Territory> sortedMaxarmyTerr = sortAndGetStrongestTerr(terrList.getItems());
+			for(Territory strongTerr : sortedMaxarmyTerr) {
+				if(strongTerr.getArmy() < 2) {
+					continue;
+				}
+				List<Territory> adjTerrList = GameUtils.getAdjTerrForFortifiction(strongTerr, map, currentPlayer);
+				adjTerrList = sortAndGetMaxDefendingTerr(FXCollections.observableArrayList(adjTerrList));
+				
+				for(Territory targetTerr : adjTerrList) {
+					GameUtils.addTextToLog((strongTerr.getArmy()-1)+" Armies Moved From "+strongTerr.getName()+" to "+targetTerr.getName());
+					targetTerr
+							.setArmy(targetTerr.getArmy() + strongTerr.getArmy() - 1);
+					strongTerr.setArmy(1);
+					return true;
+				}
+			}
+		}
+		
+		List<Territory> sortedMaxArmyTerr = sortAndGetStrongestTerr(terrList.getItems());
+		for (Territory targetTerr : sortedMaxArmyTerr) {
+				List<Territory> reachableTerrList = new ArrayList<Territory>();
+				reachableTerrList = GameUtils.getAdjTerrForFortifiction(targetTerr,map,currentPlayer);
+				
+				System.out.println("Reachable Terr of "+ targetTerr + " - "+reachableTerrList.size());
+				if (reachableTerrList.size() != 0) {
+					
+					reachableTerrList = sortAndGetStrongestTerr(FXCollections.observableArrayList(reachableTerrList));
+					
+					for(Territory fromTerr  : reachableTerrList) {
+						if(fromTerr.getArmy()>1) {
+							GameUtils.addTextToLog((fromTerr.getArmy()-1)+" Armies Moved From "+fromTerr.getName()+" to "+targetTerr.getName());
+							System.out.println((fromTerr.getArmy()-1)+" Armies Moved From "+fromTerr.getName()+" to "+targetTerr.getName());
+							targetTerr
+									.setArmy(targetTerr.getArmy() + fromTerr.getArmy() - 1);
+							fromTerr.setArmy(1);
+							return true;
+						}
+					}
+				}
+		}
+		return false;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see com.risk6441.strategy.IStrategy#hasAValidAttackMove(javafx.scene.control.ListView)
+	 */
+	@Override
+	public boolean hasAValidAttackMove(ListView<Territory> territories) {
+		attackingTerr = getAttackingTerritory(territories.getItems());
+		List<Territory> defendingTerritoryList = getDefendingTerr(attackingTerr);
+		if (defendingTerritoryList.size() > 0 && attackingTerr.getArmy() > 1) {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
-	 * @param terrList
-	 * @return
+	 * @param terrList list of player's territories
+	 * @return return a territory with maximum army
 	 */
 	private Territory getAttackingTerritory(ObservableList<Territory> terrList) {
-		List<Territory> sortedListFromMaxAdjacent = getMaxOppTerr(terrList);
+		List<Territory> sortedListFromMaxAdjacent = sortAndGetStrongestTerr(terrList);
 		if(attackingTerr == null || (!attackingTerr.equals(sortedListFromMaxAdjacent.get(0)))) {
 			for (Territory t : sortedListFromMaxAdjacent) {
 				if (t.getArmy() > 1) {
@@ -143,65 +187,45 @@ public class Aggressive implements IStrategy {
 		System.out.println(attackingTerr+"Dekho");
 		return attackingTerr;
 	}
+	
 
-	/* (non-Javadoc)
-	 * @see com.risk6441.strategy.IStrategy#fortificationPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, javafx.scene.control.TextArea, com.risk6441.entity.Player)
+	/**
+	 * This method sorts the territory list from max army to least army
+	 * @param territoryList list of territories which belong to player
+	 * @return return list of territory in sorted order .... from max army to least army
 	 */
-	@Override
-	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerritory,
-			Player currentPlayer, Map map) {
-		this.currentPlayer = currentPlayer;
-		List<Territory> sortedMaxAdjTerr = getMaxOppTerr(terrList.getItems());
-		for (Territory territory : sortedMaxAdjTerr) {
-			if (territory.getArmy() > 1) {
-
-				List<Territory> reachableTerrList = new ArrayList<Territory>();
-				reachableTerrList = GameUtils.getAdjTerrForFortifiction(territory,map,currentPlayer);
-				
-				System.out.println("Reachable Terr "+reachableTerrList.size());
-				if (reachableTerrList.size() != 0) {
-					Collections.sort(reachableTerrList, new Comparator<Territory>() {
-						@Override
-						public int compare(Territory t1, Territory t2) {
-							return Integer.valueOf(t2.getArmy()).compareTo(Integer.valueOf(t1.getArmy()));
-						}
-					});
-					GameUtils.addTextToLog((territory.getArmy()-1)+" Armies Moved From "+territory.getName()+" to "+reachableTerrList.get(0).getName());
-					reachableTerrList.get(0)
-							.setArmy(reachableTerrList.get(0).getArmy() + territory.getArmy() - 1);
-					territory.setArmy(1);
-					return true;
-				}
+	private List<Territory> sortAndGetStrongestTerr(ObservableList<Territory> territoryList) {
+		Collections.sort(territoryList, new Comparator<Territory>() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+			 */
+			@Override
+			public int compare(Territory t1, Territory t2) {
+				return Integer.valueOf(t2.getArmy()).compareTo(t1.getArmy());
 			}
-		}
-		
-		return false;
+		});
+		return territoryList;
 	}
 	
-	public  void bfsTerritory(Territory territory, List<Territory> reachableTerrList, Territory root) {
-
-		if(territory.isProcessed() == true) {
-			return;
-		}
-		
-		territory.setProcessed(true);
-		if(!territory.equals(root)){
-				reachableTerrList.add(territory);
+	/**
+	 * This methods sorts the territory list from max territories with max defending territory to least defending territory
+	 * @param territoryList list of territories which belong to player
+	 * @return return list of territory in sorted order .... with max Opponent Territories at Top
+	 */
+	private List<Territory> sortAndGetMaxDefendingTerr(ObservableList<Territory> territoryList) {
+		Collections.sort(territoryList, new Comparator<Territory>() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+			 */
+			@Override
+			public int compare(Territory t1, Territory t2) {
+				return Integer.valueOf(getDefendingTerr(t2).size()).compareTo(getDefendingTerr(t1).size());
 			}
-		for(Territory t : territory.getAdjacentTerritories()){
-			if(t.isProcessed() == false && t.getPlayer().equals(currentPlayer)){
-				bfsTerritory(t,reachableTerrList,root);
-			}
-		}		
-	}
-	
-	@Override
-	public boolean hasAValidAttackMove(ListView<Territory> territories) {
-		attackingTerr = getAttackingTerritory(territories.getItems());
-		List<Territory> defendingTerritoryList = getDefendingTerr(attackingTerr);
-		if (defendingTerritoryList.size() > 0 && attackingTerr.getArmy() > 1) {
-			return true;
-		}
-		return false;
+		});
+		return territoryList;
 	}
 }

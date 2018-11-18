@@ -793,13 +793,14 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			//playerListIterator = playerList.iterator();
 			this.playerLost = playerLost;
 			
+			playerModel.setPlayerList(playerList);
+			
 			CommonMapUtil.alertBox("Info", "Player: " + playerLost.getName() + " lost all his territory and no more in the game.",
 					"Info");
 			GameUtils.addTextToLog(playerLost.getName() + " lost all territories and lost the game.\n",
 					txtAreaMsg);
 			GameUtils.addTextToLog("==============================================================\n",
 					txtAreaMsg);
-			
 			return true;
 		}
 		return false;
@@ -833,7 +834,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		
 		if (!checkIfPlayerWonTheGame()) {
 			if (playerModel.hasaAValidAttackMove(terrList, txtAreaMsg)) {
-				if ((currentPlayer.getStrategy() instanceof Aggressive)) {
+				if ((currentPlayer.getStrategy() instanceof Aggressive) && false) {
 					if (attackCount > 0) {
 						attackCount--;
 						if (playerList.size() > 1) {
@@ -851,7 +852,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	}
 
 	/**
-	 * 
+	 * This method refreshes the lists.
 	 */
 	private void refreshList() {
 		terrList.getItems().clear();
@@ -862,7 +863,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	}
 
 	/**
-	 * 
+	 * This methos sets player label and populates the world and military domination view.
 	 */
 	private void setLabelAndShowWorldDomination() {
 		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");

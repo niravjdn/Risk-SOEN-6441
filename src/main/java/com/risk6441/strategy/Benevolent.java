@@ -61,7 +61,7 @@ public class Benevolent implements IStrategy {
 	 */
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			TextArea txtAreaMsg) throws InvalidGameActionException {
+			TextArea txtAreaMsg, List<Player> playerList) throws InvalidGameActionException {
 		// Benevolent Player does not attack
 		
 	}

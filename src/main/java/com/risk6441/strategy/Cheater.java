@@ -44,7 +44,7 @@ public class Cheater extends Observable implements IStrategy {
 	 */
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			TextArea txtAreaMsg) throws InvalidGameActionException {
+			TextArea txtAreaMsg, List<Player> playerList) throws InvalidGameActionException {
 		
 		this.addObserver(playerModel);
 		ObservableList<Territory> terrListOb = FXCollections.observableArrayList(terrList.getItems());

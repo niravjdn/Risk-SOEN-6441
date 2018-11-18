@@ -25,7 +25,7 @@ public interface IStrategy extends Serializable{
 	
 	
 	void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
-			PlayerModel playerModel, TextArea txtAreaMsg) throws InvalidGameActionException;
+			PlayerModel playerModel, TextArea txtAreaMsg, List<Player> playerList) throws InvalidGameActionException;
 	
 
 	boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory, Player currentPlayer, Map map);

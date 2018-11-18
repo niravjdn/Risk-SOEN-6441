@@ -1,6 +1,7 @@
 package com.risk6441.strategy;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.risk6441.controller.DiceController;
 import com.risk6441.entity.Map;
@@ -76,7 +77,7 @@ public class Human implements IStrategy {
 	 */
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			TextArea txtAreaMsg) throws InvalidGameActionException {
+			TextArea txtAreaMsg, List<Player> playerList) throws InvalidGameActionException {
 		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
 		Territory defendingTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 		if (attackingTerritory != null && defendingTerritory != null) {

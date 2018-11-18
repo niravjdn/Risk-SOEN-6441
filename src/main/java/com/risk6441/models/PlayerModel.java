@@ -296,7 +296,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 *            the Game Console
 	 */
 	public void reinforcementPhase(Territory territory, ObservableList<Territory> terrList, TextArea txtAreaMsg) {
-		currentPlayer.getStrategy().reinforcementPhase(terrList, territory, txtAreaMsg, currentPlayer);
+		currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer);
     	if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
     		GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
 			setChanged();

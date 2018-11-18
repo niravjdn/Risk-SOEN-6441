@@ -20,7 +20,7 @@ import javafx.scene.control.TextArea;
 
 public interface IStrategy extends Serializable{
 	
-	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, TextArea txtAreaMsg,
+	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer);
 	
 	

@@ -40,7 +40,7 @@ public class Aggressive implements IStrategy {
 	 * com.risk6441.entity.Player)
 	 */
 	@Override
-	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, TextArea txtAreaMsg,
+	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer) {
 		System.out.println(currentPlayer.getName() + " - " + territoryList.size() + " - Terr List Szie");
 		List<Territory> maximumOponentTerr = sortAndGetStrongestTerr(territoryList);
@@ -49,9 +49,8 @@ public class Aggressive implements IStrategy {
 		territory.setArmy(territory.getArmy() + army);
 		currentPlayer.setArmies(0);
 		GameUtils.addTextToLog(
-				"===" + army + " assigned to : === \n" + territory + "  -- Player " + currentPlayer.getName() + "\n",
-				txtAreaMsg);
-		GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n", txtAreaMsg);
+				"===" + army + " assigned to : === \n" + territory + "  -- Player " + currentPlayer.getName() + "\n");
+		GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n");
 
 	}
 

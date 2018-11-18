@@ -35,7 +35,7 @@ public class Human implements IStrategy {
 	 * com.risk6441.entity.Player)
 	 */
 	@Override
-	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, TextArea txtAreaMsg,
+	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer) {
 
 		if (currentPlayer.getArmies() > 0) {
@@ -56,8 +56,8 @@ public class Human implements IStrategy {
 					currentPlayer.setArmies(currentPlayer.getArmies() - getArmy);
 					CommonMapUtil.enableOrDisableSave(false);
 					GameUtils.addTextToLog("===" + getArmy + " assigned to : === \n" + territory + "  -- Player "
-							+ currentPlayer.getName() + "\n", txtAreaMsg);
-					GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n", txtAreaMsg);
+							+ currentPlayer.getName() + "\n");
+					GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n");
 				}
 			} else {
 				CommonMapUtil.alertBox("Info", "Invalid Input. Number should be > 0.", "Alert");

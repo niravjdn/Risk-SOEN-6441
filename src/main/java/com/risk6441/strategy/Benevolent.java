@@ -30,31 +30,19 @@ public class Benevolent implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#reinforcementPhase(javafx.collections.ObservableList, com.risk6441.entity.Territory, javafx.scene.control.TextArea, com.risk6441.entity.Player)
 	 */
 	@Override
-	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, TextArea txtAreaMsg,
+	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer) {
-		List<Territory> maximumOponentTerr = getMinOppTerr(territoryList);
+		List<Territory> maximumOponentTerr = sortAndGetWeakestTerr(territoryList);
 		territory = maximumOponentTerr.get(0);
-		territory.setArmy(territory.getArmy() + currentPlayer.getArmies());
-		currentPlayer.setArmies(0);		
+		int army = currentPlayer.getArmies();
+		territory.setArmy(territory.getArmy() + army);
+		currentPlayer.setArmies(0);
+		GameUtils.addTextToLog(
+				"===" + army + " assigned to : === \n" + territory + "  -- Player " + currentPlayer.getName() + "\n");
+		GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n");
+
 	}
 
-	/**
-	 * @param territoryList list of territories which belong to player
-	 * @return return list of territory in sorted order .... with minOpp Territory at Top
-	 */
-	private List<Territory> getMinOppTerr(ObservableList<Territory> territoryList) {
-		Collections.sort(territoryList, new Comparator<Territory>() {
-			
-			/* (non-Javadoc)
-			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-			 */
-			@Override
-			public int compare(Territory t1, Territory t2) {
-				return Integer.valueOf(getDefendingTerr(t2).size()).compareTo(getDefendingTerr(t1).size());
-			}
-		});
-		return territoryList;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.risk6441.strategy.IStrategy#attackPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, com.risk6441.models.PlayerModel, javafx.scene.control.TextArea)
@@ -72,26 +60,37 @@ public class Benevolent implements IStrategy {
 	@Override
 	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
 			Player currentPlayer, Map map) {
-		List<Territory> sortedMinAdjTerr = getMinOppTerr(terrList.getItems());
-		for (Territory territory : sortedMinAdjTerr) {
-			if (territory.getArmy() > 1) {
-
-				List<Territory> reachableTerrList = new ArrayList<Territory>();
-				reachableTerrList = GameUtils.getAdjTerrForFortifiction(territory,map,currentPlayer);
-				
-				System.out.println("Reachable Terr "+reachableTerrList.size());
-				if (reachableTerrList.size() != 0) {
-					reachableTerrList = getMinOppTerr(FXCollections.observableArrayList(reachableTerrList));
-					GameUtils.addTextToLog((territory.getArmy()-1)+" Armies Moved From "+territory.getName()+" to "+reachableTerrList.get(0).getName());
-					reachableTerrList.get(0)
-							.setArmy(reachableTerrList.get(0).getArmy() + territory.getArmy() - 1);
-					territory.setArmy(1);
+		List<Territory> sortedMinAdjTerr = sortAndGetWeakestTerr(terrList.getItems());
+		for (Territory weakTerr : sortedMinAdjTerr) {
+			for(Territory adjTerr : weakTerr.getAdjacentTerritories()) {
+				if (adjTerr.getArmy() > 1) {
+					weakTerr.setArmy(weakTerr.getArmy() + adjTerr.getArmy() -1);
+					GameUtils.addTextToLog((adjTerr.getArmy()-1)+" Armies Moved From "+adjTerr.getName()+" to "+weakTerr.getName());
+					adjTerr.setArmy(1);
 					return true;
 				}
 			}
+			
 		}
 		return false;
 	}
 
 	
+	/**
+	 * @param territoryList list of territories which belong to player
+	 * @return return list of territory in sorted order .... with minOpp Territory at Top
+	 */
+	private List<Territory> sortAndGetWeakestTerr(ObservableList<Territory> territoryList) {
+		Collections.sort(territoryList, new Comparator<Territory>() {
+			
+			/* (non-Javadoc)
+			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+			 */
+			@Override
+			public int compare(Territory t1, Territory t2) {
+				return Integer.valueOf(getDefendingTerr(t2).size()).compareTo(getDefendingTerr(t1).size());
+			}
+		});
+		return territoryList;
+	}
 }

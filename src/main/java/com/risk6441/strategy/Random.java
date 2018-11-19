@@ -35,16 +35,16 @@ public class Random implements IStrategy {
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer) {
-		int army = currentPlayer.getArmies() - CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
-		
-		while (currentPlayer.getArmies() > 0) {
+		int army = CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
+		do{
 			Territory randomTerr = territoryList.get(CommonMapUtil.getRandomNo(territoryList.size()-1));
 			randomTerr.setArmy(randomTerr.getArmy() + army);
 			currentPlayer.setArmies(currentPlayer.getArmies()-army);
 			GameUtils.addTextToLog(army+" assigned to :"+randomTerr.getName()+"  by "+currentPlayer.getName()+"\n");
-			int temp = CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
-			army = currentPlayer.getArmies() - temp;
-		}
+			if(currentPlayer.getArmies() == 0)
+				break;
+			army = CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
+		}while (currentPlayer.getArmies() > 0);
 
 	}
 
@@ -104,8 +104,13 @@ public class Random implements IStrategy {
 		if(count >= selectedTerritory.getItems().size()) {
 			return false;
 		}
-		int temp = CommonMapUtil.getRandomNo(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()-1);
-		Territory toTerr = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).get(temp);
+		int size = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size();
+		Territory toTerr = null;
+		if(size == 1) {
+			toTerr = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).get(0);
+		}else {
+			toTerr = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).get(CommonMapUtil.getRandomNo(size-1));
+		}
 		GameUtils.addTextToLog((frmTerr.getArmy()-1)+" Armies Moved From "+frmTerr.getName()+" to "+toTerr.getName());
 		toTerr.setArmy(toTerr.getArmy() + frmTerr.getArmy() - 1);
 		frmTerr.setArmy(1);

@@ -206,18 +206,18 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * 
 	 * @param territories
 	 *            territories List View
-	 * @param gameConsole
+	 * @param txtAreaMsg
 	 *            gameConsole text area
 	 * 
 	 * @return hasAValidMove true if player has valid move else false
 	 */
-	public boolean hasaAValidAttackMove(ListView<Territory> territories, TextArea gameConsole) {
+	public boolean hasaAValidAttackMove(ListView<Territory> territories, TextArea txtAreaMsg) {
 		boolean isValidAttackMove = currentPlayer.getStrategy().hasAValidAttackMove(territories);
 		
 		if (!isValidAttackMove) {
 			GameUtils.addTextToLog("Player - "+currentPlayer.getName()+"\n");
-			GameUtils.addTextToLog("---> No valid attack move avialble move to Fortification phase.\n", gameConsole);
-			GameUtils.addTextToLog("===Attack phase ended! === \n", gameConsole);
+			GameUtils.addTextToLog("---> No valid attack move avialble move to Fortification phase.\n", txtAreaMsg);
+			GameUtils.addTextToLog("===Attack phase ended! === \n", txtAreaMsg);
 			setChanged();
 			notifyObservers("checkForValidFortificaion");
 			return isValidAttackMove;

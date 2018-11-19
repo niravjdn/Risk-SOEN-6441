@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.risk6441.mapgetRandomNoutils;
+package com.risk6441.maputils;
 
 import java.io.File;
 import java.util.Optional;

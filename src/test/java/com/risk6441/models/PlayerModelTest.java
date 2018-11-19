@@ -18,6 +18,7 @@ import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidGameActionException;
+import com.risk6441.strategy.Human;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
@@ -106,7 +107,12 @@ public class PlayerModelTest {
 		
 		terr1.setPlayer(player);
 		terr2.setPlayer(player);
-
+		
+		Territory terr3 = new Territory();
+		terr3.getAdjacentTerritories().add(terr1);
+		terr1.getAdjacentTerritories().add(terr3);
+		terr3.setPlayer(new Player(2, "Player 2"));
+		
 		terrListView.setEditable(true);
 		terrListView.getItems().add(terr1);
 		terrListView.getItems().add(terr2);
@@ -301,6 +307,8 @@ public class PlayerModelTest {
 	public void testPlayerHasAValidAttackMoveTrue() {
 		terr1.setArmy(5);
 		terr2.setArmy(3);
+		terr1.getPlayer().setStrategy(new Human());
+		playerModel.setCurrentPlayer(terr1.getPlayer());
 		boolean actualResult = playerModel.hasaAValidAttackMove(terrListView, txtAreaMsg);
 		Assert.assertTrue(actualResult);
 	}

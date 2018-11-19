@@ -27,6 +27,7 @@ public class Random implements IStrategy {
 
 	private Territory attackingTerr;
 	private PlayerModel playerModel;
+	private DiceModel diceModel;
 	private Player currentPlayer = null;
 	/* (non-Javadoc)
 	 * @see com.risk6441.strategy.IStrategy#reinforcementPhase(javafx.collections.ObservableList, com.risk6441.entity.Territory, javafx.scene.control.TextArea, com.risk6441.entity.Player)
@@ -35,14 +36,17 @@ public class Random implements IStrategy {
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer) {
 		int army = currentPlayer.getArmies() - CommonMapUtil.getRandomNo(currentPlayer.getArmies()-1);
+		while(army==0)
+			army = currentPlayer.getArmies() - CommonMapUtil.getRandomNo(currentPlayer.getArmies()-1);
 		while (currentPlayer.getArmies() > 0) {
 			Territory randomTerr = territoryList.get(CommonMapUtil.getRandomNo(territoryList.size()-1));
 			randomTerr.setArmy(randomTerr.getArmy() + army);
 			currentPlayer.setArmies(currentPlayer.getArmies()-army);
 			GameUtils.addTextToLog(army+" assigned to :"+randomTerr.getName()+"  by "+currentPlayer.getName()+"\n");
-			army = currentPlayer.getArmies() - CommonMapUtil.getRandomNo(currentPlayer.getArmies());
-			if(army==0)
-				army=1;
+			int temp = CommonMapUtil.getRandomNo(currentPlayer.getArmies());
+			while(temp!=0)
+				temp = CommonMapUtil.getRandomNo(currentPlayer.getArmies());
+			army = currentPlayer.getArmies() - temp;
 		}
 
 	}
@@ -56,14 +60,19 @@ public class Random implements IStrategy {
 		this.playerModel = playerModel;
 		attackingTerr = getRandomTerritory(terrList.getItems());
 		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
-		for(Territory defTerr : defendingTerrList) {
-			if (attackingTerr.getArmy() > 1 ) {
-				GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
-				attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
-				break;
+		if(defendingTerrList.size()<1)
+			goToNoMoreAttack();
+		else
+		{
+			for(Territory defTerr : defendingTerrList) {
+				if (attackingTerr.getArmy() > 1 ) {
+					GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
+					attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
+					break;
+				}
 			}
+			goToNoMoreAttack();			
 		}
-		goToNoMoreAttack();		
 	}
 	
 	private void goToNoMoreAttack() {
@@ -72,14 +81,14 @@ public class Random implements IStrategy {
 
 	
 	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel, TextArea txtAreaMsg) {
-		DiceModel diceModel = new DiceModel(attackingTerr, defTerr);
+		diceModel = new DiceModel(attackingTerr, defTerr);
 		if (playerModel != null) {
 			diceModel.addObserver(playerModel);
 		}
-		
+
 		DiceController diceController = new DiceController(diceModel, this);
 		diceController.loadDiceControllerForStrategy();
-		
+
 	}
 
 	/* (non-Javadoc)
@@ -99,8 +108,6 @@ public class Random implements IStrategy {
 			return false;
 		}
 		int temp = CommonMapUtil.getRandomNo(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()-1);
-		while(temp<0)
-			temp = CommonMapUtil.getRandomNo(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()-1);
 		Territory toTerr = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).get(temp);
 		GameUtils.addTextToLog((frmTerr.getArmy()-1)+" Armies Moved From "+frmTerr.getName()+" to "+toTerr.getName());
 		toTerr.setArmy(toTerr.getArmy() + frmTerr.getArmy() - 1);
@@ -110,8 +117,6 @@ public class Random implements IStrategy {
 
 	private Territory getRandomTerritory(ObservableList<Territory> items) {
 		int temp = CommonMapUtil.getRandomNo(items.size()-1);
-		if(temp<0)
-			temp = CommonMapUtil.getRandomNo(items.size()-1);
 		Territory t = (Territory) items.get(temp);
 		while(t.getArmy()<2)
 		{

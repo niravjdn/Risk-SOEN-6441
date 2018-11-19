@@ -997,6 +997,11 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			}
 			
 			allocateTerritoriesToPlayer();
+            for(Player p : playerList){
+               if(p.getArmies() < 0){
+                  throw new InvalidMapException("Initial army of player should be more than its no of territories.");
+               }
+            }
 			setPhase("Phase : Place Army");
 			loadCurrentPlayer(false);
 			showWorldDominationData();

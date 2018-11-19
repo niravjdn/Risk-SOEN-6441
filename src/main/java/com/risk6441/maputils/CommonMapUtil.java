@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.risk6441.maputils;
+package com.risk6441.mapgetRandomNoutils;
 
 import java.io.File;
 import java.util.Optional;
@@ -39,6 +39,15 @@ public class CommonMapUtil {
 	public static int getRandomNo(int n) {
 		return new Random().nextInt(n+1);
 	}
+	
+	/**
+	 * @param n no till which you want to find  random no, 1 to n
+	 * @return random no from 1 to , including n
+	 */
+	public static int getRandomNoFromOne(int n) {
+		return new Random().nextInt(n) + 1;
+	}		
+
 	
 	/**
 	 * This method opens a dialog box to choose a map file.

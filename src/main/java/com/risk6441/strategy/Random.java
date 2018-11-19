@@ -35,17 +35,14 @@ public class Random implements IStrategy {
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer) {
-		int army = currentPlayer.getArmies() - CommonMapUtil.getRandomNo(currentPlayer.getArmies()-1);
-		while(army==0)
-			army = currentPlayer.getArmies() - CommonMapUtil.getRandomNo(currentPlayer.getArmies()-1);
+		int army = currentPlayer.getArmies() - CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
+		
 		while (currentPlayer.getArmies() > 0) {
 			Territory randomTerr = territoryList.get(CommonMapUtil.getRandomNo(territoryList.size()-1));
 			randomTerr.setArmy(randomTerr.getArmy() + army);
 			currentPlayer.setArmies(currentPlayer.getArmies()-army);
 			GameUtils.addTextToLog(army+" assigned to :"+randomTerr.getName()+"  by "+currentPlayer.getName()+"\n");
-			int temp = CommonMapUtil.getRandomNo(currentPlayer.getArmies());
-			while(temp!=0)
-				temp = CommonMapUtil.getRandomNo(currentPlayer.getArmies());
+			int temp = CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
 			army = currentPlayer.getArmies() - temp;
 		}
 

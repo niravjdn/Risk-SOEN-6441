@@ -479,7 +479,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	}
 
 	/**
-	 * 
+	 * This method is invoked if there can't be another attack for the player.
 	 */
 	public void noMoreAttack() {
 		if(playerList.size() <= 1)

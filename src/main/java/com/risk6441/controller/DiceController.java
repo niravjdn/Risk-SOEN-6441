@@ -408,7 +408,7 @@ public class DiceController implements Initializable {
 	}
 
 	/**
-	 * 
+	 *  This method is responsible for loading dice controller for the specified strategy.
 	 */
 	public void loadDiceControllerForStrategy() {
 		
@@ -448,6 +448,10 @@ public class DiceController implements Initializable {
 		}	
 	}
 
+	/**
+	 * This method is used for a full-on attack for the strategy.
+	 * @return Returns the count of attacks.
+	 */
 	public int attackFullOnForStrategy() {
 		int count = 0;
 		do {

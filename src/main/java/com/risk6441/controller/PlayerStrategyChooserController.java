@@ -50,6 +50,10 @@ public class PlayerStrategyChooserController extends Observable implements Initi
     @FXML
     private Button btnSubmit;
 
+    /**
+     * This method is used for submitting the strategy.
+     * @param event Button click event for choosing strategy.
+     */
     @FXML
     void submit(ActionEvent event) {
     	ObservableList<Node> hBoxes = vBox.getChildren();
@@ -85,6 +89,7 @@ public class PlayerStrategyChooserController extends Observable implements Initi
     }
 
 	/**
+	 * This method is used for getting the strategy for the player.
 	 * @param str string defining type of strategy for the player
 	 * @return strategy object
 	 */
@@ -121,6 +126,11 @@ public class PlayerStrategyChooserController extends Observable implements Initi
 		}
 	}
 	
+	/**
+	 * This method is used for getting the strategies from the user.
+	 * @param player The current player.
+	 * @return horizontal box for the elements. 
+	 */
 	public HBox getElementsWindow(Player player) {
 		ChoiceBox<PlayerStrategy> playerStrategyType = new ChoiceBox<>();
 		playerStrategyType.getItems().addAll(PlayerStrategy.values());

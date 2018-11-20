@@ -280,7 +280,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	}
 
 	/**
-	 * @param territory
+	 * This method is used for reinforcement of army.
+	 * @param territory The selected territory where the reinforcement is done.
 	 */
 	private void reinforceArmy(Territory territory) {
 		playerModel.reinforcementPhase(territory, terrList.getItems(), txtAreaMsg);
@@ -660,6 +661,11 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 	}
 
+	/**
+	 * This method traverses the territories of the map using BFS algorithm.
+	 * @param territory The selected territory.
+	 * @param reachableTerrList All the reachable territories from the territory.
+	 */
 	public void bfsTerritory(Territory territory, List<Territory> reachableTerrList) {
 
 		if (territory.isProcessed() == true) {
@@ -741,7 +747,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	}
 
 	/**
-	 * 
+	 * This method is used for fortification phase.
 	 */
 	private void fortifyArmy() {
 		playerModel.fortificationPhase(terrList, adjTerrList, map);

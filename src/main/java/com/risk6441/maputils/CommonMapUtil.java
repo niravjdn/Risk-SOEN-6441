@@ -41,8 +41,9 @@ public class CommonMapUtil {
 	}
 	
 	/**
-	 * @param n no till which you want to find  random no, 1 to n
-	 * @return random no from 1 to , including n
+	 * This method returns a number from 1 to n.
+	 * @param n no till which you want to find  random no
+	 * @return random no from 1 to n
 	 */
 	public static int getRandomNoFromOne(int n) {
 		return new Random().nextInt(n) + 1;

@@ -181,7 +181,7 @@ public class CardExchangeController implements Initializable{
 	}
 	
 	/**
-	 * 
+	 * This method is invoked if a trade is possible for the strategy.
 	 */
 	public void tradeIfPossibleForStrategy() {
 		doTrade();
@@ -193,7 +193,7 @@ public class CardExchangeController implements Initializable{
 		}
 	}
 	/**
-	 * 
+	 * This method is responsible for making the trade.
 	 */
 	private void doTrade() {
 		cardsOfPlayer = currentPlayer.getCardList();

@@ -41,8 +41,6 @@ public class Random implements IStrategy {
 			randomTerr.setArmy(randomTerr.getArmy() + army);
 			currentPlayer.setArmies(currentPlayer.getArmies()-army);
 			GameUtils.addTextToLog(army+" assigned to :"+randomTerr.getName()+"  by "+currentPlayer.getName()+"\n");
-			if(currentPlayer.getArmies() == 0)
-				break;
 			army = CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
 		}while (currentPlayer.getArmies() > 0);
 
@@ -94,7 +92,7 @@ public class Random implements IStrategy {
 
 	}
 
-	/* (non-Javadoc)
+	/* 
 	 * @see com.risk6441.strategy.IStrategy#fortificationPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, javafx.scene.control.TextArea, com.risk6441.entity.Player, com.risk6441.entity.Map)
 	 */
 	@Override
@@ -123,6 +121,11 @@ public class Random implements IStrategy {
 		return true;
 	}
 
+	/**
+	 * This method is responsible for finding a random territory.
+	 * @param items This is a list of all the territories.
+	 * @return territory which can be used for attack.
+	 */
 	private Territory getRandomTerritory(ObservableList<Territory> items) {
 		int temp = CommonMapUtil.getRandomNo(items.size()-1);
 		Territory t = (Territory) items.get(temp);

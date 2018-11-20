@@ -942,6 +942,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	private void disableGameControls() {
 		CommonMapUtil.disableControls(terrList, adjTerrList, btnReinforcement, btnFortify, btnNoMoreAttack, btnCards,
 				btnEndTurn, btnSaveGame);
+		btnNoMoreAttack.setDisable(true);
 		lblGamePhase.setText("GAME OVER");
 		setCurrentPlayerLabel(currentPlayer.getName().toUpperCase() + " WON THE GAME");
 		GameUtils.addTextToLog("=====================================================\n", txtAreaMsg);

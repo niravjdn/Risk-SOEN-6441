@@ -51,6 +51,10 @@ public class Territory implements Serializable{
 	 * @param army the army to set
 	 */
 	public void setArmy(int army) {
+		if(army > 5000) {
+			this.army = 5000;
+			return;
+		}
 		this.army = army;
 	}
 

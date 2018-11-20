@@ -39,6 +39,7 @@ public class Benevolent implements IStrategy {
 		currentPlayer.setArmies(0);
 		GameUtils.addTextToLog(
 				"===" + army + " assigned to : === \n" + territory + "  -- Player " + currentPlayer.getName() + "\n");
+		System.out.println("===" + army + " assigned to : === \n" + territory + "  -- Player " + currentPlayer.getName() + "\n");
 		GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n");
 
 	}

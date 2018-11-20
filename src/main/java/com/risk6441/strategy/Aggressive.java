@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.risk6441.config.Config;
 import com.risk6441.controller.DiceController;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
@@ -43,14 +44,14 @@ public class Aggressive implements IStrategy {
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer) {
 		System.out.println(currentPlayer.getName() + " - " + territoryList.size() + " - Terr List Szie");
-		List<Territory> maximumOponentTerr = sortAndGetStrongestTerr(territoryList);
-		territory = maximumOponentTerr.get(0);
+		List<Territory> stongTerrList = sortAndGetStrongestTerr(territoryList);
+		attackingTerr = stongTerrList.get(0);
 		int army = currentPlayer.getArmies();
-		territory.setArmy(territory.getArmy() + army);
+		attackingTerr.setArmy(attackingTerr.getArmy() + army);
 		currentPlayer.setArmies(0);
 		GameUtils.addTextToLog(
-				"===" + army + " assigned to : === \n" + territory + "  -- Player " + currentPlayer.getName() + "\n");
-		GameUtils.addTextToLog("======Reinforce Phase Completed. ===========\n");
+				"===" + army + " assigned to : === \n" + attackingTerr + "  -- Player " + currentPlayer.getName() + "\n");
+		GameUtils.addTextToLog("======Reinforcement Phase Completed. ===========\n");
 
 	}
 
@@ -64,9 +65,8 @@ public class Aggressive implements IStrategy {
 	 */
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			TextArea txtAreaMsg, List<Player> playerList) throws InvalidGameActionException {
+			List<Player> playerList) throws InvalidGameActionException {
 		this.playerModel = playerModel;
-
 //		attackingTerr = getAttackingTerritory(terrList.getItems());
 //		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
 //		for(Territory defTerr : defendingTerrList) {
@@ -78,39 +78,44 @@ public class Aggressive implements IStrategy {
 //			}
 //		}
 		// handle case in which attacking territory has 0 def terr
-		while (attackingTerr.getArmy() > 1 && playerList.size()>1) {
+		while (attackingTerr.getArmy() > 1 && (!Config.isGameOver) && playerList.size()>1) {
+			System.out.println("Playerlist size "+playerList.size());
 			List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
 			if (defendingTerrList.size() == 0) {
+				System.out.println("Defending Terr Size");
 				break;
 			} else {
 				for (Territory defTerr : defendingTerrList) {
 					GameUtils.addTextToLog("Army on defending " + defTerr.getArmy() + "\n");
 					GameUtils.addTextToLog(attackingTerr.getName() + "(" + attackingTerr.getPlayer().getName()
 							+ ") attacking on " + defTerr.getName() + "(" + defTerr.getPlayer().getName() + ")\n");
-					attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
+					attack(attackingTerr, defTerr, playerModel);
 					break;
 				}
 			}
+			
+			if(playerList.size()==1) {
+				break;
+			}
+			
 			attackingTerr = getAttackingTerritory(terrList.getItems());
 		}
 
-		goToNoMoreAttack();
+		goToNoMoreAttack(playerModel);
 	}
 
-	/**
-	 * 
-	 */
-	private void goToNoMoreAttack() {
+	private void goToNoMoreAttack(PlayerModel playerModel2) {
 		playerModel.noMoreAttack();
 	}
 
 	/**
-	 * @param attackingTerr
-	 * @param defTerr
-	 * @param playerModel
-	 * @param txtAreaMsg
+	 * This method perform attacks from attacking territory to defending territory.
+	 * @param attackingTerr Attacking Territory
+	 * @param defTerr Defending Territory
+	 * @param playerModel object of {@link PlayerModel}
 	 */
-	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel, TextArea txtAreaMsg) {
+	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel) {
+		this.playerModel = playerModel;
 		diceModel = new DiceModel(attackingTerr, defTerr);
 		if (playerModel != null) {
 			diceModel.addObserver(playerModel);
@@ -204,7 +209,7 @@ public class Aggressive implements IStrategy {
 	 */
 	private Territory getAttackingTerritory(ObservableList<Territory> terrList) {
 		List<Territory> sortedListFromMaxAdjacent = sortAndGetStrongestTerr(terrList);
-		if (attackingTerr == null || (!attackingTerr.equals(sortedListFromMaxAdjacent.get(0)))) {
+		if (attackingTerr == null || (!attackingTerr.equals(sortedListFromMaxAdjacent.get(0))) || attackingTerr.getArmy()<2) {
 			for (Territory t : sortedListFromMaxAdjacent) {
 				if (t.getArmy() > 1) {
 					attackingTerr = t;

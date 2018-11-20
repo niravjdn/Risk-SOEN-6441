@@ -20,14 +20,33 @@ import javafx.scene.control.TextArea;
 
 public interface IStrategy extends Serializable{
 	
+	/**
+	 * @param territoryList
+	 * @param territory
+	 * @param currentPlayer
+	 */
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer);
 	
 	
+	/**
+	 * @param terrList listview of territory which belons to player
+	 * @param adjTerrList adjacent territory listview for a particular territory
+	 * @param playerModel object of {@link PlayerModel} 
+	 * @param playerList list of players
+	 * @throws InvalidGameActionException throws InvalidGameActionException if move is not valid
+	 */
 	void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
-			PlayerModel playerModel, TextArea txtAreaMsg, List<Player> playerList) throws InvalidGameActionException;
+			PlayerModel playerModel, List<Player> playerList) throws InvalidGameActionException;
 	
 
+	/**
+	 * @param selectedTerritory
+	 * @param adjTerritory
+	 * @param currentPlayer
+	 * @param map
+	 * @return
+	 */
 	boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory, Player currentPlayer, Map map);
 	
 	
@@ -57,6 +76,10 @@ public interface IStrategy extends Serializable{
 		return isValidAttackMove;
 	}
 	
+	/**
+	 * @param terr
+	 * @return
+	 */
 	default public List<Territory> getDefendingTerr(Territory terr) {
 		List<Territory> defTerrList = terr.getAdjacentTerritories().stream()
 				.filter(t -> (terr.getPlayer() != t.getPlayer())).collect(Collectors.toList());

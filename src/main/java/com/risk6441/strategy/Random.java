@@ -52,8 +52,8 @@ public class Random implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#attackPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, com.risk6441.models.PlayerModel, javafx.scene.control.TextArea)
 	 */
 	@Override
-	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			TextArea txtAreaMsg, List<Player> playerList) throws InvalidGameActionException {
+	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel
+			, List<Player> playerList) throws InvalidGameActionException {
 		this.playerModel = playerModel;
 		attackingTerr = getRandomTerritory(terrList.getItems());
 		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
@@ -64,7 +64,7 @@ public class Random implements IStrategy {
 			for(Territory defTerr : defendingTerrList) {
 				if (attackingTerr.getArmy() > 1 ) {
 					GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
-					attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
+					attack(attackingTerr, defTerr, playerModel);
 					break;
 				}
 			}
@@ -77,7 +77,13 @@ public class Random implements IStrategy {
 	}
 
 	
-	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel, TextArea txtAreaMsg) {
+	/**
+	 * This method perform attacks from attacking territory to defending territory.
+	 * @param attackingTerr Attacking Territory
+	 * @param defTerr Defending Territory
+	 * @param playerModel object of {@link PlayerModel}
+	 */
+	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel) {
 		diceModel = new DiceModel(attackingTerr, defTerr);
 		if (playerModel != null) {
 			diceModel.addObserver(playerModel);

@@ -36,4 +36,9 @@ public class Config {
 	 */
 	public static final Integer ARMIES_SIX_PLAYER = 20;
 	
+	/**
+	 * The isGameOver
+	 */
+	public static boolean isGameOver = false;
+	
 }

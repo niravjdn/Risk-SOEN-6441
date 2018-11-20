@@ -77,7 +77,7 @@ public class Human implements IStrategy {
 	 */
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			TextArea txtAreaMsg, List<Player> playerList) throws InvalidGameActionException {
+			List<Player> playerList) throws InvalidGameActionException {
 		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
 		Territory defendingTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 		if (attackingTerritory != null && defendingTerritory != null) {

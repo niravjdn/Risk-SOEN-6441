@@ -932,7 +932,6 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	private boolean checkIfPlayerWonTheGame() {
 		boolean isGameOver = false;
 		if (playerList.size() == 1) {
-			Config.isGameOver = true;
 			CommonMapUtil.alertBox("Info", "Player: " + playerList.get(0).getName() + " won the game!", "");
 			isGameOver = true;
 			refreshList();
@@ -1018,6 +1017,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		} else if (str.equals("oneAttackDoneForCheater")) {
 			checkIfAnyPlayerLostTheMatch();
 			checkIfPlayerWonTheGame();
+		}else if (str.equals("disableGameControls")) {
+			disableGameControls();
 		}
 	}
 

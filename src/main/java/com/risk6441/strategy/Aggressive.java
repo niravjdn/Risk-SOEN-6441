@@ -46,13 +46,12 @@ public class Aggressive implements IStrategy {
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, Player currentPlayer) {
 		System.out.println(currentPlayer.getName() + " - " + territoryList.size() + " - Terr List Size");
 		numOfAttack = 0;
-		if (attackingTerr == null) {
-			List<Territory> stongTerrAccDefTerrList = sortAndGetMaxDefendingTerr(territoryList);
-			attackingTerr = stongTerrAccDefTerrList.get(0);	
-		}else{
-			List<Territory> stongTerrList = sortAndGetStrongestTerr(territoryList);
-			attackingTerr = stongTerrList.get(0);	
+		if(attackingTerr == null) { //first reinforce
+			attackingTerr = sortAndGetMaxDefendingTerr(territoryList).get(0);
+		}else {
+			attackingTerr = getAttackingTerritory(territoryList);	
 		}
+		
 		
 		int army = currentPlayer.getArmies();
 		attackingTerr.setArmy(attackingTerr.getArmy() + army);
@@ -94,6 +93,10 @@ public class Aggressive implements IStrategy {
 //			}
 //		}
 		// handle case in which attacking territory has 0 def terr
+		System.out.println(attackingTerr.getArmy() > 1 );
+		System.out.println((!Config.isGameOver));
+		System.out.println(playerList.size() > 1);
+		System.out.println(attackingTerr.getArmy() > 1 && playerList.size() > 1);
 		while (attackingTerr.getArmy() > 1 && (!Config.isGameOver) && playerList.size() > 1) {
 			System.out.println("Playerlist size " + playerList.size());
 			List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
@@ -118,10 +121,10 @@ public class Aggressive implements IStrategy {
 			attackingTerr = getAttackingTerritory(terrList.getItems());
 		}
 
-		goToNoMoreAttack(playerModel);
+		goToNoMoreAttack();
 	}
 
-	private void goToNoMoreAttack(PlayerModel playerModel2) {
+	private void goToNoMoreAttack() {
 		playerModel.noMoreAttack();
 	}
 

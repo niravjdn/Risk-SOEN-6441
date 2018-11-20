@@ -235,6 +235,11 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 */
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
 			throws InvalidGameActionException {
+		if(playerList.size()==1) {
+			setChanged();
+			notifyObservers("disableGameControls");
+			return;
+		}
 		currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this, playerList);
 		
 		if ((currentPlayer.getStrategy() instanceof Cheater

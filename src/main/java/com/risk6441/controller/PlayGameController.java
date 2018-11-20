@@ -319,13 +319,15 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * This method Allocate cards to player
 	 */
 	private void allocateCardToPlayer() {
+		System.out.println("Allocating Cards to Player");
 		try {
 			Card card = stackOfCards.pop();
 			currentPlayer.getCardList().add(card);
 			GameUtils.addTextToLog(
 					currentPlayer.getName() + " has been assigned a card with type " + card.getCardKind().toString()
-							+ " and territory " + card.getTerritoryToWhichCardBelong().getName() + "\n",
-					txtAreaMsg);
+							+ " and territory " + card.getTerritoryToWhichCardBelong().getName() + "\n");
+			System.out.println(currentPlayer.getName() + " has been assigned a card with type " + card.getCardKind().toString()
+							+ " and territory " + card.getTerritoryToWhichCardBelong().getName() + "\n");
 		} catch (Exception e) {
 			// e.printStackTrace();
 		}
@@ -764,6 +766,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		GameUtils.addTextToLog(currentPlayer.getName() + " does not have any armies for fortification.\n", txtAreaMsg);
 		GameUtils.addTextToLog("Fortification phase has been ended.\n", txtAreaMsg);
 		setPhase("Phase : Reinforcement");
+		if(playerModel.getNumOfTerritoryWon()>0) {
+			allocateCardToPlayer();
+		}
 		initializeReinforcement(false);
 	}
 
@@ -862,6 +867,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 		if (!checkIfPlayerWonTheGame()) {
 			if (playerModel.hasaAValidAttackMove(terrList, txtAreaMsg)) {
+				if (playerModel.getNumOfTerritoryWon() > 0) {
+					allocateCardToPlayer();
+				}
 				if ((currentPlayer.getStrategy() instanceof Aggressive) && false) {
 					if (attackCount > 0) {
 						attackCount--;

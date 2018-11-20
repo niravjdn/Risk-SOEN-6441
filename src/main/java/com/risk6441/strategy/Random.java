@@ -41,6 +41,8 @@ public class Random implements IStrategy {
 			randomTerr.setArmy(randomTerr.getArmy() + army);
 			currentPlayer.setArmies(currentPlayer.getArmies()-army);
 			GameUtils.addTextToLog(army+" assigned to :"+randomTerr.getName()+"  by "+currentPlayer.getName()+"\n");
+			if(currentPlayer.getArmies() == 0)
+				break;
 			army = CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
 		}while (currentPlayer.getArmies() > 0);
 

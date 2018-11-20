@@ -279,6 +279,8 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 		for (Player player : playerList) {
 			if (player.getAssignedTerritory().isEmpty()) {
 				playerLost = player;
+				GameUtils.addTextToLog(currentPlayer.getName()+ " Got "+playerLost.getCardList().size()+" cards from "+playerLost.getName()+"\n");
+				System.out.println(currentPlayer.getName()+ " Got "+playerLost.getCardList().size()+" cards from "+playerLost.getName()+"\n");
 				currentPlayer.getCardList().addAll(playerLost.getCardList());
 			}
 		}

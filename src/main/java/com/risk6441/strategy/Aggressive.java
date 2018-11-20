@@ -32,7 +32,9 @@ public class Aggressive implements IStrategy {
 	private Territory attackingTerr;
 	private PlayerModel playerModel;
 	private DiceModel diceModel;
-
+	private int numOfAttack = 0;
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -43,7 +45,7 @@ public class Aggressive implements IStrategy {
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, Player currentPlayer) {
 		System.out.println(currentPlayer.getName() + " - " + territoryList.size() + " - Terr List Size");
-		
+		numOfAttack = 0;
 		if (attackingTerr == null) {
 			List<Territory> stongTerrAccDefTerrList = sortAndGetMaxDefendingTerr(territoryList);
 			attackingTerr = stongTerrAccDefTerrList.get(0);	
@@ -57,7 +59,13 @@ public class Aggressive implements IStrategy {
 		currentPlayer.setArmies(0);
 		GameUtils.addTextToLog("===" + army + " assigned to : === \n" + attackingTerr + "  -- Player "
 				+ currentPlayer.getName() + "\n");
+		System.out.println("===" + army + " assigned to : === \n" + attackingTerr + "  -- Player "
+				+ currentPlayer.getName() + "\n");
 		GameUtils.addTextToLog("======Reinforcement Phase Completed. ===========\n");
+		
+		for(Territory t : getDefendingTerr(attackingTerr)) {
+			System.out.println(t.getName()+ " adjacent");
+		}
 
 	}
 
@@ -72,6 +80,7 @@ public class Aggressive implements IStrategy {
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
 			List<Player> playerList) throws InvalidGameActionException {
+		System.out.println("Inside attackpahse aggressive");
 		this.playerModel = playerModel;
 		this.diceModel = null;
 //		attackingTerr = getAttackingTerritory(terrList.getItems());
@@ -89,9 +98,10 @@ public class Aggressive implements IStrategy {
 			System.out.println("Playerlist size " + playerList.size());
 			List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
 			if (defendingTerrList.size() == 0) {
-				System.out.println("Defending Terr Size");
+				System.out.println("Defending Terr Size 0");
 				break;
 			} else {
+				System.out.println("Inside else attackphase");
 				for (Territory defTerr : defendingTerrList) {
 					GameUtils.addTextToLog("Army on defending " + defTerr.getArmy() + "\n");
 					GameUtils.addTextToLog(attackingTerr.getName() + "(" + attackingTerr.getPlayer().getName()
@@ -128,7 +138,7 @@ public class Aggressive implements IStrategy {
 		if (playerModel != null) {
 			diceModel.addObserver(playerModel);
 		}
-
+		numOfAttack++;
 		DiceController diceController = new DiceController(diceModel, this);
 		diceController.loadDiceControllerForStrategy();
 
@@ -145,10 +155,11 @@ public class Aggressive implements IStrategy {
 	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerritory,
 			Player currentPlayer, Map map) {
 		System.out.println(terrList.getItems().size() + "------ size");
-		if (diceModel != null && diceModel.getNumOfTerritoriesWon() == 0) {
+		if (numOfAttack<1) {
 			System.out.println("Territory Won 0");
 			List<Territory> sortedMaxarmyTerr = sortAndGetStrongestTerr(terrList.getItems());
 			for (Territory strongTerr : sortedMaxarmyTerr) {
+				System.out.println("Strong Terr "+strongTerr);
 				if (strongTerr.getArmy() < 2) {
 					return false;
 				}
@@ -157,6 +168,8 @@ public class Aggressive implements IStrategy {
 
 				for (Territory targetTerr : adjTerrList) {
 					GameUtils.addTextToLog((strongTerr.getArmy() - 1) + " Armies Moved From " + strongTerr.getName()
+							+ " to " + targetTerr.getName());
+					System.out.println((strongTerr.getArmy() - 1) + " Armies Moved From " + strongTerr.getName()
 							+ " to " + targetTerr.getName());
 					targetTerr.setArmy(targetTerr.getArmy() + strongTerr.getArmy() - 1);
 					strongTerr.setArmy(1);
@@ -269,9 +282,10 @@ public class Aggressive implements IStrategy {
 			 */
 			@Override
 			public int compare(Territory t1, Territory t2) {
-				return Integer.valueOf(getDefendingTerr(t2).size()).compareTo(getDefendingTerr(t1).size());
+				return Integer.valueOf(getDefendingTerr(t2).size())- (getDefendingTerr(t1).size());
 			}
 		});
 		return territoryList;
 	}
+	
 }

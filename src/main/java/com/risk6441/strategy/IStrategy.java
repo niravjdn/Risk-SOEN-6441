@@ -21,15 +21,17 @@ import javafx.scene.control.TextArea;
 public interface IStrategy extends Serializable{
 	
 	/**
-	 * @param territoryList
-	 * @param territory
-	 * @param currentPlayer
+	 * This method is responsible for reinforcement phase.
+	 * @param territoryList Territory list
+	 * @param territory Selected territory.
+	 * @param currentPlayer Current player.
 	 */
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer);
 	
 	
 	/**
+	 * This method implements the attack phase of the strategy.
 	 * @param terrList listview of territory which belons to player
 	 * @param adjTerrList adjacent territory listview for a particular territory
 	 * @param playerModel object of {@link PlayerModel} 
@@ -41,6 +43,7 @@ public interface IStrategy extends Serializable{
 	
 
 	/**
+	 * This method implements the fortification phase of the strategy.
 	 * @param selectedTerritory
 	 * @param adjTerritory
 	 * @param currentPlayer
@@ -77,8 +80,9 @@ public interface IStrategy extends Serializable{
 	}
 	
 	/**
-	 * @param terr
-	 * @return
+	 * This method gives the defending territories for given territory.
+	 * @param terr Selected territory
+	 * @return List of defending territories.
 	 */
 	default public List<Territory> getDefendingTerr(Territory terr) {
 		List<Territory> defTerrList = terr.getAdjacentTerritories().stream()

@@ -124,6 +124,9 @@ public class Aggressive implements IStrategy {
 		goToNoMoreAttack();
 	}
 
+	/**
+	 * This method ends the current player's attack.
+	 */
 	private void goToNoMoreAttack() {
 		playerModel.noMoreAttack();
 	}

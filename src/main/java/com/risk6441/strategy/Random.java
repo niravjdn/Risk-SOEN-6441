@@ -57,7 +57,7 @@ public class Random implements IStrategy {
 		this.playerModel = playerModel;
 		attackingTerr = getRandomTerritory(terrList.getItems());
 		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
-		if(defendingTerrList.size()<1)
+		if(defendingTerrList.size()<1||hasAValidAttackMove(terrList)==false)
 			goToNoMoreAttack();
 		else
 		{
@@ -139,7 +139,5 @@ public class Random implements IStrategy {
 			
 		return t;
 	}
-
-
 	
 }

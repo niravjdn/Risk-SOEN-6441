@@ -41,6 +41,10 @@ public class GameUtils {
 		Platform.runLater(() -> txtAreaMsg.appendText(str));
 	}
 	
+	/**
+	 * This method writes a log in textArea.
+	 * @param str String to be written in textArea.
+	 */
 	public static void addTextToLog(String str) {
 		Platform.runLater(() -> txtMsgArea.appendText(str));
 	}
@@ -211,8 +215,11 @@ public class GameUtils {
 	}
 
 	/**
-	 * @param map
-	 * @return
+	 * This method gives the list of adjacent territories for fortification.
+	 * @param territory Territory whose adjacent territories need to be found.
+	 * @param map The current map.
+	 * @param currentPlayer The object of current player.
+	 * @return list of territories.
 	 */
 	public static List<Territory> getAdjTerrForFortifiction(Territory territory,Map map,Player currentPlayer) {
 		
@@ -227,6 +234,13 @@ public class GameUtils {
 		return reachableTerrList;
 	}
 	
+	/**
+	 * This method checks whether all the territories are traversed.
+	 * @param territory Start territory.
+	 * @param reachableTerrList All reachable territories from the start territory.
+	 * @param root The root territory.
+	 * @param currentPlayer The object of current player.
+	 */
 	public static  void bfsTerritory(Territory territory, List<Territory> reachableTerrList, Territory root, Player currentPlayer) {
 
 		if(territory.isProcessed() == true) {

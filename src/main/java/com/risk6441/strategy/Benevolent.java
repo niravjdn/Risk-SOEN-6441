@@ -78,6 +78,7 @@ public class Benevolent implements IStrategy {
 
 	
 	/**
+	 * This method returns list of weakest territories.
 	 * @param territoryList list of territories which belong to player
 	 * @return return list of territory in sorted order .... with minOpp Territory at Top
 	 */

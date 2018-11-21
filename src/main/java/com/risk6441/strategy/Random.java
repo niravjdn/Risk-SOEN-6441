@@ -117,7 +117,10 @@ public class Random implements IStrategy {
 		Territory toTerr = null;
 		if(size == 1) {
 			toTerr = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).get(0);
-		}else {
+		}
+		else if(size==0)
+			return false;
+		else {
 			toTerr = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).get(CommonMapUtil.getRandomNo(size-1));
 		}
 		GameUtils.addTextToLog((frmTerr.getArmy()-1)+" Armies Moved From "+frmTerr.getName()+" to "+toTerr.getName());

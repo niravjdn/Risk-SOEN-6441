@@ -29,6 +29,8 @@ public class Random implements IStrategy {
 	private PlayerModel playerModel;
 	private DiceModel diceModel;
 	private Player currentPlayer = null;
+	private int numOfAttack = 0;
+	
 	/* (non-Javadoc)
 	 * @see com.risk6441.strategy.IStrategy#reinforcementPhase(javafx.collections.ObservableList, com.risk6441.entity.Territory, javafx.scene.control.TextArea, com.risk6441.entity.Player)
 	 */
@@ -84,11 +86,12 @@ public class Random implements IStrategy {
 	 * @param playerModel object of {@link PlayerModel}
 	 */
 	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel) {
+		this.playerModel = playerModel;
 		diceModel = new DiceModel(attackingTerr, defTerr);
 		if (playerModel != null) {
 			diceModel.addObserver(playerModel);
 		}
-
+		numOfAttack++;
 		DiceController diceController = new DiceController(diceModel, this);
 		diceController.loadDiceControllerForStrategy();
 

@@ -14,8 +14,8 @@ public class GameUIState implements Serializable{
 	/**
 	 * The serial ID
 	 */
-	private static final long serialVersionUID = 3014497401525436669L;
-	
+	private static final long serialVersionUID = -6641154801276082499L;
+
 	public boolean isPlaceArmyEnable = false;
 	
 	public boolean isReinforcemetnEnable = false;
@@ -27,5 +27,7 @@ public class GameUIState implements Serializable{
 	public boolean isFortificationEnable = false;
 	
 	public boolean isEndTurnEnable = false;
+
+	public boolean choiceBoxNoOfPlayer = false;
 	
 }

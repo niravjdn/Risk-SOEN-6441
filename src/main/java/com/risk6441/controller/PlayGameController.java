@@ -603,6 +603,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 		if (state.isPlaceArmyEnable)
 			CommonMapUtil.enableControls(btnPlaceArmy);
+		
+		if (state.choiceBoxNoOfPlayer)
+			CommonMapUtil.enableControls(choiceBoxNoOfPlayer);
 
 		if (state.isReinforcemetnEnable)
 			CommonMapUtil.enableControls(btnReinforcement);
@@ -1124,10 +1127,14 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		out.writeObject(stackOfCards);
 		out.writeObject(playerList);
 
-		GameUIState state = new GameUIState();
+		state = new GameUIState();
 
 		if (!btnPlaceArmy.isDisabled()) {
 			state.isPlaceArmyEnable = true;
+		}
+		
+		if (!choiceBoxNoOfPlayer.isDisabled()) {
+			state.choiceBoxNoOfPlayer = true;
 		}
 
 		if (!btnReinforcement.isDisabled()) {

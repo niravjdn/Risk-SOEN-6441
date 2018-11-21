@@ -17,7 +17,6 @@ import com.risk6441.models.PlayerModel;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 
 /**
  * @author Nirav
@@ -59,8 +58,9 @@ public class Random implements IStrategy {
 		this.playerModel = playerModel;
 		attackingTerr = getRandomTerritory(terrList.getItems());
 		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
-		if(defendingTerrList.size()<1||hasAValidAttackMove(terrList)==false)
-			goToNoMoreAttack();
+		if(defendingTerrList.size()<1||hasAValidAttackMove(terrList)==false) {
+			goToNoMoreAttack();			
+		}
 		else
 		{
 			for(Territory defTerr : defendingTerrList) {

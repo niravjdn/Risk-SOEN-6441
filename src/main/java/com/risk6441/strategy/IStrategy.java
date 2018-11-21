@@ -69,6 +69,7 @@ public interface IStrategy extends Serializable{
 		for (Territory territory : territories.getItems()) {
 			if (territory.getArmy() > 1 && getDefendingTerr(territory).size() > 0) {
 				isValidAttackMove = true;
+				return isValidAttackMove;
 			}
 		}
 		if (!isValidAttackMove) {

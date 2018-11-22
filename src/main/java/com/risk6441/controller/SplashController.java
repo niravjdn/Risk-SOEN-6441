@@ -44,6 +44,9 @@ public class SplashController {
     private Button btnLoadGame;
     
     @FXML
+    private Button btnTournament;
+    
+    @FXML
     private Button btnExit;
     /**
      * This method handles the case when user clicks the exist button
@@ -169,4 +172,30 @@ public class SplashController {
     	
     }
 
+    @FXML
+    void openTournament(ActionEvent event) {
+
+	Stage primaryStage = (Stage) btnExit.getScene().getWindow();
+    	
+    	TournamentController controller = new TournamentController();
+    	
+    	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("tournament.fxml"));
+		loader.setController(controller);
+		
+		Parent root = null;
+		try {
+			root = (Parent) loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Stage stage = new Stage();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+    	stage.setX(primaryStage.getX() + 200);
+    	stage.setY(primaryStage.getY() + 200);
+		stage.show();
+    	
+    
+    }
 }

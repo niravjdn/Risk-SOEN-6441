@@ -32,7 +32,7 @@ import com.risk6441.exception.InvalidMapException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.models.CardModel;
-import com.risk6441.models.GameUIState;
+import com.risk6441.models.GameUIStateModel;
 import com.risk6441.models.PlayerModel;
 import com.risk6441.models.WorldDominationModel;
 import com.risk6441.strategy.Aggressive;
@@ -150,7 +150,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 	private String lblPlayerString;
 
-	private GameUIState state;
+	private GameUIStateModel state;
 
 	private int attackCount = 5;
 
@@ -1127,7 +1127,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		out.writeObject(stackOfCards);
 		out.writeObject(playerList);
 
-		state = new GameUIState();
+		state = new GameUIStateModel();
 
 		if (!btnPlaceArmy.isDisabled()) {
 			state.isPlaceArmyEnable = true;
@@ -1186,7 +1186,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 		// playerList = (ArrayList<Player>) in.readObject();
 
-		state = (GameUIState) in.readObject();
+		state = (GameUIStateModel) in.readObject();
 
 		txtMsgAreaTxt = (String) in.readObject();
 		phaseOfTheGame = (String) in.readObject();

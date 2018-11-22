@@ -51,7 +51,7 @@ public class GameUtilsTest {
 	List<Continent> listOfContinents = new ArrayList<>();	
 	List<Territory> listOfTerritories = new ArrayList<>();
 	static List<Player> playerList;
-	String mapAuthor = "Robert";
+	String mapAuthor = "Arthur";
 	String mapImage = "world.map";
 	String mapWrap = "no";
 	String mapScroll = "horizontal";
@@ -109,8 +109,8 @@ public class GameUtilsTest {
 	 */
 	@Test
 	public void testAssignCardToTerritory() {
-		Stack<Card> stackOfCards = GameUtils.allocateCardToTerritory(map);
-		Assert.assertNotNull(stackOfCards);		
+		Stack<Card> cardStacks = GameUtils.allocateCardToTerritory(map);
+		Assert.assertNotNull(cardStacks);		
 	}
 	
 	

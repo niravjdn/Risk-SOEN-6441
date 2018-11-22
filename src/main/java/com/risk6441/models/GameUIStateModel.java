@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Nirav
  *
  */
-public class GameUIState implements Serializable{
+public class GameUIStateModel implements Serializable{
 
 	/**
 	 * The serial ID

@@ -281,7 +281,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 	/**
 	 * This method is used for reinforcement of army.
-	 * @param territory The selected territory where the reinforcement is done.
+	 * @param territory The selected territory where the reinforcement is to be done.
 	 */
 	private void reinforceArmy(Territory territory) {
 		playerModel.reinforcementPhase(territory, terrList.getItems(), txtAreaMsg);
@@ -294,9 +294,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 	/**
 	 * This method is responsible for ending attack phase and providing
-	 * notification.
+	 * the notification.
 	 * 
-	 * @param event event button click event will be passed as parameter
+	 * @param event event button click event will be passed as a parameter
 	 */
 	@FXML
 	void noMoreAttack(ActionEvent event) {

@@ -230,7 +230,7 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * This method is to implement attack phase.
 	 * @param terrList attacking territory.
 	 * @param adjTerrList defending territory.
-	 * @param txtAreaMsg 
+	 * @param txtAreaMsg  text area message
 	 * @throws InvalidGameActionException Throws invalid game exception.
 	 */
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
@@ -298,9 +298,10 @@ public class PlayerModel extends Observable implements Observer,Serializable{
 	 * 
 	 * @param territory
 	 *            territory Object
-	 * @param observableList 
+	 * @param terrList
+	 * 			terrlist 
 	 * @param txtAreaMsg
-	 *            the Game Console
+	 *            the txt area
 	 */
 	public void reinforcementPhase(Territory territory, ObservableList<Territory> terrList, TextArea txtAreaMsg) {
 		currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer);

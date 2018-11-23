@@ -14,6 +14,7 @@ import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidMapException;
+import com.sun.javafx.application.PlatformImpl;
 
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -46,7 +47,7 @@ public class GameUtils {
 	 * @param str String to be written in textArea.
 	 */
 	public static void addTextToLog(String str) {
-		Platform.runLater(() -> txtMsgArea.appendText(str));
+		Platform.runLater(() -> txtMsgArea.appendText(str));	
 	}
 	
 	/**

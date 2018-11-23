@@ -82,21 +82,12 @@ public class Aggressive implements IStrategy {
 		System.out.println("Inside attackpahse aggressive");
 		this.playerModel = playerModel;
 		this.diceModel = null;
-//		attackingTerr = getAttackingTerritory(terrList.getItems());
-//		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
-//		for(Territory defTerr : defendingTerrList) {
-//			if (attackingTerr.getArmy() > 1) {
-//				GameUtils.addTextToLog("Army on defending "+defTerr.getArmy()+"\n");
-//				GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr.getName()+"("+defTerr.getPlayer().getName()+")\n");
-//				attack(attackingTerr, defTerr, playerModel, txtAreaMsg);
-//				break;
-//			}
-//		}
-		// handle case in which attacking territory has 0 def terr
+
 		System.out.println(attackingTerr.getArmy() > 1 );
 		System.out.println((!Config.isGameOver));
 		System.out.println(playerList.size() > 1);
 		System.out.println(attackingTerr.getArmy() > 1 && playerList.size() > 1);
+		
 		while (attackingTerr.getArmy() > 1 && (!Config.isGameOver) && playerList.size() > 1) {
 			System.out.println("Playerlist size " + playerList.size());
 			List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);

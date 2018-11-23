@@ -18,7 +18,7 @@ import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.models.PlayerModel;
 
-//import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ListView;
@@ -39,12 +39,21 @@ public class AggressiveTest {
 	static Territory terr1;
 	static Territory terr2;
 	static Territory adjTerritory;
-	static ArrayList<Territory> list1;
+	static ArrayList<Territory> terrList;
+	static ArrayList<Territory> adjTerrList;
 	int x1=1;
 	int y1=1;
 	int x2=2;
 	int y2=2;
 	static Player player;
+	
+	@FXML
+	static ListView<Territory> list1;
+	
+	@FXML
+	static ListView<Territory> list2;
+	
+	static JFXPanel fxPanel;
 	
 	List<Continent> listOfContinents = new ArrayList<>();	
 	List<Territory> listOfTerritories = new ArrayList<>();
@@ -65,9 +74,12 @@ public class AggressiveTest {
 		terr2 = new Territory();
 		map = new Map();
 		player = new Player(1, "Krishna");
-		list1=new ArrayList<Territory>();
-		
+		terrList=new ArrayList<Territory>();
+		adjTerrList=new ArrayList<Territory>();
 		playerList =new ArrayList<Player>();
+		fxPanel = new JFXPanel();
+		list1=new ListView<Territory>();
+		list2=new ListView<Territory>();
 	}
 	
 	/**
@@ -78,6 +90,8 @@ public class AggressiveTest {
 		map = new Map();
 		listOfContinents = new ArrayList<>();	
 		listOfTerritories = new ArrayList<>();
+		
+	
 		
 		continent.setName(continentName);
 		continent.setValue(controlValue1);
@@ -103,9 +117,11 @@ public class AggressiveTest {
 		terr3.setPlayer(new Player(2, "Player 2"));
 		
 		
-		ArrayList<Territory> terrList = new ArrayList<Territory>();
+		
 		terrList.add(terr1);
 		terrList.add(terr2);
+		
+		adjTerrList.add(terr3);
 		continent.setTerritories(terrList);
 		
 		listOfContinents.add(continent);
@@ -118,18 +134,29 @@ public class AggressiveTest {
 		player.setAssignedTerritory(listOfTerritories);
 		playerList.add(player);
 		
-//		list1.setEditable(true);
-//		list1.getItems().add(terr1);
-//		list1.getItems().add(terr2);
+		list1.setEditable(true);
+		list1.getItems().add(terr1);
+		list1.getItems().add(terr2);
+		
+		list2.setEditable(true);
+		list2.getItems().add(terr3);
+
 	}
 	
 	@Test public void testHasAValidAttackMove()
 	{
 		terr1.setArmy(5);
 		terr2.setArmy(3);
-		terr1.getPlayer().setStrategy(new Human());
+		terr1.getPlayer().setStrategy(new Aggressive());
+		Assert.assertTrue(player.getStrategy().hasAValidAttackMove(terrList));
+	}
+	
+	@Test public void testFortificationPhase()
+	{
+		terr1.setArmy(5);
+		terr2.setArmy(3);
+		terr1.getPlayer().setStrategy(new Aggressive());
+		Assert.assertTrue(player.getStrategy().fortificationPhase(list1, list2, player, map, terrList, adjTerrList));
 		
-		boolean y=aggressive.hasAValidAttackMove(list1);
-		Assert.assertTrue(y);
 	}
 }

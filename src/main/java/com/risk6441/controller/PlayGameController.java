@@ -877,6 +877,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 		if (checkIfPlayerWonTheGame()) {
 			GameUtils.addTextToLog("Game Over"+"\n");
+		}else if(currentPlayer.getStrategy() instanceof Human) {
+			ArrayList<Territory> terrArList = new ArrayList<>(terrList.getItems());
+			playerModel.hasaAValidAttackMove(terrArList);
 		}
 	}
 

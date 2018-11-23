@@ -223,7 +223,11 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * 
 	 * @param terrList    attacking territory.
 	 * @param adjTerrList defending territory.
+<<<<<<< HEAD
 	 * @param txtAreaMsg
+=======
+	 * @param txtAreaMsg  text area message
+>>>>>>> 5aef304c824196e633b021ce35b3dcb0d035bd29
 	 * @throws InvalidGameActionException Throws invalid game exception.
 	 */
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
@@ -317,9 +321,18 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	/**
 	 * Reinforcement Phase
 	 * 
+<<<<<<< HEAD
 	 * @param territory      territory Object
 	 * @param observableList
 	 * @param txtAreaMsg     the Game Console
+=======
+	 * @param territory
+	 *            territory Object
+	 * @param terrList
+	 * 			terrlist 
+	 * @param txtAreaMsg
+	 *            the txt area
+>>>>>>> 5aef304c824196e633b021ce35b3dcb0d035bd29
 	 */
 	public void reinforcementPhase(Territory territory, ObservableList<Territory> terrList, TextArea txtAreaMsg) {
 		// Run the task in a background thread

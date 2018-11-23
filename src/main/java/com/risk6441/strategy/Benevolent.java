@@ -31,8 +31,8 @@ public class Benevolent implements IStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
-			Player currentPlayer) {
-		List<Territory> maximumOponentTerr = sortAndGetWeakestTerr(territoryList);
+			Player currentPlayer,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
+		List<Territory> maximumOponentTerr = sortAndGetWeakestTerr(terrArList);
 		territory = maximumOponentTerr.get(0);
 		int army = currentPlayer.getArmies();
 		territory.setArmy(territory.getArmy() + army);
@@ -50,7 +50,7 @@ public class Benevolent implements IStrategy {
 	 */
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			List<Player> playerList)  {
+			List<Player> playerList,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList)  {
 		// Benevolent Player does not attack
 		
 	}
@@ -61,7 +61,7 @@ public class Benevolent implements IStrategy {
 	@Override
 	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
 			Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
-		List<Territory> sortedMinAdjTerr = sortAndGetWeakestTerr(terrList.getItems());
+		List<Territory> sortedMinAdjTerr = sortAndGetWeakestTerr(terrArList);
 		for (Territory weakTerr : sortedMinAdjTerr) {
 			for(Territory adjTerr : weakTerr.getAdjacentTerritories()) {
 				if (adjTerr.getArmy() > 1) {
@@ -82,7 +82,7 @@ public class Benevolent implements IStrategy {
 	 * @param territoryList list of territories which belong to player
 	 * @return return list of territory in sorted order .... with minOpp Territory at Top
 	 */
-	private List<Territory> sortAndGetWeakestTerr(ObservableList<Territory> territoryList) {
+	private List<Territory> sortAndGetWeakestTerr(ArrayList<Territory> territoryList) {
 		Collections.sort(territoryList, new Comparator<Territory>() {
 			
 			/* (non-Javadoc)

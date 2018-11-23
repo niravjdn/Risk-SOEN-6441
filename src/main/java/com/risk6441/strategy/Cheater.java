@@ -3,6 +3,7 @@
  */
 package com.risk6441.strategy;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +16,7 @@ import com.risk6441.exception.InvalidGameActionException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.models.PlayerModel;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -31,7 +33,7 @@ public class Cheater extends Observable implements IStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
-			Player currentPlayer) {
+			Player currentPlayer,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		
 		for(Territory terr : territoryList) {
 			terr.setArmy(terr.getArmy() * 2);
@@ -44,12 +46,11 @@ public class Cheater extends Observable implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#attackPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, com.risk6441.models.PlayerModel, javafx.scene.control.TextArea)
 	 */
 	@Override
-	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			List<Player> playerList) throws InvalidGameActionException {
+	public void attackPhase(ListView<Territory> terrList1, ListView<Territory> adjTerrList1, PlayerModel playerModel,
+			List<Player> playerList,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) throws InvalidGameActionException {
 		
 		this.addObserver(playerModel);
-		ObservableList<Territory> terrListOb = FXCollections.observableArrayList(terrList.getItems());
-		Iterator<Territory> terrListIterator = terrListOb.iterator();
+		Iterator<Territory> terrListIterator = terrArList.iterator();
 		while (terrListIterator.hasNext()) {
 			Territory attackingTerr = terrListIterator.next();
 			List<Territory> deffTerrList = getDefendingTerr(attackingTerr);
@@ -61,13 +62,15 @@ public class Cheater extends Observable implements IStrategy {
 							+ ") attacking on "+deffTerr+"("+deffTerr.getPlayer().getName()+")\n");
 					deffTerr.getPlayer().getAssignedTerritory().remove(deffTerr);
 					deffTerr.setPlayer(attackingTerr.getPlayer());
-
+					
 					attackingTerr.getPlayer().getAssignedTerritory().add(deffTerr);
 					GameUtils.addTextToLog(deffTerr.getName() + " is conquered by "
 							+ attackingTerr.getPlayer().getName() + "\n");
 					playerModel.setNumOfTerritoryWon(playerModel.getNumOfTerritoryWon()+1);
-					setChanged();
-					notifyObservers("oneAttackDoneForCheater");
+					Platform.runLater(()->{
+						setChanged();
+						notifyObservers("oneAttackDoneForCheater");
+					});
 				}
 			} else {
 				continue;
@@ -81,8 +84,7 @@ public class Cheater extends Observable implements IStrategy {
 	@Override
 	public boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory,
 			Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
-		List<Territory> terrList = selectedTerritory.getItems();
-		for(Territory terr: terrList) {
+		for(Territory terr: terrArList) {
 			List<Territory> adjDefTerrList = getDefendingTerr(terr);
 			if(adjDefTerrList!=null && adjDefTerrList.size()>0) {
 				GameUtils.addTextToLog("Doubled the army on territory :"+terr.getName()+"\n");
@@ -97,9 +99,9 @@ public class Cheater extends Observable implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#hasAValidAttackMove(javafx.scene.control.ListView, javafx.scene.control.TextArea)
 	 */
 	@Override
-	public boolean hasAValidAttackMove(ListView<Territory> territories) {
+	public boolean hasAValidAttackMove(ArrayList<Territory> territories) {
 		boolean isValidAttackMove =false;
-		for (Territory territory : territories.getItems()) {
+		for (Territory territory : territories) {
 			if (getDefendingTerr(territory).size() > 0) {
 				isValidAttackMove = true;
 			}

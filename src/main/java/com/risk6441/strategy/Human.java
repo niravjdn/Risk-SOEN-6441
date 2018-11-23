@@ -37,7 +37,7 @@ public class Human implements IStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
-			Player currentPlayer) {
+			Player currentPlayer,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 
 		if (currentPlayer.getArmies() > 0) {
 			if (territory == null) {
@@ -78,7 +78,7 @@ public class Human implements IStrategy {
 	 */
 	@Override
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			List<Player> playerList) throws InvalidGameActionException {
+			List<Player> playerList,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) throws InvalidGameActionException {
 		Territory attackingTerritory = terrList.getSelectionModel().getSelectedItem();
 		Territory defendingTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 		if (attackingTerritory != null && defendingTerritory != null) {

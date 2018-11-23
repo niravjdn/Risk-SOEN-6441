@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.Optional;
 import java.util.Random;
 
+import com.risk6441.config.Config;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Territory;
 
@@ -218,7 +219,11 @@ public class CommonMapUtil {
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 		alert.setContentText(message);
-		alert.showAndWait();
+		if(!Config.isAllComputerPlayer)
+			alert.showAndWait();
+		else if(Config.isPopUpShownInAutoMode)
+			alert.show();
+		
 	}
 	
 

@@ -200,12 +200,12 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * @return hasAValidMove true if player has valid move else false
 	 */
 	public boolean hasaAValidAttackMove(ListView<Territory> territories, TextArea txtAreaMsg) {
-		boolean isValidAttackMove = currentPlayer.getStrategy().hasAValidAttackMove(territories);
-
+		ArrayList<Territory> terrList = new ArrayList<>(territories.getItems());
+		
+		boolean isValidAttackMove = currentPlayer.getStrategy().hasAValidAttackMove((ArrayList<Territory>) terrList);
 		if (!isValidAttackMove) {
 			GameUtils.addTextToLog("Player - " + currentPlayer.getName() + "\n");
 			GameUtils.addTextToLog("---> No valid attack move avialble move to Fortification phase.\n", txtAreaMsg);
-			GameUtils.addTextToLog("===Attack phase ended! === \n", txtAreaMsg);
 			Platform.runLater(() -> {
 				setChanged();
 				notifyObservers("checkForValidFortificaion");
@@ -231,6 +231,12 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
 			throws InvalidGameActionException {
 		PlayerModel playerModel=  this;
+		ArrayList<Territory> terrArList = new ArrayList<Territory>(terrList.getItems());
+		ArrayList<Territory> adjTerrArList = new ArrayList<Territory>(adjTerrList.getItems());
+		
+		if(playerList.size()<=1)
+			return;
+		
 		
 		if(currentPlayer.getStrategy() instanceof Human) {
 			if(playerList.size()==1) {
@@ -238,14 +244,14 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 				notifyObservers("disableGameControls");
 				return;
 			}
-			currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this, playerList);
+			currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this, playerList,terrArList,adjTerrArList);
 		}else {
 			Thread backgroundThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(Config.waitBeweenTurn);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -259,7 +265,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 						return;
 					}
 					try {
-						currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, playerModel, playerList);
+						currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, playerModel, playerList,terrArList,adjTerrArList);
 					} catch (InvalidGameActionException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -329,7 +335,6 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	/**
 	 * Reinforcement Phase
 	 * 
-<<<<<<< HEAD
 	 * @param territory      territory Object
 	 * @param observableList
 	 * @param txtAreaMsg     the Game Console
@@ -340,12 +345,16 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * 			terrlist 
 	 * @param txtAreaMsg
 	 *            the txt area
->>>>>>> 5aef304c824196e633b021ce35b3dcb0d035bd29
 	 */
 	public void reinforcementPhase(Territory territory, ObservableList<Territory> terrList, TextArea txtAreaMsg) {
+		ArrayList<Territory> terrArList = new ArrayList<Territory>(terrList);
+		
+		if(playerList.size()<=1)
+			return;
+		
 		// Run the task in a background thread
 		if(currentPlayer.getStrategy() instanceof Human) {
-			currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer);
+			currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer,terrArList, null);
 			if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
 				GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
 				Platform.runLater(() -> {
@@ -360,12 +369,12 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 				public void run() {
 					// TODO Auto-generated method stub
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(Config.waitBeweenTurn);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer);
+					currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer,terrArList,null);
 					if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
 						GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
 						Platform.runLater(() -> {
@@ -394,6 +403,9 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		ArrayList<Territory> terrArList = new ArrayList<Territory>(territoryList.getItems());
 		ArrayList<Territory> adjTerrArList = new ArrayList<Territory>(adjTerritoryList.getItems());
 		
+		if(playerList.size()<=1)
+			return;
+		
 		if(currentPlayer.getStrategy() instanceof Human) {
 			boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map,
 					terrArList, adjTerrArList);
@@ -408,7 +420,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 				public void run() {
 					// TODO Auto-generated method stub
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(Config.waitBeweenTurn);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

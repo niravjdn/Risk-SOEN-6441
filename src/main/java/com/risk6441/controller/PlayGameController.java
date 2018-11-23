@@ -154,6 +154,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 	private int attackCount = 5;
 
+	private boolean isGameOver = false;
+
 	/**
 	 * This method ends the turn of particular player using Scheduled Executor class
 	 * 
@@ -481,7 +483,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		choiceBoxNoOfPlayer.getItems().addAll(2, 3, 4, 5, 6);
-
+		Config.isAllComputerPlayer = true;
 		lblGamePhase.setText("Phase: Start Up!");
 		updateMap();
 		allocateCardTOTerritories();
@@ -870,9 +872,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 		if (!checkIfPlayerWonTheGame()) {
 			if (playerModel.hasaAValidAttackMove(terrList, txtAreaMsg)) {
-				if (playerModel.getNumOfTerritoryWon() > 0) {
-					allocateCardToPlayer();
-				}
+				
 				if ((currentPlayer.getStrategy() instanceof Aggressive) && false) {
 					if (attackCount > 0) {
 						attackCount--;
@@ -921,7 +921,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			GameUtils.addTextToLog("===== Continents Owned By Player =====\n");
 			for (Continent c : listOfContinentsOwnedSingly) {
 				GameUtils.addTextToLog("============================ \n");
-				GameUtils.addTextToLog(c.getName() + " is owned by : " + currentPlayer.getName());
+				GameUtils.addTextToLog(c.getName() + " is owned by : " + currentPlayer.getName()+"\n");
 				GameUtils.addTextToLog("============================ \n");
 			}
 		}
@@ -933,13 +933,11 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * @return playerWon returns true if a player won the game
 	 */
 	private boolean checkIfPlayerWonTheGame() {
-		boolean isGameOver = false;
-		if (playerList.size() == 1) {
+		
+		if (playerList.size() == 1 && !isGameOver) {
 			CommonMapUtil.alertBox("Info", "Player: " + playerList.get(0).getName() + " won the game!", "");
 			isGameOver = true;
 			refreshList();
-			updateMap();
-			setLabelAndShowWorldDomination();
 			disableGameControls();
 		}
 		return isGameOver;
@@ -955,6 +953,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		btnNoMoreAttack.setDisable(true);
 		lblGamePhase.setText("GAME OVER");
 		setCurrentPlayerLabel(currentPlayer.getName().toUpperCase() + " WON THE GAME");
+		updateMap();
+		setLabelAndShowWorldDomination();
 		GameUtils.addTextToLog("=====================================================\n", txtAreaMsg);
 		System.out.println(currentPlayer.getName().toUpperCase() + " WON THE GAME");
 		GameUtils.addTextToLog(currentPlayer.getName().toUpperCase() + " WON THE GAME\n", txtAreaMsg);
@@ -969,7 +969,10 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	@Override
 	public void update(Observable o, Object arg) {
 		String str = (String) arg;
-		System.out.println("update called because of object change " + str);
+		if(currentPlayer!=null)
+		System.out.println("update called because of object change "+ currentPlayer.getName()+" - "+ str);
+		if(currentPlayer!=null)
+		GameUtils.addTextToLog(currentPlayer.getName()+" - "+"update called because of object change "+ str+"\n");
 
 		if (str.equals("rollDiceComplete")) {
 			refreshView();
@@ -1018,6 +1021,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			refreshView();
 			noMoreAttack(null);
 		} else if (str.equals("oneAttackDoneForCheater")) {
+			refreshList();
 			checkIfAnyPlayerLostTheMatch();
 			checkIfPlayerWonTheGame();
 		}else if (str.equals("disableGameControls")) {
@@ -1033,7 +1037,14 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		playerListIterator = playerList.iterator();
 		CommonMapUtil.enableControls(btnPlaceArmy);
 		PlayerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
-
+		for(Player p : playerList) {
+			if(p.getStrategy() instanceof Human) {
+				//at least one is human player
+				Config.isAllComputerPlayer = false;
+				break;
+			}
+		}
+				
 		try {
 			if (playerList.size() > GameUtils.getTerritoryList(map).size()) {
 				throw new InvalidMapException("Territories must be more than players.");

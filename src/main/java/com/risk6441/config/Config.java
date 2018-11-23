@@ -40,5 +40,13 @@ public class Config {
 	 * The isGameOver
 	 */
 	public static boolean isGameOver = false;
+
+	/**
+	 * isAllComputerPlayer
+	 */
+	public static boolean isAllComputerPlayer = true;
 	
+	public static int waitBeweenTurn = 1000; //7 seconds
+	
+	public static boolean isPopUpShownInAutoMode = false;
 }

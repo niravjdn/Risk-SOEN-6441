@@ -40,13 +40,14 @@ public class Aggressive implements IStrategy {
 	 * com.risk6441.entity.Player)
 	 */
 	@Override
-	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory, Player currentPlayer) {
-		System.out.println(currentPlayer.getName() + " - " + territoryList.size() + " - Terr List Size");
+	public void reinforcementPhase(ObservableList<Territory> territoryList1, Territory territory, Player currentPlayer,
+			ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
+		System.out.println(currentPlayer.getName() + " - " + terrArList.size() + " - Terr List Size");
 		numOfAttack = 0;
 		if(attackingTerr == null) { //first reinforce
-			attackingTerr = sortAndGetMaxDefendingTerr(territoryList).get(0);
+			attackingTerr = sortAndGetMaxDefendingTerr(terrArList).get(0);
 		}else {
-			attackingTerr = getAttackingTerritory(territoryList);	
+			attackingTerr = getAttackingTerritory(terrArList);	
 		}
 		
 		
@@ -74,18 +75,20 @@ public class Aggressive implements IStrategy {
 	 * javafx.scene.control.TextArea)
 	 */
 	@Override
-	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel,
-			List<Player> playerList) throws InvalidGameActionException {
+	public void attackPhase(ListView<Territory> terrList1, ListView<Territory> adjTerrList1, PlayerModel playerModel,
+			List<Player> playerList,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) throws InvalidGameActionException {
 		System.out.println("Inside attackpahse aggressive");
 		this.playerModel = playerModel;
 		this.diceModel = null;
 
-		System.out.println(attackingTerr.getArmy() > 1 );
+		if(attackingTerr != null)
+			System.out.println(attackingTerr.getArmy() > 1 );
+		
 		System.out.println((!Config.isGameOver));
 		System.out.println(playerList.size() > 1);
 		System.out.println(attackingTerr.getArmy() > 1 && playerList.size() > 1);
 		
-		while (attackingTerr.getArmy() > 1 && (!Config.isGameOver) && playerList.size() > 1) {
+		while (attackingTerr.getArmy() > 1  && playerList.size() > 1) {
 			System.out.println("Playerlist size " + playerList.size());
 			List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
 			if (defendingTerrList.size() == 0) {
@@ -98,6 +101,13 @@ public class Aggressive implements IStrategy {
 					GameUtils.addTextToLog(attackingTerr.getName() + "(" + attackingTerr.getPlayer().getName()
 							+ ") attacking on " + defTerr.getName() + "(" + defTerr.getPlayer().getName() + ")\n");
 					attack(attackingTerr, defTerr, playerModel);
+					if(defTerr.getPlayer().equals(attackingTerr.getPlayer())) {
+						terrArList.add(defTerr);
+					}
+					if(!hasAValidAttackMove(terrArList)) {
+						//don't call no more attack if attack is not valid, this check will itself redirect to fortification
+						return;
+					}
 					break;
 				}
 			}
@@ -106,7 +116,7 @@ public class Aggressive implements IStrategy {
 				break;
 			}
 
-			attackingTerr = getAttackingTerritory(terrList.getItems());
+			attackingTerr = getAttackingTerritory(terrArList);
 		}
 
 		goToNoMoreAttack();
@@ -129,6 +139,11 @@ public class Aggressive implements IStrategy {
 	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel) {
 		this.playerModel = playerModel;
 		diceModel = new DiceModel(attackingTerr, defTerr);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		if (playerModel != null) {
 			diceModel.addObserver(playerModel);
 		}
@@ -148,7 +163,7 @@ public class Aggressive implements IStrategy {
 	@Override
 	public boolean fortificationPhase(ListView<Territory> terrList1, ListView<Territory> adjTerritory2,
 			Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
-		System.out.println(adjTerrArList.size() + "------ size");
+		System.out.println(terrArList.size() + "------ size");
 		if (numOfAttack<1) {
 			System.out.println("Territory Won 0");
 			List<Territory> sortedMaxarmyTerr = sortAndGetStrongestTerr1(terrArList);
@@ -158,15 +173,20 @@ public class Aggressive implements IStrategy {
 					return false;
 				}
 				List<Territory> adjTerrList = GameUtils.getAdjTerrForFortifiction(strongTerr, map, currentPlayer);
-				adjTerrList = sortAndGetMaxDefendingTerr(FXCollections.observableArrayList(adjTerrList));
+				adjTerrList = sortAndGetMaxDefendingTerr((ArrayList<Territory>) adjTerrList);
 
 				for (Territory targetTerr : adjTerrList) {
 					GameUtils.addTextToLog((strongTerr.getArmy() - 1) + " Armies Moved From " + strongTerr.getName()
-							+ " to " + targetTerr.getName());
+							+ " to " + targetTerr.getName()+"\n");
 					System.out.println((strongTerr.getArmy() - 1) + " Armies Moved From " + strongTerr.getName()
 							+ " to " + targetTerr.getName());
 					targetTerr.setArmy(targetTerr.getArmy() + strongTerr.getArmy() - 1);
 					strongTerr.setArmy(1);
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					return true;
 				}
 			}
@@ -175,16 +195,16 @@ public class Aggressive implements IStrategy {
 		List<Territory> sortedMaxArmyTerr = sortAndGetStrongestTerr1(terrArList);
 		if (sortedMaxArmyTerr.get(0).equals(sortAndGetMaxDefendingTerr1(terrArList).get(0))) {
 			// don't do fortification
+			GameUtils.addTextToLog("Not doing fortification because it is on best possible territory"+"\n");
 			return true;
 		}
+		
 		for (Territory targetTerr : sortedMaxArmyTerr) {
 			List<Territory> reachableTerrList = new ArrayList<Territory>();
 			reachableTerrList = GameUtils.getAdjTerrForFortifiction(targetTerr, map, currentPlayer);
 			System.out.println("Reachable Terr of " + targetTerr + " - " + reachableTerrList.size());
 			if (reachableTerrList.size() != 0) {
-
-				reachableTerrList = sortAndGetStrongestTerr(FXCollections.observableArrayList(reachableTerrList));
-
+				reachableTerrList = sortAndGetStrongestTerr1((ArrayList<Territory>) reachableTerrList);
 				for (Territory fromTerr : reachableTerrList) {
 					if (fromTerr.getArmy() > 1) {
 						GameUtils.addTextToLog((fromTerr.getArmy() - 1) + " Armies Moved From " + fromTerr.getName()
@@ -193,6 +213,11 @@ public class Aggressive implements IStrategy {
 								+ " to " + targetTerr.getName());
 						targetTerr.setArmy(targetTerr.getArmy() + fromTerr.getArmy() - 1);
 						fromTerr.setArmy(1);
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 						return true;
 					}
 				}
@@ -209,8 +234,8 @@ public class Aggressive implements IStrategy {
 	 * ListView)
 	 */
 	@Override
-	public boolean hasAValidAttackMove(ListView<Territory> territories) {
-		attackingTerr = getAttackingTerritory(territories.getItems());
+	public boolean hasAValidAttackMove(ArrayList<Territory> territories) {
+		attackingTerr = getAttackingTerritory(territories);
 		List<Territory> defendingTerritoryList = getDefendingTerr(attackingTerr);
 		if (defendingTerritoryList.size() > 0 && attackingTerr.getArmy() > 1) {
 			return true;
@@ -218,12 +243,8 @@ public class Aggressive implements IStrategy {
 		return false;
 	}
 
-	/**
-	 * @param terrList list of player's territories
-	 * @return return a territory with maximum army
-	 */
-	private Territory getAttackingTerritory(ObservableList<Territory> terrList) {
-		List<Territory> sortedListFromMaxAdjacent = sortAndGetStrongestTerr(terrList);
+	private Territory getAttackingTerritory(ArrayList<Territory> terrList) {
+		List<Territory> sortedListFromMaxAdjacent = sortAndGetStrongestTerr1(terrList);
 		if (attackingTerr == null || (!attackingTerr.equals(sortedListFromMaxAdjacent.get(0)))
 				|| attackingTerr.getArmy() < 2) {
 			for (Territory t : sortedListFromMaxAdjacent) {
@@ -244,21 +265,6 @@ public class Aggressive implements IStrategy {
 	 * @return return list of territory in sorted order .... from max army to least
 	 *         army
 	 */
-	private List<Territory> sortAndGetStrongestTerr(ObservableList<Territory> territoryList) {
-		Collections.sort(territoryList, new Comparator<Territory>() {
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-			 */
-			@Override
-			public int compare(Territory t1, Territory t2) {
-				return Integer.valueOf(t2.getArmy()).compareTo(t1.getArmy());
-			}
-		});
-		return territoryList;
-	}
-	
 	private List<Territory> sortAndGetStrongestTerr1(ArrayList<Territory> territoryList) {
 		Collections.sort(territoryList, new Comparator<Territory>() {
 			/*
@@ -282,7 +288,7 @@ public class Aggressive implements IStrategy {
 	 * @return return list of territory in sorted order .... with max Opponent
 	 *         Territories at Top
 	 */
-	private List<Territory> sortAndGetMaxDefendingTerr(ObservableList<Territory> territoryList) {
+	private List<Territory> sortAndGetMaxDefendingTerr(ArrayList<Territory> territoryList) {
 		Collections.sort(territoryList, new Comparator<Territory>() {
 			/*
 			 * (non-Javadoc)

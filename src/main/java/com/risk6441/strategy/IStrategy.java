@@ -28,7 +28,8 @@ public interface IStrategy extends Serializable{
 	 * @param currentPlayer Current player.
 	 */
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
-			Player currentPlayer);
+			Player currentPlayer,
+			ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList);
 	
 	
 	/**
@@ -40,7 +41,8 @@ public interface IStrategy extends Serializable{
 	 * @throws InvalidGameActionException throws InvalidGameActionException if move is not valid
 	 */
 	void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
-			PlayerModel playerModel, List<Player> playerList) throws InvalidGameActionException;
+			PlayerModel playerModel, List<Player> playerList,
+			ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) throws InvalidGameActionException;
 	
 
 	/**
@@ -66,9 +68,9 @@ public interface IStrategy extends Serializable{
 	 * 
 	 * @return hasAValidMove true if player has valid move else false
 	 */
-	default public boolean hasAValidAttackMove(ListView<Territory> territories) {
+	default public boolean hasAValidAttackMove(ArrayList<Territory> territories) {
 		boolean isValidAttackMove = false;
-		for (Territory territory : territories.getItems()) {
+		for (Territory territory : territories) {
 			if (territory.getArmy() > 1 && getDefendingTerr(territory).size() > 0) {
 				isValidAttackMove = true;
 				return isValidAttackMove;

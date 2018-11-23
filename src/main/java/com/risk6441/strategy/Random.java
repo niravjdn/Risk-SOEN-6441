@@ -36,7 +36,7 @@ public class Random implements IStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
-			Player currentPlayer) {
+			Player currentPlayer,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		int army = CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
 		do{
 			Territory randomTerr = territoryList.get(CommonMapUtil.getRandomNo(territoryList.size()-1));
@@ -54,12 +54,12 @@ public class Random implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#attackPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, com.risk6441.models.PlayerModel, javafx.scene.control.TextArea)
 	 */
 	@Override
-	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, PlayerModel playerModel
-			, List<Player> playerList) throws InvalidGameActionException {
+	public void attackPhase(ListView<Territory> terrList1, ListView<Territory> adjTerrList1, PlayerModel playerModel
+			, List<Player> playerList,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) throws InvalidGameActionException {
 		this.playerModel = playerModel;
-		attackingTerr = getRandomTerritory(terrList.getItems());
+		attackingTerr = getRandomTerritory(terrArList);
 		List<Territory> defendingTerrList = getDefendingTerr(attackingTerr);
-		if(defendingTerrList.size()<1||hasAValidAttackMove(terrList)==false) {
+		if(defendingTerrList.size()<1||hasAValidAttackMove(terrArList)==false) {
 			goToNoMoreAttack();			
 		}
 		else
@@ -68,6 +68,9 @@ public class Random implements IStrategy {
 				if (attackingTerr.getArmy() > 1 ) {
 					GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
 					attack(attackingTerr, defTerr, playerModel);
+					if(defTerr.getPlayer().equals(attackingTerr.getPlayer())) {
+						terrArList.add(defTerr);
+					}
 					break;
 				}
 			}
@@ -102,16 +105,16 @@ public class Random implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#fortificationPhase(javafx.scene.control.ListView, javafx.scene.control.ListView, javafx.scene.control.TextArea, com.risk6441.entity.Player, com.risk6441.entity.Map)
 	 */
 	@Override
-	public boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory,
+	public boolean fortificationPhase(ListView<Territory> selectedTerritory1, ListView<Territory> adjTerritory1,
 			 Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		this.currentPlayer = currentPlayer;
-		Territory frmTerr = getRandomTerritory(selectedTerritory.getItems());
+		Territory frmTerr = getRandomTerritory(terrArList);
 		int count = -1;
-		while(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()==0 && ++count!=(selectedTerritory.getItems().size()-1))
+		while(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()==0 && ++count!=(terrArList.size()-1))
 		{
-			frmTerr = getRandomTerritory(selectedTerritory.getItems());
+			frmTerr = getRandomTerritory(terrArList);
 		}
-		if(count >= selectedTerritory.getItems().size()) {
+		if(count >= terrArList.size()) {
 			return false;
 		}
 		int size = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size();
@@ -135,7 +138,7 @@ public class Random implements IStrategy {
 	 * @param items This is a list of all the territories.
 	 * @return territory which can be used for attack.
 	 */
-	private Territory getRandomTerritory(ObservableList<Territory> items) {
+	private Territory getRandomTerritory(ArrayList<Territory> items) {
 		int temp = CommonMapUtil.getRandomNo(items.size()-1);
 		Territory t = (Territory) items.get(temp);
 		while(t.getArmy()<2)

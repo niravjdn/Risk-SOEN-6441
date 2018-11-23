@@ -84,7 +84,6 @@ public class Aggressive implements IStrategy {
 		if(attackingTerr != null)
 			System.out.println(attackingTerr.getArmy() > 1 );
 		
-		System.out.println((!Config.isGameOver));
 		System.out.println(playerList.size() > 1);
 		System.out.println(attackingTerr.getArmy() > 1 && playerList.size() > 1);
 		
@@ -104,7 +103,7 @@ public class Aggressive implements IStrategy {
 					if(defTerr.getPlayer().equals(attackingTerr.getPlayer())) {
 						terrArList.add(defTerr);
 					}
-					if(!hasAValidAttackMove(terrArList)) {
+					if(playerList.size()>1  && (!hasAValidAttackMove(terrArList))) {
 						//don't call no more attack if attack is not valid, this check will itself redirect to fortification
 						return;
 					}
@@ -139,11 +138,6 @@ public class Aggressive implements IStrategy {
 	private void attack(Territory attackingTerr, Territory defTerr, PlayerModel playerModel) {
 		this.playerModel = playerModel;
 		diceModel = new DiceModel(attackingTerr, defTerr);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		if (playerModel != null) {
 			diceModel.addObserver(playerModel);
 		}

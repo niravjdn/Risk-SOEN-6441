@@ -199,13 +199,11 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * 
 	 * @return hasAValidMove true if player has valid move else false
 	 */
-	public boolean hasaAValidAttackMove(ListView<Territory> territories, TextArea txtAreaMsg) {
-		ArrayList<Territory> terrList = new ArrayList<>(territories.getItems());
-		
+	public boolean hasaAValidAttackMove(ArrayList<Territory> terrList) {
 		boolean isValidAttackMove = currentPlayer.getStrategy().hasAValidAttackMove((ArrayList<Territory>) terrList);
 		if (!isValidAttackMove) {
 			GameUtils.addTextToLog("Player - " + currentPlayer.getName() + "\n");
-			GameUtils.addTextToLog("---> No valid attack move avialble move to Fortification phase.\n", txtAreaMsg);
+			GameUtils.addTextToLog("---> No valid attack move avialble move to Fortification phase.\n");
 			Platform.runLater(() -> {
 				setChanged();
 				notifyObservers("checkForValidFortificaion");
@@ -244,7 +242,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 				notifyObservers("disableGameControls");
 				return;
 			}
-			currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this, playerList,terrArList,adjTerrArList);
+			currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this,playerList, terrArList,adjTerrArList);
 		}else {
 			Thread backgroundThread = new Thread(new Runnable() {
 				@Override
@@ -265,7 +263,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 						return;
 					}
 					try {
-						currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, playerModel, playerList,terrArList,adjTerrArList);
+						currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, playerModel,playerList, terrArList,adjTerrArList);
 					} catch (InvalidGameActionException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

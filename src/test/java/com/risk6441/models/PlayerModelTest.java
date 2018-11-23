@@ -309,7 +309,7 @@ public class PlayerModelTest {
 		terr2.setArmy(3);
 		terr1.getPlayer().setStrategy(new Human());
 		playerModel.setCurrentPlayer(terr1.getPlayer());
-		boolean actualResult = playerModel.hasaAValidAttackMove(terrListView, txtAreaMsg);
+		boolean actualResult = playerModel.hasaAValidAttackMove(new ArrayList<>(terrListView.getItems()));
 		Assert.assertTrue(actualResult);
 	}
 

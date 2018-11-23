@@ -39,7 +39,7 @@ public class AggressiveTest {
 	static Territory terr1;
 	static Territory terr2;
 	static Territory adjTerritory;
-	static ListView<Territory> list1;
+	static ArrayList<Territory> list1;
 	int x1=1;
 	int y1=1;
 	int x2=2;
@@ -65,7 +65,7 @@ public class AggressiveTest {
 		terr2 = new Territory();
 		map = new Map();
 		player = new Player(1, "Krishna");
-		list1=new ListView<Territory>();
+		list1=new ArrayList<Territory>();
 		
 		playerList =new ArrayList<Player>();
 	}
@@ -118,9 +118,9 @@ public class AggressiveTest {
 		player.setAssignedTerritory(listOfTerritories);
 		playerList.add(player);
 		
-		list1.setEditable(true);
-		list1.getItems().add(terr1);
-		list1.getItems().add(terr2);
+//		list1.setEditable(true);
+//		list1.getItems().add(terr1);
+//		list1.getItems().add(terr2);
 	}
 	
 	@Test public void testHasAValidAttackMove()

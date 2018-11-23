@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.risk6441.strategy;
 
 import java.util.ArrayList;
@@ -149,12 +146,12 @@ public class Aggressive implements IStrategy {
 	 * com.risk6441.entity.Player)
 	 */
 	@Override
-	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerritory,
-			Player currentPlayer, Map map) {
-		System.out.println(terrList.getItems().size() + "------ size");
+	public boolean fortificationPhase(ListView<Territory> terrList1, ListView<Territory> adjTerritory2,
+			Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
+		System.out.println(adjTerrArList.size() + "------ size");
 		if (numOfAttack<1) {
 			System.out.println("Territory Won 0");
-			List<Territory> sortedMaxarmyTerr = sortAndGetStrongestTerr(terrList.getItems());
+			List<Territory> sortedMaxarmyTerr = sortAndGetStrongestTerr1(terrArList);
 			for (Territory strongTerr : sortedMaxarmyTerr) {
 				System.out.println("Strong Terr "+strongTerr);
 				if (strongTerr.getArmy() < 2) {
@@ -175,8 +172,8 @@ public class Aggressive implements IStrategy {
 			}
 		}
 
-		List<Territory> sortedMaxArmyTerr = sortAndGetStrongestTerr(terrList.getItems());
-		if (sortedMaxArmyTerr.get(0).equals(sortAndGetMaxDefendingTerr(terrList.getItems()).get(0))) {
+		List<Territory> sortedMaxArmyTerr = sortAndGetStrongestTerr1(terrArList);
+		if (sortedMaxArmyTerr.get(0).equals(sortAndGetMaxDefendingTerr1(terrArList).get(0))) {
 			// don't do fortification
 			return true;
 		}
@@ -261,6 +258,21 @@ public class Aggressive implements IStrategy {
 		});
 		return territoryList;
 	}
+	
+	private List<Territory> sortAndGetStrongestTerr1(ArrayList<Territory> territoryList) {
+		Collections.sort(territoryList, new Comparator<Territory>() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+			 */
+			@Override
+			public int compare(Territory t1, Territory t2) {
+				return Integer.valueOf(t2.getArmy()).compareTo(t1.getArmy());
+			}
+		});
+		return territoryList;
+	}
 
 	/**
 	 * This methods sorts the territory list from max territories with max defending
@@ -271,6 +283,21 @@ public class Aggressive implements IStrategy {
 	 *         Territories at Top
 	 */
 	private List<Territory> sortAndGetMaxDefendingTerr(ObservableList<Territory> territoryList) {
+		Collections.sort(territoryList, new Comparator<Territory>() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+			 */
+			@Override
+			public int compare(Territory t1, Territory t2) {
+				return Integer.valueOf(getDefendingTerr(t2).size())- (getDefendingTerr(t1).size());
+			}
+		});
+		return territoryList;
+	}
+	
+	private List<Territory> sortAndGetMaxDefendingTerr1(ArrayList<Territory> territoryList) {
 		Collections.sort(territoryList, new Comparator<Territory>() {
 			/*
 			 * (non-Javadoc)

@@ -391,10 +391,12 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * @param txtAreaMsg   gameConsole.
 	 */
 	public void fortificationPhase(ListView<Territory> territoryList, ListView<Territory> adjTerritoryList, Map map) {
+		ArrayList<Territory> terrArList = new ArrayList<Territory>(territoryList.getItems());
+		ArrayList<Territory> adjTerrArList = new ArrayList<Territory>(adjTerritoryList.getItems());
 		
 		if(currentPlayer.getStrategy() instanceof Human) {
-			boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map
-					);
+			boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map,
+					terrArList, adjTerrArList);
 
 			if (isFortificationDone  && playerList.size() > 1) {
 				setChanged();
@@ -412,7 +414,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 						e.printStackTrace();
 					}
 					boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList,
-							adjTerritoryList, currentPlayer, map);
+							adjTerritoryList, currentPlayer, map, terrArList, adjTerrArList);
 
 					if (isFortificationDone && playerList.size() > 1) {
 						Platform.runLater(() -> {

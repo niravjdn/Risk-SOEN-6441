@@ -4,6 +4,7 @@
 package com.risk6441.strategy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,8 @@ public interface IStrategy extends Serializable{
 	 * @param map
 	 * @return
 	 */
-	boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory, Player currentPlayer, Map map);
+	boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory, Player currentPlayer, Map map,
+			ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList);
 	
 	
 

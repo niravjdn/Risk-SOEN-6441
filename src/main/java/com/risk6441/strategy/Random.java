@@ -3,6 +3,7 @@
  */
 package com.risk6441.strategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.risk6441.controller.DiceController;
@@ -102,7 +103,7 @@ public class Random implements IStrategy {
 	 */
 	@Override
 	public boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory,
-			 Player currentPlayer, Map map) {
+			 Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		this.currentPlayer = currentPlayer;
 		Territory frmTerr = getRandomTerritory(selectedTerritory.getItems());
 		int count = -1;

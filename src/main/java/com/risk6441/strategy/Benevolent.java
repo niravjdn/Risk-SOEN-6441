@@ -60,7 +60,7 @@ public class Benevolent implements IStrategy {
 	 */
 	@Override
 	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
-			Player currentPlayer, Map map) {
+			Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		List<Territory> sortedMinAdjTerr = sortAndGetWeakestTerr(terrList.getItems());
 		for (Territory weakTerr : sortedMinAdjTerr) {
 			for(Territory adjTerr : weakTerr.getAdjacentTerritories()) {

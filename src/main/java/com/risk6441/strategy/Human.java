@@ -1,6 +1,7 @@
 package com.risk6441.strategy;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.risk6441.controller.DiceController;
@@ -117,7 +118,7 @@ public class Human implements IStrategy {
 	 */
 	@Override
 	public boolean fortificationPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
-			Player currentPlayer, Map map) {
+			Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		Territory territory = terrList.getSelectionModel().getSelectedItem();
 		Territory adjTerritory = adjTerrList.getSelectionModel().getSelectedItem();
 

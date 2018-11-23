@@ -3,6 +3,7 @@
  */
 package com.risk6441.strategy;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -79,7 +80,7 @@ public class Cheater extends Observable implements IStrategy {
 	 */
 	@Override
 	public boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory,
-			Player currentPlayer, Map map) {
+			Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		List<Territory> terrList = selectedTerritory.getItems();
 		for(Territory terr: terrList) {
 			List<Territory> adjDefTerrList = getDefendingTerr(terr);

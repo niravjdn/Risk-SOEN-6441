@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.risk6441.models;
 
 import java.io.Serializable;
@@ -21,6 +18,7 @@ import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.strategy.Benevolent;
 import com.risk6441.strategy.Cheater;
 import com.risk6441.strategy.Human;
+import com.risk6441.strategy.IStrategy;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -233,46 +231,56 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
 			throws InvalidGameActionException {
 		PlayerModel playerModel=  this;
-		Thread backgroundThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if (playerList.size() == 1) {
-
-					Platform.runLater(() -> {
-						setChanged();
-						notifyObservers("disableGameControls");
-					});
-					return;
-				}
-				try {
-					currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, playerModel, playerList);
-				} catch (InvalidGameActionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				if ((currentPlayer.getStrategy() instanceof Cheater || currentPlayer.getStrategy() instanceof Benevolent)
-						&& playerList.size() > 1) {
-					GameUtils.addTextToLog(currentPlayer.getPlayerStrategy().toString()
-							+ " startegy performed attack....going to fortification phase\n");
-					
-					Platform.runLater(() -> {
-						setChanged();
-						notifyObservers("skipAndGoToFortify");	
-					});
-					
-				}
+		
+		if(currentPlayer.getStrategy() instanceof Human) {
+			if(playerList.size()==1) {
+				setChanged();
+				notifyObservers("disableGameControls");
+				return;
 			}
-		});
-		backgroundThread.setDaemon(true);
-		backgroundThread.start();
+			currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this, playerList);
+		}else {
+			Thread backgroundThread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (playerList.size() == 1) {
+
+						Platform.runLater(() -> {
+							setChanged();
+							notifyObservers("disableGameControls");
+						});
+						return;
+					}
+					try {
+						currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, playerModel, playerList);
+					} catch (InvalidGameActionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					if ((currentPlayer.getStrategy() instanceof Cheater || currentPlayer.getStrategy() instanceof Benevolent)
+							&& playerList.size() > 1) {
+						GameUtils.addTextToLog(currentPlayer.getPlayerStrategy().toString()
+								+ " startegy performed attack....going to fortification phase\n");
+						
+						Platform.runLater(() -> {
+							setChanged();
+							notifyObservers("skipAndGoToFortify");	
+						});
+						
+					}
+				}
+			});
+			backgroundThread.setDaemon(true);
+			backgroundThread.start();
+		}
 	}
 
 	/**
@@ -383,30 +391,40 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * @param txtAreaMsg   gameConsole.
 	 */
 	public void fortificationPhase(ListView<Territory> territoryList, ListView<Territory> adjTerritoryList, Map map) {
-		Thread backgroundThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList,
-						adjTerritoryList, currentPlayer, map);
+		
+		if(currentPlayer.getStrategy() instanceof Human) {
+			boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map
+					);
 
-				if (isFortificationDone && playerList.size() > 1) {
-					Platform.runLater(() -> {
-						setChanged();
-						notifyObservers("Reinforcement");
-					});
-				}
+			if (isFortificationDone  && playerList.size() > 1) {
+				setChanged();
+				notifyObservers("Reinforcement");
 			}
-		});
-		backgroundThread.setDaemon(true);
-		backgroundThread.start();
+		}else {
+			Thread backgroundThread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList,
+							adjTerritoryList, currentPlayer, map);
 
+					if (isFortificationDone && playerList.size() > 1) {
+						Platform.runLater(() -> {
+							setChanged();
+							notifyObservers("Reinforcement");
+						});
+					}
+				}
+			});
+			backgroundThread.setDaemon(true);
+			backgroundThread.start();
+		}
 	}
 
 	/*

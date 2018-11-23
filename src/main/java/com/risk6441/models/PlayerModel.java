@@ -336,32 +336,43 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 */
 	public void reinforcementPhase(Territory territory, ObservableList<Territory> terrList, TextArea txtAreaMsg) {
 		// Run the task in a background thread
-		Thread backgroundThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer);
-				if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
-					GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
-					Platform.runLater(() -> {
-						setChanged();
-						notifyObservers("Attack");
-					});
-				}
+		if(currentPlayer.getStrategy() instanceof Human) {
+			currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer);
+			if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
+				GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
+				Platform.runLater(() -> {
+					setChanged();
+					notifyObservers("Attack");
+				});
 			}
-		});
-		// Terminate the running thread if the application exits
-		backgroundThread.setDaemon(true);
-		// Start the thread
-		backgroundThread.start();
+		}else {
+			Thread backgroundThread = new Thread(new Runnable() {
 
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer);
+					if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
+						GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
+						Platform.runLater(() -> {
+							setChanged();
+							notifyObservers("Attack");
+						});
+					}
+				}
+			});
+			// Terminate the running thread if the application exits
+			backgroundThread.setDaemon(true);
+			// Start the thread
+			backgroundThread.start();
+
+		}
 	}
 
 	/**

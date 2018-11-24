@@ -1,24 +1,25 @@
 package com.risk6441.gameutils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
 import com.risk6441.config.CardKind;
+import com.risk6441.config.PlayerStrategy;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidMapException;
-import com.sun.javafx.application.PlatformImpl;
 
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -259,4 +260,34 @@ public class GameUtils {
 		}		
 	}
 	
+	
+	/**
+	 * This method loads the values in combobox for number of turns
+	 * @param noOFTurns  no of turns for tournament
+	 */
+	public static void loadTurnsInTournament(ComboBox<Integer> noOFTurns) {
+		noOFTurns.getItems().removeAll(noOFTurns.getItems());
+		for(int i=10; i<=50; i++) {
+			noOFTurns.getItems().add(i);
+		}
+	}
+	
+	/**
+	 * This method loads the values of number of games in tournament
+	 * @param numberOfGamesComboBox no of games for tournament
+	 */
+	public static void loadGamesInTournament(ComboBox<Integer> numberOfGamesComboBox) {
+		numberOfGamesComboBox.getItems().removeAll(numberOfGamesComboBox.getItems());
+		numberOfGamesComboBox.getItems().addAll(1, 2, 3, 4, 5);
+	}
+	
+	/**
+	 * This method loads the values of player strategy in combobox
+	 * @param playerComboBox player Combobox
+	 */
+	public static void loadPlayersInTournament(ComboBox<String> playerComboBox) {
+		playerComboBox.getItems().removeAll(playerComboBox.getItems());
+		playerComboBox.getItems().addAll(PlayerStrategy.AGGRESSIVE.toString(), PlayerStrategy.BENEVOLENT.toString(),
+				PlayerStrategy.CHEATER.toString(), PlayerStrategy.RANDOM.toString());
+	}
 }

@@ -30,6 +30,12 @@ public class Map extends Observable implements Serializable{
 		continentMap = new HashMap<String,Continent>();
 	}
 	
+	public Map(Map newMap) {
+		mapData = new HashMap<String, String>(newMap.mapData);
+		continents = new ArrayList<Continent>(newMap.continents);
+		continentMap = new HashMap<String,Continent>(newMap.continentMap);
+	}
+	
 	/**
 	 * @return the mapData
 	 */

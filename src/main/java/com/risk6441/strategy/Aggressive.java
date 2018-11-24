@@ -15,6 +15,7 @@ import com.risk6441.gameutils.GameUtils;
 import com.risk6441.models.DiceModel;
 import com.risk6441.models.PlayerModel;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -105,6 +106,7 @@ public class Aggressive implements IStrategy {
 					}
 					if(playerList.size()>1  && (!hasAValidAttackMove(terrArList))) {
 						//don't call no more attack if attack is not valid, this check will itself redirect to fortification
+						playerModel.hasaAValidAttackMove(terrArList);
 						return;
 					}
 					break;

@@ -383,33 +383,6 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	public Player loadCurrentPlayer(boolean isLoadingFromFirstPlayer) {
 		if (playerLost != null) {
 			playerListIterator = playerList.iterator();
-//			int playerLostNum = Integer.parseInt(playerLost.getName().substring(playerLost.getName().length()-1));
-//			int currentPlyerNum = Integer.parseInt(currentPlayer.getName().substring(currentPlayer.getName().length()-1));
-//			if(currentPlyerNum<playerLostNum) {
-//				//player 3 conquered player 4
-//				while(playerListIterator.hasNext()) {
-//					Player temp = playerListIterator.next();
-//					if(temp.equals(currentPlayer)) {
-//						currentPlayer = temp;
-//						break;
-//					}
-//				}
-////				for(int i=0;i<currentPlyerNum;i++) {
-////					System.out.println("Inside a"+i);
-////					currentPlayer = playerListIterator.next();
-////				}
-//			}else {
-//				//player 2 conquered player 1
-//				for(int i=0;i<currentPlyerNum-1;i++) {
-//					System.out.println("Inside b"+i);
-//					try {
-//						currentPlayer = playerListIterator.next();
-//					}catch (Exception e) {
-//						playerListIterator = playerList.iterator();
-//						currentPlayer = playerListIterator.next();
-//					}
-//				}
-//			}
 			while (playerListIterator.hasNext()) {
 				Player temp = playerListIterator.next();
 				if (temp.equals(currentPlayer)) {
@@ -424,6 +397,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			playerListIterator = playerList.iterator();
 		}
 		currentPlayer = playerListIterator.next();
+		if(!(currentPlayer.getStrategy() instanceof Human)) {
+			CommonMapUtil.enableOrDisableSave(false);
+		}
 		cardModel.setCurrentPlayer(currentPlayer);
 		playerModel.setPlayerList(playerList);
 		playerModel.setCurrentPlayer(currentPlayer);
@@ -1001,6 +977,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			cardModel.openCardWindow(true);
 			System.out.println("Inside 5 more cards");
 		} else if (str.equals("checkForValidFortificaion")) {
+			refreshList();
 			isValidFortificationPhase();
 		} else if (str.equals("playerStrategyChoosen")) {
 			allocateArmyAndTerr();
@@ -1019,6 +996,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			checkIfPlayerWonTheGame();
 		}else if (str.equals("disableGameControls")) {
 			disableGameControls();
+		}else if(str.equals("updateReinforArmy")) {
+			setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
 		}
 	}
 

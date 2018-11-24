@@ -362,7 +362,6 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			}
 		}else {
 			Thread backgroundThread = new Thread(new Runnable() {
-
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
@@ -376,6 +375,8 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 					if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
 						GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
 						Platform.runLater(() -> {
+							setChanged();
+							notifyObservers("updateReinforArmy");
 							setChanged();
 							notifyObservers("Attack");
 						});
@@ -450,21 +451,18 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		if (str.equals("rollDiceComplete")) {
 			DiceModel diceModel = (DiceModel) o;
 			setNumOfTerritoryWon(diceModel.getNumOfTerritoriesWon());
-			Platform.runLater(()->{
+			Platform.runLater(() -> {
 				setChanged();
 				notifyObservers("rollDiceComplete");
 			});
-		} else {
-			if (str.equals("oneAttackDoneForCheater")) {
-			
-				Platform.runLater(()->{
-					setChanged();
-					notifyObservers("oneAttackDoneForCheater");
-				});
-				
-			}
-		}
+		} else if (str.equals("oneAttackDoneForCheater")) {
 
+			Platform.runLater(() -> {
+				setChanged();
+				notifyObservers("oneAttackDoneForCheater");
+			});
+
+		}
 	}
 
 	public void endTurn() {

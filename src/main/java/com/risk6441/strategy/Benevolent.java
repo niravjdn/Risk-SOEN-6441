@@ -78,11 +78,11 @@ public class Benevolent implements IStrategy {
 
 	
 	/**
-	 * This method returns list of weakest territories.
+	 * This method returns list of territories in an increasing order of defending territories.
 	 * @param territoryList list of territories which belong to player
 	 * @return return list of territory in sorted order .... with minOpp Territory at Top
 	 */
-	private List<Territory> sortAndGetWeakestTerr(ArrayList<Territory> territoryList) {
+	public List<Territory> sortAndGetWeakestTerr(ArrayList<Territory> territoryList) {
 		Collections.sort(territoryList, new Comparator<Territory>() {
 			
 			/* (non-Javadoc)

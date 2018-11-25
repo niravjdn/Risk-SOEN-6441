@@ -192,12 +192,16 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	}
 
 	/**
-	 * Check if the player has a valid attack move
+	 * 
 	 * 
 	 * @param territories territories List View
 	 * @param txtAreaMsg  gameConsole text area
-	 * 
 	 * @return hasAValidMove true if player has valid move else false
+	 */
+	/**
+	 * This method checks if the player has a valid attack move
+	 * @param terrList List of territories.
+	 * @return Returns true if a player has a valid move available else returns false.
 	 */
 	public boolean hasaAValidAttackMove(ArrayList<Territory> terrList) {
 		boolean isValidAttackMove = currentPlayer.getStrategy().hasAValidAttackMove((ArrayList<Territory>) terrList);
@@ -219,11 +223,9 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * 
 	 * @param terrList    attacking territory.
 	 * @param adjTerrList defending territory.
-<<<<<<< HEAD
 	 * @param txtAreaMsg
 =======
 	 * @param txtAreaMsg  text area message
->>>>>>> 5aef304c824196e633b021ce35b3dcb0d035bd29
 	 * @throws InvalidGameActionException Throws invalid game exception.
 	 */
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
@@ -331,18 +333,10 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	}
 
 	/**
-	 * Reinforcement Phase
-	 * 
-	 * @param territory      territory Object
-	 * @param observableList
-	 * @param txtAreaMsg     the Game Console
-=======
-	 * @param territory
-	 *            territory Object
-	 * @param terrList
-	 * 			terrlist 
-	 * @param txtAreaMsg
-	 *            the txt area
+	 * This method implements the reinforcement phase for the player model.
+	 * @param territory Selected territory for reinforcement.
+	 * @param terrList List of territories.
+	 * @param txtAreaMsg Text Area where the message will be displayed.
 	 */
 	public void reinforcementPhase(Territory territory, ObservableList<Territory> terrList, TextArea txtAreaMsg) {
 		ArrayList<Territory> terrArList = new ArrayList<Territory>(terrList);
@@ -392,11 +386,10 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	}
 
 	/**
-	 * Fortification Phase.
-	 * 
-	 * @param territory    selected Territory object.
-	 * @param adjTerritory Territory object.
-	 * @param txtAreaMsg   gameConsole.
+	 * Method which implements fortification phase.
+	 * @param territoryList List of territories for fortification.
+	 * @param adjTerritoryList List of adjacent territories for fortification.
+	 * @param map The object of current map.
 	 */
 	public void fortificationPhase(ListView<Territory> territoryList, ListView<Territory> adjTerritoryList, Map map) {
 		ArrayList<Territory> terrArList = new ArrayList<Territory>(territoryList.getItems());

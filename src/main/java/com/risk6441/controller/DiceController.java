@@ -106,9 +106,9 @@ public class DiceController implements Initializable {
 	private IStrategy strategy;
 
 	/**
-	 * Constructor for dice roll controller.
-	 * 
-	 * @param diceModel dice model object
+	 * Constructor for dice roll.
+	 * @param diceModel Object of dice model for rolling of dice.
+	 * @param strategy The strategy used while rolling of dice.
 	 */
 	public DiceController(DiceModel diceModel, IStrategy strategy) {
 		this.diceModel = diceModel;

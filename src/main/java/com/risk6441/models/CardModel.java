@@ -151,7 +151,8 @@ public class CardModel extends Observable implements Serializable{
 	}
 
 	/**
-	 * @param isRestrictedModeTillLessThan5
+	 * This method opens the card exchange window when the player has more than 5 cards.
+	 * @param isRestrictedModeTillLessThan5 A boolean value denoting if cards less than 5.
 	 */
 	public void openCardWindowForOther(boolean isRestrictedModeTillLessThan5) {
 		this.isRestrictedModeTillLessThan5 = isRestrictedModeTillLessThan5;
@@ -160,8 +161,9 @@ public class CardModel extends Observable implements Serializable{
 	}
 
 	/**
-	 * @param cardsOfPlayer
-	 * @return
+	 * This method checks for a combination of different cards.
+	 * @param cardsOfPlayer This represents the cards owned by the player.
+	 * @return Returns the combination of cards selected by the player for trade.
 	 */
 	public List<Card> getCombinationOfCards(List<Card> cardsOfPlayer) {
 		System.out.println("================Cards avaliable with the player====================");

@@ -26,18 +26,21 @@ public interface IStrategy extends Serializable{
 	 * @param territoryList Territory list
 	 * @param territory Selected territory.
 	 * @param currentPlayer Current player.
+	 * @param terrArList List of territories available to player.
+	 * @param adjTerrArList List of adjacent territories.
 	 */
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer,
 			ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList);
 	
-	
 	/**
 	 * This method implements the attack phase of the strategy.
-	 * @param terrList listview of territory which belons to player
+	 * @param terrList listview of territory which belong to a player
 	 * @param adjTerrList adjacent territory listview for a particular territory
-	 * @param playerModel object of {@link PlayerModel} 
+	 * @param playerModel object of {@link PlayerModel}
 	 * @param playerList list of players
+	 * @param terrArList List of territories available to player.
+	 * @param adjTerrArList List of adjacent territories.
 	 * @throws InvalidGameActionException throws InvalidGameActionException if move is not valid
 	 */
 	void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList,
@@ -47,11 +50,13 @@ public interface IStrategy extends Serializable{
 
 	/**
 	 * This method implements the fortification phase of the strategy.
-	 * @param selectedTerritory
-	 * @param adjTerritory
-	 * @param currentPlayer
-	 * @param map
-	 * @return
+	 * @param selectedTerritory List of selected territories for fortification.
+	 * @param adjTerritory List of adjacent territories for fortification.
+	 * @param currentPlayer The current player object.
+	 * @param map The current map loaded.
+	 * @param terrArList List of territories.
+	 * @param adjTerrArList List of adjacent territories.
+	 * @return Returns a true value if fortification is possible.
 	 */
 	boolean fortificationPhase(ListView<Territory> selectedTerritory, ListView<Territory> adjTerritory, Player currentPlayer, Map map,
 			ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList);
@@ -60,13 +65,8 @@ public interface IStrategy extends Serializable{
 
 	/**
 	 * Check if the player has a valid attack move
-	 * 
-	 * @param territories
-	 *            territories List View
-	 * @param txtGameArea
-	 *            gameConsole text area
-	 * 
-	 * @return hasAValidMove true if player has valid move else false
+	 * @param territories List of territories with the player.
+	 * @return Returns true if the player has a valid move available.
 	 */
 	default public boolean hasAValidAttackMove(ArrayList<Territory> territories) {
 		boolean isValidAttackMove = false;

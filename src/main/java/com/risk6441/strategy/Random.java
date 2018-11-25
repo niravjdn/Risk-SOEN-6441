@@ -138,7 +138,7 @@ public class Random implements IStrategy {
 	 * @param items This is a list of all the territories.
 	 * @return territory which can be used for attack.
 	 */
-	private Territory getRandomTerritory(ArrayList<Territory> items) {
+	public Territory getRandomTerritory(ArrayList<Territory> items) {
 		int temp = CommonMapUtil.getRandomNo(items.size()-1);
 		Territory t = (Territory) items.get(temp);
 		while(t.getArmy()<2)

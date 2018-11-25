@@ -85,7 +85,7 @@ public class GameUtils {
 				player.setArmies(player.getArmies() - 1);
 				player.getAssignedTerritory().add(territory);
 				addTextToLog(
-						territory.getName() + " is assigned to " + player.getName() + " ! \n", textAres);
+						territory.getName() + " is assigned to " + player.getName() + " ! \n");
 				
       			continue;
 			}
@@ -96,7 +96,7 @@ public class GameUtils {
 			player.setArmies(player.getArmies() - 1);
 			player.getAssignedTerritory().add(territory);
 			addTextToLog(
-					territory.getName() + " is assigned to " + player.getName() + " ! \n", textAres);
+					territory.getName() + " is assigned to " + player.getName() + " ! \n");
 			
 		}
 	}

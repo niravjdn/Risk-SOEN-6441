@@ -1,5 +1,10 @@
 package com.risk6441.entity;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,6 +98,35 @@ public class Map extends Observable implements Serializable{
 		return "Map [mapData=" + mapData + ", continents=" + continents + ", continentMap=" + continentMap + "]";
 	}
 
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		ObjectOutputStream outPut = null;
+		ObjectInputStream inPut = null;
+		Map clonedMap = null;
+		try {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			outPut = new ObjectOutputStream(bos);
+			// serialize and pass the object
+			outPut.writeObject(this);
+			outPut.flush();
+			ByteArrayInputStream bin = new ByteArrayInputStream(bos.toByteArray());
+			inPut = new ObjectInputStream(bin);
+			clonedMap = (Map) inPut.readObject();
+		} catch (Exception e) {
+			System.out.println("Exception in ObjectCloner = " + e);
+		} finally {
+			try {
+				outPut.close();
+				inPut.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return clonedMap;
+	}
 	
 }

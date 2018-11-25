@@ -49,7 +49,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.Axis;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.XYChart;
@@ -70,7 +73,7 @@ import javafx.stage.Stage;
  * @author Nirav
  * @author Charles
  */
-public class PlayGameController implements Initializable, Observer, Externalizable {
+public class PlayGameController extends Observable implements Initializable, Observer, Externalizable {
 
 	/**
 	 * The map object {@link Map}
@@ -156,6 +159,12 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 	private boolean isGameOver = false;
 
+	private int numOfTurnDone;
+
+	private int maxNumOfTurn;
+
+	private int maxNumOfEachPlayerTurn;
+
 
 	/**
 	 * This method ends the turn of particular player using Scheduled Executor class
@@ -164,7 +173,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	@FXML
 	void endTrun(ActionEvent event) {
-		GameUtils.addTextToLog(currentPlayer.getName() + " ended his turn.\n", txtAreaMsg);
+		GameUtils.addTextToLog(currentPlayer.getName() + " ended his turn.\n");
 		if (playerModel.getNumOfTerritoryWon() > 0) {
 			allocateCardToPlayer();
 		}
@@ -309,7 +318,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			disableGameControls();
 			return;
 		}
-		GameUtils.addTextToLog("===Attack phase ended!===\n", txtAreaMsg);
+		GameUtils.addTextToLog("===Attack phase ended!===\n");
 		if (playerModel.getNumOfTerritoryWon() > 0) {
 			allocateCardToPlayer();
 		}
@@ -404,8 +413,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		playerModel.setPlayerList(playerList);
 		playerModel.setCurrentPlayer(currentPlayer);
 		playerModel.setNumOfTerritoryWon(0);
-		GameUtils.addTextToLog("============================ \n", txtAreaMsg);
-		GameUtils.addTextToLog(currentPlayer.getName() + "!....started playing.\n", txtAreaMsg);
+		GameUtils.addTextToLog("============================ \n");
+		GameUtils.addTextToLog(currentPlayer.getName() + "!....started playing.\n");
 		refreshList();
 		setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.\n");
 		return currentPlayer;
@@ -419,8 +428,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	public boolean checkPlayerWithNoArmyWhilePlacingArmy() {
 		if (currentPlayer.getArmies() == 0) {
-			GameUtils.addTextToLog("Skipped " + currentPlayer.getName() + " It doesn't have army for placing.\n",
-					txtAreaMsg);
+			GameUtils.addTextToLog("Skipped " + currentPlayer.getName() + " It doesn't have army for placing.\n");
 			loadCurrentPlayer(false);
 			return true;
 		}
@@ -431,11 +439,11 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * This method allocates cards to territories.
 	 */
 	private void allocateCardTOTerritories() {
-		GameUtils.addTextToLog("===Assigning Cards to Territories===\n", txtAreaMsg);
+		GameUtils.addTextToLog("===Assigning Cards to Territories===\n");
 		stackOfCards = GameUtils.allocateCardToTerritory(map);
 		Collections.shuffle(stackOfCards);
 		GameUtils.allocateCardToTerritory(map);
-		GameUtils.addTextToLog("===Cards assignation complete===\n", txtAreaMsg);
+		GameUtils.addTextToLog("===Cards assignation complete===\n");
 	}
 
 	/**
@@ -445,9 +453,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 *                             loading the map.
 	 */
 	private void allocateTerritoriesToPlayer() throws InvalidMapException {
-		GameUtils.addTextToLog("===Assigning territories===\n", txtAreaMsg);
+		GameUtils.addTextToLog("===Assigning territories===\n");
 		GameUtils.allocateTerritoryToPlayer(map, playerList, txtAreaMsg);
-		GameUtils.addTextToLog("===Territories assignation complete===\n", txtAreaMsg);
+		GameUtils.addTextToLog("===Territories assignation complete===\n");
 		updateMap();
 	}
 
@@ -460,6 +468,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	public void initialize(URL location, ResourceBundle resources) {
 		choiceBoxNoOfPlayer.getItems().addAll(2, 3, 4, 5, 6);
 		Config.isAllComputerPlayer = true;
+		Config.isTournamentMode = false;
 		lblGamePhase.setText("Phase: Start Up!");
 		updateMap();
 		allocateCardTOTerritories();
@@ -518,7 +527,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			public void changed(ObservableValue<? extends Integer> observable, Integer old, Integer newV) {
 				noOfPlayer = choiceBoxNoOfPlayer.getSelectionModel().getSelectedItem();
 				playerList = PlayerModel.createPlayers(noOfPlayer, txtAreaMsg);
-				GameUtils.addTextToLog("===Players creation complete===\n", txtAreaMsg);
+				GameUtils.addTextToLog("===Players creation complete===\n");
 
 //				//temp
 //				try {
@@ -573,7 +582,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		CommonMapUtil.disableControls(choiceBoxNoOfPlayer);
 		lblCurrPlayer.setText(lblPlayerString);
 		lblGamePhase.setText(phaseOfTheGame);
-		GameUtils.addTextToLog(txtMsgAreaTxt, txtAreaMsg);
+		GameUtils.addTextToLog(txtMsgAreaTxt);
 		showWorldDominationData();
 		showMilitaryDominationData();
 
@@ -682,8 +691,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * This method intializes the components for the attack phase.
 	 */
 	public void initializeAttack() {
-		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
-		GameUtils.addTextToLog("The Attack phase has begun.\n", txtAreaMsg);
+		GameUtils.addTextToLog("===============================\n");
+		GameUtils.addTextToLog("The Attack phase has begun.\n");
 		CommonMapUtil.enableOrDisableSave(true);
 		ArrayList<Territory> terrArList = new ArrayList<>(terrList.getItems());
 		
@@ -721,8 +730,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * This method initializes the components for the fortification phase.
 	 */
 	private void initializeFortification() {
-		GameUtils.addTextToLog("===============================\n", txtAreaMsg);
-		GameUtils.addTextToLog("The Fortification phase has begun.\n", txtAreaMsg);
+		GameUtils.addTextToLog("===============================\n");
+		GameUtils.addTextToLog("The Fortification phase has begun.\n");
 		CommonMapUtil.enableOrDisableSave(true);
 		btnFortify.setDisable(false);
 		CommonMapUtil.disableControls(btnNoMoreAttack);
@@ -747,9 +756,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 * This method handles the case in which fortificaiton is not possible.
 	 */
 	private void noFortification() {
-		GameUtils.addTextToLog("Fortification phase has begun.\n", txtAreaMsg);
-		GameUtils.addTextToLog(currentPlayer.getName() + " does not have any armies for fortification.\n", txtAreaMsg);
-		GameUtils.addTextToLog("Fortification phase has been ended.\n", txtAreaMsg);
+		GameUtils.addTextToLog("Fortification phase has begun.\n");
+		GameUtils.addTextToLog(currentPlayer.getName() + " does not have any armies for fortification.\n");
+		GameUtils.addTextToLog("Fortification phase has been ended.\n");
 		setPhase("Phase : Reinforcement");
 		if(playerModel.getNumOfTerritoryWon()>0) {
 			allocateCardToPlayer();
@@ -765,7 +774,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	private void initializeReinforcement(boolean loadPlayerFromStart) {
 		System.out.println("Inside intialize reinforcement " + loadPlayerFromStart);
-
+		if(Config.isTournamentMode) {
+			numOfTurnDone++;
+		}
 		CommonMapUtil.enableOrDisableSave(true);
 
 		CommonMapUtil.enableControls(btnCards);
@@ -773,9 +784,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn, btnNoMoreAttack);
 		btnReinforcement.setDisable(false);
 		btnReinforcement.requestFocus();
-		GameUtils.addTextToLog("=======================================\n", txtAreaMsg);
-		GameUtils.addTextToLog("Reinforcement phase has begun.", txtAreaMsg);
-		GameUtils.addTextToLog(currentPlayer.getName() + "\n", txtAreaMsg);
+		GameUtils.addTextToLog("=======================================\n");
+		GameUtils.addTextToLog("Reinforcement phase has begun.");
+		GameUtils.addTextToLog(currentPlayer.getName() + "\n");
 		countReinforcementArmies();
 
 		if ((currentPlayer.getStrategy() instanceof Human)) {
@@ -795,7 +806,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 			currentPlayer = PlayerModel.countReinforcementArmies(map, currentPlayer);
 			setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
 		} else {
-			GameUtils.addTextToLog("Error! No Current Player.", txtAreaMsg);
+			GameUtils.addTextToLog("Error! No Current Player.");
 		}
 	}
 
@@ -807,17 +818,25 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	private boolean checkIfAnyPlayerLostTheMatch() {
 		Player playerLost = playerModel.checkAndGetIfAnyPlayerLostTheGame(playerList);
 		if (playerLost != null) {
+			
+			if(Config.isTournamentMode) {
+				int executedTurnCount = maxNumOfEachPlayerTurn / playerList.size();
+				int remainingTurn = maxNumOfTurn - executedTurnCount;
+				maxNumOfEachPlayerTurn = remainingTurn * (playerList.size()-1);
+			}
+			
 			playerList.remove(playerLost);
-			// playerListIterator = playerList.iterator();
 			this.playerLost = playerLost;
 
+			
+			
 			playerModel.setPlayerList(playerList);
 
 			CommonMapUtil.alertBox("Info",
 					"Player: " + playerLost.getName() + " lost all his territory and no more in the game.", "Info");
 			System.out.println("Player: " + playerLost.getName() + " lost all his territory and no more in the game.");
-			GameUtils.addTextToLog(playerLost.getName() + " lost all territories and lost the game.\n", txtAreaMsg);
-			GameUtils.addTextToLog("==============================================================\n", txtAreaMsg);
+			GameUtils.addTextToLog(playerLost.getName() + " lost all territories and lost the game.\n");
+			GameUtils.addTextToLog("==============================================================\n");
 			return true;
 		}
 		return false;
@@ -924,10 +943,12 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		setCurrentPlayerLabel(currentPlayer.getName().toUpperCase() + " WON THE GAME");
 		updateMap();
 		setLabelAndShowWorldDomination();
-		GameUtils.addTextToLog("=====================================================\n", txtAreaMsg);
+		GameUtils.addTextToLog("=====================================================\n");
 		System.out.println(currentPlayer.getName().toUpperCase() + " WON THE GAME");
-		GameUtils.addTextToLog(currentPlayer.getName().toUpperCase() + " WON THE GAME\n", txtAreaMsg);
-		GameUtils.addTextToLog("=====================================================\n", txtAreaMsg);
+		GameUtils.addTextToLog(currentPlayer.getName().toUpperCase() + " WON THE GAME\n");
+		GameUtils.addTextToLog("=====================================================\n");
+		setChanged();
+		notifyObservers("gameOver");
 	}
 
 	/*
@@ -937,6 +958,14 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		
+		if(Config.isTournamentMode && (numOfTurnDone > maxNumOfEachPlayerTurn)) {
+			//return to that tournament
+			setChanged();
+			notifyObservers("gameOver");
+			return;
+		}
+		
 		String str = (String) arg;
 		if(currentPlayer!=null)
 		System.out.println("update called because of object change "+ currentPlayer.getName()+" - "+ str);
@@ -982,7 +1011,7 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		} else if (str.equals("playerStrategyChoosen")) {
 			allocateArmyAndTerr();
 		} else if (str.equals("printMessageOnMsgArea")) {
-			GameUtils.addTextToLog(Config.message, txtAreaMsg);
+			GameUtils.addTextToLog(Config.message);
 			Config.message = "";
 		} else if (str.equals("noMoreAttack")) {
 			attackCount = 5;
@@ -993,7 +1022,9 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		} else if (str.equals("oneAttackDoneForCheater")) {
 			refreshList();
 			checkIfAnyPlayerLostTheMatch();
-			checkIfPlayerWonTheGame();
+			if(!isGameOver) {
+				checkIfPlayerWonTheGame();
+			}
 		}else if (str.equals("disableGameControls")) {
 			disableGameControls();
 		}else if(str.equals("updateReinforArmy")) {
@@ -1009,6 +1040,8 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 		playerListIterator = playerList.iterator();
 		CommonMapUtil.enableControls(btnPlaceArmy);
 		PlayerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
+		
+		//verify if all players are computer players or not
 		for(Player p : playerList) {
 			if(p.getStrategy() instanceof Human) {
 				//at least one is human player
@@ -1177,7 +1210,43 @@ public class PlayGameController implements Initializable, Observer, Externalizab
 
 		playerModel.addObserver(this);
 		cardModel.addObserver(this);
-
+	}
+	
+	public void loadControllerForStrategy(List<Player> playerList, int numberOfTurn, TextArea console) {
+		this.maxNumOfTurn = numberOfTurn;
+		this.numOfTurnDone = 0;
+		this.maxNumOfEachPlayerTurn = maxNumOfTurn * playerList.size();
+		
+		btnReinforcement = new Button();
+		lblCurrPlayer = new Label();
+		lblGamePhase = new Label("Start Up");
+		btnPlaceArmy = new Button();
+		worldDominationPieChart = new PieChart();
+		CategoryAxis xAxis    = new CategoryAxis();
+		NumberAxis yAxis = new NumberAxis();
+		militaryDominationbarChart = new BarChart(xAxis, yAxis);
+		btnFortify = new Button();
+		btnNoMoreAttack = new Button();
+		btnCards = new Button();
+		btnEndTurn = new Button();
+		terrList = new ListView<Territory>();
+		adjTerrList = new ListView<Territory>();
+		txtAreaMsg = new TextArea();
+		vbox = new VBox();
+		choiceBoxNoOfPlayer = new ChoiceBox<>();
+		btnSaveGame = new Button();
+		allocateCardTOTerritories();
+		
+		GameUtils.txtMsgArea = console;
+		
+		CommonMapUtil.btnSave  = btnSaveGame;
+		
+		//set player and territories
+		this.playerList = playerList;
+		
+		//start game after this
+		allocateArmyAndTerr();
+		
 	}
 
 }

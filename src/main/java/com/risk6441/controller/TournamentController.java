@@ -1,12 +1,12 @@
 package com.risk6441.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.risk6441.config.Config;
 import com.risk6441.config.PlayerStrategy;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
@@ -14,6 +14,7 @@ import com.risk6441.exception.InvalidMapException;
 import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapReader;
+import com.risk6441.models.TournamentModel;
 import com.risk6441.strategy.Aggressive;
 import com.risk6441.strategy.Benevolent;
 import com.risk6441.strategy.Cheater;
@@ -94,6 +95,8 @@ public class TournamentController implements Initializable {
 	
 	@FXML
 	private Label lblMessage;
+
+	private TournamentModel model;
 	
 
 	public TournamentController() {
@@ -123,6 +126,10 @@ public class TournamentController implements Initializable {
 		return numberOfTurns;
 	}
 
+	public void setErrorMessage(String message) {
+		lblMessage.setText(message);
+	}
+	
 	/**
 	 * @param numberOfTurns the numberOfTurns to set
 	 */
@@ -169,38 +176,41 @@ public class TournamentController implements Initializable {
 
 	@FXML
 	void playTournament(ActionEvent event) {
-		
+		setErrorMessage("");
 		if (getNumeberOfGames() == 0) {
-			lblMessage.setText("Please Select number of games");
+			setErrorMessage("Please Select number of games");
 			return;
 		}
 		
 		if (getNumberOfTurns() == 0) {
-			lblMessage.setText("Please Select number of turns");
+			setErrorMessage("Please Select number of turns");
 			return;
 		}
 		
 		if (mapList.isEmpty()) {
-			lblMessage.setText("At least one map should be there");
+			setErrorMessage("At least one map should be there");
 			return;
 		}else if (playerList.size() != 2) {
-			lblMessage.setText("Choose at least 2 Plaeyrs.");
+			setErrorMessage("Choose at least 2 Plaeyrs.");
 			return;
 		} else {
-			GameUtils.addTextToLog("=====Tournament started!=====\n", txtAreaConsole);
+			GameUtils.addTextToLog("=====Tournament started!=====\n");
 			for (Map map : mapList) {
+				int count = 1;
 				//playe game on each map
 				for(int i=0;i<numeberOfGames;i++) {
 					Map newMap = null;
 					try {
 						//clonnig map
-						newMap = new Map(map);
+						newMap = (Map) map.clone();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					System.out.println("Game "+i+" done on "+mapList.get(i));
+					System.out.println("Game "+(i+1)+" started on map "+count);
+					model.startTournament(playerList, newMap, numberOfTurns, numeberOfGames, (i+1), txtAreaConsole);
+					
 				}
-				
+				count++;
 			}
 		}
 	}
@@ -213,7 +223,9 @@ public class TournamentController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Config.isTournamentMode = true;
 		lblMessage.setAlignment(Pos.CENTER);
+		model = new TournamentModel();
 		GameUtils.loadTurnsInTournament(comboTurns);
 		GameUtils.loadGamesInTournament(comboGames);
 		GameUtils.loadPlayersInTournament(comboP1);
@@ -244,8 +256,8 @@ public class TournamentController implements Initializable {
 		comboP1.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				Player player1 = createPlayer(playerList, 0);
-				player1.setName("Player" + 0);
+				Player player1 = createPlayer(1);
+				player1.setName("Player" + 1);
 				setPlayerStrategy(comboP1.getSelectionModel().getSelectedItem(), player1);
 			}
 		});
@@ -253,8 +265,8 @@ public class TournamentController implements Initializable {
 		comboP2.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				Player player2 = createPlayer(playerList, 0);
-				player2.setName("Player" + 0);
+				Player player2 = createPlayer(2);
+				player2.setName("Player" + 2);
 				setPlayerStrategy(comboP2.getSelectionModel().getSelectedItem(), player2);
 			}
 		});
@@ -262,8 +274,8 @@ public class TournamentController implements Initializable {
 		comboP3.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				Player player3 = createPlayer(playerList, 0);
-				player3.setName("Player" + 0);
+				Player player3 = createPlayer(3);
+				player3.setName("Player" + 3);
 				setPlayerStrategy(comboP3.getSelectionModel().getSelectedItem(), player3);
 			}
 		});
@@ -271,23 +283,23 @@ public class TournamentController implements Initializable {
 		comboP4.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				Player player4 = createPlayer(playerList, 0);
-				player4.setName("Player" + 0);
+				Player player4 = createPlayer(4);
+				player4.setName("Player" + 4);
 				setPlayerStrategy(comboP4.getSelectionModel().getSelectedItem(), player4);
 			}
 		});
 	}
 
-	public Player createPlayer(List<Player> players, int id) {
+	public Player createPlayer(int id) {
 		Player player = null;
-		for (Player p : players) {
+		for (Player p : playerList) {
 			if (p.getId() == id) {
 				player = p;
 			}
 		}
 		if (player == null) {
 			player = new Player(id, "Player" + id);
-			players.add(player);
+			playerList.add(player);
 		}
 		return player;
 	}

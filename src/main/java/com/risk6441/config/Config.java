@@ -49,4 +49,6 @@ public class Config {
 	public static int waitBeweenTurn = 10000; //7 seconds
 	
 	public static boolean isPopUpShownInAutoMode = false;
+
+	public static boolean isTournamentMode = false;
 }

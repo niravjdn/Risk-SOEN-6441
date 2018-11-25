@@ -86,7 +86,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * @param txtArea textArea object
 	 */
 	public static void allocateArmiesToPlayers(List<Player> p, TextArea txtArea) {
-		GameUtils.addTextToLog("===>Assigning armies to the players.===\n", txtArea);
+		GameUtils.addTextToLog("===>Assigning armies to the players.===\n");
 
 		int armyForPlayer = 0;
 		int noOfPlayers = p.size();
@@ -115,7 +115,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 
 		for (Player player : p) {
 			player.setArmies(armyForPlayer);
-			GameUtils.addTextToLog(player.getName() + " has been assigned: " + armyForPlayer + "\n", txtArea);
+			GameUtils.addTextToLog(player.getName() + " has been assigned: " + armyForPlayer + "\n");
 		}
 	}
 
@@ -131,7 +131,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		for (int i = 1; i <= noOfPlayers; i++) {
 			String name = "Player" + i;
 			players.add(new Player(i, name));
-			GameUtils.addTextToLog(name + " created!\n", textArea);
+			GameUtils.addTextToLog(name + " created!\n");
 		}
 		return players;
 	}
@@ -354,7 +354,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		if(currentPlayer.getStrategy() instanceof Human) {
 			currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer,terrArList, null);
 			if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
-				GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
+				GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n");
 				Platform.runLater(() -> {
 					setChanged();
 					notifyObservers("Attack");
@@ -373,7 +373,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 					}
 					currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer,terrArList,null);
 					if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
-						GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n", txtAreaMsg);
+						GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n");
 						Platform.runLater(() -> {
 							setChanged();
 							notifyObservers("updateReinforArmy");
@@ -507,7 +507,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 					territory = terrList.getItems().get(0);
 				}
 				GameUtils.addTextToLog(
-						currentPlayer.getName() + " === Assigned Armies to " + territory.getName() + "\n", txtAreaMsg);
+						currentPlayer.getName() + " === Assigned Armies to " + territory.getName() + "\n");
 				territory.setArmy(territory.getArmy() + 1);
 				currentPlayer.setArmies(playerArmies - 1);
 			}
@@ -518,8 +518,8 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 
 		// if exhausted then call next phases
 		if (checkIfPlayersArmiesExhausted(playerList)) {
-			GameUtils.addTextToLog("=== Place Army Phase Completed ===\n", txtAreaMsg);
-			GameUtils.addTextToLog("=== Start up Phase Completed ===\n", txtAreaMsg);
+			GameUtils.addTextToLog("=== Place Army Phase Completed ===\n");
+			GameUtils.addTextToLog("=== Start up Phase Completed ===\n");
 			setChanged();
 			notifyObservers("ReinforcementFirst");
 		} else {
@@ -539,8 +539,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		if (currentPlayer.getArmies() > 0) {
 			Territory terr = currentPlayer.getAssignedTerritory()
 					.get(CommonMapUtil.getRandomNo(currentPlayer.getAssignedTerritory().size() - 1));
-			GameUtils.addTextToLog(currentPlayer.getName() + " === Assigned Armies to " + terr.getName() + "\n",
-					txtAreaMsg);
+			GameUtils.addTextToLog(currentPlayer.getName() + " === Assigned Armies to " + terr.getName() + "\n");
 			terr.setArmy(terr.getArmy() + 1);
 			currentPlayer.setArmies(currentPlayer.getArmies() - 1);
 		}
@@ -603,13 +602,13 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	public void tradeCardsAndGetArmy(List<Card> selectedCardsByThePlayer, TextArea txtAreaMsg) {
 		currentPlayer.setArmies(currentPlayer.getArmies() + (5 * currentPlayer.getNumeberOfTimeCardsExchanged()));
 		GameUtils.addTextToLog(currentPlayer.getName() + " exchanged 3 cards for the army "
-				+ (5 * currentPlayer.getNumeberOfTimeCardsExchanged() + "\n"), txtAreaMsg);
+				+ (5 * currentPlayer.getNumeberOfTimeCardsExchanged() + "\n"));
 		for (Territory t : currentPlayer.getAssignedTerritory()) {
 			for (Card card : selectedCardsByThePlayer) {
 				if (t.equals(card.getTerritoryToWhichCardBelong())) {
 					t.setArmy(t.getArmy() + 2);
 					GameUtils.addTextToLog(
-							currentPlayer.getName() + " got 2 extra armies on the " + t.getName() + ".\n", txtAreaMsg);
+							currentPlayer.getName() + " got 2 extra armies on the " + t.getName() + ".\n");
 					break;
 				}
 			}

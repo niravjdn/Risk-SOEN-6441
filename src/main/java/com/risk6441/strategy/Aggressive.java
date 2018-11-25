@@ -51,7 +51,6 @@ public class Aggressive implements IStrategy {
 			attackingTerr = getAttackingTerritory(terrArList);	
 		}
 		
-		
 		int army = currentPlayer.getArmies();
 		attackingTerr.setArmy(attackingTerr.getArmy() + army);
 		currentPlayer.setArmies(0);

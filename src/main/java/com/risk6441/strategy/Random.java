@@ -35,11 +35,13 @@ public class Random implements IStrategy {
 	 * @see com.risk6441.strategy.IStrategy#reinforcementPhase(javafx.collections.ObservableList, com.risk6441.entity.Territory, javafx.scene.control.TextArea, com.risk6441.entity.Player)
 	 */
 	@Override
-	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
+	public void reinforcementPhase(ObservableList<Territory> territoryList1, Territory territory,
 			Player currentPlayer,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
+		
+		
 		int army = CommonMapUtil.getRandomNoFromOne(currentPlayer.getArmies());
 		do{
-			Territory randomTerr = territoryList.get(CommonMapUtil.getRandomNo(territoryList.size()-1));
+			Territory randomTerr = terrArList.get(CommonMapUtil.getRandomNo(terrArList.size()-1));
 			randomTerr.setArmy(randomTerr.getArmy() + army);
 			currentPlayer.setArmies(currentPlayer.getArmies()-army);
 			GameUtils.addTextToLog(army+" assigned to :"+randomTerr.getName()+"  by "+currentPlayer.getName()+"\n");
@@ -108,28 +110,29 @@ public class Random implements IStrategy {
 	public boolean fortificationPhase(ListView<Territory> selectedTerritory1, ListView<Territory> adjTerritory1,
 			 Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		this.currentPlayer = currentPlayer;
-		Territory frmTerr = getRandomTerritory(terrArList);
+		Territory fromTerr = getRandomTerritory(terrArList);
 		int count = -1;
-		while(GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size()==0 && ++count!=(terrArList.size()-1))
+		while(GameUtils.getAdjTerrForFortifiction(fromTerr, map, currentPlayer).size()==0 && ++count!=(terrArList.size()-1))
 		{
-			frmTerr = getRandomTerritory(terrArList);
+			fromTerr = getRandomTerritory(terrArList);
 		}
 		if(count >= terrArList.size()) {
 			return false;
 		}
-		int size = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).size();
+		int size = GameUtils.getAdjTerrForFortifiction(fromTerr, map, currentPlayer).size();
 		Territory toTerr = null;
 		if(size == 1) {
-			toTerr = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).get(0);
+			toTerr = GameUtils.getAdjTerrForFortifiction(fromTerr, map, currentPlayer).get(0);
 		}
 		else if(size==0)
 			return false;
-		else {
-			toTerr = GameUtils.getAdjTerrForFortifiction(frmTerr, map, currentPlayer).get(CommonMapUtil.getRandomNo(size-1));
-		}
-		GameUtils.addTextToLog((frmTerr.getArmy()-1)+" Armies Moved From "+frmTerr.getName()+" to "+toTerr.getName());
-		toTerr.setArmy(toTerr.getArmy() + frmTerr.getArmy() - 1);
-		frmTerr.setArmy(1);
+		
+		toTerr = GameUtils.getAdjTerrForFortifiction(fromTerr, map, currentPlayer).get(CommonMapUtil.getRandomNo(size-1));
+		
+		GameUtils.addTextToLog((fromTerr.getArmy()-1)+" Armies Moved From "+fromTerr.getName()+" to "+toTerr.getName());
+		System.out.println((fromTerr.getArmy()-1)+" Armies Moved From "+fromTerr.getName()+" to "+toTerr.getName());
+		toTerr.setArmy(toTerr.getArmy() + fromTerr.getArmy() - 1);
+		fromTerr.setArmy(1);
 		return true;
 	}
 

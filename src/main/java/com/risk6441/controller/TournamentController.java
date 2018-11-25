@@ -3,7 +3,11 @@ package com.risk6441.controller;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Observer;
+import java.util.Map.Entry;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import com.risk6441.config.Config;
@@ -35,16 +39,18 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class TournamentController implements Initializable {
+public class TournamentController implements Initializable, Observer {
 
 	private int numeberOfGames;
 
 	private List<Map> mapList = new ArrayList<>();
 
 	private List<Player> playerList = new ArrayList<>();
-	
+
 	private int numberOfTurns;
-	
+
+	private TournamentModel model;
+
 	@FXML
 	private TextArea txtAreaConsole;
 
@@ -80,7 +86,7 @@ public class TournamentController implements Initializable {
 
 	@FXML
 	private Button btnMap5;
-	
+
 	@FXML
 	private ComboBox<String> comboP1;
 
@@ -92,18 +98,14 @@ public class TournamentController implements Initializable {
 
 	@FXML
 	private ComboBox<String> comboP4;
-	
+
 	@FXML
 	private Label lblMessage;
-
-	private TournamentModel model;
-	
 
 	public TournamentController() {
 		mapList = new ArrayList<>();
 		playerList = new ArrayList<>();
 	}
-	
 
 	/**
 	 * @return the numeberOfGames
@@ -129,7 +131,7 @@ public class TournamentController implements Initializable {
 	public void setErrorMessage(String message) {
 		lblMessage.setText(message);
 	}
-	
+
 	/**
 	 * @param numberOfTurns the numberOfTurns to set
 	 */
@@ -177,41 +179,44 @@ public class TournamentController implements Initializable {
 	@FXML
 	void playTournament(ActionEvent event) {
 		setErrorMessage("");
+		model.addObserver(this);
+		model.txA = txtAreaResult;
 		if (getNumeberOfGames() == 0) {
 			setErrorMessage("Please Select number of games");
 			return;
 		}
-		
+
 		if (getNumberOfTurns() == 0) {
 			setErrorMessage("Please Select number of turns");
 			return;
 		}
-		
+
 		if (mapList.isEmpty()) {
 			setErrorMessage("At least one map should be there");
 			return;
-		}else if (playerList.size() != 2) {
+		} else if (playerList.size() != 2) {
 			setErrorMessage("Choose at least 2 Plaeyrs.");
 			return;
 		} else {
 			GameUtils.addTextToLog("=====Tournament started!=====\n");
 			for (Map map : mapList) {
 				int count = 1;
-				//playe game on each map
-				for(int i=0;i<numeberOfGames;i++) {
+				// playe game on each map
+				for (int i = 0; i < numeberOfGames; i++) {
 					Map newMap = null;
 					try {
-						//clonnig map
+						// clonnig map
 						newMap = (Map) map.clone();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					System.out.println("Game "+(i+1)+" started on map "+count);
-					model.startTournament(playerList, newMap, numberOfTurns, numeberOfGames, (i+1), txtAreaConsole);
-					
+					System.out.println("Game " + (i + 1) + " started on map " + count);
+					model.startTournament(playerList, newMap, numberOfTurns, numeberOfGames, (i + 1), txtAreaConsole);
+
 				}
 				count++;
 			}
+
 		}
 	}
 
@@ -325,25 +330,44 @@ public class TournamentController implements Initializable {
 	}
 
 	public File openDialogAndUploadMap(int mapPosition) {
-		File file= CommonMapUtil.showFileDialogForMap();
+		File file = CommonMapUtil.showFileDialogForMap();
 		MapReader mapReader = new MapReader();
 		Map map = null;
 		try {
 			map = mapReader.readMapFile(file);
-			if(mapPosition>5) {
+			if (mapPosition > 5) {
 				mapList.add(4, map);
-			}else {
+			} else {
 				mapList.add(map);
 			}
-		}catch (InvalidMapException e) {
+		} catch (InvalidMapException e) {
 			e.printStackTrace();
 			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
 			return file;
 		}
 		return file;
 	}
-	
-	
-	//get map object by reading file
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		int count = 0;
+		if (++count == (mapList.size() * numeberOfGames)) {
+			for (Entry<String, HashMap<String, String>> entry : model.getTournamentResult().entrySet()) {
+				GameUtils.addTextToLog(entry.getKey() + "\n", txtAreaResult);
+				for (Entry<String, String> data : entry.getValue().entrySet()) {
+					GameUtils.addTextToLog(data.getKey() + " : " + data.getValue() + "\n", txtAreaResult);
+				}
+				GameUtils.addTextToLog("=============================================\n", txtAreaResult);
+			}
+		}
+
+	}
+
+	// get map object by reading file
+
 }

@@ -238,13 +238,23 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			return;
 		
 		
-		if(currentPlayer.getStrategy() instanceof Human) {
+		if(currentPlayer.getStrategy() instanceof Human || Config.isTournamentMode) {
 			if(playerList.size()==1) {
 				setChanged();
 				notifyObservers("disableGameControls");
 				return;
 			}
 			currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, this,playerList, terrArList,adjTerrArList);
+
+			if ((currentPlayer.getStrategy() instanceof Cheater || currentPlayer.getStrategy() instanceof Benevolent)
+					&& playerList.size() > 1) {
+				GameUtils.addTextToLog(currentPlayer.getPlayerStrategy().toString()
+						+ " startegy performed attack....going to fortification phase\n");
+				
+					setChanged();
+					notifyObservers("skipAndGoToFortify");	
+			}
+				
 		}else {
 			Thread backgroundThread = new Thread(new Runnable() {
 				@Override
@@ -345,14 +355,12 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			return;
 		
 		// Run the task in a background thread
-		if(currentPlayer.getStrategy() instanceof Human) {
+		if(currentPlayer.getStrategy() instanceof Human || Config.isTournamentMode) {
 			currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer,terrArList, null);
 			if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
 				GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n");
-				Platform.runLater(() -> {
 					setChanged();
 					notifyObservers("Attack");
-				});
 			}
 		}else {
 			Thread backgroundThread = new Thread(new Runnable() {
@@ -398,7 +406,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		if(playerList.size()<=1)
 			return;
 		
-		if(currentPlayer.getStrategy() instanceof Human) {
+		if(currentPlayer.getStrategy() instanceof Human || Config.isTournamentMode) {
 			boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map,
 					terrArList, adjTerrArList);
 

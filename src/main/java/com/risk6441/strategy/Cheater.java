@@ -35,7 +35,7 @@ public class Cheater extends Observable implements IStrategy {
 	public void reinforcementPhase(ObservableList<Territory> territoryList, Territory territory,
 			Player currentPlayer,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		
-		for(Territory terr : territoryList) {
+		for(Territory terr : terrArList) {
 			terr.setArmy(terr.getArmy() * 2);
 			GameUtils.addTextToLog("Armies Doubled to "+terr.getArmy()+ " on "+ terr.getName()+"\n");
 		}

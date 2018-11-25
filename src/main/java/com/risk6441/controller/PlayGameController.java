@@ -81,6 +81,8 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 */
 	private Map map;
 
+	
+
 	private Player playerLost = null;
 
 	private int noOfPlayer;
@@ -164,6 +166,12 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	private int maxNumOfTurn;
 
 	private int maxNumOfEachPlayerTurn;
+
+	private boolean oneTime = true;
+
+
+
+	private int gameNo = 1;
 
 
 	/**
@@ -258,6 +266,14 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		lblGamePhase.setText(phase);
 	}
 
+	/**
+	 * This method returns the map object
+	 * @return the map
+	 */
+	public Map getMap() {
+		return map;
+	}
+	
 	/**
 	 * Initialize components for placing army.
 	 */
@@ -696,6 +712,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		CommonMapUtil.enableOrDisableSave(true);
 		ArrayList<Territory> terrArList = new ArrayList<>(terrList.getItems());
 		
+		
 		if (playerModel.hasaAValidAttackMove(terrArList)) {
 			CommonMapUtil.enableControls(btnEndTurn, btnNoMoreAttack);
 			CommonMapUtil.disableControls(btnReinforcement, btnFortify, btnPlaceArmy);
@@ -730,6 +747,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 * This method initializes the components for the fortification phase.
 	 */
 	private void initializeFortification() {
+		refreshList();
 		GameUtils.addTextToLog("===============================\n");
 		GameUtils.addTextToLog("The Fortification phase has begun.\n");
 		CommonMapUtil.enableOrDisableSave(true);
@@ -777,6 +795,8 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		if(Config.isTournamentMode) {
 			numOfTurnDone++;
 		}
+		refreshList();
+		
 		CommonMapUtil.enableOrDisableSave(true);
 
 		CommonMapUtil.enableControls(btnCards);
@@ -871,7 +891,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		showContinentThatBelongsToPlayer();
 
 		if (checkIfPlayerWonTheGame()) {
-			GameUtils.addTextToLog("Game Over"+"\n");
+			GameUtils.addTextToLog("Game Over "+gameNo+"\n");
 		}else if(currentPlayer.getStrategy() instanceof Human) {
 			ArrayList<Territory> terrArList = new ArrayList<>(terrList.getItems());
 			playerModel.hasaAValidAttackMove(terrArList);
@@ -922,7 +942,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 */
 	private boolean checkIfPlayerWonTheGame() {
 		
-		if (playerList.size() == 1 && !isGameOver) {
+		if (!isGameOver && playerList.size() == 1 ) {
 			CommonMapUtil.alertBox("Info", "Player: " + playerList.get(0).getName() + " won the game!", "");
 			isGameOver = true;
 			refreshList();
@@ -936,6 +956,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 * 
 	 */
 	private void disableGameControls() {
+		
 		CommonMapUtil.disableControls(terrList, adjTerrList, btnReinforcement, btnFortify, btnNoMoreAttack, btnCards,
 				btnEndTurn, btnSaveGame);
 		btnNoMoreAttack.setDisable(true);
@@ -945,10 +966,16 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		setLabelAndShowWorldDomination();
 		GameUtils.addTextToLog("=====================================================\n");
 		System.out.println(currentPlayer.getName().toUpperCase() + " WON THE GAME");
-		GameUtils.addTextToLog(currentPlayer.getName().toUpperCase() + " WON THE GAME\n");
+		if(Config.isTournamentMode) {
+			GameUtils.addTextToLog(gameNo+" - "+currentPlayer.getName().toUpperCase() + " WON THE GAME\n");
+		}else {
+			GameUtils.addTextToLog(currentPlayer.getName().toUpperCase() + " WON THE GAME\n");	
+		}
+		
 		GameUtils.addTextToLog("=====================================================\n");
 		setChanged();
-		notifyObservers("gameOver");
+		oneTime = false;
+		notifyObservers("gameOver"+gameNo);
 	}
 
 	/*
@@ -961,16 +988,24 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		
 		if(Config.isTournamentMode && (numOfTurnDone > maxNumOfEachPlayerTurn)) {
 			//return to that tournament
-			setChanged();
-			notifyObservers("gameOver");
+			if(oneTime) {
+				setChanged();
+				notifyObservers("gameOver"+gameNo);
+			}
+			oneTime  = false;
 			return;
 		}
 		
 		String str = (String) arg;
+		
+		if(!str.equals("disableGameControls") && isGameOver) {
+			return;
+		}
+		
 		if(currentPlayer!=null)
 		System.out.println("update called because of object change "+ currentPlayer.getName()+" - "+ str);
 		if(currentPlayer!=null)
-		GameUtils.addTextToLog(currentPlayer.getName()+" - "+"update called because of object change "+ str+"\n");
+		GameUtils.addTextToLog(gameNo+ " - "+currentPlayer.getName()+" - "+"update called because of object change "+ str+"\n");
 
 		if (str.equals("rollDiceComplete")) {
 			refreshView();
@@ -1212,11 +1247,11 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		cardModel.addObserver(this);
 	}
 	
-	public void loadControllerForStrategy(List<Player> playerList, int numberOfTurn, TextArea console) {
+	public void loadControllerForTournament(List<Player> playerList, int numberOfTurn, int gameNo,TextArea console) {
 		this.maxNumOfTurn = numberOfTurn;
 		this.numOfTurnDone = 0;
 		this.maxNumOfEachPlayerTurn = maxNumOfTurn * playerList.size();
-		
+		this.gameNo = gameNo;
 		btnReinforcement = new Button();
 		lblCurrPlayer = new Label();
 		lblGamePhase = new Label("Start Up");
@@ -1236,6 +1271,9 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		choiceBoxNoOfPlayer = new ChoiceBox<>();
 		btnSaveGame = new Button();
 		allocateCardTOTerritories();
+		
+		Config.isTournamentMode = true;
+		Config.waitBeweenTurn = 10;
 		
 		GameUtils.txtMsgArea = console;
 		

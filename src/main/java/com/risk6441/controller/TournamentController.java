@@ -5,9 +5,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observer;
 import java.util.Map.Entry;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import com.risk6441.config.Config;
@@ -46,6 +46,7 @@ public class TournamentController implements Initializable, Observer {
 	private List<Map> mapList = new ArrayList<>();
 
 	private List<Player> playerList = new ArrayList<>();
+	
 
 	private int numberOfTurns;
 
@@ -176,49 +177,6 @@ public class TournamentController implements Initializable, Observer {
 		stage.setOnCloseRequest(e -> Platform.exit());
 	}
 
-	@FXML
-	void playTournament(ActionEvent event) {
-		setErrorMessage("");
-		model.addObserver(this);
-		model.txA = txtAreaResult;
-		if (getNumeberOfGames() == 0) {
-			setErrorMessage("Please Select number of games");
-			return;
-		}
-
-		if (getNumberOfTurns() == 0) {
-			setErrorMessage("Please Select number of turns");
-			return;
-		}
-
-		if (mapList.isEmpty()) {
-			setErrorMessage("At least one map should be there");
-			return;
-		} else if (playerList.size() != 2) {
-			setErrorMessage("Choose at least 2 Plaeyrs.");
-			return;
-		} else {
-			GameUtils.addTextToLog("=====Tournament started!=====\n");
-			for (Map map : mapList) {
-				int count = 1;
-				// playe game on each map
-				for (int i = 0; i < numeberOfGames; i++) {
-					Map newMap = null;
-					try {
-						// clonnig map
-						newMap = (Map) map.clone();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					System.out.println("Game " + (i + 1) + " started on map " + count);
-					model.startTournament(playerList, newMap, numberOfTurns, numeberOfGames, (i + 1), txtAreaConsole);
-
-				}
-				count++;
-			}
-
-		}
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -353,10 +311,76 @@ public class TournamentController implements Initializable, Observer {
 	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
+	
+	
+	@FXML
+	void playTournament(ActionEvent event) throws CloneNotSupportedException {
+		setErrorMessage("");
+		model.addObserver(this);
+		model.txA = txtAreaResult;
+		if (getNumeberOfGames() == 0) {
+			setErrorMessage("Please Select number of games");
+			return;
+		}
+
+		if (getNumberOfTurns() == 0) {
+			setErrorMessage("Please Select number of turns");
+			return;
+		}
+
+		if (mapList.isEmpty()) {
+			setErrorMessage("At least one map should be there");
+			return;
+		} else if (playerList.size() != 2) {
+			setErrorMessage("Choose at least 2 Plaeyrs.");
+			return;
+		} else {
+			GameUtils.addTextToLog("=====Tournament started!=====\n");
+//			for (Map map : mapList) {
+//				int count = 1;
+//				// playe game on each map
+//				for (int i = 0; i < numeberOfGames; i++) {
+//					Map newMap = null;
+//					try {
+//						// clonnig map
+//						newMap = (Map) map.clone();
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//					System.out.println("Game " + (i + 1) + " started on map " + count);
+//					model.startTournament(playerList, newMap, numberOfTurns, numeberOfGames, (i + 1), txtAreaConsole);
+//
+//				}
+//				count++;
+//			}
+			
+			
+			Map newMap = (Map) mapList.get(0).clone();
+			
+			gameCount++;
+			model.startTournament(new ArrayList<Player>(playerList), newMap, numberOfTurns, numeberOfGames, gameCount, txtAreaConsole);
+
+		}
+	}
+	
+	
+	int mapCount = 0;
+	int gameCount = 0;
+	
 	@Override
 	public void update(Observable o, Object arg) {
-		int count = 0;
-		if (++count == (mapList.size() * numeberOfGames)) {
+		
+		GameUtils.addTextToLog("Update Called in tournament\n", txtAreaConsole);
+		
+		if(gameCount==numeberOfGames) {
+			mapCount++;
+			gameCount = 0;
+		}
+		
+		//final call
+		if(mapCount==mapList.size() && gameCount==0) {
+			//print result
+			GameUtils.addTextToLog("Result\n", txtAreaResult);
 			for (Entry<String, HashMap<String, String>> entry : model.getTournamentResult().entrySet()) {
 				GameUtils.addTextToLog(entry.getKey() + "\n", txtAreaResult);
 				for (Entry<String, String> data : entry.getValue().entrySet()) {
@@ -364,8 +388,19 @@ public class TournamentController implements Initializable, Observer {
 				}
 				GameUtils.addTextToLog("=============================================\n", txtAreaResult);
 			}
+		}else {
+			//call playgame and return
+			//gameCount
+			Map newMap = null;
+			try {
+				newMap = (Map) mapList.get(mapCount).clone();
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Calling for "+mapCount+ " - "+gameCount+"\n");
+			GameUtils.addTextToLog("Calling for "+mapCount+ " - "+gameCount+"\n", txtAreaConsole);
+			model.startTournament(new ArrayList<Player>(playerList), newMap, numberOfTurns, numeberOfGames, ++gameCount, txtAreaConsole);
 		}
-
 	}
 
 	// get map object by reading file

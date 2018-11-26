@@ -119,15 +119,16 @@ public class Random implements IStrategy {
 		if(count >= terrArList.size()) {
 			return false;
 		}
-		int size = GameUtils.getAdjTerrForFortifiction(fromTerr, map, currentPlayer).size();
+		List<Territory> adjTerrForFortifiction = GameUtils.getAdjTerrForFortifiction(fromTerr, map, currentPlayer);
+		int size = adjTerrForFortifiction.size();
 		Territory toTerr = null;
 		if(size == 1) {
-			toTerr = GameUtils.getAdjTerrForFortifiction(fromTerr, map, currentPlayer).get(0);
+			toTerr = adjTerrForFortifiction.get(0);
 		}
 		else if(size==0)
 			return false;
 		
-		toTerr = GameUtils.getAdjTerrForFortifiction(fromTerr, map, currentPlayer).get(CommonMapUtil.getRandomNo(size-1));
+		toTerr = adjTerrForFortifiction.get(CommonMapUtil.getRandomNo(size-1));
 		
 		GameUtils.addTextToLog((fromTerr.getArmy()-1)+" Armies Moved From "+fromTerr.getName()+" to "+toTerr.getName());
 		System.out.println((fromTerr.getArmy()-1)+" Armies Moved From "+fromTerr.getName()+" to "+toTerr.getName());

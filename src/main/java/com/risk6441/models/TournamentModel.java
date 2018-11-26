@@ -26,16 +26,11 @@ import javafx.scene.control.TextArea;
  */
 public class TournamentModel extends Observable implements Observer {
 
-	private int gameNo;
 	public TextArea txA;
 	HashMap<String, HashMap<String, String>> result = new HashMap<>();
 	
-	private List<Player> playerList;
-	
 	public void startTournament(List<Player> playerList, Map map, int numberOfTurn, int numberOfGames, int gameNo,
 			TextArea txtAreaConsole) {
-		this.gameNo = gameNo;
-		this.playerList = playerList;
 		PlayGameController controller = new PlayGameController(map);
 		controller.loadControllerForTournament(playerList, numberOfTurn, gameNo, txtAreaConsole);
 		controller.addObserver(this);
@@ -58,11 +53,12 @@ public class TournamentModel extends Observable implements Observer {
 		System.out.println("update called because of object change " + str);
 		String gameNo = str.substring(str.length()-1, str.length());
 		if (str.contains("gameOver")) {
-			String key = ((PlayGameController)o).getMap().getMapData().get("image");
+			PlayGameController pgc = ((PlayGameController)o);
+			String key = pgc.getMap().getMapData().get("image");
 			HashMap<String, String> result2 = result.get(key);
 
-			if(playerList.size()==1) {
-				Player winningPlayer = playerList.get(0);
+			if(pgc.getPlayerList().size()==1) {
+				Player winningPlayer = pgc.getPlayerList().get(0);
 				System.out.println("Putting "+gameNo);
 				result2.put("Game " + gameNo, winningPlayer.getName()+" - "+winningPlayer.getPlayerStrategy());
 			} else {

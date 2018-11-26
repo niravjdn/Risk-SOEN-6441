@@ -378,7 +378,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 						GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n");
 						Platform.runLater(() -> {
 							setChanged();
-							notifyObservers("updateReinforArmy");
+							notifyObservers("updateReinforceArmy");
 							setChanged();
 							notifyObservers("Attack");
 						});
@@ -410,7 +410,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map,
 					terrArList, adjTerrArList);
 
-			if (isFortificationDone  && playerList.size() > 1) {
+			if (playerList.size() > 1) {
 				setChanged();
 				notifyObservers("Reinforcement");
 			}
@@ -418,7 +418,6 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			Thread backgroundThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
 					try {
 						Thread.sleep(Config.waitBeweenTurn);
 					} catch (InterruptedException e) {
@@ -428,7 +427,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 					boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList,
 							adjTerritoryList, currentPlayer, map, terrArList, adjTerrArList);
 
-					if (isFortificationDone && playerList.size() > 1) {
+					if (playerList.size() > 1) {
 						Platform.runLater(() -> {
 							setChanged();
 							notifyObservers("Reinforcement");

@@ -170,6 +170,13 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	private boolean oneTime = true;
 
 
+	/**
+	 * return thr playerList
+	 * @return playerList he playerList the list of players
+	 */
+	public List<Player> getPlayerList() {
+		return playerList;
+	}
 
 	private int gameNo = 1;
 
@@ -748,6 +755,10 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 */
 	private void initializeFortification() {
 		refreshList();
+		if (playerModel.getNumOfTerritoryWon() > 0) {
+			allocateCardToPlayer();
+		}
+		
 		GameUtils.addTextToLog("===============================\n");
 		GameUtils.addTextToLog("The Fortification phase has begun.\n");
 		CommonMapUtil.enableOrDisableSave(true);
@@ -947,6 +958,10 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			isGameOver = true;
 			refreshList();
 			disableGameControls();
+			setChanged();
+			System.out.println("There");
+			notifyObservers("gameOver"+gameNo);
+			oneTime = false;
 		}
 		return isGameOver;
 	}
@@ -973,9 +988,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		}
 		
 		GameUtils.addTextToLog("=====================================================\n");
-		setChanged();
-		oneTime = false;
-		notifyObservers("gameOver"+gameNo);
+		
 	}
 
 	/*
@@ -990,6 +1003,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			//return to that tournament
 			if(oneTime) {
 				setChanged();
+				System.out.println("Here");
 				notifyObservers("gameOver"+gameNo);
 			}
 			oneTime  = false;
@@ -1003,7 +1017,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		}
 		
 		if(currentPlayer!=null)
-		System.out.println("update called because of object change "+ currentPlayer.getName()+" - "+ str);
+		System.out.println(gameNo+" update called because of object change "+ currentPlayer.getName()+" - "+ str);
 		if(currentPlayer!=null)
 		GameUtils.addTextToLog(gameNo+ " - "+currentPlayer.getName()+" - "+"update called because of object change "+ str+"\n");
 
@@ -1062,7 +1076,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			}
 		}else if (str.equals("disableGameControls")) {
 			disableGameControls();
-		}else if(str.equals("updateReinforArmy")) {
+		}else if(str.equals("updateReinforceArmy")) {
 			setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
 		}
 	}

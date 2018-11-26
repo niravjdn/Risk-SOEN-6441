@@ -1041,11 +1041,18 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			initializePlaceArmy();
 			showMilitaryDominationData();
 			Player p = currentPlayer;
-//			checkPlayerWithNoArmyWhilePlacingArmy();
-//			
-//			while(checkPlayerWithNoArmyWhilePlacingArmy() && currentPlayer!=p) {
-//				System.out.println("Skipping "+currentPlayer.getName());
-//			}
+			checkPlayerWithNoArmyWhilePlacingArmy();
+			
+			boolean wasInLoop = false;
+			while(checkPlayerWithNoArmyWhilePlacingArmy() && currentPlayer!=p) {
+				System.out.println("Skipping "+currentPlayer.getName());
+				wasInLoop = true;
+			}
+			if(currentPlayer.equals(p) && wasInLoop) {
+				setPhase("Phase : Reinforcement");
+				initializeReinforcement(true);
+			}
+			
 		} else if (str.equals("Fortification")) {
 			setPhase("Phase : Fortification");
 			adjTerrList.getItems().clear();

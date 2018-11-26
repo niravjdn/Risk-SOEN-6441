@@ -78,7 +78,7 @@ public class TournamentModelTest {
 	/**
 	 * Map Clone Test
 	 * @throws InvalidMapException InvalidMapException
-	 * @throws CloneNotSupportedException 
+	 * @throws CloneNotSupportedException  throws if cloning has some error
 	 */
 	@Test
 	public void createMapCloneTest() throws  InvalidMapException, CloneNotSupportedException {

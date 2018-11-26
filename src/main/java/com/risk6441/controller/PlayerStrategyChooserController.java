@@ -70,7 +70,6 @@ public class PlayerStrategyChooserController extends Observable implements Initi
 				IStrategy strategy = getStrategyObjectForThePlayer(strategyType.toString());
 				playerList.get(count).setStrategy(strategy);
 				System.out.println(playerList.get(count).getStrategy());
-				System.out.println(playerList.get(count).getPlayerStrategy());
 				count++;
 			}
 		}

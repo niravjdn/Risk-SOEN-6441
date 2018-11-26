@@ -3,6 +3,7 @@
  */
 package com.risk6441.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +19,7 @@ import javafx.scene.control.Label;
  * @author Nirav
  *
  */
-public class DiceModel extends Observable{
+public class DiceModel extends Observable implements Serializable{
 	private Territory attackingTerritory;
 
 	private Territory defendingTerritory;

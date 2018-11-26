@@ -288,6 +288,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		loadCurrentPlayer(false);
 		updateMap();
 		terrList.refresh();
+		
 		if (!(currentPlayer.getStrategy() instanceof Human)) {
 			placeArmy(null);
 		}
@@ -610,7 +611,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		showMilitaryDominationData();
 
 		terrList.getItems().addAll(FXCollections.observableArrayList(currentPlayer.getAssignedTerritory()));
-
+		
 		if (state.isPlaceArmyEnable)
 			CommonMapUtil.enableControls(btnPlaceArmy);
 		
@@ -636,6 +637,9 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		System.out.println(playerList);
 
 		playerListIterator = playerList.iterator();
+
+		adjTerrList.setOnMouseClicked(e -> attack());
+		
 		int count = 0;
 		System.out.println(count);
 		System.out.println(stackOfCards.size());
@@ -1259,6 +1263,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 
 		playerModel.addObserver(this);
 		cardModel.addObserver(this);
+		
 	}
 	
 	public void loadControllerForTournament(List<Player> playerList, int numberOfTurn, int gameNo,TextArea console) {

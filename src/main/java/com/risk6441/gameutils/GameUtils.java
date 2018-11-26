@@ -33,6 +33,7 @@ public class GameUtils {
 	
 	static int count=0;
 	public static TextArea txtMsgArea = null;
+	public static boolean isTestMode = false;
 	
 	/**
 	 * This method writes a log in textArea.
@@ -48,6 +49,7 @@ public class GameUtils {
 	 * @param str String to be written in textArea.
 	 */
 	public static void addTextToLog(String str) {
+		if(!isTestMode)
 		Platform.runLater(() -> txtMsgArea.appendText(str));	
 	}
 	

@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.risk6441.config.CardKind;
 import com.risk6441.entity.Card;
+import com.risk6441.gameutils.GameUtils;
 
 /**
  * @author Nirav
@@ -30,6 +31,7 @@ public class CardModelTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
+		GameUtils.isTestMode = true;
 		cardModel = new CardModel();
 		selectedCardList = new ArrayList<>();
 	}

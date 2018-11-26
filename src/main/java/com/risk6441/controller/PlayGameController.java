@@ -452,7 +452,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 */
 	public boolean checkPlayerWithNoArmyWhilePlacingArmy() {
 		if (currentPlayer.getArmies() == 0) {
-			GameUtils.addTextToLog("Skipped " + currentPlayer.getName() + " It doesn't have army for placing.\n");
+			GameUtils.addTextToLog(gameNo+" Skipped " + currentPlayer.getName() + " It doesn't have army for placing.\n");
 			loadCurrentPlayer(false);
 			return true;
 		}

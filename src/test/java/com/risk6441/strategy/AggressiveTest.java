@@ -3,24 +3,20 @@ package com.risk6441.strategy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
-import com.risk6441.exception.InvalidMapException;
-import com.risk6441.models.PlayerModel;
+import com.risk6441.gameutils.GameUtils;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.ListView;
 
 /**
@@ -69,6 +65,7 @@ public class AggressiveTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
+		GameUtils.isTestMode = true;
 		continent = new Continent();
 		terr1 = new Territory();
 		terr2 = new Territory();
@@ -143,7 +140,8 @@ public class AggressiveTest {
 
 	}
 	
-	@Test public void testHasAValidAttackMove()
+	@Test 
+	public void testHasAValidAttackMove()
 	{
 		terr1.setArmy(5);
 		terr2.setArmy(3);
@@ -151,7 +149,8 @@ public class AggressiveTest {
 		Assert.assertTrue(player.getStrategy().hasAValidAttackMove(terrList));
 	}
 	
-	@Test public void testFortificationPhase()
+	@Test
+	public void testFortificationPhase()
 	{
 		terr1.setArmy(5);
 		terr2.setArmy(3);

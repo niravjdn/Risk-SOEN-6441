@@ -15,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.risk6441.entity.Territory;
+import com.risk6441.gameutils.GameUtils;
 
 /**
  * @author Nirav
@@ -38,6 +39,7 @@ public class DiceModelTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
+		GameUtils.isTestMode = true;
 		attackingTerritory = new Territory();
 		defendingTerritory = new Territory();	
 		attackerDiceValuesList = new ArrayList<Integer>();

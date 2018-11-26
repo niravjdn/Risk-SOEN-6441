@@ -12,12 +12,14 @@ import org.junit.Test;
 
 import com.risk6441.config.CardKind;
 import com.risk6441.config.Config;
+import com.risk6441.config.PlayerStrategy;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidGameActionException;
+import com.risk6441.gameutils.GameUtils;
 import com.risk6441.strategy.Human;
 
 import javafx.embed.swing.JFXPanel;
@@ -71,9 +73,11 @@ public class PlayerModelTest {
 	public static void beforeClass() {
 		continent = new Continent();
 		terr1 = new Territory();
+		GameUtils.isTestMode = true;
 		terr2 = new Territory();
 		map = new Map();
 		player = new Player(1, "Nirav");
+		player.setPlayerStrategy(PlayerStrategy.HUMAN);
 		fxPanel = new JFXPanel();
 		txtAreaMsg =  new TextArea();
 		terrListView = new ListView<Territory>();

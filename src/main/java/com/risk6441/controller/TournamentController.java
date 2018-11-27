@@ -149,7 +149,7 @@ public class TournamentController implements Initializable, Observer {
 	@FXML
 	void actionMap2(ActionEvent event) {
 		File filePath = openDialogAndUploadMap(2);
-		btnMap3.setText(filePath.getName());
+		btnMap2.setText(filePath.getName());
 	}
 
 	@FXML
@@ -304,6 +304,9 @@ public class TournamentController implements Initializable, Observer {
 			e.printStackTrace();
 			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
 			return file;
+		}
+		for(Map m: mapList) {
+			System.out.println(m.getMapData().get("image"));
 		}
 		return file;
 	}

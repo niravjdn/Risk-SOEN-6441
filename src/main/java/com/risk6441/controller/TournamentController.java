@@ -262,8 +262,10 @@ public class TournamentController implements Initializable, Observer {
 		}
 		if (player == null) {
 			player = new Player(id, "Player" + id);
+			System.out.println("Creating "+player);
 			playerList.add(player);
 		}
+		
 		return player;
 	}
 
@@ -331,7 +333,7 @@ public class TournamentController implements Initializable, Observer {
 		if (mapList.isEmpty()) {
 			setErrorMessage("At least one map should be there");
 			return;
-		} else if (playerList.size() != 2) {
+		} else if (playerList.size() < 2) {
 			setErrorMessage("Choose at least 2 Plaeyrs.");
 			return;
 		} else {
@@ -402,7 +404,5 @@ public class TournamentController implements Initializable, Observer {
 			model.startTournament(new ArrayList<Player>(playerList), newMap, numberOfTurns, numeberOfGames, ++gameCount, txtAreaConsole);
 		}
 	}
-
-	// get map object by reading file
 
 }

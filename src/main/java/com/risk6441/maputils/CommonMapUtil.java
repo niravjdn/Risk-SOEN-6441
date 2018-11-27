@@ -254,7 +254,8 @@ public class CommonMapUtil {
 	 * @param b true for enabling the button; false for disabling button
 	 */
 	public static void enableOrDisableSave(boolean b) {
-		btnSave.setDisable(!b);
+		if(!Config.isAllComputerPlayer)
+			btnSave.setDisable(!b);
 	}
 	
 }

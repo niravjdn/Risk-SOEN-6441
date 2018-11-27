@@ -174,6 +174,12 @@ public class Player implements Serializable{
 		Player player = (Player) obj;
 		return player.getName().equalsIgnoreCase(name);
 	}
-	
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", playerStrategy=" + playerStrategy + "]";
+	}
 }

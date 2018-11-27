@@ -813,7 +813,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		refreshList();
 		
 		CommonMapUtil.enableOrDisableSave(true);
-
+		
 		CommonMapUtil.enableControls(btnCards);
 		loadCurrentPlayer(loadPlayerFromStart);
 		CommonMapUtil.disableControls(btnPlaceArmy, btnFortify, btnEndTurn, btnNoMoreAttack);
@@ -1101,13 +1101,10 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		CommonMapUtil.enableControls(btnPlaceArmy);
 		PlayerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
 		
-		//verify if all players are computer players or not
-		for(Player p : playerList) {
-			if(p.getStrategy() instanceof Human) {
-				//at least one is human player
-				Config.isAllComputerPlayer = false;
-				break;
-			}
+		boolean isAllComputerPlayes = checkIfAllComputerPlayer();
+		Config.isAllComputerPlayer = isAllComputerPlayes;
+		if(isAllComputerPlayes) {
+			btnSaveGame.setDisable(true);
 		}
 				
 		try {
@@ -1132,6 +1129,22 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		if (!(currentPlayer.getStrategy() instanceof Human)) {
 			placeArmy(null);
 		}
+	}
+
+	/**
+	 * This method checks if all player are human players or not.
+	 * @return true if all players are computer players else return false
+	 */
+	private boolean checkIfAllComputerPlayer() {
+		//verify if all players are computer players or not
+		for(Player p : playerList) {
+			if(p.getStrategy() instanceof Human) {
+				//at least one is human player
+				Config.isAllComputerPlayer = false;
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**

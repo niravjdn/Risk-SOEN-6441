@@ -1006,6 +1006,9 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		if((Config.isTournamentMode && (numOfTurnDone > maxNumOfEachPlayerTurn)) || playerList.size()<=1) {
 			//return to that tournament
 			if(oneTime) {
+				if(playerList.size()<=1) {
+					disableGameControls();
+				}
 				setChanged();
 				System.out.println("Here");
 				notifyObservers("gameOver"+gameNo);
@@ -1044,7 +1047,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			checkPlayerWithNoArmyWhilePlacingArmy();
 			
 			boolean wasInLoop = false;
-			while(checkPlayerWithNoArmyWhilePlacingArmy() && currentPlayer!=p) {
+			while(checkPlayerWithNoArmyWhilePlacingArmy() && (!currentPlayer.equals(p))) {
 				System.out.println("Skipping "+currentPlayer.getName());
 				wasInLoop = true;
 			}
@@ -1141,9 +1144,11 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			if(p.getStrategy() instanceof Human) {
 				//at least one is human player
 				Config.isAllComputerPlayer = false;
+				Config.isPopUpShownInAutoMode = true;
 				return false;
 			}
 		}
+		Config.isPopUpShownInAutoMode = false;
 		return true;
 	}
 
@@ -1318,8 +1323,13 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		
 		CommonMapUtil.btnSave  = btnSaveGame;
 		
-		//set player and territories
-		this.playerList = playerList;
+		//clone the list set player and territories
+		for(Player p : playerList) {
+			Player p2 = new Player(p.getId(), p.getName());
+			p2.setStrategy(p.getStrategy());
+			p2.setPlayerStrategy(p.getPlayerStrategy());
+			this.playerList.add(p2);
+		}
 		
 		//start game after this
 		allocateArmyAndTerr();

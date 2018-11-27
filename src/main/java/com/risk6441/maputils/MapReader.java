@@ -263,7 +263,9 @@ public class MapReader {
 				}
 				
 				for (int i = 4; i < dataOfTerritory.length; i++) {
-					adjacentTerritories.add(WordUtils.capitalizeFully(dataOfTerritory[i].trim()));
+					String str = WordUtils.capitalizeFully(dataOfTerritory[i].trim());
+					if(!territory.getName().equals(str))
+						adjacentTerritories.add(str);
 				}
 				territory.setAdjTerritories(adjacentTerritories);
 				territorieList.add(territory);

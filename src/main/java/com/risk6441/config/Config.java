@@ -46,9 +46,9 @@ public class Config {
 	 */
 	public static boolean isAllComputerPlayer = true;
 	
-	public static int waitBeweenTurn = 1000; //7 seconds
+	public static int waitBeweenTurn = 10000; //7 seconds
 	
-	public static boolean isPopUpShownInAutoMode = false;
+	public static boolean isPopUpShownInAutoMode = true;
 
 	public static boolean isTournamentMode = false;
 }

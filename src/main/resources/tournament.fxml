@@ -39,7 +39,7 @@
       <ComboBox fx:id="comboP2" layoutX="521.0" layoutY="254.0" prefWidth="150.0" />
       <ComboBox fx:id="comboP3" layoutX="353.0" layoutY="297.0" prefWidth="150.0" />
       <ComboBox fx:id="comboP4" layoutX="521.0" layoutY="297.0" prefWidth="150.0" />
-      <Label fx:id="lblMessage" contentDisplay="CENTER" layoutX="48.0" layoutY="398.0" prefHeight="17.0" prefWidth="648.0" text="This" textFill="#e40b0b">
+      <Label fx:id="lblMessage" contentDisplay="CENTER" layoutX="48.0" layoutY="398.0" prefHeight="17.0" prefWidth="648.0" textFill="#e40b0b">
          <font>
             <Font size="18.0" />
          </font>

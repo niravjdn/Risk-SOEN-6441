@@ -3,6 +3,8 @@ package com.risk6441.controller;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -19,6 +21,7 @@ import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapReader;
 import com.risk6441.models.TournamentModel;
+import com.risk6441.models.temp;
 import com.risk6441.strategy.Aggressive;
 import com.risk6441.strategy.Benevolent;
 import com.risk6441.strategy.Cheater;
@@ -47,7 +50,10 @@ public class TournamentController implements Initializable, Observer {
 
 	private List<Player> playerList = new ArrayList<>();
 	
-
+	private int mapCount = 0;
+	
+	private int gameCount = 0;
+	
 	private int numberOfTurns;
 
 	private TournamentModel model;
@@ -187,6 +193,7 @@ public class TournamentController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Config.isTournamentMode = true;
+		Config.isPopUpShownInAutoMode = false;
 		lblMessage.setAlignment(Pos.CENTER);
 		model = new TournamentModel();
 		GameUtils.loadTurnsInTournament(comboTurns);
@@ -359,18 +366,15 @@ public class TournamentController implements Initializable, Observer {
 //				count++;
 //			}
 			
-			
+			btnPlay.setDisable(true);
 			Map newMap = (Map) mapList.get(0).clone();
 			
 			gameCount++;
-			model.startTournament(new ArrayList<Player>(playerList), newMap, numberOfTurns, numeberOfGames, gameCount, txtAreaConsole);
+			
 
+			model.startTournament(playerList, newMap, numberOfTurns, numeberOfGames, gameCount, txtAreaConsole);
 		}
 	}
-	
-	
-	int mapCount = 0;
-	int gameCount = 0;
 	
 	@Override
 	public void update(Observable o, Object arg) {
@@ -381,7 +385,7 @@ public class TournamentController implements Initializable, Observer {
 			mapCount++;
 			gameCount = 0;
 		}
-		
+		System.out.println("Gameover");
 		//final call
 		if(mapCount==mapList.size() && gameCount==0) {
 			//print result
@@ -404,7 +408,7 @@ public class TournamentController implements Initializable, Observer {
 			}
 			System.out.println("Calling for "+mapCount+ " - "+gameCount+"\n");
 			GameUtils.addTextToLog("Calling for "+mapCount+ " - "+gameCount+"\n", txtAreaConsole);
-			model.startTournament(new ArrayList<Player>(playerList), newMap, numberOfTurns, numeberOfGames, ++gameCount, txtAreaConsole);
+			model.startTournament(playerList, newMap, numberOfTurns, numeberOfGames, ++gameCount, txtAreaConsole);
 		}
 	}
 

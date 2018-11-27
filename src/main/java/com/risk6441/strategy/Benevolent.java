@@ -66,7 +66,7 @@ public class Benevolent implements IStrategy {
 			for(Territory adjTerr : weakTerr.getAdjacentTerritories()) {
 				if (adjTerr.getArmy() > 1) {
 					weakTerr.setArmy(weakTerr.getArmy() + adjTerr.getArmy() -1);
-					GameUtils.addTextToLog((adjTerr.getArmy()-1)+" Armies Moved From "+adjTerr.getName()+" to "+weakTerr.getName());
+					GameUtils.addTextToLog((adjTerr.getArmy()-1)+" Armies Moved From "+adjTerr.getName()+" to "+weakTerr.getName()+"\n");
 					adjTerr.setArmy(1);
 					return true;
 				}

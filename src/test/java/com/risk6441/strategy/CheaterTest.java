@@ -11,6 +11,8 @@ import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
+import com.risk6441.gameutils.GameUtils;
+
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -61,6 +63,7 @@ public class CheaterTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
+		GameUtils.isTestMode = true;
 		continent = new Continent();
 		terr1 = new Territory();
 		terr2 = new Territory();

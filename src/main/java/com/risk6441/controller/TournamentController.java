@@ -155,7 +155,7 @@ public class TournamentController implements Initializable, Observer {
 	@FXML
 	void actionMap3(ActionEvent event) {
 		File filePath = openDialogAndUploadMap(3);
-		btnMap4.setText(filePath.getName());
+		btnMap3.setText(filePath.getName());
 	}
 
 	@FXML

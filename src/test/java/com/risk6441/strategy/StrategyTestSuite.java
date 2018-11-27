@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author Nirav
  */
 @RunWith(Suite.class)
-@SuiteClasses({AggressiveTest.class})
+@SuiteClasses({AggressiveTest.class, RandomTest.class, BenevolentTest.class, CheaterTest.class})
 public class StrategyTestSuite{
 	
 }

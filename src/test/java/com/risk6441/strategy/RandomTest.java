@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Player;
 import com.risk6441.entity.Territory;
+import com.risk6441.gameutils.GameUtils;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
@@ -65,6 +67,7 @@ public class RandomTest {
 	 */
 	@BeforeClass
 	public static void beforeClass() {
+		GameUtils.isTestMode = true;
 		continent = new Continent();
 		terr1 = new Territory();
 		terr2 = new Territory();
@@ -160,6 +163,7 @@ public class RandomTest {
 		ArrayList<Territory> t = new ArrayList<>();
 		for(Territory i : listOfTerritories)
 			t.add(i);
+		terr1.getPlayer().setStrategy(new Random());
 		Territory terr = ob.getRandomTerritory(t);
 		assertEquals(listOfTerritories.get(0).getName(), terr.getName());
 	}
@@ -169,9 +173,10 @@ public class RandomTest {
 	 */
 	@Test
 	public void testFortificationPhase() {
-		terr1.setArmy(5);
+		terr1.setArmy(100);
 		terr2.setArmy(3);
-		assertTrue(ob.fortificationPhase(list1, list2, player, map, terrList, adjTerrList));
+		terr1.getPlayer().setStrategy(new Aggressive());
+		Assert.assertTrue(player.getStrategy().fortificationPhase(list1, list2, player, map, terrList, adjTerrList));
 	}
 
 }

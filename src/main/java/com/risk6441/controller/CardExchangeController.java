@@ -184,22 +184,24 @@ public class CardExchangeController implements Initializable{
 	 * This method is invoked if a trade is possible for the strategy.
 	 */
 	public void tradeIfPossibleForStrategy() {
-		doTrade();
+		int size = currentPlayer.getCardList().size();
+		size = doTrade(size);
 		
 		if(cardModel.isRestrictedModeTillLessThan5) {
-			while(currentPlayer.getCardList().size() > 5) {
-				doTrade();
+			
+			while(size > 5) {
+				size = doTrade(size);
 			}
 		}
 	}
 	/**
 	 * This method is responsible for making the trade.
 	 */
-	private void doTrade() {
+	private int doTrade(int size) {
 		cardsOfPlayer = currentPlayer.getCardList();
 		List<Card> cards = cardModel.getCombinationOfCards(cardsOfPlayer);
 		if(cards == null)
-			return;
+			return 1;
 		
 		String str = "Cards : ";
 		for(Card c : cards)
@@ -208,7 +210,9 @@ public class CardExchangeController implements Initializable{
 		GameUtils.addTextToLog(str);
 		if (cards != null && cards.size() == 3) {
 			cardModel.setCardsForExchange(cards);
+			size = size -3;
 		}
+		return size;
 	}
 	
 	

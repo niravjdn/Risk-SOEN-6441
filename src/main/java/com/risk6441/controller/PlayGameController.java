@@ -1003,7 +1003,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		if(Config.isTournamentMode && (numOfTurnDone > maxNumOfEachPlayerTurn)) {
+		if((Config.isTournamentMode && (numOfTurnDone > maxNumOfEachPlayerTurn)) || playerList.size()<=1) {
 			//return to that tournament
 			if(oneTime) {
 				setChanged();

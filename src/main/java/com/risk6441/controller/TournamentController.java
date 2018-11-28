@@ -305,6 +305,7 @@ public class TournamentController implements Initializable, Observer {
 		setErrorMessage("Please enter the details!");
 		try {
 			map = mapReader.readMapFile(file);
+			map.getMapData().put("image", "Map"+mapPosition);
 			if (mapPosition > 5) {
 				mapList.add(4, map);
 			} else {

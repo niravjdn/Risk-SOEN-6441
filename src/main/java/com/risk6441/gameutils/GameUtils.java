@@ -269,7 +269,7 @@ public class GameUtils {
 	 */
 	public static void loadTurnsInTournament(ComboBox<Integer> noOFTurns) {
 		noOFTurns.getItems().removeAll(noOFTurns.getItems());
-		for(int i=10; i<=50; i++) {
+		for(int i=5; i<=50; i++) {
 			noOFTurns.getItems().add(i);
 		}
 	}

@@ -1182,7 +1182,12 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
 		for (Entry<Player, Double> entry : playerTerPercent.entrySet()) {
 			double d = entry.getValue();
-			String value = String.valueOf(d).substring(0, 4);
+			String value = "";
+			try {
+				value = String.valueOf(d).substring(0, 4);
+			}catch (Exception e) {
+				value = String.valueOf(d).substring(0, 2);
+			}
 			String label = entry.getKey().getName();
 			label += "-" + value + "%";
 			System.out.println(label);

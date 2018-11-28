@@ -6,7 +6,6 @@ wrap=no
 scroll=no
 
 [Continents]
-
 Western Australia=4
 Northern Territory=4
 South Australia=4
@@ -17,7 +16,6 @@ Victoria=3
 Tasmania=2
 
 [Territories]
-
 Carnarvon,65,285,Western Australia,Broome,Great Sandy Desert,Gibson Desert
 Broome,131,205,Western Australia,Wyndham,Great Sandy Desert,Carnarvon
 Wyndham,211,150,Western Australia,Broome,Great Sandy Desert,Kununurra

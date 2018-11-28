@@ -7,7 +7,6 @@ author=_MIKE CRUSH_
 
 
 [Continents]
-
 ALISSTOO=4
 FARROO=4
 QUADLAS=6
@@ -15,7 +14,6 @@ ZEE=5
 
 
 [Territories]
-
 a1,56,28,ALISSTOO,a2
 a2,76,42,ALISSTOO,a1,a3,a8,q7
 a3,101,36,ALISSTOO,a2,a4,a7,a8,a9

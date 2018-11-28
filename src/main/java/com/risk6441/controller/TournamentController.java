@@ -305,6 +305,11 @@ public class TournamentController implements Initializable, Observer {
 		setErrorMessage("Please enter the details!");
 		try {
 			map = mapReader.readMapFile(file);
+			//here
+			check in the static list if list contains a map attribut
+			if(listAttr.contains(map.getAttribute)) {
+				
+			}
 			if (mapPosition > 5) {
 				mapList.add(4, map);
 			} else {

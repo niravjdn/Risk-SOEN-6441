@@ -52,7 +52,7 @@ public class Card implements Serializable{
 	}
 
 	/**
-	 * @param territoryToWhichCardBelong the territoryToWhichCardBelong to set
+	 * @param territoryToWhichCardBelong the territoryToWhichCardBelong will be added
 	 */
 	public void setTerritoryToWhichCardBelong(Territory territoryToWhichCardBelong) {
 		this.territoryToWhichCardBelong = territoryToWhichCardBelong;

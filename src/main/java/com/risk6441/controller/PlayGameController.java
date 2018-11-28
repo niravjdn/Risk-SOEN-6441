@@ -809,6 +809,8 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		System.out.println("Inside intialize reinforcement " + loadPlayerFromStart);
 		if(Config.isTournamentMode) {
 			numOfTurnDone++;
+			System.out.println(numOfTurnDone+"dekho1");
+			System.out.println(maxNumOfEachPlayerTurn+"dekho1");
 		}
 		refreshList();
 		
@@ -855,14 +857,13 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		if (playerLost != null) {
 			
 			if(Config.isTournamentMode) {
-				int executedTurnCount = maxNumOfEachPlayerTurn / playerList.size();
+				int executedTurnCount = numOfTurnDone / playerList.size();
 				int remainingTurn = maxNumOfTurn - executedTurnCount;
 				maxNumOfEachPlayerTurn = remainingTurn * (playerList.size()-1);
 			}
 			
 			playerList.remove(playerLost);
 			this.playerLost = playerLost;
-
 			
 			
 			playerModel.setPlayerList(playerList);
@@ -870,7 +871,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			CommonMapUtil.alertBox("Info",
 					"Player: " + playerLost.getName() + " lost all his territory and no more in the game.", "Info");
 			System.out.println("Player: " + playerLost.getName() + " lost all his territory and no more in the game.");
-			GameUtils.addTextToLog(playerLost.getName() + " lost all territories and lost the game.\n");
+			GameUtils.addTextToLog(gameNo+" - "+playerLost.getName() + " lost all territories and lost the game.\n");
 			GameUtils.addTextToLog("==============================================================\n");
 			return true;
 		}
@@ -984,7 +985,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		updateMap();
 		setLabelAndShowWorldDomination();
 		GameUtils.addTextToLog("=====================================================\n");
-		System.out.println(currentPlayer.getName().toUpperCase() + " WON THE GAME");
+		System.out.println(gameNo+" - "+currentPlayer.getName().toUpperCase() + " WON THE GAME");
 		if(Config.isTournamentMode) {
 			GameUtils.addTextToLog(gameNo+" - "+currentPlayer.getName().toUpperCase() + " WON THE GAME\n");
 		}else {

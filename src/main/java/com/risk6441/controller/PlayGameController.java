@@ -1320,8 +1320,8 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		btnSaveGame = new Button();
 		allocateCardTOTerritories();
 		
-		Config.isTournamentMode = true;
-		Config.waitBeweenTurn = 10;
+		Config.isTournamentMode = false;
+		Config.waitBeweenTurn = 1000;
 		
 		GameUtils.txtMsgArea = console;
 		

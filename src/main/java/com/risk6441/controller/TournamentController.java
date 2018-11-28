@@ -193,8 +193,6 @@ public class TournamentController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setErrorMessage("Please enter the details!");
-		Config.isTournamentMode = false;
-		Config.waitBeweenTurn = 1000;
 		Config.isPopUpShownInAutoMode = false;
 		lblMessage.setAlignment(Pos.CENTER);
 		model = new TournamentModel();

@@ -305,11 +305,6 @@ public class TournamentController implements Initializable, Observer {
 		setErrorMessage("Please enter the details!");
 		try {
 			map = mapReader.readMapFile(file);
-			//here
-			check in the static list if list contains a map attribut
-			if(listAttr.contains(map.getAttribute)) {
-				
-			}
 			if (mapPosition > 5) {
 				mapList.add(4, map);
 			} else {
@@ -355,14 +350,7 @@ public class TournamentController implements Initializable, Observer {
 		} else if (playerList.size() < 2) {
 			setErrorMessage("Choose at least 2 Players.");
 			return;
-		} 
-		else if(containsDup(mapList))
-		{
-			setErrorMessage("Duplicate maps found!");
-			return;
-		}
-		
-		else {
+		}else {
 			GameUtils.addTextToLog("=====Tournament started!=====\n");
 //			for (Map map : mapList) {
 //				int count = 1;
@@ -392,15 +380,7 @@ public class TournamentController implements Initializable, Observer {
 		}
 	}
 	
-	private boolean containsDup(List<Map> mapList2) {
-		Set<Map> set = new HashSet<Map>();
-		for(Map m : mapList2)
-		{
-			if(!set.add(m));
-				return true;
-		}
-		return false;
-	}
+	
 
 	@Override
 	public void update(Observable o, Object arg) {

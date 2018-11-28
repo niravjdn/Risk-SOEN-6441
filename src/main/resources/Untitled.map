@@ -6,12 +6,15 @@ scroll=scroll
 wrap=wrap
 
 [Continents]
-Asia=1
+Asia=10
 Europe=1
 
 [Territories]
-India,1,1,Asia,UK
+India,1,1,Asia,China,Uk
+China,1,1,Asia,India,Nepal
+Nepal,1,1,Asia,China
 
-UK,1,1,Europe,India,Neth
-Neth,1,1,Europe,UK
+Uk,1,1,Europe,Neth,India,Egypt
+Neth,1,1,Europe,Uk
+Egypt,1,1,Europe,Uk
 

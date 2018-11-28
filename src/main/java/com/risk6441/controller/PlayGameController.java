@@ -1041,21 +1041,23 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			initializeReinforcement(false);
 		} else if (str.equals("placeArmy")) {
 			setPhase("Phase : Place Army");
-			initializePlaceArmy();
+			
+//			Player p = currentPlayer;
+//			checkPlayerWithNoArmyWhilePlacingArmy();
+//			boolean wasInLoop = false;
+//			while(checkPlayerWithNoArmyWhilePlacingArmy() && (!currentPlayer.equals(p))) {
+//				System.out.println("Skipping "+currentPlayer.getName());
+//				wasInLoop = true;
+//			}
+//			if(currentPlayer.equals(p) && wasInLoop) {
+//				setPhase("Phase : Reinforcement");
+//				System.out.println("Calling this");
+//				initializeReinforcement(true);
+//			}else {
+//				initializePlaceArmy();	
+//			}
+			initializePlaceArmy();	
 			showMilitaryDominationData();
-			Player p = currentPlayer;
-			checkPlayerWithNoArmyWhilePlacingArmy();
-			
-			boolean wasInLoop = false;
-			while(checkPlayerWithNoArmyWhilePlacingArmy() && (!currentPlayer.equals(p))) {
-				System.out.println("Skipping "+currentPlayer.getName());
-				wasInLoop = true;
-			}
-			if(currentPlayer.equals(p) && wasInLoop) {
-				setPhase("Phase : Reinforcement");
-				initializeReinforcement(true);
-			}
-			
 		} else if (str.equals("Fortification")) {
 			setPhase("Phase : Fortification");
 			adjTerrList.getItems().clear();
@@ -1092,6 +1094,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			disableGameControls();
 		}else if(str.equals("updateReinforceArmy")) {
 			setCurrentPlayerLabel(currentPlayer.getName() + ":- " + currentPlayer.getArmies() + " armies left.");
+			terrList.refresh();
 		}
 	}
 

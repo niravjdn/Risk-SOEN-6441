@@ -300,6 +300,7 @@ public class TournamentController implements Initializable, Observer {
 		File file = CommonMapUtil.showFileDialogForMap();
 		MapReader mapReader = new MapReader();
 		Map map = null;
+		setErrorMessage("Please enter the details!");
 		try {
 			map = mapReader.readMapFile(file);
 			if (mapPosition > 5) {
@@ -309,6 +310,7 @@ public class TournamentController implements Initializable, Observer {
 			}
 		} catch (InvalidMapException e) {
 			e.printStackTrace();
+			lblMessage.setText("Map : "+mapPosition+" is invalid!");
 			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
 			return file;
 		}

@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import com.risk6441.config.Config;
 import com.risk6441.config.PlayerStrategy;
@@ -310,7 +312,7 @@ public class TournamentController implements Initializable, Observer {
 			}
 		} catch (InvalidMapException e) {
 			e.printStackTrace();
-			lblMessage.setText("Map : "+mapPosition+" is invalid!");
+			setErrorMessage("Map : "+mapPosition+" is invalid!");
 			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
 			return file;
 		}
@@ -346,9 +348,16 @@ public class TournamentController implements Initializable, Observer {
 			setErrorMessage("At least one map should be there");
 			return;
 		} else if (playerList.size() < 2) {
-			setErrorMessage("Choose at least 2 Plaeyrs.");
+			setErrorMessage("Choose at least 2 Players.");
 			return;
-		} else {
+		} 
+		else if(containsDup(mapList))
+		{
+			setErrorMessage("Duplicate maps found!");
+			return;
+		}
+		
+		else {
 			GameUtils.addTextToLog("=====Tournament started!=====\n");
 //			for (Map map : mapList) {
 //				int count = 1;
@@ -378,6 +387,16 @@ public class TournamentController implements Initializable, Observer {
 		}
 	}
 	
+	private boolean containsDup(List<Map> mapList2) {
+		Set<Map> set = new HashSet<Map>();
+		for(Map m : mapList2)
+		{
+			if(!set.add(m));
+				return true;
+		}
+		return false;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 		

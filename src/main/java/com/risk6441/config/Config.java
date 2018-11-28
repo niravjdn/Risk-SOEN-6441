@@ -41,9 +41,6 @@ public class Config {
 	 */
 	public static boolean isGameOver = false;
 
-	/**
-	 * isAllComputerPlayer
-	 */
 	public static boolean isAllComputerPlayer = true;
 	
 	public static int waitBeweenTurn = 1000; //7 seconds
@@ -51,4 +48,6 @@ public class Config {
 	public static boolean isPopUpShownInAutoMode = true;
 
 	public static boolean isTournamentMode = false;
+
+	public static boolean isThreadingForTournament = true;
 }

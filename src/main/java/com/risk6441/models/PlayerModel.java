@@ -238,7 +238,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			return;
 		
 		
-		if(currentPlayer.getStrategy() instanceof Human || Config.isTournamentMode) {
+		if(currentPlayer.getStrategy() instanceof Human || Config.isThreadingForTournament) {
 			if(playerList.size()==1) {
 				setChanged();
 				notifyObservers("disableGameControls");
@@ -355,7 +355,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			return;
 		
 		// Run the task in a background thread
-		if(currentPlayer.getStrategy() instanceof Human || Config.isTournamentMode) {
+		if(currentPlayer.getStrategy() instanceof Human || Config.isThreadingForTournament) {
 			currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer,terrArList, null);
 			if (currentPlayer.getArmies() <= 0 && playerList.size() > 1) {
 				GameUtils.addTextToLog("===Reinforcement phase Ended! ===\n");
@@ -406,7 +406,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		if(playerList.size()<=1)
 			return;
 		
-		if(currentPlayer.getStrategy() instanceof Human || Config.isTournamentMode) {
+		if(currentPlayer.getStrategy() instanceof Human || Config.isThreadingForTournament) {
 			boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map,
 					terrArList, adjTerrArList);
 

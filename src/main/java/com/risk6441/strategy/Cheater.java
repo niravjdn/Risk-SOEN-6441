@@ -94,7 +94,6 @@ public class Cheater extends Observable implements IStrategy {
 		return true;
 	}
 
-	
 	/* (non-Javadoc)
 	 * @see com.risk6441.strategy.IStrategy#hasAValidAttackMove(javafx.scene.control.ListView, javafx.scene.control.TextArea)
 	 */

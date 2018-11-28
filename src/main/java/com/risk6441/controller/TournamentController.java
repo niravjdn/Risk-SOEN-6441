@@ -324,8 +324,6 @@ public class TournamentController implements Initializable, Observer {
 	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
-	
-	
 	@FXML
 	void playTournament(ActionEvent event) throws CloneNotSupportedException {
 		setErrorMessage("Playing tournament");
@@ -349,23 +347,6 @@ public class TournamentController implements Initializable, Observer {
 			return;
 		}else {
 			GameUtils.addTextToLog("=====Tournament started!=====\n");
-//			for (Map map : mapList) {
-//				int count = 1;
-//				// playe game on each map
-//				for (int i = 0; i < numeberOfGames; i++) {
-//					Map newMap = null;
-//					try {
-//						// clonnig map
-//						newMap = (Map) map.clone();
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//					System.out.println("Game " + (i + 1) + " started on map " + count);
-//					model.startTournament(playerList, newMap, numberOfTurns, numeberOfGames, (i + 1), txtAreaConsole);
-//
-//				}
-//				count++;
-//			}
 			
 			btnPlay.setDisable(true);
 			Map newMap = (Map) mapList.get(0).clone();

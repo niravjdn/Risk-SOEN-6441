@@ -259,11 +259,9 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			Thread backgroundThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
 					try {
 						Thread.sleep(Config.waitBeweenTurn);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					if (playerList.size() == 1) {
@@ -277,7 +275,6 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 					try {
 						currentPlayer.getStrategy().attackPhase(terrList, adjTerrList, playerModel,playerList, terrArList,adjTerrArList);
 					} catch (InvalidGameActionException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -366,11 +363,9 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			Thread backgroundThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
 					try {
 						Thread.sleep(Config.waitBeweenTurn);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer,terrArList,null);
@@ -421,7 +416,6 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 					try {
 						Thread.sleep(Config.waitBeweenTurn);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList,

@@ -243,13 +243,6 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 */
 	@FXML
 	void fortify(ActionEvent event) {
-//	    Territory selectedTerritory = terrList.getSelectionModel().getSelectedItem();
-//		Territory adjTerritory = adjTerrList.getSelectionModel().getSelectedItem();
-//	
-//		playerModel.fortificationPhase(selectedTerritory, adjTerritory, txtAreaMsg);
-//		terrList.refresh();
-//		adjTerrList.refresh();
-//		updateMap();
 		fortifyArmy();
 	}
 

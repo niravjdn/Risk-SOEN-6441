@@ -71,13 +71,6 @@ public class TournamentModel extends Observable implements Observer {
 			
 			setChanged();
 			notifyObservers();
-//			for (Entry<String, HashMap<String, String>> entry : result.entrySet()) {
-//				GameUtils.addTextToLog(entry.getKey() + "\n", txA);
-//				for (Entry<String, String> data : entry.getValue().entrySet()) {
-//					GameUtils.addTextToLog(data.getKey() + " : " + data.getValue() + "\n", txA);
-//				}
-//				GameUtils.addTextToLog("=============================================\n", txA);
-//			}
 			
 		}
 

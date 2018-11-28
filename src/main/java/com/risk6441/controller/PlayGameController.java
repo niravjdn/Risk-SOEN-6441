@@ -1322,6 +1322,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		
 		Config.isTournamentMode = false;
 		Config.waitBeweenTurn = 1000;
+		Config.isPopUpShownInAutoMode = false;
 		
 		GameUtils.txtMsgArea = console;
 		

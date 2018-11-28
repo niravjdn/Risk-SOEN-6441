@@ -195,7 +195,6 @@ public class TournamentController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setErrorMessage("Please enter the details!");
-		Config.isPopUpShownInAutoMode = false;
 		lblMessage.setAlignment(Pos.CENTER);
 		model = new TournamentModel();
 		GameUtils.loadTurnsInTournament(comboTurns);
@@ -306,16 +305,13 @@ public class TournamentController implements Initializable, Observer {
 		try {
 			map = mapReader.readMapFile(file);
 			map.getMapData().put("image", "Map"+mapPosition);
-			if (mapPosition > 5) {
-				mapList.add(4, map);
-			} else {
-				mapList.add(map);
-			}
+			mapList.add(mapPosition-1, map);
 		} catch (InvalidMapException e) {
 			e.printStackTrace();
 			setErrorMessage("Map : "+mapPosition+" is invalid!");
 			CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
-			return file;
+		}catch (Exception e) {
+			CommonMapUtil.alertBox("Error", "Load previour maps before laoding map", "Error"+mapPosition);
 		}
 		for(Map m: mapList) {
 			System.out.println(m.getMapData().get("image"));

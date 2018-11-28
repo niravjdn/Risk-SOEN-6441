@@ -192,6 +192,7 @@ public class TournamentController implements Initializable, Observer {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		setErrorMessage("Please enter the details!");
 		Config.isTournamentMode = true;
 		Config.isPopUpShownInAutoMode = false;
 		lblMessage.setAlignment(Pos.CENTER);
@@ -327,7 +328,7 @@ public class TournamentController implements Initializable, Observer {
 	
 	@FXML
 	void playTournament(ActionEvent event) throws CloneNotSupportedException {
-		setErrorMessage("");
+		setErrorMessage("Playing tournament");
 		model.addObserver(this);
 		model.txA = txtAreaResult;
 		if (getNumeberOfGames() == 0) {
@@ -389,6 +390,7 @@ public class TournamentController implements Initializable, Observer {
 		//final call
 		if(mapCount==mapList.size() && gameCount==0) {
 			//print result
+			setErrorMessage("Tournament ended. Check the results");
 			GameUtils.addTextToLog("Result\n", txtAreaResult);
 			for (Entry<String, HashMap<String, String>> entry : model.getTournamentResult().entrySet()) {
 				GameUtils.addTextToLog(entry.getKey() + "\n", txtAreaResult);

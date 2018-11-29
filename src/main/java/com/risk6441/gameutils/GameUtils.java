@@ -95,7 +95,7 @@ public class GameUtils {
 			Player player = players.get(playerNo++);
 			territory.setPlayer(player);
 			territory.setArmy(territory.getArmy() + 1);
-			player.setArmies(player.getArmies() - 1);
+//			player.setArmies(player.getArmies() - 1);
 			player.getAssignedTerritory().add(territory);
 			addTextToLog(
 					territory.getName() + " is assigned to " + player.getName() + " ! \n");

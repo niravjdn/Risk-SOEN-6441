@@ -87,7 +87,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 
 	private int noOfPlayer;
 
-	private List<Player> playerList;
+	public List<Player> playerList;
 
 	private Player currentPlayer;
 
@@ -217,6 +217,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		saveGame(file);
 	}
 
+	
 	/**
 	 * This method writes the game data for saving the game to given path of the
 	 * file.
@@ -1099,7 +1100,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	/**
 	 * This method assigns armies and territories to players.
 	 */
-	private void allocateArmyAndTerr() {
+	public void allocateArmyAndTerr() {
 		choiceBoxNoOfPlayer.setDisable(true);
 		playerListIterator = playerList.iterator();
 		CommonMapUtil.enableControls(btnPlaceArmy);
@@ -1341,6 +1342,41 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		
 		//start game after this
 		allocateArmyAndTerr();
+		
+	}
+	
+	public void loadControllerForTest(List<Player> playerList, TextArea console) {
+		this.numOfTurnDone = 0;
+		this.maxNumOfEachPlayerTurn = maxNumOfTurn * playerList.size();
+		btnReinforcement = new Button();
+		lblCurrPlayer = new Label();
+		lblGamePhase = new Label("Start Up");
+		btnPlaceArmy = new Button();
+		worldDominationPieChart = new PieChart();
+		CategoryAxis xAxis    = new CategoryAxis();
+		NumberAxis yAxis = new NumberAxis();
+		militaryDominationbarChart = new BarChart(xAxis, yAxis);
+		btnFortify = new Button();
+		btnNoMoreAttack = new Button();
+		btnCards = new Button();
+		btnEndTurn = new Button();
+		terrList = new ListView<Territory>();
+		adjTerrList = new ListView<Territory>();
+		txtAreaMsg = new TextArea();
+		vbox = new VBox();
+		choiceBoxNoOfPlayer = new ChoiceBox<>();
+		btnSaveGame = new Button();
+		allocateCardTOTerritories();
+		
+		Config.isThreadingForTournament = true;
+		Config.isTournamentMode = true;
+		Config.waitBeweenTurn = 1000;
+		Config.isPopUpShownInAutoMode = false;
+		
+		GameUtils.txtMsgArea = console;
+		
+		CommonMapUtil.btnSave  = btnSaveGame;
+		
 		
 	}
 

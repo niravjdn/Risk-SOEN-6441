@@ -105,6 +105,7 @@ public class SplashController {
 			fileInputStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("Error while reading saved game file.");
 		}
 		return playGameController;
 	}

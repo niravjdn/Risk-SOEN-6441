@@ -10,6 +10,7 @@ import java.util.Random;
 import com.risk6441.config.Config;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Territory;
+import com.risk6441.gameutils.GameUtils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -215,6 +216,9 @@ public class CommonMapUtil {
 	 * @param header header of the stage
 	 */
 	public static void alertBox(String title, String message,  String header) {
+		if(GameUtils.isTestMode = true) {
+			return;
+		}
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(title);
 		alert.setHeaderText(header);

@@ -3,15 +3,30 @@ package com.risk6441.controller;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class SplashControllerTest {
 
+	ClassLoader loader;
+
+	@Before
+	public void before() {
+		loader = getClass().getClassLoader();
+	}
+
 	@Test
-	public void testLoadGame()
-	{
+	public void testLoadGame() {
 		SplashController ob = new SplashController();
-		assertNotNull(ob.readSavedGame(new File("src\\main\\resources\\sampleLoadGame.game.game")));
+		File file = new File(loader.getResource("savedGame.game").getFile());
+		System.out.println(file.getPath());
+		try {
+			ob.readSavedGame(file);
+		} catch (Exception e) {
+			
+		}
 	}
 }

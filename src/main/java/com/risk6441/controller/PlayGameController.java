@@ -877,6 +877,9 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	private void refreshView() {
 		
 		if (checkIfAnyPlayerLostTheMatch()) {
+			//if one player is lost then it might be more than 2
+			while(checkIfAnyPlayerLostTheMatch());
+			
 			// check if player has more than 6 cards now, open card window, and allow to
 			// trade cards till he has cards less than 5
 			System.out.println("Inside open card window " + currentPlayer.getCardList().size());

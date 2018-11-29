@@ -5,8 +5,10 @@ package com.risk6441.maputils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -143,4 +145,32 @@ public class MapVerifierTest {
 		continent.setTerritories(terrList);
 		assertTrue(MapVerifier.isContinentConnectedGraph(continent, map));
 	}
+	
+
+	@Test
+	public void check3Dcliff() throws InvalidMapException
+	{
+		Map map1 = new MapReader().readMapFile(new File("src\\main\\resources\\3D Cliff.map"));
+		assertNotNull(map1);
+	}
+	
+	@Test (expected = InvalidMapException.class)
+	public void checkTwinVolcano() throws InvalidMapException
+	{
+		Map map1 = new MapReader().readMapFile(new File("src\\main\\resources\\Twin Volcano.map"));
+	}
+	
+	@Test 
+	public void checkWorldMap() throws InvalidMapException
+	{
+		Map map1 = new MapReader().readMapFile(new File("src\\main\\resources\\World.map"));
+		assertNotNull(map);
+	}
+	
+	@Test (expected = InvalidMapException.class)
+	public void checkUnconnectedContinentMap() throws InvalidMapException
+	{
+		Map map1 = new MapReader().readMapFile(new File("src\\main\\resources\\UnconnectedContinent.map"));
+	}
+	
 }

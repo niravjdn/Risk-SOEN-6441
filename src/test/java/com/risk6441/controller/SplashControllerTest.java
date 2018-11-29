@@ -6,12 +6,12 @@ import java.io.File;
 
 import org.junit.Test;
 
-public class testSplashController {
+public class SplashControllerTest {
 
 	@Test
-	public void testReadGame()
+	public void testLoadGame()
 	{
 		SplashController ob = new SplashController();
-		assertNotNull(ob.readSavedGame(new File("src\\main\\resources\\loadSavedGame.game")));
+		assertNotNull(ob.readSavedGame(new File("src\\main\\resources\\sampleLoadGame.game.game")));
 	}
 }

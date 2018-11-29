@@ -31,7 +31,7 @@ public class MapVerifierTest {
 	static Continent continent;
 	static Territory territory;
 	static Map map;
-	
+	ClassLoader loader;
 
 	String mapAuthor = "Nirav";
 	String mapImage = "world.map";
@@ -53,6 +53,7 @@ public class MapVerifierTest {
 		continent = new Continent();
 		territory = new Territory();
 		map = new Map();
+		
 	}	
 	
 	/**
@@ -66,7 +67,7 @@ public class MapVerifierTest {
 		mapData.put("scroll", mapScroll);
 		mapData.put("warn", mapWarn);		
 		map.setMapData(mapData);
-		
+		loader = getClass().getClassLoader();
 		continent.setName(continentName);
 		continent.setValue(controlValue);
 		
@@ -150,27 +151,32 @@ public class MapVerifierTest {
 	@Test
 	public void check3Dcliff() throws InvalidMapException
 	{
-		Map map1 = new MapReader().readMapFile(new File("src\\main\\resources\\3D Cliff.map"));
+		File file = new File(loader.getResource("3DCliff.map").getFile());
+		System.out.println(file==null);
+		Map map1 = new MapReader().readMapFile(file);
 		assertNotNull(map1);
 	}
 	
 	@Test (expected = InvalidMapException.class)
 	public void checkTwinVolcano() throws InvalidMapException
 	{
-		Map map1 = new MapReader().readMapFile(new File("src\\main\\resources\\Twin Volcano.map"));
+		File file = new File(loader.getResource("TwinVolcano.map").getFile());
+		Map map1 = new MapReader().readMapFile(file);
 	}
 	
 	@Test 
 	public void checkWorldMap() throws InvalidMapException
 	{
-		Map map1 = new MapReader().readMapFile(new File("src\\main\\resources\\World.map"));
+		File file = new File(loader.getResource("World.map").getFile());
+		Map map = new MapReader().readMapFile(file);
 		assertNotNull(map);
 	}
 	
 	@Test (expected = InvalidMapException.class)
 	public void checkUnconnectedContinentMap() throws InvalidMapException
 	{
-		Map map1 = new MapReader().readMapFile(new File("src\\main\\resources\\UnconnectedContinent.map"));
+		File file = new File(loader.getResource("UnconnectedContinent.map").getFile());
+		Map map = new MapReader().readMapFile(file);
 	}
 	
 }

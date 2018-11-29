@@ -21,7 +21,7 @@ public class SplashControllerTest {
 	@Test
 	public void testLoadGame() {
 		SplashController ob = new SplashController();
-		File file = new File(loader.getResource("savedGame.game").getFile());
+		File file = new File(loader.getResource("saveGameController.game").getFile());
 		System.out.println(file.getPath());
 		try {
 			ob.readSavedGame(file);

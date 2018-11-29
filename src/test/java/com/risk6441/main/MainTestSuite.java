@@ -21,4 +21,3 @@ import com.risk6441.strategy.StrategyTestSuite;
 public class MainTestSuite {
 }
 
-

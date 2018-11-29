@@ -109,7 +109,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	private Label lblGamePhase;
 
 	@FXML
-	private Button btnPlaceArmy;
+	public Button btnPlaceArmy;
 
 	@FXML
 	private PieChart worldDominationPieChart;
@@ -155,7 +155,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 
 	private String lblPlayerString;
 
-	private GameUIStateModel state;
+	public GameUIStateModel state;
 
 	private int attackCount = 5;
 
@@ -171,7 +171,8 @@ public class PlayGameController extends Observable implements Initializable, Obs
 
 
 	/**
-	 * return thr playerList
+	 * This method returns the player list.
+	 * returns the playerList
 	 * @return playerList he playerList the list of players
 	 */
 	public List<Player> getPlayerList() {
@@ -222,7 +223,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 * 
 	 * @param file file path for writing it
 	 */
-	private void saveGame(File file) {
+	public void saveGame(File file) {
 		try {
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);

@@ -130,4 +130,6 @@ public class GameUtilsTest {
 		GameUtils.allocateTerritoryToPlayer(map, playerList, txtAreaMsg);
 		Assert.assertTrue(playerList.get(0).getAssignedTerritory().size() > 0 );		
 	}
+	
+	
 }

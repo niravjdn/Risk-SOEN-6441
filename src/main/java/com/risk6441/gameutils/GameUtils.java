@@ -67,7 +67,7 @@ public class GameUtils {
 
 		List<Territory> allterritoriesList = getTerritoryList(map);
 
-		Collections.shuffle(allterritoriesList); 
+		//Collections.shuffle(allterritoriesList); 
 		
 		int playerNo = 0;
 		for (int i = 0; i < allterritoriesList.size(); i++) {

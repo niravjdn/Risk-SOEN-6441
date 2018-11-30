@@ -1123,16 +1123,8 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		}
 				
 		try {
-			if (playerList.size() > GameUtils.getTerritoryList(map).size()) {
-				throw new InvalidMapException("Territories must be more than players.");
-			}
 
 			allocateTerritoriesToPlayer();
-			for (Player p : playerList) {
-				if (p.getArmies() < 0) {
-					throw new InvalidMapException("Initial army of player should be more than its no of territories.");
-				}
-			}
 			setPhase("Phase : Place Army");
 			loadCurrentPlayer(false);
 			showWorldDominationData();

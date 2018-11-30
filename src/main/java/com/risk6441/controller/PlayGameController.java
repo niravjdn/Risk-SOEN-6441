@@ -1106,6 +1106,16 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		CommonMapUtil.enableControls(btnPlaceArmy);
 		PlayerModel.allocateArmiesToPlayers(playerList, txtAreaMsg);
 		
+		if (playerList.size() > GameUtils.getTerritoryList(map).size()) {
+			try {
+				throw new InvalidMapException("Territories must be more than players.");
+			} catch (InvalidMapException e) {
+				CommonMapUtil.alertBox("Alert", e.getMessage(), "Error");
+				e.printStackTrace();
+				return;
+			}
+		}
+		
 		boolean isAllComputerPlayes = checkIfAllComputerPlayer();
 		Config.isAllComputerPlayer = isAllComputerPlayes;
 		if(isAllComputerPlayes) {

@@ -13,6 +13,7 @@ import com.risk6441.maputils.MapReader;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 /**
@@ -127,6 +129,13 @@ public class SplashController {
     	stage.setX(primaryStage.getX() + 200);
     	stage.setY(primaryStage.getY() + 200);
     	stage.show();
+    	
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+				System.out.println("Stage is closing");
+			}
+		});
+    	 
 
     }
     

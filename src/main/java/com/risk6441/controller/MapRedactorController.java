@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.risk6441.config.Config;
 import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Territory;
@@ -438,15 +439,17 @@ public class MapRedactorController  implements Initializable{
     	write.writeMapFile(map, file);
     }
     
+    
 	/*
 	 * This method intializes the Map Editor with default values.
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Intializer Called");
-		
+	
 		CommonMapUtil.disableControls(btnAddTerr,btnUpdateCont,btnDelCont,btnUpdateTerr,btnDelTerr,txtTerrName,txtXCo,txtYCo,comboAdjTerr);
 		comboAdjTerr.getItems().add(null);
 		CommonMapUtil.disableControls(btnDltAdjTerr);
+		
 		
 		if (this.map == null) {
 			map = new Map();

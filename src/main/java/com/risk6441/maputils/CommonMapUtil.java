@@ -216,7 +216,7 @@ public class CommonMapUtil {
 	 * @param header header of the stage
 	 */
 	public static void alertBox(String title, String message,  String header) {
-		if(GameUtils.isTestMode = true) {
+		if(GameUtils.isTestMode) {
 			return;
 		}
 		Alert alert = new Alert(AlertType.INFORMATION);

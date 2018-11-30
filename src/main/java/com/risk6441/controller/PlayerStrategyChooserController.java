@@ -66,7 +66,6 @@ public class PlayerStrategyChooserController extends Observable implements Initi
 			if (node.get(1) instanceof ChoiceBox<?>) {
 				PlayerStrategy strategyType = (PlayerStrategy) ((ChoiceBox<?>) node.get(1)).getSelectionModel().getSelectedItem();
 				playerList.get(count).setPlayerStrategy(strategyType);
-				//players.get(0).setType(selectedPlayerType);
 				IStrategy strategy = getStrategyObjectForThePlayer(strategyType.toString());
 				playerList.get(count).setStrategy(strategy);
 				System.out.println(playerList.get(count).getStrategy());

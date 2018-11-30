@@ -360,7 +360,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			System.out.println(currentPlayer.getName() + " has been assigned a card with type " + card.getCardKind().toString()
 							+ " and territory " + card.getTerritoryToWhichCardBelong().getName() + "\n");
 		} catch (Exception e) {
-			// e.printStackTrace();
+			 e.printStackTrace();
 		}
 		playerModel.setNumOfTerritoryWon(0);
 	}
@@ -549,22 +549,6 @@ public class PlayGameController extends Observable implements Initializable, Obs
 				playerList = PlayerModel.createPlayers(noOfPlayer, txtAreaMsg);
 				GameUtils.addTextToLog("===Players creation complete===\n");
 
-//				//temp
-//				try {
-//					playerList.get(0).getCardList().add(stackOfCards.pop());
-//					playerList.get(0).getCardList().add(stackOfCards.pop());
-//					playerList.get(0).getCardList().add(stackOfCards.pop());
-//					
-//					
-//					playerList.get(0).getCardList().add(stackOfCards.pop());
-//					playerList.get(1).getCardList().add(stackOfCards.pop());
-//
-//					playerList.get(1).getCardList().add(stackOfCards.pop());
-//					playerList.get(1).getCardList().add(stackOfCards.pop());
-//				}catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				//till this
 
 				showPlayerStrategyChooserPane();
 
@@ -1196,7 +1180,6 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			dataSeries1.getData().add(new XYChart.Data<String, Number>(key, playerAndMilitaryCountMap.get(key)));
 		}
 		militaryDominationbarChart.getData().clear();
-		// militaryDominationbarChart.getData().clear();
 		militaryDominationbarChart.getData().addAll(dataSeries1);
 	}
 
@@ -1272,8 +1255,6 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		stackOfCards = (Stack<Card>) in.readObject();
 		playerList = new ArrayList<>();
 		playerList = (List<Player>) in.readObject();
-
-		// playerList = (ArrayList<Player>) in.readObject();
 
 		state = (GameUIStateModel) in.readObject();
 

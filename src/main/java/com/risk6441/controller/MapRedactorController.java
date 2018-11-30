@@ -642,8 +642,6 @@ public class MapRedactorController  implements Initializable{
 				adjTerrList.getItems().add(t);
 			}
 		}catch (Exception e) {
-			//CommonMapUtil.alertBox("Error", e.getMessage(), "Map is not valid.");
-			//exception  will be thrown if continent doesn't have any territories
 		}
 	}
 }

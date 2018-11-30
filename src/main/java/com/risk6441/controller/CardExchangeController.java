@@ -110,7 +110,6 @@ public class CardExchangeController implements Initializable{
 					}
 				}
 				showCardsByRemoving(selectedCardsForTrade);
-				//GameUtils.exitWindows(btnTrade);
 			}
 			else {			
 				CommonMapUtil.alertBox("Info", "Invalid Combination of Cards. All cards should be same or of different kind.", "Info");

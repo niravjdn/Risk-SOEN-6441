@@ -107,8 +107,9 @@ public class DiceController implements Initializable {
 
 	/**
 	 * Constructor for dice roll.
+	 * 
 	 * @param diceModel Object of dice model for rolling of dice.
-	 * @param strategy The strategy used while rolling of dice.
+	 * @param strategy  The strategy used while rolling of dice.
 	 */
 	public DiceController(DiceModel diceModel, IStrategy strategy) {
 		this.diceModel = diceModel;
@@ -141,18 +142,17 @@ public class DiceController implements Initializable {
 	}
 
 	/**
-     * This method handles the case for the attack full on mode.
-     * @param event event object for the javafx
-     * @throws InterruptedException This produces an interrupted exception.
-     */
-    @FXML
-    void attackAllOutMode(ActionEvent event) throws InterruptedException {
-    	CommonMapUtil.hideControls(btnRoll, btnContinueRoll, btnAttackAllOutMode, btnCancelDiceRoll);
-    	Runnable task = new Runnable()
-		{
-			public void run()
-			{ 
-					attackAllOutMode();
+	 * This method handles the case for the attack full on mode.
+	 * 
+	 * @param event event object for the javafx
+	 * @throws InterruptedException This produces an interrupted exception.
+	 */
+	@FXML
+	void attackAllOutMode(ActionEvent event) throws InterruptedException {
+		CommonMapUtil.hideControls(btnRoll, btnContinueRoll, btnAttackAllOutMode, btnCancelDiceRoll);
+		Runnable task = new Runnable() {
+			public void run() {
+				attackAllOutMode();
 			}
 		};
 
@@ -162,8 +162,8 @@ public class DiceController implements Initializable {
 		backgroundThread.setDaemon(true);
 		// Start the thread
 		backgroundThread.start();
-		
-    }
+
+	}
 
 	/**
 	 * This method handles the case for the attack full on mode.
@@ -215,7 +215,7 @@ public class DiceController implements Initializable {
 			System.out.println("After Click roll " + btnContinueRoll.isDisabled());
 		} while (!btnContinueRoll.isDisabled());
 		btnAttackAllOutMode.setDisable(true);
-		
+
 	}
 
 	/**
@@ -255,6 +255,7 @@ public class DiceController implements Initializable {
 	@FXML
 	void rollDice(ActionEvent event) {
 		System.out.println("Inside roll dice");
+
 		if (!chkBoxattackerDice1.isSelected() && !chkBoxattackerDice2.isSelected()
 				&& !chkBoxattackerDice3.isSelected()) {
 			CommonMapUtil.alertBox("Info", "Please Select atleast one of the attacker dice", "Message");
@@ -272,7 +273,7 @@ public class DiceController implements Initializable {
 		Territory defendingTerritory = diceModel.getDefendingTerritory();
 		if (defendingTerritory.getArmy() <= 0) {
 			playResult.add(attackingTerritory.getPlayer().getName() + " won the territory: "
-					+ defendingTerritory.getName() + " From " + defendingTerritory.getPlayer().getName()+"\n");
+					+ defendingTerritory.getName() + " From " + defendingTerritory.getPlayer().getName() + "\n");
 			diceModel.setNumberOfTerritoriesWon(diceModel.getNumOfTerritoriesWon() + 1);
 			GameUtils.enablePane(moveArmiesView);
 
@@ -295,7 +296,7 @@ public class DiceController implements Initializable {
 		lblStatus.setText(playResult.toString());
 		message = playResult.toString();
 		System.out.println(playResult.toString());
-		GameUtils.addTextToLog(playResult.toString().replaceAll(",", "\n")+"\n");
+		GameUtils.addTextToLog(playResult.toString().replaceAll(",", "\n") + "\n");
 		lblStatus.setVisible(true);
 	}
 
@@ -373,6 +374,16 @@ public class DiceController implements Initializable {
 			CommonMapUtil.showControls(chkBoxdefenderDice1);
 			CommonMapUtil.hideControls(chkBoxdefenderDice2);
 		}
+		
+		if (!(diceModel.getDefendingTerritory().getPlayer().getStrategy() instanceof Human)) {
+			if(chkBoxdefenderDice1.isVisible()) {
+				chkBoxdefenderDice1.setSelected(true);
+			}
+			if(chkBoxdefenderDice2.isVisible()) {
+				chkBoxdefenderDice2.setSelected(true);
+			}
+		}
+
 	}
 
 	/**
@@ -408,10 +419,11 @@ public class DiceController implements Initializable {
 	}
 
 	/**
-	 *  This method is responsible for loading dice controller for the specified strategy.
+	 * This method is responsible for loading dice controller for the specified
+	 * strategy.
 	 */
 	public void loadDiceControllerForStrategy() {
-		
+
 		btnAttackAllOutMode = new Button();
 		btnCancelDiceRoll = new Button();
 		btnContinueRoll = new Button();
@@ -434,22 +446,23 @@ public class DiceController implements Initializable {
 		chkBoxdefenderDice2 = new CheckBox();
 		txtNumberOfArmiesInput = new TextField();
 		moveArmiesView = new Pane();
-		
+
 		loadScreen();
 		loadAndShowDice();
-		
+
 		int count = attackFullOnForStrategy();
-		System.out.println(moveArmiesView.isVisible()+"Anna");
-		System.out.println(btnCancelDiceRoll.isVisible()+"Anna");
+		System.out.println(moveArmiesView.isVisible() + "Anna");
+		System.out.println(btnCancelDiceRoll.isVisible() + "Anna");
 		if (moveArmiesView.isVisible()) {
 			diceModel.moveAllArmies();
 		} else {
 			diceModel.cancelDiceRoll();
-		}	
+		}
 	}
 
 	/**
 	 * This method is used for a full-on attack for the strategy.
+	 * 
 	 * @return Returns the count of attacks.
 	 */
 	public int attackFullOnForStrategy() {
@@ -499,5 +512,5 @@ public class DiceController implements Initializable {
 		btnAttackAllOutMode.setDisable(true);
 		return count;
 	}
-	
+
 }

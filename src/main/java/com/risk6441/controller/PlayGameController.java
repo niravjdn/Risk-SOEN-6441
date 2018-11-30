@@ -1040,21 +1040,6 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			initializeReinforcement(false);
 		} else if (str.equals("placeArmy")) {
 			setPhase("Phase : Place Army");
-			
-//			Player p = currentPlayer;
-//			checkPlayerWithNoArmyWhilePlacingArmy();
-//			boolean wasInLoop = false;
-//			while(checkPlayerWithNoArmyWhilePlacingArmy() && (!currentPlayer.equals(p))) {
-//				System.out.println("Skipping "+currentPlayer.getName());
-//				wasInLoop = true;
-//			}
-//			if(currentPlayer.equals(p) && wasInLoop) {
-//				setPhase("Phase : Reinforcement");
-//				System.out.println("Calling this");
-//				initializeReinforcement(true);
-//			}else {
-//				initializePlaceArmy();	
-//			}
 			initializePlaceArmy();	
 			showMilitaryDominationData();
 		} else if (str.equals("Fortification")) {
@@ -1327,7 +1312,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		
 		Config.isThreadingForTournament = true;
 		Config.isTournamentMode = true;
-		Config.waitBeweenTurn = 1000;
+		Config.waitBeweenTurn = 2000;
 		Config.isPopUpShownInAutoMode = false;
 		
 		GameUtils.txtMsgArea = console;

@@ -601,7 +601,6 @@ public class MapRedactorController  implements Initializable{
 	}
 
 
-
 	/**
 	 * This displays the territories in the selected Continent.
 	 * @param continent Continent whose territories are to be printed.

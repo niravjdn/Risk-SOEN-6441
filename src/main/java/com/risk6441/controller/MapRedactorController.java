@@ -3,6 +3,7 @@ package com.risk6441.controller;
 import java.io.File;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import com.risk6441.entity.Continent;
 import com.risk6441.entity.Map;
 import com.risk6441.entity.Territory;
 import com.risk6441.exception.InvalidMapException;
+import com.risk6441.gameutils.GameUtils;
 import com.risk6441.maputils.CommonMapUtil;
 import com.risk6441.maputils.MapOperations;
 import com.risk6441.maputils.MapVerifier;
@@ -581,8 +583,25 @@ public class MapRedactorController  implements Initializable{
 		adjTerrList.getItems().clear();
 		//show territories in the territory list
 		showTerritoryOfContInList(contList.getSelectionModel().getSelectedItem());
+		
+		refreshComboBox();
 	}
 	
+	/**
+	 * This method refreshes the combobox
+	 */
+	private void refreshComboBox() {
+	    	comboAdjTerr.getItems().clear();
+	    	comboAdjTerr.getItems().add(null);
+	    	List<Territory> territoryList = GameUtils.getTerritoryList(map);
+	    	for(int i=0; i<territoryList.size(); i++)
+	    	{
+	    		comboAdjTerr.getItems().add(territoryList.get(i));          
+	    	}  
+	}
+
+
+
 	/**
 	 * This displays the territories in the selected Continent.
 	 * @param continent Continent whose territories are to be printed.

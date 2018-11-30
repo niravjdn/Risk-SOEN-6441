@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import com.risk6441.config.Config;
 import com.risk6441.entity.Map;
 import com.risk6441.exception.InvalidMapException;
 import com.risk6441.main.Main;
@@ -89,6 +90,7 @@ public class SplashController {
     	stage.setY(primaryStage.getY() + 200);
 		stage.setScene(scene);
 		stage.show();
+		
     }
 
     
@@ -130,13 +132,6 @@ public class SplashController {
     	stage.setY(primaryStage.getY() + 200);
     	stage.show();
     	
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			public void handle(WindowEvent we) {
-				System.out.println("Stage is closing");
-			}
-		});
-    	 
-
     }
     
     /**
@@ -149,6 +144,8 @@ public class SplashController {
     void btnPlayGame(ActionEvent event) throws InvalidMapException, IOException {
     	File file= CommonMapUtil.showFileDialogForMap();
     	//get map object by reading file
+    	Config.isPopUpShownInAutoMode = true;
+    	
     	MapReader mapReader = new MapReader();
     	Map map = null;
     	try {
@@ -179,6 +176,8 @@ public class SplashController {
     	stage.setX(primaryStage.getX() + 200);
     	stage.setY(primaryStage.getY() + 200);
 		stage.show();
+		
+		
     	
     }
 

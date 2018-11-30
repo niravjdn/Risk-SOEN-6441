@@ -485,6 +485,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 * java.util.ResourceBundle)
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
+		Config.isThreadingForTournament = false;
 		choiceBoxNoOfPlayer.getItems().addAll(2, 3, 4, 5, 6);
 		Config.isAllComputerPlayer = true;
 		Config.isTournamentMode = false;

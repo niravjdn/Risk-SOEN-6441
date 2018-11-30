@@ -55,7 +55,7 @@ public class Territory implements Serializable{
 			this.army = 5000;
 			return;
 		}
-		this.army = army;
+		this.army = Math.abs(army);
 	}
 
 

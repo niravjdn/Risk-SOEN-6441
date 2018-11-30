@@ -19,7 +19,7 @@ public class Config {
 	/**
 	 * The ARMIES_THREE_PLAYER Constant
 	 */
-	public static final Integer ARMIES_THREE_PLAYER = 35;//35
+	public static final Integer ARMIES_THREE_PLAYER = 5;//35
 	
 	/**
 	 * The ARMIES_FOUR_PLAYER Constant
@@ -43,11 +43,11 @@ public class Config {
 
 	public static boolean isAllComputerPlayer = true;
 	
-	public static int waitBeweenTurn = 1000; //7 seconds
+	public static int waitBeweenTurn = 3000; //7 seconds
 	
 	public static boolean isPopUpShownInAutoMode = true;
 
 	public static boolean isTournamentMode = false;
 
-	public static boolean isThreadingForTournament = true;
+	public static boolean isThreadingForTournament = false;
 }

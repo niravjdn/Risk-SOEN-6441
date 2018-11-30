@@ -1,0 +1,22 @@
+[Map]
+image=image
+warn=warn
+author=author
+scroll=scroll
+wrap=wrap
+
+[Continents]
+Western Australia=4
+Northern Territory=4
+South Australia=4
+
+[Territories]
+Carnarvon,1,1,Western Australia,Broome,Canberra
+Broome,1,1,Western Australia,Carnarvon,Wyndham,Hobart
+Wyndham,1,1,Western Australia,Broome
+
+Canberra,1,1,Northern Territory,Carnarvon
+
+Hobart,1,1,South Australia,Broome,Devonport
+Devonport,1,1,South Australia,Hobart
+

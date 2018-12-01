@@ -176,6 +176,7 @@ public class DiceModel extends Observable implements Serializable{
 	}
 	
 	/**
+	 * This method returns random number.
 	 * @return Int randomNumber between 1 to 6
 	 */
 	public int randomNumber() {

@@ -180,6 +180,10 @@ public class SplashController {
     	
     }
 
+    /**
+     * This method opens the tournament mode screen
+     * @param event The event is which directs to tournament mode.
+     */
     @FXML
     void openTournament(ActionEvent event) {
 

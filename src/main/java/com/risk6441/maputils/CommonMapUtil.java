@@ -35,6 +35,7 @@ public class CommonMapUtil {
 	
 	
 	/**
+	 * This method gets 0 to n.
 	 * @param n no till which you want to find  random no, 0 to n
 	 * @return random no from 0 to , including n
 	 */

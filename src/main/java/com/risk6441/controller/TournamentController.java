@@ -142,36 +142,65 @@ public class TournamentController implements Initializable, Observer {
 		this.numberOfTurns = numberOfTurns;
 	}
 
+	/**
+	 * This method is for the map button 1
+	 * @param event Map button clicks
+	 */
 	@FXML
 	void actionMap1(ActionEvent event) {
 		File filePath = openDialogAndUploadMap(1);
 		btnMap1.setText(filePath.getName());
 	}
 
+
+	/**
+	 * This method is for the map button 2
+	 * @param event Map button clicks
+	 */
 	@FXML
 	void actionMap2(ActionEvent event) {
 		File filePath = openDialogAndUploadMap(2);
 		btnMap2.setText(filePath.getName());
 	}
 
+
+	/**
+	 * This method is for the map button 3
+	 * @param event Map button clicks
+	 */
 	@FXML
 	void actionMap3(ActionEvent event) {
 		File filePath = openDialogAndUploadMap(3);
 		btnMap3.setText(filePath.getName());
 	}
 
+
+	/**
+	 * This method is for the map button 4
+	 * @param event Map button clicks
+	 */
 	@FXML
 	void actionMap4(ActionEvent event) {
 		File filePath = openDialogAndUploadMap(4);
 		btnMap4.setText(filePath.getName());
 	}
 
+
+	/**
+	 * This method is for the map button 5
+	 * @param event Map button clicks
+	 */
 	@FXML
 	void actionMap5(ActionEvent event) {
 		File filePath = openDialogAndUploadMap(5);
 		btnMap5.setText(filePath.getName());
 	}
 
+
+	/**
+	 * This method is for the map button 6
+	 * @param event Map button clicks
+	 */
 	@FXML
 	void exitTournament(ActionEvent event) {
 		Stage stage = (Stage) btnExit.getScene().getWindow();
@@ -201,7 +230,7 @@ public class TournamentController implements Initializable, Observer {
 	}
 
 	/**
-	 * 
+	 * This method sets up listeners for the tournament mode screen.
 	 */
 	private void setUpListener() {
 		comboTurns.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -255,6 +284,11 @@ public class TournamentController implements Initializable, Observer {
 		});
 	}
 
+	/**
+	 * This method creates the players for the tournament mode.
+	 * @param id The id of player
+	 * @return The player object created.
+	 */
 	public Player createPlayer(int id) {
 		Player player = null;
 		for (Player p : playerList) {
@@ -271,6 +305,11 @@ public class TournamentController implements Initializable, Observer {
 		return player;
 	}
 
+	/**
+	 * This method sets the players strategy.
+	 * @param playerType Type of player like aggressive, random etc.
+	 * @param player The current player object.
+	 */
 	public void setPlayerStrategy(String playerType, Player player) {
 		PlayerStrategy type = null;
 		IStrategy strategy = null;
@@ -291,6 +330,11 @@ public class TournamentController implements Initializable, Observer {
 		player.setStrategy(strategy);
 	}
 
+	/**
+	 * This method loads the map.
+	 * @param mapPosition Position of map.
+	 * @return The file openend/
+	 */
 	public File openDialogAndUploadMap(int mapPosition) {
 		File file = CommonMapUtil.showFileDialogForMap();
 		MapReader mapReader = new MapReader();
@@ -354,6 +398,9 @@ public class TournamentController implements Initializable, Observer {
 	
 	
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		

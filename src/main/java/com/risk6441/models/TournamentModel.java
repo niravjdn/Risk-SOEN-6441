@@ -29,6 +29,15 @@ public class TournamentModel extends Observable implements Observer {
 	public TextArea txA;
 	HashMap<String, HashMap<String, String>> result = new HashMap<>();
 	
+	/**
+	 * This method starts the tournament.
+	 * @param playerList The playerlist for the tournament.
+	 * @param map The map for the game
+	 * @param numberOfTurn Number of turns before the draw.
+	 * @param numberOfGames Number of games on the map.
+	 * @param gameNo The current game number.
+	 * @param txtAreaConsole The textarea to display results.
+	 */
 	public void startTournament(List<Player> playerList, Map map, int numberOfTurn, int numberOfGames, int gameNo,
 			TextArea txtAreaConsole) {
 		PlayGameController controller = new PlayGameController(map);
@@ -76,6 +85,10 @@ public class TournamentModel extends Observable implements Observer {
 
 	}
 
+	/**
+	 * This method returns the tournament results.
+	 * @return Results of tournament.
+	 */
 	public HashMap<String, HashMap<String, String>> getTournamentResult() {
 		return result;
 	}

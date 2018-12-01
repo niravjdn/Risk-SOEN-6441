@@ -13,11 +13,17 @@ public class SplashControllerTest {
 
 	ClassLoader loader;
 
+	/**
+	 * For before the test case.
+	 */
 	@Before
 	public void before() {
 		loader = getClass().getClassLoader();
 	}
 
+	/**
+	 * Tests the load game functionality.
+	 */
 	@Test
 	public void testLoadGame() {
 		SplashController ob = new SplashController();

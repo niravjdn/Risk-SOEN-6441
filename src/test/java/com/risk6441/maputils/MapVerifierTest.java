@@ -148,6 +148,10 @@ public class MapVerifierTest {
 	}
 	
 
+	/**
+	 * This method checks if the program can load 3D cliff map.
+	 * @throws InvalidMapException Throws invalid map exception.
+	 */
 	@Test
 	public void check3Dcliff() throws InvalidMapException
 	{
@@ -157,6 +161,10 @@ public class MapVerifierTest {
 		assertNotNull(map1);
 	}
 	
+	/**
+	 * This method checks if the program can load twin volcano map.
+	 * @throws InvalidMapException Throws invalid map exception.
+	 */
 	@Test (expected = InvalidMapException.class)
 	public void checkTwinVolcano() throws InvalidMapException
 	{
@@ -164,6 +172,10 @@ public class MapVerifierTest {
 		Map map1 = new MapReader().readMapFile(file);
 	}
 	
+	/**
+	 * This method checks if the program can load world map.
+	 * @throws InvalidMapException Throws invalid map exception.
+	 */
 	@Test 
 	public void checkWorldMap() throws InvalidMapException
 	{
@@ -172,6 +184,10 @@ public class MapVerifierTest {
 		assertNotNull(map);
 	}
 	
+	/**
+	 * This method checks if the program can load unconnected continent map.
+	 * @throws InvalidMapException Throws invalid map exception.
+	 */
 	@Test (expected = InvalidMapException.class)
 	public void checkUnconnectedContinentMap() throws InvalidMapException
 	{

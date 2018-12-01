@@ -38,6 +38,7 @@ public class CardModel extends Observable implements Serializable{
 
 	public boolean isRestrictedModeTillLessThan5 = false;
 	/**
+	 * Gets the current player.
 	 * @return the currentPlayer
 	 */
 	public Player getCurrentPlayer() {
@@ -52,6 +53,7 @@ public class CardModel extends Observable implements Serializable{
 	}
 	
 	/**
+	 * Sets the current player.
 	 * @param currentPlayer the currentPlayer to set
 	 */
 	public void setCurrentPlayer(Player currentPlayer) {
@@ -59,6 +61,7 @@ public class CardModel extends Observable implements Serializable{
 	}
 
 	/**
+	 * Gets the cards to be exchanged.
 	 * @return the cardsToBeExchange
 	 */
 	public List<Card> getCardsToBeExchange() {
@@ -66,6 +69,7 @@ public class CardModel extends Observable implements Serializable{
 	}
 
 	/**
+	 * Sets the cards to be exchanged.
 	 * @param cardsToBeExchange the cardsToBeExchange to set
 	 */
 	public void setCardsToBeExchange(List<Card> cardsToBeExchange) {

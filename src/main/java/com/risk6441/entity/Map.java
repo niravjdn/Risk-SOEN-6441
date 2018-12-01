@@ -29,12 +29,19 @@ public class Map extends Observable implements Serializable{
 	private List<Continent> continents;
 	private HashMap<String, Continent> continentMap;
 	
+	/**
+	 * This is the default constructor of Map.
+	 */
 	public Map() {
 		mapData = new HashMap<String, String>();
 		continents = new ArrayList<Continent>();
 		continentMap = new HashMap<String,Continent>();
 	}
 	
+	/**
+	 * This is a parameterised constructor for map.
+	 * @param newMap The new map object.
+	 */
 	public Map(Map newMap) {
 		mapData = new HashMap<String, String>(newMap.mapData);
 		continents = new ArrayList<Continent>(newMap.continents);
@@ -42,6 +49,7 @@ public class Map extends Observable implements Serializable{
 	}
 	
 	/**
+	 * Returns the map data.
 	 * @return the mapData
 	 */
 	public HashMap<String, String> getMapData() {
@@ -49,6 +57,7 @@ public class Map extends Observable implements Serializable{
 	}
 	
 	/**
+	 * This sets the map data.
 	 * @param mapData the mapData to set
 	 */
 	public void setMapData(HashMap<String, String> mapData) {
@@ -56,6 +65,7 @@ public class Map extends Observable implements Serializable{
 	}
 	
 	/**
+	 * It returns list of continents.
 	 * @return the continents
 	 */
 	public List<Continent> getContinents() {
@@ -63,6 +73,7 @@ public class Map extends Observable implements Serializable{
 	}
 	
 	/**
+	 * This sets the continents.
 	 * @param continents the continents to set
 	 */
 	public void setContinents(List<Continent> continents) {
@@ -72,6 +83,7 @@ public class Map extends Observable implements Serializable{
 	}
 	
 	/**
+	 * Returns the continent maps
 	 * @return the continentMap
 	 */
 	public HashMap<String, Continent> getContinentMap() {
@@ -79,12 +91,16 @@ public class Map extends Observable implements Serializable{
 	}
 	
 	/**
+	 * This sets the continent map.
 	 * @param continentMap the continentMap to set
 	 */
 	public void setContinentMap(HashMap<String, Continent> continentMap) {
 		this.continentMap = continentMap;
 	}
 
+	/**
+	 * The update change method for observers.
+	 */
 	public void setChangedForMap() {
 		setChanged();
 		notifyObservers(this);

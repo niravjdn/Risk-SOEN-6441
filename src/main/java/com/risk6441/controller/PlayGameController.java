@@ -1268,6 +1268,13 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		
 	}
 	
+	/**
+	 * This method loads controller for tournament.
+	 * @param playerList The playerlist.
+	 * @param numberOfTurn Number of turns before draw.
+	 * @param gameNo The current game number.
+	 * @param console The textarea where the results are displayed.
+	 */
 	public void loadControllerForTournament(List<Player> playerList, int numberOfTurn, int gameNo,TextArea console) {
 		this.maxNumOfTurn = numberOfTurn;
 		this.numOfTurnDone = 0;
@@ -1315,6 +1322,11 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		
 	}
 	
+	/**
+	 * This method loads the controller for testing.
+	 * @param playerList The playerlist.
+	 * @param console The area where the results are to be displayed.
+	 */
 	public void loadControllerForTest(List<Player> playerList, TextArea console) {
 		this.numOfTurnDone = 0;
 		this.maxNumOfEachPlayerTurn = maxNumOfTurn * playerList.size();

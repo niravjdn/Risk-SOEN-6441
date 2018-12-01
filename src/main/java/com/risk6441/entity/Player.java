@@ -30,6 +30,7 @@ public class Player implements Serializable{
 	
 	
 	/**
+	 * The player strategy.
 	 * @return the strategy
 	 */
 	public IStrategy getStrategy() {
@@ -37,6 +38,7 @@ public class Player implements Serializable{
 	}
 
 	/**
+	 * This sets the strategy of the player.
 	 * @param strategy the strategy to set
 	 */
 	public void setStrategy(IStrategy strategy) {
@@ -44,6 +46,7 @@ public class Player implements Serializable{
 	}
 
 	/**
+	 * Returns the current strategy.
 	 * @return the playerStrategy
 	 */
 	public PlayerStrategy getPlayerStrategy() {
@@ -51,6 +54,7 @@ public class Player implements Serializable{
 	}
 
 	/**
+	 * This sets the player strategy.
 	 * @param playerStrategy the playerStrategy to set
 	 */
 	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
@@ -74,6 +78,7 @@ public class Player implements Serializable{
 	}
 
 	/**
+	 * This is a parameterised constructor for player.
 	 * @param id id of the player eg. 1
 	 * @param name name of the player
 	 */
@@ -87,6 +92,7 @@ public class Player implements Serializable{
 	}
 
 	/**
+	 * Gets the ID of the player.
 	 * @return the id
 	 */
 	public int getId() {
@@ -94,6 +100,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
+	 * Sets the ID of the player.
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
@@ -101,6 +108,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
+	 * Gets the name of the player
 	 * @return the name
 	 */
 	public String getName() {
@@ -108,6 +116,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
+	 * Sets the name of the player.
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
@@ -115,6 +124,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
+	 * Get the armies of the player.
 	 * @return the armies
 	 */
 	public int getArmies() {
@@ -122,6 +132,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
+	 * Sets the armies of the player.
 	 * @param armies the armies to set
 	 */
 	public void setArmies(int armies) {
@@ -129,6 +140,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
+	 * Get the assigned territory of the player.
 	 * @return the assignedTerritory
 	 */
 	public List<Territory> getAssignedTerritory() {
@@ -136,6 +148,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
+	 * Sets assigned territory to the player.
 	 * @param assignedTerritory the assignedTerritory to set
 	 */
 	public void setAssignedTerritory(List<Territory> assignedTerritory) {
@@ -143,6 +156,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
+	 * Get the number of times the cards is exchanged.
 	 * @return the numeberOfCardsExchanged
 	 */
 	public int getNumeberOfTimeCardsExchanged() {
@@ -150,6 +164,7 @@ public class Player implements Serializable{
 	}
 
 	/**
+	 * Sets the cards exchanged.
 	 * @param numeberOfCardsExchanged the numeberOfCardsExchanged to set
 	 */
 	public void setNumeberOfTimesCardsExchanged(int numeberOfCardsExchanged) {

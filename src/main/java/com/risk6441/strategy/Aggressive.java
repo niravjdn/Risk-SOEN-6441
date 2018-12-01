@@ -237,6 +237,11 @@ public class Aggressive implements IStrategy {
 		return false;
 	}
 
+	/**
+	 * Get the attacking territory.
+	 * @param terrList The territory list.
+	 * @return Territory which can attack.
+	 */
 	private Territory getAttackingTerritory(ArrayList<Territory> terrList) {
 		List<Territory> sortedListFromMaxAdjacent = sortAndGetStrongestTerr1(terrList);
 		if (attackingTerr == null || (!attackingTerr.equals(sortedListFromMaxAdjacent.get(0)))

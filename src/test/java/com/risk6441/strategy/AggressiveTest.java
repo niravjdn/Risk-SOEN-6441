@@ -142,6 +142,9 @@ public class AggressiveTest {
 
 	}
 	
+	/**
+	 * Tests valid attack for aggressive.
+	 */
 	@Test 
 	public void testHasAValidAttackMove()
 	{
@@ -151,6 +154,9 @@ public class AggressiveTest {
 		Assert.assertTrue(player.getStrategy().hasAValidAttackMove(terrList));
 	}
 	
+	/**
+	 * Tests for valid fortification for aggressive.
+	 */
 	@Test
 	public void testFortificationPhase()
 	{

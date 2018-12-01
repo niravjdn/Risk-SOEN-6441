@@ -40,6 +40,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	private List<Player> playerList;
 
 	/**
+	 * Returns the playerlist
 	 * @return the playerList
 	 */
 	public List<Player> getPlayerList() {
@@ -47,6 +48,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	}
 
 	/**
+	 * Sets the playerlist.
 	 * @param playerList the playerList to set
 	 */
 	public void setPlayerList(List<Player> playerList) {
@@ -54,11 +56,13 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	}
 
 	/**
+	 * 
 	 * the @playerPlaying reference
 	 */
 	Player currentPlayer;
 
 	/**
+	 * Get the current player.
 	 * @return player playing
 	 */
 	public Player getCurrentPlayer() {
@@ -192,13 +196,6 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param territories territories List View
-	 * @param txtAreaMsg  gameConsole text area
-	 * @return hasAValidMove true if player has valid move else false
-	 */
-	/**
 	 * This method checks if the player has a valid attack move
 	 * @param terrList List of territories.
 	 * @return Returns true if a player has a valid move available else returns false.
@@ -223,9 +220,8 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 	 * 
 	 * @param terrList    attacking territory.
 	 * @param adjTerrList defending territory.
-	 * @param txtAreaMsg
-=======
-	 * @param txtAreaMsg  text area message
+	 * @param txtAreaMsg the area to show results.
+	 * @param txtAreaMsg  text area message to show results.
 	 * @throws InvalidGameActionException Throws invalid game exception.
 	 */
 	public void attackPhase(ListView<Territory> terrList, ListView<Territory> adjTerrList, TextArea txtAreaMsg)
@@ -465,6 +461,9 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		}
 	}
 
+	/**
+	 * This method ends the turn of the player.
+	 */
 	public void endTurn() {
 		Platform.runLater(()->{
 			setChanged();

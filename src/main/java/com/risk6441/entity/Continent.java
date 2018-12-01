@@ -37,7 +37,7 @@ public class Continent implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Continent default constructor.
 	 */
 	public Continent() {
 		this.territories = new ArrayList<>();
@@ -45,6 +45,7 @@ public class Continent implements Serializable{
 	}
 
 	/**
+	 * This method returns the name of the continent.
 	 * @return the name
 	 */
 	public String getName() {
@@ -52,6 +53,7 @@ public class Continent implements Serializable{
 	}
 	
 	/**
+	 * This method sets the name of the continent.
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
@@ -59,6 +61,7 @@ public class Continent implements Serializable{
 	}
 	
 	/**
+	 * This method gets the control value of the continent.
 	 * @return the value
 	 */
 	public int getValue() {
@@ -66,6 +69,7 @@ public class Continent implements Serializable{
 	}
 	
 	/**
+	 * This method sets the control value of the continent.
 	 * @param value the value to set
 	 */
 	public void setValue(int value) {
@@ -73,6 +77,7 @@ public class Continent implements Serializable{
 	}
 	
 	/**
+	 * This  method gets the territories in the continent.
 	 * @return the territoryMap
 	 */
 	public HashMap<String, Territory> getTerritoryMap() {
@@ -80,6 +85,7 @@ public class Continent implements Serializable{
 	}
 	
 	/**
+	 * This method sets the territories in the continent.
 	 * @param territoryMap the territoryMap to set
 	 */
 	public void setTerritoryMap(HashMap<String, Territory> territoryMap) {
@@ -87,6 +93,7 @@ public class Continent implements Serializable{
 	}
 	
 	/**
+	 * This method gets the territories of the continent.
 	 * @return the territories
 	 */
 	public List<Territory> getTerritories() {
@@ -94,6 +101,7 @@ public class Continent implements Serializable{
 	}
 	
 	/**
+	 * This method sets the territories of the continent.
 	 * @param territories the territories to set
 	 */
 	public void setTerritories(List<Territory> territories) {
@@ -103,6 +111,7 @@ public class Continent implements Serializable{
 	
 	
 	/**
+	 * This method checks whether the continent is visited or not.
 	 * @return the isVisited
 	 */
 	public boolean isVisited() {
@@ -110,6 +119,7 @@ public class Continent implements Serializable{
 	}
 
 	/**
+	 * This sets the continent to have been visited.
 	 * @param isVisited the isVisited to set
 	 */
 	public void setVisited(boolean isVisited) {

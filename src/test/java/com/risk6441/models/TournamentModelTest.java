@@ -76,6 +76,7 @@ public class TournamentModelTest {
 	}
 
 	/**
+	 * This method creates map clone test.
 	 * Map Clone Test
 	 * @throws InvalidMapException InvalidMapException
 	 * @throws CloneNotSupportedException  throws if cloning has some error

@@ -142,6 +142,9 @@ public class BenevolentTest {
 		terr1.getPlayer().setStrategy(new Benevolent());
 	}
 	
+	/**
+	 * Tests fortification phase for benevolent.
+	 */
 	@Test 
 	public void testFortificationPhase()
 	{
@@ -151,6 +154,9 @@ public class BenevolentTest {
 		
 	}
 	
+	/**
+	 * This method checks if the sorting for sort and get weakest in benevolent.
+	 */
 	@Test
 	public void testSortAndGetWeakestTerr()
 	{

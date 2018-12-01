@@ -27,6 +27,7 @@ public class Territory implements Serializable{
 	private List<Territory> adjacentTerritories;
 	private boolean isProcessed;
 	/**
+	 * Get the player.
 	 * @return the player
 	 */
 	public Player getPlayer() {
@@ -34,6 +35,7 @@ public class Territory implements Serializable{
 	}
 
 	/**
+	 * Set the player.
 	 * @param player the player to set
 	 */
 	public void setPlayer(Player player) {
@@ -41,6 +43,7 @@ public class Territory implements Serializable{
 	}
 
 	/**
+	 * Get the armies of the territory.
 	 * @return the army
 	 */
 	public int getArmy() {
@@ -48,6 +51,7 @@ public class Territory implements Serializable{
 	}
 
 	/**
+	 * Set the armies of the territory.
 	 * @param army the army to set
 	 */
 	public void setArmy(int army) {
@@ -62,6 +66,7 @@ public class Territory implements Serializable{
 	private int army;
 	
 	/**
+	 * Get name of the territory.
 	 * @return the name
 	 */
 	public String getName() {
@@ -69,6 +74,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Pararmeterised constructor for territory.
 	 * @param adjTerritories list of adjacent territories names
 	 * @param adjacentTerritories list of object of adjacent territories
 	 */
@@ -78,7 +84,7 @@ public class Territory implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Default constructor for territory.
 	 */
 	public Territory() {
 		adjTerritories = new ArrayList<>();
@@ -86,6 +92,7 @@ public class Territory implements Serializable{
 	}
 
 	/**
+	 * Sets the name of the territory.
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
@@ -93,6 +100,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Get the X coordinate of the territory.
 	 * @return the xCoordinate
 	 */
 	public int getxCoordinate() {
@@ -100,6 +108,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Set the X coordinate of the territory.
 	 * @param xCoordinate the xCoordinate to set
 	 */
 	public void setxCoordinate(int xCoordinate) {
@@ -107,6 +116,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Get the y coordinate of the territory.
 	 * @return the yCoordinate
 	 */
 	public int getyCoordinate() {
@@ -114,6 +124,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Set the y coordinate of the territory.
 	 * @param yCoordinate the yCoordinate to set
 	 */
 	public void setyCoordinate(int yCoordinate) {
@@ -121,6 +132,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Returns continent which belongs to the territory.
 	 * @return the belongToContinent
 	 */
 	public Continent getBelongToContinent() {
@@ -128,6 +140,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Sets the continent for the territory.
 	 * @param belongToContinent the belongToContinent to set
 	 */
 	public void setBelongToContinent(Continent belongToContinent) {
@@ -135,6 +148,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Return the adjacent territories of terrritory.
 	 * @return the adjTerritories
 	 */
 	public List<String> getAdjTerritories() {
@@ -142,6 +156,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Set the adjacent territories to the territory.
 	 * @param adjTerritories the adjTerritories to set
 	 */
 	public void setAdjTerritories(List<String> adjTerritories) {
@@ -149,6 +164,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Returns the adjacent territories to the territories.
 	 * @return the adjacentTerritories
 	 */
 	public List<Territory> getAdjacentTerritories() {
@@ -156,6 +172,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Set adjacent territories to the territory.
 	 * @param adjacentTerritories the adjacentTerritories to set
 	 */
 	public void setAdjacentTerritories(List<Territory> adjacentTerritories) {
@@ -163,6 +180,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Checks whether the territory is processed.
 	 * @return isProcessed returns boolean value whether a territory is processed or not
 	 */
 	public boolean isProcessed() {
@@ -170,6 +188,7 @@ public class Territory implements Serializable{
 	}
 	
 	/**
+	 * Set the territory as processed.
 	 * @param isProcessed the isProcessed to set
 	 */
 	public void setProcessed(boolean isProcessed) {

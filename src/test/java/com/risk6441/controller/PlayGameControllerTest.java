@@ -45,6 +45,10 @@ public class PlayGameControllerTest {
 	}
 	
 	
+	/**
+	 * Tests the save game functionality.
+	 * @throws InvalidMapException Invalid map thrown.
+	 */
 	@Test
 	public void testSaveGame() throws InvalidMapException {
 		File file = new File(loader.getResource("World.map").getFile());

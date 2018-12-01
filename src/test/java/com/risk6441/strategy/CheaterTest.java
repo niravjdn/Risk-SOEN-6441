@@ -138,6 +138,9 @@ public class CheaterTest {
 
 	}
 	
+	/**
+	 *	Checks if cheater has valid attack move for cheater. 
+	 */
 	@Test public void testHasAValidAttackMove()
 	{
 		terr1.setArmy(5);
@@ -146,6 +149,9 @@ public class CheaterTest {
 		Assert.assertTrue(player.getStrategy().hasAValidAttackMove(terrList));
 	}
 	
+	/**
+	 * Tests for valid fortification for cheater.
+	 */
 	@Test public void testFortificationPhase()
 	{
 		terr1.setArmy(5);

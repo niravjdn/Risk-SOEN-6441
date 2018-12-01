@@ -106,6 +106,7 @@ public class MapOperations {
 	}
 	
 	/**
+	 * This method checks whether the continent name is present or not.
 	 * @param list list of all continents
 	 * @param name name of the continents to be updated
 	 * @return true if list does not contain other continents with same name
@@ -158,6 +159,7 @@ public class MapOperations {
 	
 	
 	/**
+	 * This checks whether the territory name is there or not.
 	 * @param list list of all territories
 	 * @param name name of the territory to be checked
 	 * @return true if list does not contain other territory with same name

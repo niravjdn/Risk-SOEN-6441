@@ -703,7 +703,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		GameUtils.addTextToLog("The Attack phase has begun.\n");
 		CommonMapUtil.enableOrDisableSave(true);
 		ArrayList<Territory> terrArList = new ArrayList<>(terrList.getItems());
-		
+		refreshList();
 		
 		if (playerModel.hasaAValidAttackMove(terrArList)) {
 			CommonMapUtil.enableControls(btnEndTurn, btnNoMoreAttack);

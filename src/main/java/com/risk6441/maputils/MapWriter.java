@@ -118,13 +118,8 @@ public class MapWriter {
 					territoriyData.append("\n");
 				}
 				territoriyData.append("\n");
-			}else {
-					//error
-					//MapUtil.infoBox("Add a territory to a contient", "Error", "Error");
-				}
-			}
+			}			}
 		return territoriyData;
 	}
 
-		
 }

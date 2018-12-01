@@ -139,7 +139,6 @@ public class MapVerifier {
 			for(Territory adjTerr : adjTerrList) {
 				if(!adjTerr.getAdjacentTerritories().contains(territory)) {
 					adjTerr.getAdjacentTerritories().add(territory);
-					//throw new InvalidMapException("Territory "+adjTerr.getName()+" is not mapped with its adjacent territory "+territory.getName());
 				}
 			}
 		}

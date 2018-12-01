@@ -27,6 +27,7 @@ public class Aggressive implements IStrategy {
 	private PlayerModel playerModel;
 	private DiceModel diceModel;
 	private int numOfAttack = 0;
+	private Player currentPlayer = null;
 	
 	
 	/*
@@ -40,6 +41,7 @@ public class Aggressive implements IStrategy {
 	public void reinforcementPhase(ObservableList<Territory> territoryList1, Territory territory, Player currentPlayer,
 			ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		System.out.println(currentPlayer.getName() + " - " + terrArList.size() + " - Terr List Size");
+		this.currentPlayer  = currentPlayer;
 		numOfAttack = 0;
 		if(attackingTerr == null) { //first reinforce
 			attackingTerr = sortAndGetMaxDefendingTerr(terrArList).get(0);
@@ -155,6 +157,7 @@ public class Aggressive implements IStrategy {
 	public boolean fortificationPhase(ListView<Territory> terrList1, ListView<Territory> adjTerritory2,
 			Player currentPlayer, Map map,ArrayList<Territory> terrArList,ArrayList<Territory> adjTerrArList) {
 		System.out.println(terrArList.size() + "------ size");
+		
 		if (numOfAttack<1) {
 			System.out.println("Territory Won 0");
 			List<Territory> sortedMaxarmyTerr = sortAndGetStrongestTerr1(terrArList);
@@ -245,7 +248,11 @@ public class Aggressive implements IStrategy {
 				}
 			}
 		}
-		System.out.println(attackingTerr + "Dekho");
+		System.out.println(attackingTerr + "attackingTerr Dekho");
+		if(!attackingTerr.getPlayer().equals(currentPlayer)) {
+			System.out.println("Dekho Here");
+			return currentPlayer.getAssignedTerritory().get(0);
+		}
 		return attackingTerr;
 	}
 

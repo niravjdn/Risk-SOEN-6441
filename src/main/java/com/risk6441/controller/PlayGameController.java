@@ -964,15 +964,15 @@ public class PlayGameController extends Observable implements Initializable, Obs
 				btnEndTurn, btnSaveGame);
 		btnNoMoreAttack.setDisable(true);
 		lblGamePhase.setText("GAME OVER");
-		setCurrentPlayerLabel(currentPlayer.getName().toUpperCase() + " WON THE GAME");
+		setCurrentPlayerLabel(playerList.get(0).getName().toUpperCase() + " WON THE GAME");
 		updateMap();
 		setLabelAndShowWorldDomination();
 		GameUtils.addTextToLog("=====================================================\n");
-		System.out.println(gameNo+" - "+currentPlayer.getName().toUpperCase() + " WON THE GAME");
+		System.out.println(gameNo+" - "+playerList.get(0).getName() + " WON THE GAME");
 		if(Config.isTournamentMode) {
-			GameUtils.addTextToLog(gameNo+" - "+currentPlayer.getName().toUpperCase() + " WON THE GAME\n");
+			GameUtils.addTextToLog(gameNo+" - "+playerList.get(0).getName().toUpperCase() + " WON THE GAME\n");
 		}else {
-			GameUtils.addTextToLog(currentPlayer.getName().toUpperCase() + " WON THE GAME\n");	
+			GameUtils.addTextToLog(playerList.get(0).getName().toUpperCase() + " WON THE GAME\n");	
 		}
 		
 		GameUtils.addTextToLog("=====================================================\n");
@@ -1008,9 +1008,9 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		}
 		
 		if(currentPlayer!=null)
-		System.out.println(gameNo+" update called because of object change "+ currentPlayer.getName()+" - "+ str);
+			System.out.println(gameNo+" update called because of object change "+ currentPlayer.getName()+" - "+ str);
 		if(currentPlayer!=null)
-		GameUtils.addTextToLog(gameNo+ " - "+currentPlayer.getName()+" - "+"update called because of object change "+ str+"\n");
+			GameUtils.addTextToLog(gameNo+ " - "+currentPlayer.getName()+" - "+"update called because of object change "+ str+"\n");
 
 		if (str.equals("rollDiceComplete")) {
 			refreshView();

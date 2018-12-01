@@ -352,8 +352,6 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 			return;
 		
 		// Run the task in a background thread
-		System.out.println(Config.isThreadingForTournament + "Dekho dekho");
-		System.out.println((currentPlayer.getStrategy() instanceof Human) + "Dekho dekho");
 		if(currentPlayer.getStrategy() instanceof Human || Config.isThreadingForTournament) {
 			System.out.println("Inside this");
 			currentPlayer.getStrategy().reinforcementPhase(terrList, territory, currentPlayer,terrArList, null);

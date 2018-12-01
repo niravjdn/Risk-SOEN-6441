@@ -74,5 +74,6 @@ public class PlayGameControllerTest {
 		controller.loadControllerForTest(playerList, new TextArea());
 		controller.allocateArmyAndTerr();
 		controller.saveGame(file);
+		
 	}
 }

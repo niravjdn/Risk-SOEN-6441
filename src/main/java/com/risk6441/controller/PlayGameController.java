@@ -790,8 +790,6 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		System.out.println("Inside intialize reinforcement " + loadPlayerFromStart);
 		if(Config.isTournamentMode) {
 			numOfTurnDone++;
-			System.out.println(numOfTurnDone+"dekho1");
-			System.out.println(maxNumOfEachPlayerTurn+"dekho1");
 		}
 		refreshList();
 		
@@ -1299,7 +1297,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		Config.isThreadingForTournament = true;
 		Config.isTournamentMode = true;
 		Config.isPopUpShownInAutoMode = false;
-		Config.waitBeweenTurn = 1000;
+		Config.waitBeweenTurn = 700;
 		
 		GameUtils.txtMsgArea = console;
 		

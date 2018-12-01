@@ -225,7 +225,6 @@ public class GameUtils {
 	 * @return list of territories.
 	 */
 	public static List<Territory> getAdjTerrForFortifiction(Territory territory,Map map,Player currentPlayer) {
-		
 		List<Territory> reachableTerrList = new ArrayList<Territory>();
 		List<Territory> allTerr = GameUtils.getTerritoryList(map);
 		

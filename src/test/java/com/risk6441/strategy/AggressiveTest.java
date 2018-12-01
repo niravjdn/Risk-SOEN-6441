@@ -104,7 +104,9 @@ public class AggressiveTest {
 		terr2.setAdjacentTerritories(terr1.getAdjacentTerritories());
 		terr2.setBelongToContinent(continent);
 		
-		
+		Aggressive strategy = new Aggressive();
+		strategy.setCurrentPlayer(player);
+		player.setStrategy(strategy);
 		terr1.setPlayer(player);
 		terr2.setPlayer(player);
 		
@@ -145,7 +147,7 @@ public class AggressiveTest {
 	{
 		terr1.setArmy(5);
 		terr2.setArmy(3);
-		terr1.getPlayer().setStrategy(new Aggressive());
+		
 		Assert.assertTrue(player.getStrategy().hasAValidAttackMove(terrList));
 	}
 	
@@ -154,7 +156,7 @@ public class AggressiveTest {
 	{
 		terr1.setArmy(5);
 		terr2.setArmy(3);
-		terr1.getPlayer().setStrategy(new Aggressive());
+		
 		Assert.assertTrue(player.getStrategy().fortificationPhase(list1, list2, player, map, terrList, adjTerrList));
 		
 	}

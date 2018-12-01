@@ -100,11 +100,9 @@ public class RandomTest {
 		terr2.setBelongToContinent(continent);		
 		
 		terr2.getAdjacentTerritories().add(terr1);
-		terr1.setAdjacentTerritories(terr2.getAdjacentTerritories());		
-		terr1.getAdjacentTerritories().add(terr1);
-		terr2.setAdjacentTerritories(terr1.getAdjacentTerritories());
+		terr1.getAdjacentTerritories().add(terr2);
 		terr2.setBelongToContinent(continent);
-		
+		terr1.setBelongToContinent(continent);
 		
 		terr1.setPlayer(player);
 		terr2.setPlayer(player);
@@ -175,7 +173,7 @@ public class RandomTest {
 	public void testFortificationPhase() {
 		terr1.setArmy(100);
 		terr2.setArmy(3);
-		terr1.getPlayer().setStrategy(new Aggressive());
+		terr1.getPlayer().setStrategy(new Random());
 		Assert.assertTrue(player.getStrategy().fortificationPhase(list1, list2, player, map, terrList, adjTerrList));
 	}
 

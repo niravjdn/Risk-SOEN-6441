@@ -29,7 +29,7 @@ public class Aggressive implements IStrategy {
 	private int numOfAttack = 0;
 	private Player currentPlayer = null;
 	
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -315,5 +315,15 @@ public class Aggressive implements IStrategy {
 		});
 		return territoryList;
 	}
+	
+	
+	/**
+	 * This method sets the current players. used in test cases.
+	 * @param currentPlayer the currentPlayer to set
+	 */
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
 	
 }

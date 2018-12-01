@@ -13,6 +13,7 @@ import com.risk6441.config.CardKind;
 import com.risk6441.controller.CardExchangeController;
 import com.risk6441.entity.Card;
 import com.risk6441.entity.Player;
+import com.risk6441.gameutils.GameUtils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -194,6 +195,7 @@ public class CardModel extends Observable implements Serializable{
 				List<Card> selectedCards = cardsOfPlayer.stream().filter(t -> t.getCardKind().toString().equals(entry.getKey())).limit(3)
 						.collect(Collectors.toList());
 				System.out.println("Cards being exchangeds " + selectedCards);
+				GameUtils.addTextToLog("Cards being exchangeds " + selectedCards);
 				return selectedCards;
 			}
 		}

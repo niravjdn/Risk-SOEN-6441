@@ -405,7 +405,11 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		if(currentPlayer.getStrategy() instanceof Human || (!Config.isThreadingForTournament)) {
 			boolean isFortificationDone = currentPlayer.getStrategy().fortificationPhase(territoryList, adjTerritoryList,currentPlayer, map,
 					terrArList, adjTerrArList);
-
+			
+			if(currentPlayer.getStrategy() instanceof Human  && (isFortificationDone == false)) {
+				return;
+			}
+			
 			if (playerList.size() > 1) {
 				setChanged();
 				notifyObservers("Reinforcement");

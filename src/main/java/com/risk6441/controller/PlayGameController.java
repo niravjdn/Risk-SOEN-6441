@@ -1008,10 +1008,6 @@ public class PlayGameController extends Observable implements Initializable, Obs
 			return;
 		}
 		
-		if(currentPlayer!=null)
-			System.out.println(gameNo+" update called because of object change "+ currentPlayer.getName()+" - "+ str);
-		if(currentPlayer!=null)
-			GameUtils.addTextToLog(gameNo+ " - "+currentPlayer.getName()+" - "+"update called because of object change "+ str+"\n");
 
 		if (str.equals("rollDiceComplete")) {
 			refreshView();

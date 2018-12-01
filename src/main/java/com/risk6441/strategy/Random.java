@@ -68,7 +68,8 @@ public class Random implements IStrategy {
 		{
 			for(Territory defTerr : defendingTerrList) {
 				if (attackingTerr.getArmy() > 1 ) {
-					GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
+					GameUtils.addTextToLog(attackingTerr.getName() + " attacking on " + defTerr.getName() + "\n");
+					System.out.println(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+") attacking on "+defTerr+"("+defTerr.getPlayer().getName()+")\n");
 					attack(attackingTerr, defTerr, playerModel);
 					if(defTerr.getPlayer().equals(attackingTerr.getPlayer())) {
 						terrArList.add(defTerr);

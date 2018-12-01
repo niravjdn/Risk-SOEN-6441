@@ -95,9 +95,10 @@ public class Aggressive implements IStrategy {
 				System.out.println("Inside else attackphase");
 				for (Territory defTerr : defendingTerrList) {
 					GameUtils.addTextToLog("Army on defending " + defTerr.getArmy() + "\n");
-					GameUtils.addTextToLog(attackingTerr.getName() + "(" + attackingTerr.getPlayer().getName()
-							+ ") attacking on " + defTerr.getName() + "(" + defTerr.getPlayer().getName() + ")\n");
+					GameUtils.addTextToLog(attackingTerr.getName() + " attacking on " + defTerr.getName() + "\n");
 					attack(attackingTerr, defTerr, playerModel);
+					System.out.println(attackingTerr.getName() + "(" + attackingTerr.getPlayer().getName()
+							+ ") attacking on " + defTerr.getName() + "(" + defTerr.getPlayer().getName() + ")");
 					if(defTerr.getPlayer().equals(attackingTerr.getPlayer())) {
 						terrArList.add(defTerr);
 					}

@@ -100,7 +100,6 @@ public class Random implements IStrategy {
 		numOfAttack++;
 		DiceController diceController = new DiceController(diceModel, this);
 		diceController.loadDiceControllerForStrategy();
-
 	}
 
 	/* 

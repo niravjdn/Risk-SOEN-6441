@@ -449,7 +449,7 @@ public class PlayerModel extends Observable implements Observer, Serializable {
 		String str = (String) arg;
 		if (str.equals("rollDiceComplete")) {
 			DiceModel diceModel = (DiceModel) o;
-			System.out.println(diceModel.getNumOfTerritoriesWon()+"Dekho won");
+			System.out.println(getNumOfTerritoryWon()+"Dekho won");
 			setNumOfTerritoryWon(diceModel.getNumOfTerritoriesWon()+getNumOfTerritoryWon());
 			Platform.runLater(() -> {
 				setChanged();

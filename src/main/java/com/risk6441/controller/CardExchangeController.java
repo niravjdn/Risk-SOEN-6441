@@ -195,6 +195,8 @@ public class CardExchangeController implements Initializable{
 	}
 	/**
 	 * This method is responsible for making the trade.
+	 * @param size size of the cards list
+	 * @return size of card list after trade
 	 */
 	private int doTrade(int size) {
 		cardsOfPlayer = currentPlayer.getCardList();

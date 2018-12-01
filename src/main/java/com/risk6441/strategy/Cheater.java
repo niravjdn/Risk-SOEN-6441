@@ -56,7 +56,7 @@ public class Cheater extends Observable implements IStrategy {
 			List<Territory> deffTerrList = getDefendingTerr(attackingTerr);
 			if (deffTerrList.size() > 0) {
 				for(Territory deffTerr : deffTerrList) {
-					deffTerr.setArmy(300);
+					deffTerr.setArmy(3);
 					attackingTerr.setArmy(attackingTerr.getArmy() - 3);
 					GameUtils.addTextToLog(attackingTerr.getName()+ "("+attackingTerr.getPlayer().getName()+""
 							+ ") attacking on "+deffTerr+"("+deffTerr.getPlayer().getName()+")\n");

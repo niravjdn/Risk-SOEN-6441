@@ -485,7 +485,8 @@ public class PlayGameController extends Observable implements Initializable, Obs
 	 * java.util.ResourceBundle)
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		Config.isThreadingForTournament = false;
+		Config.isThreadingForTournament = true;
+		Config.waitBeweenTurn = 3000;
 		choiceBoxNoOfPlayer.getItems().addAll(2, 3, 4, 5, 6);
 		Config.isAllComputerPlayer = true;
 		Config.isTournamentMode = false;
@@ -1294,8 +1295,8 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		
 		Config.isThreadingForTournament = true;
 		Config.isTournamentMode = true;
-		Config.waitBeweenTurn = 2000;
 		Config.isPopUpShownInAutoMode = false;
+		Config.waitBeweenTurn = 1000;
 		
 		GameUtils.txtMsgArea = console;
 		
@@ -1337,7 +1338,7 @@ public class PlayGameController extends Observable implements Initializable, Obs
 		btnSaveGame = new Button();
 		allocateCardTOTerritories();
 		
-		Config.isThreadingForTournament = true;
+		Config.isThreadingForTournament = false;
 		Config.isTournamentMode = true;
 		Config.waitBeweenTurn = 1000;
 		Config.isPopUpShownInAutoMode = false;

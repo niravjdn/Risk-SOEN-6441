@@ -6,5 +6,7 @@
 
 2. Create a new Run Configuration:
     1.Right Click -> Project
+    
     2.Maven->Update Maven
+    
     3.Right click and run as java application
